@@ -14,6 +14,8 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+#define INTERVAL 5
+
 @property (assign) IBOutlet NSWindow *window;
 
 -(void) hoge;

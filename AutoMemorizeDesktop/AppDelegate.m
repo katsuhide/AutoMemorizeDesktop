@@ -21,18 +21,14 @@
     // Insert code here to initialize your application
 
     // 対象のタスクを生成
-    Task *task = [[TaskForSkype alloc]init];
+    Task *task = [[Task alloc]init];
     // インターバル条件を指定の上、タスクを定期実行
     NSTimer *timer = [NSTimer
-                      scheduledTimerWithTimeInterval:[task.interval intValue]
+                      scheduledTimerWithTimeInterval:INTERVAL
                       target:task
                       selector:@selector(polling:)
                       userInfo:nil
                       repeats:YES];
-    
-//    EDAMNote *note = [task execute];
-
-//    [self doAddNote:note];
     
 }
 

@@ -13,31 +13,39 @@
 @interface Task : NSObject
 
 
-@property (assign) NSMutableString *taskName;
+@property (retain) NSMutableString *taskName;
 
-@property (assign) NSMutableString *interval;
+@property (retain) NSMutableString *interval;
 
-@property (assign) NSMutableString *lastExecuteTime;
+@property (retain) NSDate *lastExecuteTime;
 
-@property (assign) NSMutableString *noteTitle;
+@property (retain) NSMutableString *noteTitle;
 
-@property (assign) NSMutableString *noteBook;
+@property (retain) NSMutableString *noteBook;
 
-@property (assign) NSMutableString *tag;
+@property (retain) NSMutableString *tag;
 
 
 /*
  * タスクの実行判定
  */
-- (BOOL) check;
+- (BOOL)check:(NSDate*)now;
 
 /*
  * タスクの処理内容
  */
-- (EDAMNote*) execute;
+- (EDAMNote*)execute;
 
-- (id) initWith:(NSString *)str;
-
+/*
+ * 定期実行で実行される処理
+ */
 - (void)polling:(NSTimer*)timer;
+
+/*
+ * 実行時間の更新
+ */
+-(void)updateLastExecuteTime:(NSDate*)now;
+
+-(id) initWith:(NSString *)str;
 
 @end
