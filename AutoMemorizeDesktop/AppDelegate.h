@@ -16,4 +16,11 @@
 
 @property (assign) IBOutlet NSWindow *window;
 
+-(void) hoge;
+
+/*
+ * EvernoteにNOTEを新規保存する処理を実行する
+ */
+-(void)doAddNote:(EDAMNote*)note;
+
 @end

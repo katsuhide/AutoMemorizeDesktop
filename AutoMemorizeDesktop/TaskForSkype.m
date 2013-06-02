@@ -7,6 +7,7 @@
 //
 
 #import "TaskForSkype.h"
+#import "AppDelegate.h"
 
 @implementation TaskForSkype
 
@@ -18,6 +19,14 @@
     return YES;
 }
 
+/*
+ * 定期実行で実行される処理
+ */
+- (void)polling:(NSTimer*)timer{
+    AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+    [appDelegate doAddNote:[self execute]];
+    
+}
 
 /*
  * タスクの処理内容
@@ -76,7 +85,6 @@
                              "<en-note>"
                              "%@"
                              "</en-note>",body];
-    NSLog(@"%@", noteContent);
     
     // NOTEを登録
     EDAMNote* note = [[EDAMNote alloc] initWithGuid:nil title:noteTitle content:noteContent contentHash:nil contentLength:noteContent.length created:0 updated:0 deleted:0 active:YES updateSequenceNum:0 notebookGuid:nil tagGuids:nil resources:nil attributes:nil tagNames:tagNames];

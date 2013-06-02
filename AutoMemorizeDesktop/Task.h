@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <EvernoteSDK-Mac/EvernoteSDK.h>
+#import "NSDate+Util.h"
 
 @interface Task : NSObject
 
@@ -36,5 +37,7 @@
 - (EDAMNote*) execute;
 
 - (id) initWith:(NSString *)str;
+
+- (void)polling:(NSTimer*)timer;
 
 @end

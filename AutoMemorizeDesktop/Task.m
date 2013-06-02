@@ -7,6 +7,7 @@
 //
 
 #import "Task.h"
+#import "AppDelegate.h"
 
 @implementation Task
 
@@ -15,6 +16,8 @@
 {
     if(self = [super init]){
         /* initialization code */
+        self.lastExecuteTime = [[NSMutableString alloc]initWithString:@"0"];
+        self.interval = [[NSMutableString alloc]initWithString:@"5"];
         
     }
     return self;
@@ -32,13 +35,24 @@
  * タスクの処理内容
  */
 - (EDAMNote*) execute {
-
-    NSLog(@"Task Class method.");
-    NSLog(@"%@", self.lastExecuteTime);
+    // 前回の実行時間を出力
+    NSLog(@"Task Class : %@", self.lastExecuteTime);
+    // 実行時間を更新
+    NSDate *now = [NSDate date];
+    [self.lastExecuteTime setString:[now toString]];
     return nil;
     
 }
 
+/*
+ * 定期実行で実行される処理
+ */
+- (void)polling:(NSTimer*)timer{
+    [self execute];
+    AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+    [appDelegate hoge];
+
+}
 
 - (id)initWith:(NSString *)str{
     self.lastExecuteTime = [[NSMutableString alloc] initWithString:str];
