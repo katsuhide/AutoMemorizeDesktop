@@ -19,6 +19,7 @@
 @dynamic note_title;
 @dynamic notebook_guid;
 @dynamic params;
+@dynamic update_time;
 
 -(void)print{
     NSLog(@"{\n"
@@ -29,8 +30,17 @@
           "\tnote_title:%@\n"
           "\tnotebook_guid:%@\n"
           "\ttags:%@\n"
-          "\tparams:%@\n",
-          self.task_name, self.task_type, self.interval, self.last_execute_time, self.note_title, self.notebook_guid, self.tags, self.params);
+          "\tparams:%@\n"
+          "\tupdate_time:%@\n}",
+          self.task_name, self.task_type, self.interval, [self.last_execute_time toString], self.note_title, self.notebook_guid, self.tags, self.params, [self.update_time toString]);
+}
+
+-(NSArray*)splitTags{
+    return [self.tags componentsSeparatedByString:@","];
+}
+
+-(NSArray*)splitParams{
+    return [self.params componentsSeparatedByString:@","];
 }
 
 @end

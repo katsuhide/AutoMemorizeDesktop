@@ -11,18 +11,23 @@
 
 @implementation Task
 
-
-- (id)init
-{
+-(id) initWithTaskSource:(TaskSource *)source{
     if(self = [super init]){
-        /* initialization code */
-//        self.lastExecuteTime = [[NSMutableString alloc]initWithString:@"0"];
-        self.lastExecuteTime = [[NSDate alloc] init];
-        self.interval = [[NSMutableString alloc]initWithString:@"10"];
-        
+        self.source = source;
+        // TODO 以降の処理はいらないはず
+        self.taskName = [NSMutableString stringWithString:source.task_name];
+        self.interval = [NSMutableString stringWithString:source.interval];
+        self.lastExecuteTime = source.last_execute_time;
+        self.noteTitle = [NSMutableString stringWithString:source.note_title];
+        if(source.notebook_guid != nil){
+            self.notebook_guid = [NSMutableString stringWithString:source.notebook_guid];
+        }
+        self.tag = [[NSMutableArray alloc]initWithArray:[source splitTags]];
+        self.param = [[NSMutableArray alloc]initWithArray:[source splitParams]];
     }
     return self;
 }
+
 
 /*
  * タスクの実行判定
@@ -53,6 +58,9 @@
         [self execute];
         // 実行時間を更新
         [self updateLastExecuteTime:now];
+        AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+        [appDelegate save];
+        
     }else{
         // タスクは未実行
         NSLog(@"Did not executed.[%@]", NSStringFromClass([self class]));
@@ -75,14 +83,8 @@
     // 実行時間を出力
     NSLog(@"[Class:%@][ExecutedTime:%@]", NSStringFromClass([self class]), [self.lastExecuteTime toString]);
     // 実行時間を更新
-    self.lastExecuteTime = now;
+    self.source.last_execute_time = now;
+    self.source.update_time = now;
 }
-
-
-- (id)initWith:(NSString *)str{
-    self.lastExecuteTime = [[NSMutableString alloc] initWithString:str];
-    return self;
-}
-
 
 @end

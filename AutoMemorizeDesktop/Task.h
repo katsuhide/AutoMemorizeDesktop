@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <EvernoteSDK-Mac/EvernoteSDK.h>
 #import "NSDate+Util.h"
+#import "TaskSource.h"
 
 @interface Task : NSObject
 
+@property (retain) TaskSource *source;
 
 @property (retain) NSMutableString *taskName;
 
@@ -21,9 +23,17 @@
 
 @property (retain) NSMutableString *noteTitle;
 
-@property (retain) NSMutableString *noteBook;
+@property (retain) NSMutableString *notebook_guid;
 
-@property (retain) NSMutableString *tag;
+@property (retain) NSMutableArray *tag;
+
+@property (retain) NSMutableArray *param;
+
+/*
+ * TaskSourceで初期化
+ */
+
+-(id) initWithTaskSource:(TaskSource *)source;
 
 
 /*
@@ -45,7 +55,5 @@
  * 実行時間の更新
  */
 -(void)updateLastExecuteTime:(NSDate*)now;
-
--(id) initWith:(NSString *)str;
 
 @end

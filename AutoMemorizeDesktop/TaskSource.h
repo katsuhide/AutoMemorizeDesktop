@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
+#import "NSDate+Util.h"
 
 @interface TaskSource : NSManagedObject
 
@@ -20,7 +20,12 @@
 @property (nonatomic, retain) NSString * note_title;
 @property (nonatomic, retain) NSString * notebook_guid;
 @property (nonatomic, retain) NSString * params;
+@property (nonatomic, retain) NSDate * update_time;
 
 -(void)print;
+
+-(NSArray*)splitTags;
+
+-(NSArray*)splitParams;
 
 @end

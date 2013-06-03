@@ -23,12 +23,14 @@
 #define TASK_SOURCE @"TaskSource"
 
 @property (assign) IBOutlet NSWindow *window;
-
--(void) hoge;
+@property (retain) NSMutableArray *taskQueue;
 
 /*
  * EvernoteにNOTEを新規保存する処理を実行する
  */
 -(void)doAddNote:(EDAMNote*)note;
+
+// Save
+-(void)save;
 
 @end

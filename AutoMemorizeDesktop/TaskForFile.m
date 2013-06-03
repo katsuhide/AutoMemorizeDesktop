@@ -7,13 +7,14 @@
 //
 
 #import "TaskForFile.h"
+#import "AppDelegate.h"
 
 @implementation TaskForFile
 
-- (void) execute {
+- (EDAMNote*) execute {
     
     NSLog(@"TaskForFile Class method.");
-    
+    return nil;
 }
 
 @end

@@ -32,21 +32,61 @@
         NSLog(@"Couldn't create the data store directory.[%@, %@]", error, [error userInfo]);
         abort();
     }
+    
+    // メインスレッドのポーリングを開始
+    [self run];
+}
 
-    // 対象のタスクを生成
-    Task *task = [[Task alloc]init];
-    // インターバル条件を指定の上、タスクを定期実行
-    NSTimer *timer = [NSTimer
-                      scheduledTimerWithTimeInterval:INTERVAL
-                      target:task
-                      selector:@selector(polling:)
-                      userInfo:nil
-                      repeats:YES];
+/*
+ * メインスレッドのポーリング処理を開始
+ */
+-(void)run{
+    NSLog(@"Main Thread has been started.");
+    // タスクキューの初期化
+    _taskQueue = [[NSMutableArray alloc]init];
+    
+    // Taskの一覧を取得
+    NSArray *taskList = [self getTaskList];
+    
+    for(TaskSource *source in taskList){
+        NSString *type = source.task_type;
+        if([type isEqualToString:@"skype"]){
+            // Skype Task
+            NSLog(@"Skype Task doesn't implemeted.");
+        }else{
+            NSLog(@"Other Task.");
+            // Other Task
+            Task *task = [[Task alloc]initWithTaskSource:source];
+            
+            // インターバル条件を指定の上、タスクを定期実行
+            NSTimer *timer = [NSTimer
+                              scheduledTimerWithTimeInterval:INTERVAL
+                              target:task
+                              selector:@selector(polling:)
+                              userInfo:nil
+                              repeats:YES];
+            // タスクキューに追加
+            [_taskQueue addObject:timer];
+        }
+    }
     
 }
 
--(void)hoge{
-    NSLog(@"hoge");
+/*
+ * メインスレッドのポーリング処理を再実行
+ */
+-(IBAction)start:(id)sender{
+    [self run];
+}
+
+/*
+ * メインスレッドのポーリング処理を停止
+ */
+-(IBAction)stop:(id)sender{
+    for(NSTimer *timer in _taskQueue){
+        [timer invalidate];
+        NSLog(@"Task has been stopped.");
+    }
 }
 
 /*
@@ -246,10 +286,30 @@
 // register method
 - (IBAction)registerAction:(id)sender{
     // NSManagedObjectの生成
-    TaskSource *taskSource = (TaskSource*)[self createObject:TASK_SOURCE];
-    taskSource.task_name = @"task1";
-    taskSource.interval = @"10";
+    TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
+    source.task_name = @"Other Task1";
+    source.task_type = @"other";
+    source.interval = @"10";
+    source.tags = @"tag1,tag2";
+    source.note_title = @"Other Task Note Title1";
+    source.update_time = [NSDate date];
     [self save];
+}
+
+// update method
+- (IBAction)updateAction:(id)sender{
+    NSArray *taskList = [self getTaskList];
+    for(TaskSource *source in taskList){
+        source.task_name = @"Other Task1'2";
+        source.update_time = [NSDate date];
+    }
+    [self save];
+}
+
+// register & update
+-(void)registerAndUpdate:(TaskSource*)source{
+    // TODO いらないか？
+    NSLog(@"register and update.");
 }
 
 // get method
@@ -264,6 +324,15 @@
             [taskSource print];
         }
     }
+}
+
+// TaskListを取得する
+-(NSArray*)getTaskList{
+    NSFetchRequest *fetchRequest = [self createRequest:TASK_SOURCE];
+    NSError *error = nil;
+//    NSArray *result = [[NSArray alloc]init];
+    return [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+//    return result;
 }
 
 
