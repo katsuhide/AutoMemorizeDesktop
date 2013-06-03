@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42368B2E175CDBDF0098CFB3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42368B2C175CDBDF0098CFB3 /* Model.xcdatamodeld */; };
+		42368B36175CDCC70098CFB3 /* TaskSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 42368B35175CDCC70098CFB3 /* TaskSource.m */; };
 		425A64FB175A6DFF002DE6AF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425A64FA175A6DFF002DE6AF /* Cocoa.framework */; };
 		425A6505175A6DFF002DE6AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 425A6503175A6DFF002DE6AF /* InfoPlist.strings */; };
 		425A6507175A6DFF002DE6AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6506175A6DFF002DE6AF /* main.m */; };
@@ -86,6 +88,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		42368B2D175CDBDF0098CFB3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		42368B34175CDCC70098CFB3 /* TaskSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskSource.h; sourceTree = "<group>"; };
+		42368B35175CDCC70098CFB3 /* TaskSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskSource.m; sourceTree = "<group>"; };
 		425A64F7175A6DFF002DE6AF /* AutoMemorizeDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoMemorizeDesktop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		425A64FA175A6DFF002DE6AF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		425A64FD175A6DFF002DE6AF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -135,6 +140,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42368B33175CDCAA0098CFB3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				42368B34175CDCC70098CFB3 /* TaskSource.h */,
+				42368B35175CDCC70098CFB3 /* TaskSource.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		425A64EE175A6DFF002DE6AF = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +190,7 @@
 		425A6500175A6DFF002DE6AF /* AutoMemorizeDesktop */ = {
 			isa = PBXGroup;
 			children = (
+				42368B33175CDCAA0098CFB3 /* Model */,
 				42860F89175B776B00F68B03 /* Util */,
 				425A653D175A705A002DE6AF /* Task */,
 				425A6532175A6FF2002DE6AF /* FMDB */,
@@ -183,6 +198,7 @@
 				425A650D175A6E00002DE6AF /* AppDelegate.m */,
 				425A650F175A6E00002DE6AF /* MainMenu.xib */,
 				425A6501175A6DFF002DE6AF /* Supporting Files */,
+				42368B2C175CDBDF0098CFB3 /* Model.xcdatamodeld */,
 			);
 			path = AutoMemorizeDesktop;
 			sourceTree = "<group>";
@@ -371,6 +387,8 @@
 				42CA7464175A7119002D469E /* FMDatabaseQueue.m in Sources */,
 				42CA7465175A7119002D469E /* FMResultSet.m in Sources */,
 				42860F90175B779C00F68B03 /* NSDate+Util.m in Sources */,
+				42368B2E175CDBDF0098CFB3 /* Model.xcdatamodeld in Sources */,
+				42368B36175CDCC70098CFB3 /* TaskSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,6 +533,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		42368B2C175CDBDF0098CFB3 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				42368B2D175CDBDF0098CFB3 /* Model.xcdatamodel */,
+			);
+			currentVersion = 42368B2D175CDBDF0098CFB3 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 425A64EF175A6DFF002DE6AF /* Project object */;
 }

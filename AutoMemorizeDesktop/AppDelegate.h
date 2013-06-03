@@ -14,7 +14,13 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
 #define INTERVAL 5
+#define APP_NAME @"AutoMemorizeDesktop"
+#define TASK_SOURCE @"TaskSource"
 
 @property (assign) IBOutlet NSWindow *window;
 
