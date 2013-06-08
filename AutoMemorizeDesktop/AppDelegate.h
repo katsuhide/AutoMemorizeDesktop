@@ -17,6 +17,7 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic,strong) IBOutlet NSArrayController *taskArrayController;
 
 #define INTERVAL 5
 #define APP_NAME @"AutoMemorizeDesktop"

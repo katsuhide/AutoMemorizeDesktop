@@ -10,7 +10,6 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import "TaskSource.h"
 
-
 @implementation AppDelegate
 
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
@@ -33,8 +32,29 @@
         abort();
     }
     
+    // Table Viewの初期化
+    [self initializeTableView];
+    
     // メインスレッドのポーリングを開始
-    [self run];
+//    [self run];
+}
+
+-(IBAction)view:(id)sender{
+    NSLog(@"view method");
+    [self initializeTableView];
+}
+
+/*
+ * メインスレッドのポーリング処理を開始
+ */
+-(void)initializeTableView{
+    NSLog(@"initialized Table View");
+    NSMutableArray *objects = [self getTaskList];
+    for(TaskSource *source in objects){
+        NSLog(@"%@", source);
+    }
+    [_taskArrayController setContent:objects];
+    
 }
 
 /*
@@ -289,6 +309,7 @@
     TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
     source.task_name = @"Other Task1";
     source.task_type = @"other";
+    source.status = [NSNumber numberWithInt:1];
     source.interval = @"10";
     source.tags = @"tag1,tag2";
     source.note_title = @"Other Task Note Title1";
