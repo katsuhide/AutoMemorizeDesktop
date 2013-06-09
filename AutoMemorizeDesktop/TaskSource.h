@@ -29,4 +29,6 @@
 
 -(NSArray*)splitParams;
 
+-(NSString*)transformKeyValue:(NSString*) key andValue:(NSString*) value;
+
 @end

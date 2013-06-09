@@ -39,20 +39,80 @@
 //    [self run];
 }
 
+/*
+ * TaskViewのRegisterAction
+ */
+-(IBAction)registerAction:(id)sender{
+    // 画面の入力値からTaskを生成する
+    TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
+    source.task_name = [_taskNameField stringValue];
+    source.status = [NSNumber numberWithInt:1];
+    source.task_type = [_taskTypeField stringValue];
+    source.interval = [_intervalField stringValue];
+    source.last_execute_time = [NSDate date];
+    source.note_title = [_notetitleField stringValue];
+    source.notebook_guid = [_notebookField stringValue];    // TODO GUIDに変換が必要
+    source.tags = [_tagField stringValue];
+    NSMutableString *params = [NSMutableString stringWithString:[source transformKeyValue:@"file_path" andValue:[_skypeDBFilePathField stringValue]]];
+    [params appendString:[source transformKeyValue:@"participants" andValue:[_participantsField stringValue]]];
+    source.params = params;
+    source.update_time = [NSDate date];
+    [source print];
+    // Taskを保存
+    [self save];
+    // TaskTableViewを初期化
+    [self initializeTableView];
+    // TaskViewを閉じる
+    [self closeTaskView];
+}
+
+/*
+ * TaskViewを開く
+ */
+-(IBAction)openTaskView:(id)sender{
+    NSLog(@"Open the TaskView");
+    [self initializedTaskView];
+    [_taskView makeKeyAndOrderFront:sender];
+}
+
+
+/*
+ * TaskViewを閉じる
+ */
+-(void)closeTaskView{
+    NSLog(@"Close the TaskView");
+    [self initializedTaskView];
+    [_taskView close];
+}
+
+/*
+ * TaskViewを初期化
+ */
+-(void)initializedTaskView{
+    [_taskNameField setObjectValue:nil];
+    [_taskTypeField setObjectValue:nil];
+    [_intervalField setObjectValue:nil];
+    [_notetitleField setObjectValue:nil];
+    [_notebookField setObjectValue:nil];
+    [_tagField setObjectValue:nil];
+    [_skypeDBFilePathField setObjectValue:nil];
+    [_participantsField setObjectValue:nil];
+     
+}
+
+/*
+ * TaskTableViewを初期化を実行する
+ */
 -(IBAction)view:(id)sender{
     NSLog(@"view method");
     [self initializeTableView];
 }
 
 /*
- * メインスレッドのポーリング処理を開始
+ * TaskTableViewを初期化
  */
 -(void)initializeTableView{
-    NSLog(@"initialized Table View");
-    NSMutableArray *objects = [self getTaskList];
-    for(TaskSource *source in objects){
-        NSLog(@"%@", source);
-    }
+    NSMutableArray *objects = [NSMutableArray arrayWithArray:[self getTaskList]];
     [_taskArrayController setContent:objects];
     
 }
@@ -304,7 +364,7 @@
 }
 
 // register method
-- (IBAction)registerAction:(id)sender{
+- (IBAction)registerActionTemp:(id)sender{
     // NSManagedObjectの生成
     TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
     source.task_name = @"Other Task1";

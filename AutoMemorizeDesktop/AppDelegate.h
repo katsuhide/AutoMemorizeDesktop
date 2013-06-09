@@ -14,17 +14,35 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+// CoreData
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic,strong) IBOutlet NSArrayController *taskArrayController;
-
-#define INTERVAL 5
 #define APP_NAME @"AutoMemorizeDesktop"
 #define TASK_SOURCE @"TaskSource"
 
+// TableView
+@property (nonatomic,strong) IBOutlet NSArrayController *taskArrayController;
+
+// View
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSPanel *taskView;
+
+
+// Main Thread
+#define INTERVAL 5
 @property (retain) NSMutableArray *taskQueue;
+
+// Task Panle
+@property (assign) IBOutlet NSTextField *taskNameField;
+@property (assign) IBOutlet NSComboBox *taskTypeField;
+@property (assign) IBOutlet NSTextField *intervalField;
+@property (assign) IBOutlet NSTextField *notetitleField;
+@property (assign) IBOutlet NSComboBox *notebookField;
+@property (assign) IBOutlet NSTokenField *tagField;
+@property (assign) IBOutlet NSTextField *skypeDBFilePathField;
+@property (assign) IBOutlet NSTextField *participantsField;
+
 
 /*
  * EvernoteにNOTEを新規保存する処理を実行する

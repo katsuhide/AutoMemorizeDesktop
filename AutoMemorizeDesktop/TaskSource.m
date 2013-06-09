@@ -61,4 +61,10 @@
     return [self.params componentsSeparatedByString:@","];
 }
 
+// Paramsに{key=value}形式でデータを登録する
+-(NSString*)transformKeyValue:(NSString*) key andValue:(NSString*) value{
+    return [NSString stringWithFormat:@"%@=%@|", key, value];
+}
+
+
 @end
