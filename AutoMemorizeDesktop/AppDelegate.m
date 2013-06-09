@@ -39,7 +39,7 @@
     [self initializeTableView];
     
     // メインスレッドのポーリングを開始
-//    [self run];
+    [self run];
 }
 
 /*
@@ -60,7 +60,6 @@
     [params appendString:[source transformKeyValue:@"participants" andValue:[_participantsField stringValue]]];
     source.params = params;
     source.update_time = [NSDate date];
-    [source print];
     // Taskを保存
     [self save];
     // TaskTableViewを初期化
@@ -152,11 +151,22 @@
     
     for(TaskSource *source in taskList){
         NSString *type = source.task_type;
-        if([type isEqualToString:@"skype"]){
+        if([type isEqualToString:@"Skype Task"]){
             // Skype Task
-            NSLog(@"Skype Task doesn't implemeted.");
+            NSLog(@"Skype Task created");
+            Task *task = [[TaskForSkype alloc]initWithTaskSource:source];
+            // インターバル条件を指定の上、タスクを定期実行
+            NSTimer *timer = [NSTimer
+                              scheduledTimerWithTimeInterval:INTERVAL
+                              target:task
+                              selector:@selector(polling:)
+                              userInfo:nil
+                              repeats:YES];
+            // タスクキューに追加
+            [_taskQueue addObject:timer];
+
         }else{
-            NSLog(@"Other Task.");
+            NSLog(@"Other Task Created.");
             // Other Task
             Task *task = [[Task alloc]initWithTaskSource:source];
             

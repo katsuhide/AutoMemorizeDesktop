@@ -23,9 +23,18 @@
  * 定期実行で実行される処理
  */
 - (void)polling:(NSTimer*)timer{
-    AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
-    [appDelegate doAddNote:[self execute]];
-    
+    // 実行判定 TODO
+    NSDate *now = [NSDate date];
+    if(FALSE){
+        // タスクを実行
+        AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+        [appDelegate doAddNote:[self execute]];
+        // 実行時間を更新
+        [self updateLastExecuteTime:now];
+    }else{
+        NSLog(@"skip");
+    }
+
 }
 
 /*
@@ -65,12 +74,12 @@
             [body appendString:[NSString stringWithFormat:@"<p style=\"background-color:#EBF2FF\">"
                     "<span style=\"color:#849A9A;font-size:80%%\">%@ : %@</span><br/>"
                     "<span>%@</span></p>",
-                    [dic objectForKey:@"name"], [dic objectForKey:@"datetime"], @"hoge hoge hoge hoge"]];
+                    [dic objectForKey:@"name"], [dic objectForKey:@"datetime"], [dic objectForKey:@"body"]]];
         }else {
             [body appendString:[NSString stringWithFormat:@"<p>"
                     "<span style=\"color:#849A9A;font-size:80%%\">%@ : %@</span><br/>"
                     "<span>%@</span></p>",
-                    [dic objectForKey:@"name"], [dic objectForKey:@"datetime"], @"hige hige hige"]];
+                    [dic objectForKey:@"name"], [dic objectForKey:@"datetime"], [dic objectForKey:@"body"]]];
         }
         count++;
         // テスト用
