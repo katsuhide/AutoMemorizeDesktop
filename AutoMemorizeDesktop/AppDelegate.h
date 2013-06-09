@@ -23,6 +23,7 @@
 
 // TableView
 @property (nonatomic,strong) IBOutlet NSArrayController *taskArrayController;
+@property (assign) IBOutlet NSTableView *taskTable;
 
 // View
 @property (assign) IBOutlet NSWindow *window;

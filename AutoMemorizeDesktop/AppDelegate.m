@@ -32,6 +32,9 @@
         abort();
     }
     
+    // ArrayControllerとmanagedObjectContextの紐付け
+    [_taskArrayController setManagedObjectContext:self.managedObjectContext];
+    
     // Table Viewの初期化
     [self initializeTableView];
     
@@ -116,6 +119,25 @@
     [_taskArrayController setContent:objects];
     
 }
+
+/*
+ * 選択されたタスクを削除する
+ */
+-(IBAction)deleteTask:(id)sender{
+    // 選択されたindexを取得する
+    NSInteger row = [_taskTable selectedRow];
+    
+    if((int)row != -1){
+        NSLog(@"delete:%ld", row);
+        // 選択されたindexのデータを削除する
+        [_taskArrayController setSelectionIndex:row];
+        // 選択された行を削除
+        [_taskArrayController removeObjectAtArrangedObjectIndex:row];
+        [self save];
+    }
+    
+}
+
 
 /*
  * メインスレッドのポーリング処理を開始

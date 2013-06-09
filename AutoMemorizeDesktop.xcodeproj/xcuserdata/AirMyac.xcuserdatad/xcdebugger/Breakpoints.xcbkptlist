@@ -86,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/AppDelegate.m"
-         timestampString = "392456043.228926"
+         timestampString = "392459785.408632"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "131"
-         endingLineNumber = "131"
+         startingLineNumber = "153"
+         endingLineNumber = "153"
          landmarkName = "-run"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/AppDelegate.m"
-         timestampString = "392456043.228926"
+         timestampString = "392459785.408632"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "116"
-         endingLineNumber = "116"
+         startingLineNumber = "119"
+         endingLineNumber = "119"
          landmarkName = "-initializeTableView"
          landmarkType = "5">
       </FileBreakpoint>
