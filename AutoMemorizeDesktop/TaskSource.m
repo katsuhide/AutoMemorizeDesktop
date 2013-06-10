@@ -20,6 +20,7 @@
 @dynamic note_title;
 @dynamic notebook_guid;
 @dynamic params;
+@dynamic participants;
 @dynamic update_time;
 
 -(void)print{
@@ -57,14 +58,34 @@
     return [self.tags componentsSeparatedByString:@","];
 }
 
--(NSArray*)splitParams{
-    return [self.params componentsSeparatedByString:@","];
+-(NSMutableDictionary*)splitParams{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    NSArray *array = [self.params componentsSeparatedByString:@"|"];
+    for(NSString *str in array){
+        if(str.length != 0){
+            NSArray *ary = [str componentsSeparatedByString:@"="];
+            NSString *key = [ary objectAtIndex:0];
+            NSString *value = [ary objectAtIndex:1];
+            [dic setValue:value forKey:key];
+        }
+    }
+    return dic;
 }
 
-// Paramsに{key=value}形式でデータを登録する
+
+// key=value形式でデータを生成する
 -(NSString*)transformKeyValue:(NSString*) key andValue:(NSString*) value{
     return [NSString stringWithFormat:@"%@=%@|", key, value];
 }
 
+/*
+ * paramsから指定したkeyに対応するvalueを取得する
+ */
+-(NSString*)getKeyValue:(NSString*)key{
+    NSMutableDictionary *dic = [self splitParams];
+    NSString *str = [dic objectForKey:key];
+    return str;
+    
+}
 
 @end

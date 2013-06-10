@@ -413,7 +413,9 @@
 - (IBAction)updateAction:(id)sender{
     NSArray *taskList = [self getTaskList];
     for(TaskSource *source in taskList){
-        source.task_name = @"Other Task1'2";
+        NSString *str = [NSString stringWithFormat:@"%@!", source.task_name];
+        source.task_name = str;
+        source.last_execute_time = [NSDate date];
         source.update_time = [NSDate date];
     }
     [self save];
@@ -443,9 +445,7 @@
 -(NSArray*)getTaskList{
     NSFetchRequest *fetchRequest = [self createRequest:TASK_SOURCE];
     NSError *error = nil;
-//    NSArray *result = [[NSArray alloc]init];
     return [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-//    return result;
 }
 
 

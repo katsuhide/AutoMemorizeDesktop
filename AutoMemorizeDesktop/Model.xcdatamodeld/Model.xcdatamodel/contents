@@ -6,6 +6,7 @@
         <attribute name="note_title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notebook_guid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="params" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="participants" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="tags" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="task_name" optional="YES" attributeType="String" syncable="YES"/>
@@ -13,6 +14,6 @@
         <attribute name="update_time" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <elements>
-        <element name="TaskSource" positionX="160" positionY="192" width="128" height="195"/>
+        <element name="TaskSource" positionX="160" positionY="192" width="128" height="210"/>
     </elements>
 </model>

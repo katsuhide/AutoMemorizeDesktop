@@ -21,14 +21,20 @@
 @property (nonatomic, retain) NSString * note_title;
 @property (nonatomic, retain) NSString * notebook_guid;
 @property (nonatomic, retain) NSString * params;
+@property (nonatomic, retain) NSString * participants;
 @property (nonatomic, retain) NSDate * update_time;
 
 -(void)print;
 
 -(NSArray*)splitTags;
 
--(NSArray*)splitParams;
+-(NSMutableDictionary*)splitParams;
 
 -(NSString*)transformKeyValue:(NSString*) key andValue:(NSString*) value;
+
+/*
+ * paramsから指定したkeyに対応するvalueを取得する
+ */
+-(NSString*)getKeyValue:(NSString*)key;
 
 @end

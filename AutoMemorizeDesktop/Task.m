@@ -15,15 +15,15 @@
     if(self = [super init]){
         self.source = source;
         // TODO 以降の処理はいらないはず
-        self.taskName = [NSMutableString stringWithString:source.task_name];
-        self.interval = [NSMutableString stringWithString:source.interval];
-        self.lastExecuteTime = source.last_execute_time;
-        self.noteTitle = [NSMutableString stringWithString:source.note_title];
-        if(source.notebook_guid != nil){
-            self.notebook_guid = [NSMutableString stringWithString:source.notebook_guid];
-        }
-        self.tag = [[NSMutableArray alloc]initWithArray:[source splitTags]];
-        self.param = [[NSMutableArray alloc]initWithArray:[source splitParams]];
+//        self.taskName = [NSMutableString stringWithString:source.task_name];
+//        self.interval = [NSMutableString stringWithString:source.interval];
+//        self.lastExecuteTime = source.last_execute_time;
+//        self.noteTitle = [NSMutableString stringWithString:source.note_title];
+//        if(source.notebook_guid != nil){
+//            self.notebook_guid = [NSMutableString stringWithString:source.notebook_guid];
+//        }
+//        self.tag = [[NSMutableArray alloc]initWithArray:[source splitTags]];
+//        self.param = [[NSMutableArray alloc]initWithArray:[source splitParams]];
     }
     return self;
 }
@@ -34,8 +34,8 @@
  */
 - (BOOL)check:(NSDate*)now {
     // 前回時間にインターバル時間を足して、次回実行開始時間を計算
-    NSTimeInterval intval = [self.interval intValue];
-    NSDate *nextTime = [self.lastExecuteTime dateByAddingTimeInterval:intval];
+    NSTimeInterval intval = [self.source.interval doubleValue];    // 時間で入力される想定
+    NSDate *nextTime = [self.source.last_execute_time dateByAddingTimeInterval:(intval * 60)];    // TODO テストなんで分を秒に変換（本来は*3600)
     
     // 時間の判定
     NSLog(@"result:%ld, now:%@, next:%@",[now compare:nextTime], [now toString], [nextTime toString]);
@@ -81,7 +81,7 @@
  */
 -(void)updateLastExecuteTime:(NSDate*)now{
     // 実行時間を出力
-    NSLog(@"[Class:%@][ExecutedTime:%@]", NSStringFromClass([self class]), [self.lastExecuteTime toString]);
+    NSLog(@"[Class:%@][PreviousExecutedTime:%@][CurrentExecutedTime:%@]", NSStringFromClass([self class]), [self.source.last_execute_time toString], [now toString]);
     // 実行時間を更新
     self.source.last_execute_time = now;
     self.source.update_time = now;

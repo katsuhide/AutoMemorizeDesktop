@@ -13,24 +13,19 @@
 
 
 /*
- * タスクの実行判定
- */
-- (BOOL) check {
-    return YES;
-}
-
-/*
  * 定期実行で実行される処理
  */
 - (void)polling:(NSTimer*)timer{
     // 実行判定 TODO
     NSDate *now = [NSDate date];
-    if(FALSE){
+    if([self check:now]){
         // タスクを実行
         AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
         [appDelegate doAddNote:[self execute]];
         // 実行時間を更新
         [self updateLastExecuteTime:now];
+        // 更新したTaskSourceを永続化
+        [appDelegate save];
     }else{
         NSLog(@"skip");
     }
@@ -41,8 +36,16 @@
  * タスクの処理内容
  */
 - (EDAMNote*) execute {
+    // タスク情報からQueryを作成
+    NSMutableString *sql = [NSMutableString stringWithString:@"select from_dispname, datetime(timestamp,\"unixepoch\",\"localtime\") as datetime, body_xml from messages"];
+    NSString *participants = [self.source getKeyValue:@"participants"];
+    if(participants.length != 0){
+        [sql appendFormat:@" where convo_id = (select distinct conv_dbid from chats where participants = '%@');",[self.source getKeyValue:@"participants"]];
+    }else{
+        [sql appendString:@";"];
+    }
+    
     // SkypeのMessageを取得
-    NSString *sql = @"select from_dispname, datetime(timestamp,\"unixepoch\",\"localtime\") as datetime, body_xml from messages where convo_id = (select conv_dbid from chats where participants = 'katsuhide1982 monji.takuro');";
     NSMutableArray *result = [self getSkypeMessages:sql];
     
     // EDAMNoteを作成し、Evernoteに保存
@@ -82,10 +85,6 @@
                     [dic objectForKey:@"name"], [dic objectForKey:@"datetime"], [dic objectForKey:@"body"]]];
         }
         count++;
-        // テスト用
-        if(count == 10){
-            break;
-        }
         
     }
     
@@ -108,9 +107,7 @@
  */
 - (NSMutableArray*)getSkypeMessages:(NSString*)sql{
     // DB設定情報
-    NSString *databaseName = @"main.db";
-    NSString *path = @"/Users/AirMyac/Library/Application Support/Skype/katsuhide1982";
-    NSString *databasePath = [path stringByAppendingPathComponent:databaseName];
+    NSString *databasePath = [self.source getKeyValue:@"file_path"];
     FMDatabase *db  = [FMDatabase databaseWithPath:databasePath];
     
     // Open DB
@@ -123,7 +120,8 @@
     NSMutableArray *result = [NSMutableArray array];
     while ([results next]) {
         NSArray *key = [NSArray arrayWithObjects:@"name", @"datetime", @"body", nil];
-        NSArray *value = [NSArray arrayWithObjects:[results stringForColumn:@"from_dispname"], [results stringForColumn:@"datetime"], [results stringForColumn:@"body_xml"], nil];
+        NSString *body_xml = ([results stringForColumn:@"body_xml"].length == 0) ? @"":[results stringForColumn:@"body_xml"];
+        NSArray *value = [NSArray arrayWithObjects:[results stringForColumn:@"from_dispname"], [results stringForColumn:@"datetime"], body_xml, nil];
         NSDictionary *dic = [NSDictionary dictionaryWithObjects:value forKeys:key];
         [result addObject:dic];
     }
@@ -135,16 +133,6 @@
     [db close];
     
     return result;
-    
-}
-
-
-- (NSMutableArray*)getParticipants {
-
-    // Query
-    NSString *sql = @"select distinct participants from chats;";
-
-    return nil;
     
 }
 
