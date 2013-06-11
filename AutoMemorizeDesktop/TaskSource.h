@@ -26,6 +26,11 @@
 
 -(void)print;
 
+/*
+ * Task StatusのOn/Offを切り替える
+ */
+-(void)changeStatus;
+
 -(NSArray*)splitTags;
 
 -(NSMutableDictionary*)splitParams;

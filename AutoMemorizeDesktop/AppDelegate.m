@@ -137,6 +137,24 @@
     
 }
 
+/*
+ * 選択されたタスクのステータスのON/OFFを切り替える
+ */
+-(IBAction)updateTaskStatus:(id)sender{
+    // 選択されたindexを取得する
+    NSInteger row = [_taskTable selectedRow];
+    
+    if((int)row != -1){
+        // ステータスを更新する
+        [_taskArrayController setSelectionIndex:row];
+        TaskSource *source = [[_taskArrayController arrangedObjects] objectAtIndex:row];
+        [source changeStatus];
+        [self save];
+    }
+    
+}
+
+
 
 /*
  * メインスレッドのポーリング処理を開始
@@ -200,6 +218,31 @@
         NSLog(@"Task has been stopped.");
     }
 }
+
+/*
+ * Evernote OAuth認証
+ */
+-(IBAction)doAuthorize:(id)sender{
+    // EvernoteAPIの設定情報
+    NSString *EVERNOTE_HOST = BootstrapServerBaseURLStringSandbox;
+    NSString *CONSUMER_KEY = @"katzlifehack";
+    NSString *CONSUMER_SECRET = @"9490d8896d0bb1a3";
+    [EvernoteSession setSharedSessionHost:EVERNOTE_HOST
+                              consumerKey:CONSUMER_KEY
+                           consumerSecret:CONSUMER_SECRET];
+    
+    EvernoteSession *session = [EvernoteSession sharedSession];
+    [session authenticateWithWindow:self.window completionHandler:^(NSError *error) {
+        if (error || !session.isAuthenticated) {
+            NSRunCriticalAlertPanel(@"Error", @"Could not authenticate", @"OK", nil, nil);
+        }
+        else {
+            NSLog(@"authenticationToken:%@", session.authenticationToken);
+        }
+    }];
+
+}
+
 
 /*
  * EvernoteにNOTEを新規保存する処理を実行する
@@ -411,6 +454,7 @@
 
 // update method
 - (IBAction)updateAction:(id)sender{
+    
     NSArray *taskList = [self getTaskList];
     for(TaskSource *source in taskList){
         NSString *str = [NSString stringWithFormat:@"%@!", source.task_name];
