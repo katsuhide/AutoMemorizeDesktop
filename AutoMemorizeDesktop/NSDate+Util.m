@@ -24,4 +24,10 @@
     return [df stringFromDate:self];
 }
 
+- (NSString*)toStringWithFormat:(NSString*) format{
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    df.dateFormat  = format;
+    return [df stringFromDate:self];
+}
+
 @end

@@ -13,4 +13,6 @@
 
 @property (assign) NSMutableString *participants;
 
+@property (assign) BOOL canAddNote;
+
 @end

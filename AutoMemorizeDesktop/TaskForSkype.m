@@ -16,18 +16,27 @@
  * 定期実行で実行される処理
  */
 - (void)polling:(NSTimer*)timer{
-    // 実行判定 TODO
     NSDate *now = [NSDate date];
     if([self check:now]){
-        // タスクを実行
+        // タスクを実行してNoteを作成する
+        EDAMNote *note = [self execute];
+        
+        // Note登録を実行する
         AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
-        [appDelegate doAddNote:[self execute]];
+        if(_canAddNote) {
+            [appDelegate doAddNote:note];
+        }else{
+            NSLog(@"Didn't create the Note since body is blank.");
+        }
+
         // 実行時間を更新
         [self updateLastExecuteTime:now];
+        
         // 更新したTaskSourceを永続化
         [appDelegate save];
+
     }else{
-        NSLog(@"skip");
+        NSLog(@"Skype Task skipped since this time is not enable timing.");
     }
 
 }
@@ -37,16 +46,23 @@
  */
 - (EDAMNote*) execute {
     // タスク情報からQueryを作成
-    NSMutableString *sql = [NSMutableString stringWithString:@"select from_dispname, datetime(timestamp,\"unixepoch\",\"localtime\") as datetime, body_xml from messages"];
+    NSMutableString *sql = [NSMutableString stringWithFormat:@"select from_dispname, datetime(timestamp,\"unixepoch\",\"localtime\") as datetime, body_xml from messages where timestamp >= strftime('%%s', datetime('%@', 'utc'))", [self.source.last_execute_time toStringWithFormat:@"yyyy-MM-dd HH:mm:ss"]];
     NSString *participants = [self.source getKeyValue:@"participants"];
     if(participants.length != 0){
-        [sql appendFormat:@" where convo_id = (select distinct conv_dbid from chats where participants = '%@');",[self.source getKeyValue:@"participants"]];
+        [sql appendFormat:@" and convo_id = (select distinct conv_dbid from chats where participants = '%@');",[self.source getKeyValue:@"participants"]];
     }else{
         [sql appendString:@";"];
     }
     
     // SkypeのMessageを取得
     NSMutableArray *result = [self getSkypeMessages:sql];
+    
+    // Messageが空であった場合はノートは作成しない
+    if([result count] == 0){
+        _canAddNote = FALSE;
+    }else{
+        _canAddNote = TRUE;
+    }
     
     // EDAMNoteを作成し、Evernoteに保存
     EDAMNote *note = [self createEDAMNote:result];
@@ -58,10 +74,10 @@
  */
 - (EDAMNote*)createEDAMNote:(NSMutableArray*)result{
     // Note Titleの指定
-    NSString *noteTitle = @"skype note";
+    NSString *noteTitle = self.source.task_name;
 
     // tagの指定
-    NSMutableArray *tagNames = [NSMutableArray arrayWithObject:@"skype"];
+    NSMutableArray *tagNames = [NSMutableArray arrayWithArray:[self.source splitTags]];
     
     // Notebookの指定
     //    NSString* parentNotebookGUID;
@@ -99,7 +115,6 @@
     
     return note;
 }
-
 
 
 /*

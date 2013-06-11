@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "392572993.187164"
+         timestampString = "392664607.964644"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "91"
-         endingLineNumber = "91"
+         startingLineNumber = "107"
+         endingLineNumber = "107"
          landmarkName = "-createEDAMNote:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "392572993.187164"
+         timestampString = "392665280.633377"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "99"
-         endingLineNumber = "99"
+         startingLineNumber = "115"
+         endingLineNumber = "115"
          landmarkName = "-createEDAMNote:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "392572993.187164"
+         timestampString = "392665280.633377"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "111"
-         endingLineNumber = "111"
+         startingLineNumber = "126"
+         endingLineNumber = "126"
          landmarkName = "-getSkypeMessages:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,7 +177,46 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "392572993.187164"
+         timestampString = "392664607.964644"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "60"
+         endingLineNumber = "60"
+         landmarkName = "-execute"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AutoMemorizeDesktop/TaskForSkype.m"
+         timestampString = "392664607.964644"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "33"
+         endingLineNumber = "33"
+         landmarkName = "-polling:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AutoMemorizeDesktop/TaskForSkype.m"
+         timestampString = "392665280.633377"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "132"
+         endingLineNumber = "132"
+         landmarkName = "-getSkypeMessages:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AutoMemorizeDesktop/TaskForSkype.m"
+         timestampString = "392664607.964644"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "49"
@@ -190,24 +229,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "392571031.881011"
+         timestampString = "392665280.633377"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "26"
-         endingLineNumber = "26"
-         landmarkName = "-polling:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "392572993.187164"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "117"
-         endingLineNumber = "117"
+         startingLineNumber = "140"
+         endingLineNumber = "140"
          landmarkName = "-getSkypeMessages:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -216,25 +242,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "392573064.413095"
+         timestampString = "392664607.964644"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "40"
-         endingLineNumber = "40"
+         startingLineNumber = "61"
+         endingLineNumber = "61"
          landmarkName = "-execute"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "392573488.970143"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "125"
-         endingLineNumber = "125"
-         landmarkName = "-getSkypeMessages:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

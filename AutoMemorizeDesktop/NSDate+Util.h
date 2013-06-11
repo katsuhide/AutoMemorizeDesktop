@@ -20,4 +20,10 @@
  */
 - (NSString*)toString;
 
+/*
+ * yyyy-MM-dd hh:mm:ssフォーマットの文字列に変換
+ */
+- (NSString*)toStringWithFormat:(NSString*)format;
+
+
 @end
