@@ -33,6 +33,11 @@
  * タスクの実行判定
  */
 - (BOOL)check:(NSDate*)now {
+    // Task StatusがOFFならskipする
+    if([self.source.status intValue] == 0){
+        return NO;
+    }
+
     // 前回時間にインターバル時間を足して、次回実行開始時間を計算
     NSTimeInterval intval = [self.source.interval doubleValue];    // 時間で入力される想定
     NSDate *nextTime = [self.source.last_execute_time dateByAddingTimeInterval:(intval * 60)];    // TODO テストなんで分を秒に変換（本来は*3600)
