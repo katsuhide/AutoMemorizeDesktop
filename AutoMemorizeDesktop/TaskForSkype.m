@@ -110,6 +110,8 @@
                              "%@"
                              "</en-note>",body];
     
+    NSLog(@"body:\n%@", noteContent);
+    
     // NOTEを登録
     EDAMNote* note = [[EDAMNote alloc] initWithGuid:nil title:noteTitle content:noteContent contentHash:nil contentLength:noteContent.length created:0 updated:0 deleted:0 active:YES updateSequenceNum:0 notebookGuid:nil tagGuids:nil resources:nil attributes:nil tagNames:tagNames];
     

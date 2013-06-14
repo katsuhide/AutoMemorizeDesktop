@@ -227,6 +227,7 @@
     NSString *EVERNOTE_HOST = BootstrapServerBaseURLStringSandbox;
     NSString *CONSUMER_KEY = @"katzlifehack";
     NSString *CONSUMER_SECRET = @"9490d8896d0bb1a3";
+    
     [EvernoteSession setSharedSessionHost:EVERNOTE_HOST
                               consumerKey:CONSUMER_KEY
                            consumerSecret:CONSUMER_SECRET];
@@ -245,6 +246,14 @@
 
 
 /*
+ * Evernote OAuth認証ログアウト
+ */
+-(IBAction)doLogoutOAuth:(id)sender{
+    [[EvernoteSession sharedSession] logout];
+}
+
+
+/*
  * EvernoteにNOTEを新規保存する処理を実行する
  */
 -(void)doAddNote:(EDAMNote*)note{
@@ -252,6 +261,7 @@
     NSString *EVERNOTE_HOST = BootstrapServerBaseURLStringSandbox;
     NSString *CONSUMER_KEY = @"katzlifehack";
     NSString *CONSUMER_SECRET = @"9490d8896d0bb1a3";
+
     [EvernoteSession setSharedSessionHost:EVERNOTE_HOST
                               consumerKey:CONSUMER_KEY
                            consumerSecret:CONSUMER_SECRET];
