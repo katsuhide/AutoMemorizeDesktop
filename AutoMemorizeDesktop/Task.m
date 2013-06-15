@@ -14,16 +14,6 @@
 -(id) initWithTaskSource:(TaskSource *)source{
     if(self = [super init]){
         self.source = source;
-        // TODO 以降の処理はいらないはず
-//        self.taskName = [NSMutableString stringWithString:source.task_name];
-//        self.interval = [NSMutableString stringWithString:source.interval];
-//        self.lastExecuteTime = source.last_execute_time;
-//        self.noteTitle = [NSMutableString stringWithString:source.note_title];
-//        if(source.notebook_guid != nil){
-//            self.notebook_guid = [NSMutableString stringWithString:source.notebook_guid];
-//        }
-//        self.tag = [[NSMutableArray alloc]initWithArray:[source splitTags]];
-//        self.param = [[NSMutableArray alloc]initWithArray:[source splitParams]];
     }
     return self;
 }
@@ -35,12 +25,13 @@
 - (BOOL)check:(NSDate*)now {
     // Task StatusがOFFならskipする
     if([self.source.status intValue] == 0){
+        NSLog(@"The status of the %@ is OFF.", self.source.task_name);
         return NO;
     }
 
     // 前回時間にインターバル時間を足して、次回実行開始時間を計算
     NSTimeInterval intval = [self.source.interval doubleValue];    // 時間で入力される想定
-    NSDate *nextTime = [self.source.last_execute_time dateByAddingTimeInterval:(intval * 60)];    // TODO テストなんで分を秒に変換（本来は*3600)
+    NSDate *nextTime = [self.source.last_execute_time dateByAddingTimeInterval:(intval * 3600)];    // TODO テストなんで分を秒に変換（本来は*3600)
     
     // 時間の判定
     NSLog(@"result:%ld, now:%@, next:%@",[now compare:nextTime], [now toString], [nextTime toString]);

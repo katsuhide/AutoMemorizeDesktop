@@ -13,7 +13,7 @@
 @interface TaskSource : NSManagedObject
 
 @property (nonatomic, retain) NSString * task_name;
-@property (nonatomic, retain) NSString * task_type;
+@property (nonatomic, retain) NSNumber * task_type;
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSString * interval;
 @property (nonatomic, retain) NSDate * last_execute_time;

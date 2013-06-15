@@ -10,7 +10,7 @@
         <attribute name="status" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="tags" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="task_name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="task_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="task_type" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="update_time" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
     <elements>

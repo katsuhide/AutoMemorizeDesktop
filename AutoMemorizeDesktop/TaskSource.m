@@ -35,7 +35,7 @@
           "\ttags:%@\n"
           "\tparams:%@\n"
           "\tupdate_time:%@\n}",
-          self.task_name, self.task_type, [self getStatus], self.interval, [self.last_execute_time toString], self.note_title, self.notebook_guid, self.tags, self.params, [self.update_time toString]);
+          self.task_name, [self getTask_type], [self getStatus], self.interval, [self.last_execute_time toString], self.note_title, self.notebook_guid, self.tags, self.params, [self.update_time toString]);
 }
 
 /*
@@ -53,6 +53,22 @@
     NSString *str = @"OFF";
     if([self.status compare:[NSNumber numberWithInt:1]] == 0){
         str = @"ON";
+    }
+    return str;
+}
+
+-(NSString*)getTask_type{
+    NSString *str = @"OTHER";
+    int index = [self.task_type intValue];
+    switch (index) {
+        case 0:
+            str = @"SKype Task";
+            break;
+        case 1:
+            str = @"File Task";
+            break;
+        default:
+            break;
     }
     return str;
 }

@@ -10,4 +10,6 @@
 
 @interface TaskForFile : Task
 
+@property (assign) BOOL canAddNote;
+
 @end

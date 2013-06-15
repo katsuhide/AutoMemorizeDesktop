@@ -16,14 +16,12 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
-- (void)dealloc
-{
-    [super dealloc];
-}
-
 // Insert code here to initialize your application
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    // ログ出力
+//    freopen([@"/tmp/xcode.log" fileSystemRepresentation], "w+", stderr);
+    
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
     NSError *error = nil;
@@ -43,6 +41,100 @@
 }
 
 /*
+ * メインスレッドのポーリング処理を開始
+ */
+-(void)run{
+    NSLog(@"Main Thread has been started.");
+    // タスクキューの初期化
+    _taskQueue = [[NSMutableArray alloc]init];
+    
+    // Taskの一覧を取得
+    NSArray *taskList = [self getTaskList];
+    
+    for(TaskSource *source in taskList){
+        int taskType = [source.task_type intValue];
+        Task *task;
+        switch (taskType) {
+            case 0:
+                // Skype Task
+                NSLog(@"Skype Task created");
+                task = [[TaskForSkype alloc]initWithTaskSource:source];
+                break;
+            case 1:
+                // File Task
+                NSLog(@"File Task Created.");
+                task = [[TaskForFile alloc]initWithTaskSource:source];
+                break;
+            default:
+                // Other Task
+                NSLog(@"Other Task Created.");
+                task = [[Task alloc]initWithTaskSource:source];
+                break;
+        }
+
+        // インターバル条件を指定の上、タスクを定期実行
+        NSTimer *timer = [NSTimer
+                          scheduledTimerWithTimeInterval:INTERVAL
+                          target:task
+                          selector:@selector(polling:)
+                          userInfo:nil
+                          repeats:YES];
+        // タスクキューに追加
+        [_taskQueue addObject:timer];
+
+//        NSString *type = source.task_type;
+//        if([type isEqualToString:@"0"]){
+//            // Skype Task
+//            NSLog(@"Skype Task created");
+//            Task *task = [[TaskForSkype alloc]initWithTaskSource:source];
+//            // インターバル条件を指定の上、タスクを定期実行
+//            NSTimer *timer = [NSTimer
+//                              scheduledTimerWithTimeInterval:INTERVAL
+//                              target:task
+//                              selector:@selector(polling:)
+//                              userInfo:nil
+//                              repeats:YES];
+//            // タスクキューに追加
+//            [_taskQueue addObject:timer];
+//            
+//        }else{
+//            NSLog(@"Other Task Created.");
+//            // Other Task
+//            Task *task = [[Task alloc]initWithTaskSource:source];
+//            
+//            // インターバル条件を指定の上、タスクを定期実行
+//            NSTimer *timer = [NSTimer
+//                              scheduledTimerWithTimeInterval:INTERVAL
+//                              target:task
+//                              selector:@selector(polling:)
+//                              userInfo:nil
+//                              repeats:YES];
+//            // タスクキューに追加
+//            [_taskQueue addObject:timer];
+//        }
+    }
+    
+}
+
+/*
+ * メインスレッドのポーリング処理を再実行
+ */
+-(IBAction)start:(id)sender{
+    [self run];
+}
+
+/*
+ * メインスレッドのポーリング処理を停止
+ */
+-(IBAction)stop:(id)sender{
+    for(NSTimer *timer in _taskQueue){
+        [timer invalidate];
+        NSLog(@"Task has been stopped.");
+    }
+}
+
+
+/*
  * TaskViewのRegisterAction
  */
 -(IBAction)registerAction:(id)sender{
@@ -50,16 +142,20 @@
     TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
     source.task_name = [_taskNameField stringValue];
     source.status = [NSNumber numberWithInt:1];
-    source.task_type = [_taskTypeField stringValue];
+    source.task_type = [NSNumber numberWithInt:[_taskViewController getTaskType]];
     source.interval = [_intervalField stringValue];
     source.last_execute_time = [NSDate date];
     source.note_title = [_notetitleField stringValue];
     source.notebook_guid = [_notebookField stringValue];    // TODO GUIDに変換が必要
     source.tags = [_tagField stringValue];
-    NSMutableString *params = [NSMutableString stringWithString:[source transformKeyValue:@"file_path" andValue:[_skypeDBFilePathField stringValue]]];
-    [params appendString:[source transformKeyValue:@"participants" andValue:[_participantsField stringValue]]];
+    NSMutableString *params = [_taskViewController getParams];
     source.params = params;
     source.update_time = [NSDate date];
+
+//    source.task_type = [_taskTypeField stringValue];
+//    NSMutableString *params = [NSMutableString stringWithString:[source transformKeyValue:@"file_path" andValue:[_skypeDBFilePathField stringValue]]];
+//    [params appendString:[source transformKeyValue:@"participants" andValue:[_participantsField stringValue]]];
+    
     // Taskを保存
     [self save];
     // TaskTableViewを初期化
@@ -83,7 +179,7 @@
  */
 -(void)closeTaskView{
     NSLog(@"Close the TaskView");
-    [self initializedTaskView];
+//    [self initializedTaskView];
     [_taskView close];
 }
 
@@ -91,15 +187,17 @@
  * TaskViewを初期化
  */
 -(void)initializedTaskView{
+    // 共通部分のアイテムを初期化
     [_taskNameField setObjectValue:nil];
-    [_taskTypeField setObjectValue:nil];
+//    [_taskTypeField setObjectValue:nil];
     [_intervalField setObjectValue:nil];
     [_notetitleField setObjectValue:nil];
     [_notebookField setObjectValue:nil];
     [_tagField setObjectValue:nil];
-    [_skypeDBFilePathField setObjectValue:nil];
-    [_participantsField setObjectValue:nil];
-     
+    
+    // 拡張部分のアイテムを初期化
+    [_taskViewController initializedTaskView];
+    
 }
 
 /*
@@ -154,71 +252,6 @@
     
 }
 
-
-
-/*
- * メインスレッドのポーリング処理を開始
- */
--(void)run{
-    NSLog(@"Main Thread has been started.");
-    // タスクキューの初期化
-    _taskQueue = [[NSMutableArray alloc]init];
-    
-    // Taskの一覧を取得
-    NSArray *taskList = [self getTaskList];
-    
-    for(TaskSource *source in taskList){
-        NSString *type = source.task_type;
-        if([type isEqualToString:@"Skype Task"]){
-            // Skype Task
-            NSLog(@"Skype Task created");
-            Task *task = [[TaskForSkype alloc]initWithTaskSource:source];
-            // インターバル条件を指定の上、タスクを定期実行
-            NSTimer *timer = [NSTimer
-                              scheduledTimerWithTimeInterval:INTERVAL
-                              target:task
-                              selector:@selector(polling:)
-                              userInfo:nil
-                              repeats:YES];
-            // タスクキューに追加
-            [_taskQueue addObject:timer];
-
-        }else{
-            NSLog(@"Other Task Created.");
-            // Other Task
-            Task *task = [[Task alloc]initWithTaskSource:source];
-            
-            // インターバル条件を指定の上、タスクを定期実行
-            NSTimer *timer = [NSTimer
-                              scheduledTimerWithTimeInterval:INTERVAL
-                              target:task
-                              selector:@selector(polling:)
-                              userInfo:nil
-                              repeats:YES];
-            // タスクキューに追加
-            [_taskQueue addObject:timer];
-        }
-    }
-    
-}
-
-/*
- * メインスレッドのポーリング処理を再実行
- */
--(IBAction)start:(id)sender{
-    [self run];
-}
-
-/*
- * メインスレッドのポーリング処理を停止
- */
--(IBAction)stop:(id)sender{
-    for(NSTimer *timer in _taskQueue){
-        [timer invalidate];
-        NSLog(@"Task has been stopped.");
-    }
-}
-
 /*
  * Evernote OAuth認証
  */
@@ -236,16 +269,16 @@
 
 }
 
+// EvernoteAPIのSessionを作成
 -(void)createEvernoteSession{
     // EvernoteAPIの設定情報
     NSString *EVERNOTE_HOST = BootstrapServerBaseURLStringSandbox;
     NSString *CONSUMER_KEY = @"katzlifehack";
     NSString *CONSUMER_SECRET = @"9490d8896d0bb1a3";
-    
+
     [EvernoteSession setSharedSessionHost:EVERNOTE_HOST
                               consumerKey:CONSUMER_KEY
                            consumerSecret:CONSUMER_SECRET];
-    
     
 }
 
@@ -261,14 +294,6 @@
  * EvernoteにNOTEを新規保存する処理を実行する
  */
 -(void)doAddNote:(EDAMNote*)note{
-//    // EvernoteAPIの設定情報
-//    NSString *EVERNOTE_HOST = BootstrapServerBaseURLStringSandbox;
-//    NSString *CONSUMER_KEY = @"katzlifehack";
-//    NSString *CONSUMER_SECRET = @"9490d8896d0bb1a3";
-//
-//    [EvernoteSession setSharedSessionHost:EVERNOTE_HOST
-//                              consumerKey:CONSUMER_KEY
-//                           consumerSecret:CONSUMER_SECRET];
     [self createEvernoteSession];
     EvernoteSession *session = [EvernoteSession sharedSession];
     [session authenticateWithWindow:self.window completionHandler:^(NSError *error) {
@@ -452,12 +477,26 @@
     }
 }
 
+// TaskListを取得する
+-(NSArray*)getTaskList{
+    NSFetchRequest *fetchRequest = [self createRequest:TASK_SOURCE];
+    NSError *error = nil;
+    return [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+}
+
+
+/*
+ *
+ * ===========ここ以降はいらないテストソース===================
+ *
+ */
+
 // register method
 - (IBAction)registerActionTemp:(id)sender{
     // NSManagedObjectの生成
     TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
     source.task_name = @"Other Task1";
-    source.task_type = @"other";
+    source.task_type = [NSNumber numberWithInt:3];
     source.status = [NSNumber numberWithInt:1];
     source.interval = @"10";
     source.tags = @"tag1,tag2";
@@ -479,11 +518,6 @@
     [self save];
 }
 
-// register & update
--(void)registerAndUpdate:(TaskSource*)source{
-    // TODO いらないか？
-    NSLog(@"register and update.");
-}
 
 // get method
 - (IBAction)getAction:(id)sender{
@@ -499,12 +533,8 @@
     }
 }
 
-// TaskListを取得する
--(NSArray*)getTaskList{
-    NSFetchRequest *fetchRequest = [self createRequest:TASK_SOURCE];
-    NSError *error = nil;
-    return [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+-(IBAction)testMethod:(id)sender{
+    NSLog(@"test method");
 }
-
 
 @end

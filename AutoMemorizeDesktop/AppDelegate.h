@@ -11,6 +11,7 @@
 #import "TaskForFile.h"
 #import "TaskForSkype.h"
 #import <EvernoteSDK-Mac/EvernoteSDK.h>
+#import "TaskViewController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
@@ -28,21 +29,22 @@
 // View
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSPanel *taskView;
-
+@property (assign) IBOutlet TaskViewController *taskViewController;
 
 // Main Thread
-#define INTERVAL 5
+//#define INTERVAL 900  // 秒
+#define INTERVAL 5  // 秒
 @property (retain) NSMutableArray *taskQueue;
 
 // Task Panle
 @property (assign) IBOutlet NSTextField *taskNameField;
-@property (assign) IBOutlet NSComboBox *taskTypeField;
+//@property (assign) IBOutlet NSComboBox *taskTypeField;
 @property (assign) IBOutlet NSTextField *intervalField;
 @property (assign) IBOutlet NSTextField *notetitleField;
 @property (assign) IBOutlet NSComboBox *notebookField;
 @property (assign) IBOutlet NSTokenField *tagField;
-@property (assign) IBOutlet NSTextField *skypeDBFilePathField;
-@property (assign) IBOutlet NSTextField *participantsField;
+//@property (assign) IBOutlet NSTextField *skypeDBFilePathField;
+//@property (assign) IBOutlet NSTextField *participantsField;
 
 
 /*

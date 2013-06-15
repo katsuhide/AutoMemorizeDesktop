@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4211CC12176CC233000B566B /* NSData+EvernoteSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211CC11176CC233000B566B /* NSData+EvernoteSDK.m */; };
 		42368B2E175CDBDF0098CFB3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42368B2C175CDBDF0098CFB3 /* Model.xcdatamodeld */; };
 		42368B36175CDCC70098CFB3 /* TaskSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 42368B35175CDCC70098CFB3 /* TaskSource.m */; };
 		425A64FB175A6DFF002DE6AF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425A64FA175A6DFF002DE6AF /* Cocoa.framework */; };
@@ -27,6 +28,11 @@
 		42CA7463175A7119002D469E /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA745C175A7119002D469E /* FMDatabasePool.m */; };
 		42CA7464175A7119002D469E /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA745E175A7119002D469E /* FMDatabaseQueue.m */; };
 		42CA7465175A7119002D469E /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA7460175A7119002D469E /* FMResultSet.m */; };
+		42F7806B176C23B900CC3E7A /* SkypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F78069176C23B900CC3E7A /* SkypeViewController.m */; };
+		42F7806C176C23B900CC3E7A /* SkypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F7806A176C23B900CC3E7A /* SkypeViewController.xib */; };
+		42F78070176C84BC00CC3E7A /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F7806E176C84BC00CC3E7A /* FileViewController.m */; };
+		42F78071176C84BC00CC3E7A /* FileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F7806F176C84BC00CC3E7A /* FileViewController.xib */; };
+		42F78074176C854800CC3E7A /* TaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F78073176C854800CC3E7A /* TaskViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +94,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4211CC10176CC233000B566B /* NSData+EvernoteSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+EvernoteSDK.h"; sourceTree = "<group>"; };
+		4211CC11176CC233000B566B /* NSData+EvernoteSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+EvernoteSDK.m"; sourceTree = "<group>"; };
 		42368B2D175CDBDF0098CFB3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		42368B34175CDCC70098CFB3 /* TaskSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskSource.h; sourceTree = "<group>"; };
 		42368B35175CDCC70098CFB3 /* TaskSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskSource.m; sourceTree = "<group>"; };
@@ -124,6 +132,14 @@
 		42CA745E175A7119002D469E /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
 		42CA745F175A7119002D469E /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		42CA7460175A7119002D469E /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		42F78068176C23B900CC3E7A /* SkypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkypeViewController.h; sourceTree = "<group>"; };
+		42F78069176C23B900CC3E7A /* SkypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkypeViewController.m; sourceTree = "<group>"; };
+		42F7806A176C23B900CC3E7A /* SkypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SkypeViewController.xib; sourceTree = "<group>"; };
+		42F7806D176C84BC00CC3E7A /* FileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileViewController.h; sourceTree = "<group>"; };
+		42F7806E176C84BC00CC3E7A /* FileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileViewController.m; sourceTree = "<group>"; };
+		42F7806F176C84BC00CC3E7A /* FileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileViewController.xib; sourceTree = "<group>"; };
+		42F78072176C854800CC3E7A /* TaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskViewController.h; sourceTree = "<group>"; };
+		42F78073176C854800CC3E7A /* TaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +156,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4211CC0B176CC215000B566B /* Evernote */ = {
+			isa = PBXGroup;
+			children = (
+				4211CC10176CC233000B566B /* NSData+EvernoteSDK.h */,
+				4211CC11176CC233000B566B /* NSData+EvernoteSDK.m */,
+			);
+			name = Evernote;
+			sourceTree = "<group>";
+		};
 		42368B33175CDCAA0098CFB3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +215,8 @@
 		425A6500175A6DFF002DE6AF /* AutoMemorizeDesktop */ = {
 			isa = PBXGroup;
 			children = (
+				4211CC0B176CC215000B566B /* Evernote */,
+				42F78063176C23B000CC3E7A /* View */,
 				42368B33175CDCAA0098CFB3 /* Model */,
 				42860F89175B776B00F68B03 /* Util */,
 				425A653D175A705A002DE6AF /* Task */,
@@ -264,6 +291,21 @@
 				42860F8F175B779C00F68B03 /* NSDate+Util.m */,
 			);
 			name = Util;
+			sourceTree = "<group>";
+		};
+		42F78063176C23B000CC3E7A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				42F78068176C23B900CC3E7A /* SkypeViewController.h */,
+				42F78069176C23B900CC3E7A /* SkypeViewController.m */,
+				42F7806A176C23B900CC3E7A /* SkypeViewController.xib */,
+				42F7806D176C84BC00CC3E7A /* FileViewController.h */,
+				42F7806E176C84BC00CC3E7A /* FileViewController.m */,
+				42F7806F176C84BC00CC3E7A /* FileViewController.xib */,
+				42F78072176C854800CC3E7A /* TaskViewController.h */,
+				42F78073176C854800CC3E7A /* TaskViewController.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,6 +408,8 @@
 				425A6505175A6DFF002DE6AF /* InfoPlist.strings in Resources */,
 				425A650B175A6DFF002DE6AF /* Credits.rtf in Resources */,
 				425A6511175A6E00002DE6AF /* MainMenu.xib in Resources */,
+				42F7806C176C23B900CC3E7A /* SkypeViewController.xib in Resources */,
+				42F78071176C84BC00CC3E7A /* FileViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +433,10 @@
 				42860F90175B779C00F68B03 /* NSDate+Util.m in Sources */,
 				42368B2E175CDBDF0098CFB3 /* Model.xcdatamodeld in Sources */,
 				42368B36175CDCC70098CFB3 /* TaskSource.m in Sources */,
+				42F7806B176C23B900CC3E7A /* SkypeViewController.m in Sources */,
+				42F78070176C84BC00CC3E7A /* FileViewController.m in Sources */,
+				42F78074176C854800CC3E7A /* TaskViewController.m in Sources */,
+				4211CC12176CC233000B566B /* NSData+EvernoteSDK.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +538,7 @@
 		425A6515175A6E00002DE6AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AutoMemorizeDesktop/AutoMemorizeDesktop-Prefix.pch";
@@ -502,6 +551,7 @@
 		425A6516175A6E00002DE6AF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AutoMemorizeDesktop/AutoMemorizeDesktop-Prefix.pch";
