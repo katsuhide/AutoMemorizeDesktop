@@ -59,6 +59,7 @@
     
     // SkypeのMessageを取得
     NSMutableArray *result = [self getSkypeMessages:sql];
+    NSLog(@"sql:%@, result:%@", sql, result);
     
     // Messageが空であった場合はノートは作成しない
     if([result count] == 0){

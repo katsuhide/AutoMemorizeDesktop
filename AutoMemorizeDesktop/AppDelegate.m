@@ -90,37 +90,6 @@ const BOOL ENV = NO;
                           userInfo:nil
                           repeats:YES];
         [_taskQueue addObject:timer];
-
-//        NSString *type = source.task_type;
-//        if([type isEqualToString:@"0"]){
-//            // Skype Task
-//            NSLog(@"Skype Task created");
-//            Task *task = [[TaskForSkype alloc]initWithTaskSource:source];
-//            // インターバル条件を指定の上、タスクを定期実行
-//            NSTimer *timer = [NSTimer
-//                              scheduledTimerWithTimeInterval:INTERVAL
-//                              target:task
-//                              selector:@selector(polling:)
-//                              userInfo:nil
-//                              repeats:YES];
-//            // タスクキューに追加
-//            [_taskQueue addObject:timer];
-//            
-//        }else{
-//            NSLog(@"Other Task Created.");
-//            // Other Task
-//            Task *task = [[Task alloc]initWithTaskSource:source];
-//            
-//            // インターバル条件を指定の上、タスクを定期実行
-//            NSTimer *timer = [NSTimer
-//                              scheduledTimerWithTimeInterval:INTERVAL
-//                              target:task
-//                              selector:@selector(polling:)
-//                              userInfo:nil
-//                              repeats:YES];
-//            // タスクキューに追加
-//            [_taskQueue addObject:timer];
-//        }
     }
     
 }
@@ -322,9 +291,10 @@ const BOOL ENV = NO;
  * EvernoteにNOTEを新規保存する
  */
 - (void)addNote:(EDAMNote*)note{
+    NSString *content = note.content;
     [[EvernoteNoteStore noteStore] createNote:note success:^(EDAMNote *note) {
         // Log the created note object
-        NSLog(@"Note created : %@",note.title);
+        NSLog(@"Note created.\n[EDAMNote:]%@\n[Note Content:]%@",note, content);
     } failure:^(NSError *error) {
         // Something was wrong with the note data
         // See EDAMErrorCode enumeration for error code explanation
