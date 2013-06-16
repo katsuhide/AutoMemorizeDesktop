@@ -14,6 +14,8 @@
 #import "TaskViewController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
+// Environment
+extern const BOOL ENV;
 
 // CoreData
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -32,19 +34,16 @@
 @property (assign) IBOutlet TaskViewController *taskViewController;
 
 // Main Thread
-//#define INTERVAL 900  // 秒
-#define INTERVAL 5  // 秒
+#define INTERVAL 300  // 秒
+
 @property (retain) NSMutableArray *taskQueue;
 
 // Task Panle
 @property (assign) IBOutlet NSTextField *taskNameField;
-//@property (assign) IBOutlet NSComboBox *taskTypeField;
 @property (assign) IBOutlet NSTextField *intervalField;
 @property (assign) IBOutlet NSTextField *notetitleField;
 @property (assign) IBOutlet NSComboBox *notebookField;
 @property (assign) IBOutlet NSTokenField *tagField;
-//@property (assign) IBOutlet NSTextField *skypeDBFilePathField;
-//@property (assign) IBOutlet NSTextField *participantsField;
 
 
 /*

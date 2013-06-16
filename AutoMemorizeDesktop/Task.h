@@ -15,20 +15,6 @@
 
 @property (retain) TaskSource *source;
 
-//@property (retain) NSMutableString *taskName;
-//
-//@property (retain) NSMutableString *interval;
-//
-//@property (retain) NSDate *lastExecuteTime;
-//
-//@property (retain) NSMutableString *noteTitle;
-//
-//@property (retain) NSMutableString *notebook_guid;
-//
-//@property (retain) NSMutableArray *tag;
-//
-//@property (retain) NSMutableArray *param;
-
 /*
  * TaskSourceで初期化
  */
@@ -44,7 +30,7 @@
 /*
  * タスクの処理内容
  */
-- (EDAMNote*)execute;
+- (NSMutableArray*)execute;
 
 /*
  * 定期実行で実行される処理

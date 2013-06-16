@@ -18,18 +18,27 @@
 - (void)polling:(NSTimer*)timer{
     NSDate *now = [NSDate date];
     if([self check:now]){
-        // タスクを実行してNoteを作成する
-        EDAMNote *note = [self execute];
+        // タスクを実行してNoteListを作成する
+        NSMutableArray *noteList = [self execute];
         
         // Note登録を実行する
         AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
         if(_canAddNote) {
-            [appDelegate doAddNote:note];
+            // 作成されたノートを個別に処理
+            for(EDAMNote *note in noteList){
+                // ノートを登録
+                [appDelegate doAddNote:note];
+                if(YES){    // TODO エラー処理を実装
+                    // 対象のノートをoldディレクトリへ移動
+                    [self moveFile:note];
+                }
+
+            }
         }else{
             NSLog(@"Didn't create the Note since file does note exist.");
         }
         
-        // 実行時間を更新
+        // 全ノートを登録したら実行時間を更新
         [self updateLastExecuteTime:now];
         
         // 更新したTaskSourceを永続化
@@ -42,11 +51,9 @@
 
 
 /*
- * タスクの処理内容
+ * FileTaskのロジックでEDAMNoteを生成する
  */
-- (EDAMNote*) execute {
-    NSLog(@"TaskForFile Class method isn't implemented.");
-    
+- (NSMutableArray*) execute {
     // 作成対象のファイルパスを取得
     NSMutableArray *filePathList = [self getFilePathList];
     
@@ -58,9 +65,12 @@
     }
     
     // EDAMNoteを作成する
-    EDAMNote *note = [self createEDAMNote:filePathList];
-    
-    return note;
+    NSMutableArray *noteList = [[NSMutableArray alloc]init];
+    for(NSString *filePath in filePathList){
+        EDAMNote *note = [self createEDAMNote:filePath];
+        [noteList addObject:note];
+    }
+    return noteList;
 }
 
 
@@ -68,16 +78,39 @@
  * 指定された条件でEvernoteへのポスト対象のファイルのフルパスを取得する
  */
 -(NSMutableArray*)getFilePathList{
-    NSMutableArray *filePathList = [NSMutableArray array];
-    [filePathList addObject:@"/Users/AirMyac/Desktop/hoge.txt"];
-    [filePathList addObject:@"/Users/AirMyac/Desktop/fuga.txt"];
+    // 指定された条件を取得
+    NSString *directoryPath = [self.source getKeyValue:@"file_path"];
+    NSString *extension = [self.source getKeyValue:@"extension"];
+
+    // 対象のパスのファイル一覧を取得
+    NSFileManager *fileManager=[[NSFileManager alloc] init];
+    NSError *error = nil;
+    NSArray *allFileName = [fileManager contentsOfDirectoryAtPath:directoryPath error:&error];
+    if (error) return nil;
+
+    // 拡張子で絞り込む
+    NSMutableArray *filePathList = [[NSMutableArray alloc] init];
+    
+    // 拡張子条件が存在する場合、各ファイルの拡張子が一致するかを確認したうえでフルパスのFileListを生成
+    for (NSString *fileName in allFileName) {
+        if([extension length] == 0){
+            // 拡張子条件が空の場合
+            NSString *fullPath = [directoryPath stringByAppendingPathComponent:fileName];
+            [filePathList addObject:fullPath];
+        }else if ([[fileName pathExtension] isEqualToString:extension]) {
+            // 拡張子条件が存在する場合
+            NSString *fullPath = [directoryPath stringByAppendingPathComponent:fileName];
+            [filePathList addObject:fullPath];
+        }
+    }
     return filePathList;
+    
 }
 
 /*
  * FileTask用のEDAMNoteを作成する
  */
-- (EDAMNote*)createEDAMNote:(NSMutableArray*)filePathList{
+- (EDAMNote*)createEDAMNote:(NSString*)filePath{
     // Note Titleの指定
     NSString *noteTitle = self.source.task_name;
     
@@ -92,7 +125,7 @@
     
     // EDAMResourceをリストに格納
     NSMutableArray *resources = [[NSMutableArray alloc] init];
-    [self createResources:filePathList andResouces:resources];
+    [self createResources:filePath andResouces:resources];
     
     
     // ENMLの作成
@@ -121,21 +154,44 @@
 }
 
 /*
+ * 対象のファイルを移動する
+ */
+-(void)moveFile:(EDAMNote*)note{
+    // 退避ディレクトリを対象のパスの直下に作成
+    NSString *workPath = [[self.source getKeyValue:@"file_path"] stringByAppendingPathComponent:@"old"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
+    if(![fileManager createDirectoryAtPath:workPath withIntermediateDirectories:YES attributes:nil error:&error]){
+        NSLog(@"Couldn't create the data store directory.[%@, %@]", error, [error userInfo]);
+        return;
+    }
+
+    // 対象のファイルを移動する
+    EDAMResource *resource = [note.resources objectAtIndex:0];  // Resourceは１つの前提のため
+    NSString *filePath = [[self.source getKeyValue:@"file_path"] stringByAppendingPathComponent:resource.attributes.fileName];
+    NSString *toFilePath = [workPath stringByAppendingPathComponent:resource.attributes.fileName];
+    if(![fileManager moveItemAtPath:filePath toPath:toFilePath error:&error]){
+        NSLog(@"Couldn't move this file:[%@] to this path:[%@].[%@, %@]", filePath, workPath, error, [error userInfo]);
+    }else{
+        NSLog(@"Finished moving this file:[%@] to this path:[%@].", filePath, workPath);
+    }
+    
+}
+
+/*
  * ファイルパスからResourcesを作成
  */
-- (void) createResources:(NSArray*) files andResouces:(NSMutableArray*) resouces{
-    for(NSString *filePath in files){
-        // 指定されたファイルパスからEDAMResourceを作成
-        NSString *fileName = [filePath lastPathComponent];
-        NSString *mime = [self mimeTypeForFileAtPath:filePath];
-        NSData *myFileData = [NSData dataWithContentsOfFile:filePath];
-        NSData *bodyHash = [myFileData enmd5];
-        EDAMData *edamData = [[EDAMData alloc] initWithBodyHash:bodyHash size:(int)myFileData.length body:myFileData];
-        EDAMResourceAttributes *attribute = [[EDAMResourceAttributes alloc] init];
-        attribute.fileName = fileName;
-        EDAMResource* resource = [[EDAMResource alloc] initWithGuid:nil noteGuid:nil data:edamData mime:mime width:0 height:0 duration:0 active:0 recognition:0 attributes:attribute updateSequenceNum:0 alternateData:nil];
-        [resouces addObject:resource];
-    }
+- (void) createResources:(NSString*) filePath andResouces:(NSMutableArray*) resouces{
+    // 指定されたファイルパスからEDAMResourceを作成
+    NSString *fileName = [filePath lastPathComponent];
+    NSString *mime = [self mimeTypeForFileAtPath:filePath];
+    NSData *myFileData = [NSData dataWithContentsOfFile:filePath];
+    NSData *bodyHash = [myFileData enmd5];
+    EDAMData *edamData = [[EDAMData alloc] initWithBodyHash:bodyHash size:(int)myFileData.length body:myFileData];
+    EDAMResourceAttributes *attribute = [[EDAMResourceAttributes alloc] init];
+    attribute.fileName = fileName;
+    EDAMResource* resource = [[EDAMResource alloc] initWithGuid:nil noteGuid:nil data:edamData mime:mime width:0 height:0 duration:0 active:0 recognition:0 attributes:attribute updateSequenceNum:0 alternateData:nil];
+    [resouces addObject:resource];
 }
 
 /*

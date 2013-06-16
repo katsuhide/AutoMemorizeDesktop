@@ -67,7 +67,7 @@
 /*
  * タスクの処理内容
  */
-- (EDAMNote*) execute {
+- (NSMutableArray*) execute {
     NSLog(@"Execute method does not implemented.");
     return nil;
 }

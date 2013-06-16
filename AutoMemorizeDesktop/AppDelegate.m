@@ -16,11 +16,15 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
+const BOOL ENV = NO;
+
 // Insert code here to initialize your application
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // ログ出力
-//    freopen([@"/tmp/xcode.log" fileSystemRepresentation], "w+", stderr);
+    if(ENV){
+        freopen([@"/tmp/xcode.log" fileSystemRepresentation], "w+", stderr);
+    }
     
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
@@ -72,14 +76,19 @@
                 break;
         }
 
-        // インターバル条件を指定の上、タスクを定期実行
+        // インターバル条件を指定(TODOテスト時は5secに変更）
+        int interval = INTERVAL;
+        if(!ENV) {
+            interval = 5;
+        }
+        
+        // タスクタイマーを生成し、タスクキューに追加
         NSTimer *timer = [NSTimer
-                          scheduledTimerWithTimeInterval:INTERVAL
+                          scheduledTimerWithTimeInterval:interval
                           target:task
                           selector:@selector(polling:)
                           userInfo:nil
                           repeats:YES];
-        // タスクキューに追加
         [_taskQueue addObject:timer];
 
 //        NSString *type = source.task_type;
@@ -299,13 +308,11 @@
     [session authenticateWithWindow:self.window completionHandler:^(NSError *error) {
         if (error || !session.isAuthenticated) {
             NSRunCriticalAlertPanel(@"Error", @"Could not authenticate", @"OK", nil, nil);
-            
         }
         else {
             NSLog(@"authenticationToken:%@", session.authenticationToken);
             // 作成されたEDAMNoteを登録する
             [self addNote:note];
-            
         }
     }];
     
@@ -315,20 +322,18 @@
  * EvernoteにNOTEを新規保存する
  */
 - (void)addNote:(EDAMNote*)note{
-    
     [[EvernoteNoteStore noteStore] createNote:note success:^(EDAMNote *note) {
         // Log the created note object
         NSLog(@"Note created : %@",note.title);
-        
     } failure:^(NSError *error) {
         // Something was wrong with the note data
         // See EDAMErrorCode enumeration for error code explanation
         // http://dev.evernote.com/documentation/reference/Errors.html#Enum_EDAMErrorCode
         NSLog(@"Error : %@",error);
-        
     }];
     
 }
+
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "AutoMemorizeDesktop" in the user's Application Support directory.
 - (NSURL *)applicationFilesDirectory

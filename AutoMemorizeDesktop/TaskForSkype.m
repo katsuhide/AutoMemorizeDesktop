@@ -18,18 +18,21 @@
 - (void)polling:(NSTimer*)timer{
     NSDate *now = [NSDate date];
     if([self check:now]){
-        // タスクを実行してNoteを作成する
-        EDAMNote *note = [self execute];
+        // タスクを実行してNoteListを作成する
+        NSMutableArray *noteList = [self execute];
         
         // Note登録を実行する
         AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
         if(_canAddNote) {
-            [appDelegate doAddNote:note];
+            // 作成されたノートを個別に登録
+            for(EDAMNote *note in noteList){
+                [appDelegate doAddNote:note];
+            }
         }else{
             NSLog(@"Didn't create the Note since body is blank.");
         }
 
-        // 実行時間を更新
+        // 全ノートを登録したら実行時間を更新
         [self updateLastExecuteTime:now];
         
         // 更新したTaskSourceを永続化
@@ -44,7 +47,7 @@
 /*
  * タスクの処理内容
  */
-- (EDAMNote*) execute {
+- (NSMutableArray*) execute {
     // タスク情報からQueryを作成
     NSMutableString *sql = [NSMutableString stringWithFormat:@"select from_dispname, datetime(timestamp,\"unixepoch\",\"localtime\") as datetime, body_xml from messages where timestamp >= strftime('%%s', datetime('%@', 'utc'))", [self.source.last_execute_time toStringWithFormat:@"yyyy-MM-dd HH:mm:ss"]];
     NSString *participants = [self.source getKeyValue:@"participants"];
@@ -64,9 +67,10 @@
         _canAddNote = TRUE;
     }
     
-    // EDAMNoteを作成し、Evernoteに保存
+    // EDAMNoteを作成しNoteListを作成
     EDAMNote *note = [self createEDAMNote:result];
-    return note;
+    NSMutableArray *noteList = [[NSMutableArray alloc]initWithObjects:note, nil];
+    return noteList;
 }
 
 /*
