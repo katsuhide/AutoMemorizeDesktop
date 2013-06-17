@@ -16,6 +16,7 @@
 @dynamic status;
 @dynamic interval;
 @dynamic last_execute_time;
+@dynamic last_added_time;
 @dynamic tags;
 @dynamic note_title;
 @dynamic notebook_guid;
@@ -30,12 +31,13 @@
           "\tstatus:%@\n"
           "\tinterval:%@\n"
           "\tlast_execte_time:%@\n"
+          "\tlast_added_time:%@\n"
           "\tnote_title:%@\n"
           "\tnotebook_guid:%@\n"
           "\ttags:%@\n"
           "\tparams:%@\n"
           "\tupdate_time:%@\n}",
-          self.task_name, [self getTask_type], [self getStatus], self.interval, [self.last_execute_time toString], self.note_title, self.notebook_guid, self.tags, self.params, [self.update_time toString]);
+          self.task_name, [self getTask_type], [self getStatus], self.interval, [self.last_execute_time toString], [self.last_added_time toString], self.note_title, self.notebook_guid, self.tags, self.params, [self.update_time toString]);
 }
 
 /*

@@ -32,13 +32,14 @@
                     // 対象のノートをoldディレクトリへ移動
                     [self moveFile:note];
                 }
-
+                // ノートの登録時間を更新
+                [self updateLastAddedTime:now];
             }
         }else{
             NSLog(@"Didn't create the Note since file does note exist.");
         }
         
-        // 全ノートを登録したら実行時間を更新
+        // タスクの実行時間を更新
         [self updateLastExecuteTime:now];
         
         // 更新したTaskSourceを永続化

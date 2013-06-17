@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "393095815.793515"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "112"
-         endingLineNumber = "112"
+         startingLineNumber = "114"
+         endingLineNumber = "114"
          landmarkName = "-createEDAMNote:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "393095815.793515"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "122"
-         endingLineNumber = "122"
+         startingLineNumber = "124"
+         endingLineNumber = "124"
          landmarkName = "-createEDAMNote:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/AppDelegate.m"
-         timestampString = "393095815.793515"
+         timestampString = "393180261.63355"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "194"
-         endingLineNumber = "194"
+         startingLineNumber = "196"
+         endingLineNumber = "196"
          landmarkName = "-initializeTableView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "393095815.793515"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "133"
-         endingLineNumber = "133"
+         startingLineNumber = "135"
+         endingLineNumber = "135"
          landmarkName = "-getSkypeMessages:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "393095815.793515"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "64"
-         endingLineNumber = "64"
+         startingLineNumber = "66"
+         endingLineNumber = "66"
          landmarkName = "-execute"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,11 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "393057848.114025"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "36"
-         endingLineNumber = "36"
+         startingLineNumber = "38"
+         endingLineNumber = "38"
          landmarkName = "-polling:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "393095815.793515"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "139"
-         endingLineNumber = "139"
+         startingLineNumber = "141"
+         endingLineNumber = "141"
          landmarkName = "-getSkypeMessages:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -177,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "393057848.114025"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "52"
-         endingLineNumber = "52"
+         startingLineNumber = "54"
+         endingLineNumber = "54"
          landmarkName = "-execute"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "393095815.793515"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "147"
-         endingLineNumber = "147"
+         startingLineNumber = "149"
+         endingLineNumber = "149"
          landmarkName = "-getSkypeMessages:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -203,11 +203,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForSkype.m"
-         timestampString = "393095815.793515"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "65"
-         endingLineNumber = "65"
+         startingLineNumber = "67"
+         endingLineNumber = "67"
          landmarkName = "-execute"
          landmarkType = "5">
       </FileBreakpoint>
@@ -229,11 +229,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/AppDelegate.m"
-         timestampString = "393095815.793515"
+         timestampString = "393180261.63355"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "218"
-         endingLineNumber = "218"
+         startingLineNumber = "220"
+         endingLineNumber = "220"
          landmarkName = "@implementation AppDelegate"
          landmarkType = "3">
       </FileBreakpoint>
@@ -268,11 +268,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/AppDelegate.m"
-         timestampString = "393095815.793515"
+         timestampString = "393180261.63355"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "137"
-         endingLineNumber = "137"
+         startingLineNumber = "139"
+         endingLineNumber = "139"
          landmarkName = "-registerAction:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -307,11 +307,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForFile.m"
-         timestampString = "393064123.393856"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "142"
-         endingLineNumber = "142"
+         startingLineNumber = "143"
+         endingLineNumber = "143"
          landmarkName = "-createEDAMNote:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -333,11 +333,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForFile.m"
-         timestampString = "393064123.393856"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "62"
-         endingLineNumber = "62"
+         startingLineNumber = "63"
+         endingLineNumber = "63"
          landmarkName = "-execute"
          landmarkType = "5">
       </FileBreakpoint>
@@ -346,11 +346,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForFile.m"
-         timestampString = "393064123.393856"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "136"
-         endingLineNumber = "136"
+         startingLineNumber = "137"
+         endingLineNumber = "137"
          landmarkName = "-createEDAMNote:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -359,11 +359,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForFile.m"
-         timestampString = "393064123.393856"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "150"
-         endingLineNumber = "150"
+         startingLineNumber = "151"
+         endingLineNumber = "151"
          landmarkName = "-createEDAMNote:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -385,11 +385,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForFile.m"
-         timestampString = "393064123.393856"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "109"
-         endingLineNumber = "109"
+         startingLineNumber = "110"
+         endingLineNumber = "110"
+         landmarkName = "@implementation TaskForFile"
+         landmarkType = "3">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AutoMemorizeDesktop/TaskForFile.m"
+         timestampString = "393179766.933023"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "87"
+         endingLineNumber = "87"
          landmarkName = "-getFilePathList"
          landmarkType = "5">
       </FileBreakpoint>
@@ -398,24 +411,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForFile.m"
-         timestampString = "393064123.393856"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "86"
-         endingLineNumber = "86"
-         landmarkName = "-getFilePathList"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "AutoMemorizeDesktop/TaskForFile.m"
-         timestampString = "393064123.393856"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "119"
-         endingLineNumber = "119"
+         startingLineNumber = "120"
+         endingLineNumber = "120"
          landmarkName = "-createEDAMNote:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -424,11 +424,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForFile.m"
-         timestampString = "393064123.393856"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "138"
-         endingLineNumber = "138"
+         startingLineNumber = "139"
+         endingLineNumber = "139"
          landmarkName = "-createEDAMNote:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -437,11 +437,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForFile.m"
-         timestampString = "393064123.393856"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "192"
-         endingLineNumber = "192"
+         startingLineNumber = "193"
+         endingLineNumber = "193"
          landmarkName = "-createResources:andResouces:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -450,13 +450,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForFile.m"
-         timestampString = "393064123.393856"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "110"
-         endingLineNumber = "110"
-         landmarkName = "-getFilePathList"
-         landmarkType = "5">
+         startingLineNumber = "111"
+         endingLineNumber = "111"
+         landmarkName = "@implementation TaskForFile"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -476,11 +476,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/TaskForFile.m"
-         timestampString = "393064123.393856"
+         timestampString = "393179766.933023"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "165"
-         endingLineNumber = "165"
+         startingLineNumber = "166"
+         endingLineNumber = "166"
          landmarkName = "-moveFile:"
          landmarkType = "5">
       </FileBreakpoint>

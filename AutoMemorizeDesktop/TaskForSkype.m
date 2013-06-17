@@ -28,11 +28,13 @@
             for(EDAMNote *note in noteList){
                 [appDelegate doAddNote:note];
             }
+            // ノートの登録時間を更新
+            [self updateLastAddedTime:now];
         }else{
             NSLog(@"Didn't create the Note since body is blank.");
         }
 
-        // 全ノートを登録したら実行時間を更新
+        // タスクの実行時間を更新
         [self updateLastExecuteTime:now];
         
         // 更新したTaskSourceを永続化
@@ -49,7 +51,7 @@
  */
 - (NSMutableArray*) execute {
     // タスク情報からQueryを作成
-    NSMutableString *sql = [NSMutableString stringWithFormat:@"select from_dispname, datetime(timestamp,\"unixepoch\",\"localtime\") as datetime, body_xml from messages where timestamp >= strftime('%%s', datetime('%@', 'utc'))", [self.source.last_execute_time toStringWithFormat:@"yyyy-MM-dd HH:mm:ss"]];
+    NSMutableString *sql = [NSMutableString stringWithFormat:@"select from_dispname, datetime(timestamp,\"unixepoch\",\"localtime\") as datetime, body_xml from messages where timestamp >= strftime('%%s', datetime('%@', 'utc'))", [self.source.last_added_time toStringWithFormat:@"yyyy-MM-dd HH:mm:ss"]];
     NSString *participants = [self.source getKeyValue:@"participants"];
     if(participants.length != 0){
         [sql appendFormat:@" and convo_id = (select distinct conv_dbid from chats where participants = '%@');",[self.source getKeyValue:@"participants"]];

@@ -34,7 +34,7 @@ extern const BOOL ENV;
 @property (assign) IBOutlet TaskViewController *taskViewController;
 
 // Main Thread
-#define INTERVAL 300  // 秒
+#define INTERVAL 60  // 秒
 
 @property (retain) NSMutableArray *taskQueue;
 

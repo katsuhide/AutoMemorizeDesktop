@@ -31,7 +31,7 @@
 
     // 前回時間にインターバル時間を足して、次回実行開始時間を計算
     NSTimeInterval intval = [self.source.interval doubleValue];    // 時間で入力される想定
-    NSDate *nextTime = [self.source.last_execute_time dateByAddingTimeInterval:(intval * 3600)];    // TODO テストなんで分を秒に変換（本来は*3600)
+    NSDate *nextTime = [self.source.last_execute_time dateByAddingTimeInterval:(intval * 3600)];
     
     // 時間の判定
     NSLog(@"result:%ld, now:%@, next:%@",[now compare:nextTime], [now toString], [nextTime toString]);
@@ -81,6 +81,16 @@
     // 実行時間を更新
     self.source.last_execute_time = now;
     self.source.update_time = now;
+}
+
+/*
+ * ノート登録時間の更新
+ */
+-(void)updateLastAddedTime:(NSDate*)now{
+    // ノート登録時間を出力
+    NSLog(@"[Class:%@][PreviousAddedTime:%@][CurrentAddedTime:%@]", NSStringFromClass([self class]), [self.source.last_added_time toString], [now toString]);
+    // ノート登録時間を更新
+    self.source.last_added_time = now;
 }
 
 @end

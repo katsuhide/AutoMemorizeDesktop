@@ -122,13 +122,15 @@ const BOOL ENV = NO;
     source.status = [NSNumber numberWithInt:1];
     source.task_type = [NSNumber numberWithInt:[_taskViewController getTaskType]];
     source.interval = [_intervalField stringValue];
-    source.last_execute_time = [NSDate date];
     source.note_title = [_notetitleField stringValue];
     source.notebook_guid = [_notebookField stringValue];    // TODO GUIDに変換が必要
     source.tags = [_tagField stringValue];
     NSMutableString *params = [_taskViewController getParams];
     source.params = params;
-    source.update_time = [NSDate date];
+    NSDate *now = [NSDate date];
+    source.last_execute_time = now;
+    source.last_added_time = now;
+    source.update_time = now;
 
 //    source.task_type = [_taskTypeField stringValue];
 //    NSMutableString *params = [NSMutableString stringWithString:[source transformKeyValue:@"file_path" andValue:[_skypeDBFilePathField stringValue]]];
@@ -250,10 +252,11 @@ const BOOL ENV = NO;
 // EvernoteAPIのSessionを作成
 -(void)createEvernoteSession{
     // EvernoteAPIの設定情報
+//    NSString *EVERNOTE_HOST = BootstrapServerBaseURLStringUS;
     NSString *EVERNOTE_HOST = BootstrapServerBaseURLStringSandbox;
     NSString *CONSUMER_KEY = @"katzlifehack";
     NSString *CONSUMER_SECRET = @"9490d8896d0bb1a3";
-
+    
     [EvernoteSession setSharedSessionHost:EVERNOTE_HOST
                               consumerKey:CONSUMER_KEY
                            consumerSecret:CONSUMER_SECRET];

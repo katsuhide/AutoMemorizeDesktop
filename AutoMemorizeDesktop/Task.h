@@ -42,5 +42,10 @@
  */
 -(void)updateLastExecuteTime:(NSDate*)now;
 
-    
+/*
+ * ノート登録時間の更新
+ */
+-(void)updateLastAddedTime:(NSDate*)now;
+
+
 @end

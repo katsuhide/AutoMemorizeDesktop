@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSString * interval;
 @property (nonatomic, retain) NSDate * last_execute_time;
+@property (nonatomic, retain) NSDate * last_added_time;
 @property (nonatomic, retain) NSString * tags;
 @property (nonatomic, retain) NSString * note_title;
 @property (nonatomic, retain) NSString * notebook_guid;
