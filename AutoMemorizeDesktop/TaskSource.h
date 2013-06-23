@@ -24,6 +24,8 @@
 @property (nonatomic, retain) NSString * params;
 @property (nonatomic, retain) NSString * participants;
 @property (nonatomic, retain) NSDate * update_time;
+@property (retain) NSImage  *statusImage;
+@property (retain) NSImage  *typeImage;
 
 -(void)print;
 

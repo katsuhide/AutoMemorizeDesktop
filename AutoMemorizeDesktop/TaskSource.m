@@ -23,6 +23,8 @@
 @dynamic params;
 @dynamic participants;
 @dynamic update_time;
+@dynamic statusImage;
+@dynamic typeImage;
 
 -(void)print{
     NSLog(@"{\n"
@@ -83,6 +85,11 @@
     return [self.update_time toString];
 }
 
+-(NSString*)getLast_added_time{
+    return [self.last_added_time toString];
+}
+
+
 -(NSArray*)splitTags{
     return [self.tags componentsSeparatedByString:@","];
 }
@@ -115,6 +122,37 @@
     NSString *str = [dic objectForKey:key];
     return str;
     
+}
+
+/*
+ * タスクステータスに合った画像を出力
+ */
+-(NSImage*)getStatusImage{
+    NSString *file;
+    if(([self.status intValue] % 2) == 0){
+        file = [[NSBundle mainBundle] pathForResource:@"Play" ofType:@"tif"];
+    }else{
+        file = [[NSBundle mainBundle] pathForResource:@"Pause" ofType:@"tif"];
+    }
+    NSImage *image = [[NSImage alloc]initByReferencingFile:file];
+    return image;
+}
+
+/*
+ * タスクタイプに合った画像を出力
+ */
+-(NSImage*)getTypeImage{
+    NSString *file;
+    int type = [self.task_type intValue];
+    if(type == 0){
+        file = [[NSBundle mainBundle] pathForResource:@"skype" ofType:@"png"];
+    }else if(type == 1){
+        file = [[NSBundle mainBundle] pathForResource:@"documents_folder" ofType:@"png"];
+    }else{
+        
+    }
+    NSImage *image = [[NSImage alloc]initByReferencingFile:file];
+    return image;
 }
 
 @end
