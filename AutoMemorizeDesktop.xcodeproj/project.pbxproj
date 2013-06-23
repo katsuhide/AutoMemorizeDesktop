@@ -23,6 +23,14 @@
 		425A6545175A7077002DE6AF /* TaskForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6542175A7077002DE6AF /* TaskForFile.m */; };
 		425A6546175A7077002DE6AF /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6543175A7077002DE6AF /* Task.m */; };
 		42860F90175B779C00F68B03 /* NSDate+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 42860F8F175B779C00F68B03 /* NSDate+Util.m */; };
+		428615AF177771390028C38A /* Block.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615A8177771390028C38A /* Block.tif */; };
+		428615B0177771390028C38A /* documents_folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 428615A9177771390028C38A /* documents_folder.png */; };
+		428615B1177771390028C38A /* Info.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615AA177771390028C38A /* Info.tif */; };
+		428615B2177771390028C38A /* Pause.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615AB177771390028C38A /* Pause.tif */; };
+		428615B3177771390028C38A /* Play.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615AC177771390028C38A /* Play.tif */; };
+		428615B4177771390028C38A /* Plus.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615AD177771390028C38A /* Plus.tif */; };
+		428615B5177771390028C38A /* skype.png in Resources */ = {isa = PBXBuildFile; fileRef = 428615AE177771390028C38A /* skype.png */; };
+		428615B7177777860028C38A /* Last.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615B6177777860028C38A /* Last.tif */; };
 		42CA7461175A7119002D469E /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA7458175A7119002D469E /* FMDatabase.m */; };
 		42CA7462175A7119002D469E /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA745A175A7119002D469E /* FMDatabaseAdditions.m */; };
 		42CA7463175A7119002D469E /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA745C175A7119002D469E /* FMDatabasePool.m */; };
@@ -122,6 +130,14 @@
 		425A6543175A7077002DE6AF /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 		42860F8E175B779C00F68B03 /* NSDate+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Util.h"; sourceTree = "<group>"; };
 		42860F8F175B779C00F68B03 /* NSDate+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Util.m"; sourceTree = "<group>"; };
+		428615A8177771390028C38A /* Block.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Block.tif; sourceTree = "<group>"; };
+		428615A9177771390028C38A /* documents_folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = documents_folder.png; sourceTree = "<group>"; };
+		428615AA177771390028C38A /* Info.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Info.tif; sourceTree = "<group>"; };
+		428615AB177771390028C38A /* Pause.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Pause.tif; sourceTree = "<group>"; };
+		428615AC177771390028C38A /* Play.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Play.tif; sourceTree = "<group>"; };
+		428615AD177771390028C38A /* Plus.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Plus.tif; sourceTree = "<group>"; };
+		428615AE177771390028C38A /* skype.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skype.png; sourceTree = "<group>"; };
+		428615B6177777860028C38A /* Last.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Last.tif; sourceTree = "<group>"; };
 		42CA7457175A7119002D469E /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		42CA7458175A7119002D469E /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		42CA7459175A7119002D469E /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -215,6 +231,7 @@
 		425A6500175A6DFF002DE6AF /* AutoMemorizeDesktop */ = {
 			isa = PBXGroup;
 			children = (
+				428615A3177770720028C38A /* Resource */,
 				4211CC0B176CC215000B566B /* Evernote */,
 				42F78063176C23B000CC3E7A /* View */,
 				42368B33175CDCAA0098CFB3 /* Model */,
@@ -291,6 +308,21 @@
 				42860F8F175B779C00F68B03 /* NSDate+Util.m */,
 			);
 			name = Util;
+			sourceTree = "<group>";
+		};
+		428615A3177770720028C38A /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				428615A8177771390028C38A /* Block.tif */,
+				428615B6177777860028C38A /* Last.tif */,
+				428615A9177771390028C38A /* documents_folder.png */,
+				428615AA177771390028C38A /* Info.tif */,
+				428615AB177771390028C38A /* Pause.tif */,
+				428615AC177771390028C38A /* Play.tif */,
+				428615AD177771390028C38A /* Plus.tif */,
+				428615AE177771390028C38A /* skype.png */,
+			);
+			name = Resource;
 			sourceTree = "<group>";
 		};
 		42F78063176C23B000CC3E7A /* View */ = {
@@ -410,6 +442,14 @@
 				425A6511175A6E00002DE6AF /* MainMenu.xib in Resources */,
 				42F7806C176C23B900CC3E7A /* SkypeViewController.xib in Resources */,
 				42F78071176C84BC00CC3E7A /* FileViewController.xib in Resources */,
+				428615AF177771390028C38A /* Block.tif in Resources */,
+				428615B0177771390028C38A /* documents_folder.png in Resources */,
+				428615B1177771390028C38A /* Info.tif in Resources */,
+				428615B2177771390028C38A /* Pause.tif in Resources */,
+				428615B3177771390028C38A /* Play.tif in Resources */,
+				428615B4177771390028C38A /* Plus.tif in Resources */,
+				428615B5177771390028C38A /* skype.png in Resources */,
+				428615B7177777860028C38A /* Last.tif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

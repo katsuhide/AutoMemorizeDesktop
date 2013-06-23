@@ -21,6 +21,9 @@ const BOOL ENV = NO;
 // Insert code here to initialize your application
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    // test method
+//    [self testMethod];
+    
     // ログ出力
     if(ENV){
         freopen([@"/tmp/xcode.log" fileSystemRepresentation], "w+", stderr);
@@ -37,11 +40,42 @@ const BOOL ENV = NO;
     // ArrayControllerとmanagedObjectContextの紐付け
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
     
-    // Table Viewの初期化
-    [self initializeTableView];
+    // Main画面を初期化
+    [self initialize];
     
     // メインスレッドのポーリングを開始
-    [self run];
+//    [self run];
+}
+
+-(void)testMethod{
+    
+    // 正規表現検索
+//    NSString *string = @"red. blue. <ss type> yellow. green. blue. </ss> black. white.<ss type> hoge </ss>aaaa";
+    NSString *string = @"hahaha <ss type=\"cool\">(cool)</ss></span></p><p style=><span style=>Katz Lifehack : 2013-06-18 02:56:45</span><br/><span>???</span></p><p><span style=>Yota Sato : 2013-06-18 09:31:15</span><br/><span>7月に小野田さんと飲みにでも行\343\201\215ません？";
+    NSError *error   = nil;
+    NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:@"<ss type.+?</ss>" options:0 error:&error];
+    
+    if (error != nil) {
+        NSLog(@"%@", error);
+    } else {
+        NSArray *matchs = [regexp matchesInString:string options:0 range:NSMakeRange(0, string.length)];
+        for(NSTextCheckingResult *match in matchs){
+            int count = (int)match.numberOfRanges;
+            for(int i = 0; i < count; i++){
+                NSLog(@"%@", [string substringWithRange:[match rangeAtIndex:i]]);
+            }
+            
+        }
+    }
+    
+    // 正規表現検索置換
+    NSString *template = @"";   // 置換後文字列
+    NSString *replaced = [regexp stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0,string.length) withTemplate:template];
+    NSLog(@"%@",string);
+    NSLog(@"%@",replaced);
+    
+    
+    exit(0);
 }
 
 /*
@@ -95,16 +129,49 @@ const BOOL ENV = NO;
 }
 
 /*
+ * メインスレッドのポーリング処理を実行もしくは停止
+ */
+-(IBAction)startAndStop:(id)sender{
+    // 実行もしくは停止
+    if(_statusFlag){
+        // Status:true -> 停止命令
+        [self stop];
+        _statusFlag = false;
+    }else{
+        // Status:false -> 起動命令
+        [self start];
+        _statusFlag = true;
+    }
+    
+    // StatusButtonを切り替える
+    [self changeStatusBtn];
+    
+}
+
+// StatusBtnを切り替える
+-(void)changeStatusBtn{
+    NSString *imagePath;
+    if(_statusFlag){
+        imagePath = [[NSBundle mainBundle] pathForResource:@"Play" ofType:@"tif"];
+    }else{
+        imagePath = [[NSBundle mainBundle] pathForResource:@"Pause" ofType:@"tif"];
+    }
+    NSImage *statusBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_statusBtn setImage:statusBtnImage];
+    
+}
+
+/*
  * メインスレッドのポーリング処理を再実行
  */
--(IBAction)start:(id)sender{
+-(void)start{
     [self run];
 }
 
 /*
  * メインスレッドのポーリング処理を停止
  */
--(IBAction)stop:(id)sender{
+-(void)stop{
     for(NSTimer *timer in _taskQueue){
         [timer invalidate];
         NSLog(@"Task has been stopped.");
@@ -161,6 +228,41 @@ const BOOL ENV = NO;
     NSLog(@"Close the TaskView");
 //    [self initializedTaskView];
     [_taskView close];
+}
+
+/*
+ * Main画面を初期化
+ */
+-(void)initialize{
+    NSString *imagePath;
+    // Status Button
+    _statusFlag = false;    // 起動時はfalseで
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Last" ofType:@"tif"];
+    NSImage *statusBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_statusBtn setImage:statusBtnImage];
+    [_statusBtn setBordered:NO];
+    
+    // Info Button
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"tif"];
+    NSImage *infoBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_infoBtn setImage:infoBtnImage];
+    [_infoBtn setBordered:NO];
+    
+    // Register Button
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Plus" ofType:@"tif"];
+    NSImage *registerBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_registerBtn setImage:registerBtnImage];
+    [_registerBtn setBordered:NO];
+    
+    // Delete Button
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Block" ofType:@"tif"];
+    NSImage *deleteBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_deleteBtn setImage:deleteBtnImage];
+    [_deleteBtn setBordered:NO];
+    
+    // Table Viewの初期化
+    [self initializeTableView];
+
 }
 
 /*

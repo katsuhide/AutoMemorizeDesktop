@@ -96,21 +96,31 @@
     int count = 0;
     NSMutableString *body = [NSMutableString string];
     for(NSDictionary *dic in result){
+        // ENMLに対応していないタグを除去
+        NSString *string = [dic objectForKey:@"body"];  // 対象
+        NSString *pattern = @"<ss type.+?</ss>";   // 検索条件
+        NSString *template = @"";   // 置換後文字列
+        NSError *error   = nil;
+        NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+        NSString *replaced = [regexp stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0,string.length) withTemplate:template];
+        
+        // 奇数、偶数でスタイルを変えてbodyを構成
         if(count % 2 == 0){
             [body appendString:[NSString stringWithFormat:@"<p style=\"background-color:#EBF2FF\">"
                     "<span style=\"color:#849A9A;font-size:80%%\">%@ : %@</span><br/>"
                     "<span>%@</span></p>",
-                    [dic objectForKey:@"name"], [dic objectForKey:@"datetime"], [dic objectForKey:@"body"]]];
+                    [dic objectForKey:@"name"], [dic objectForKey:@"datetime"], replaced]];
         }else {
             [body appendString:[NSString stringWithFormat:@"<p>"
                     "<span style=\"color:#849A9A;font-size:80%%\">%@ : %@</span><br/>"
                     "<span>%@</span></p>",
-                    [dic objectForKey:@"name"], [dic objectForKey:@"datetime"], [dic objectForKey:@"body"]]];
+                    [dic objectForKey:@"name"], [dic objectForKey:@"datetime"], replaced]];
         }
         count++;
         
     }
-    
+
+    // ENMLのテンプレートにbodyを追加する
     NSString *noteContent = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
                              "<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">"
                              "<en-note>"

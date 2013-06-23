@@ -33,6 +33,14 @@ extern const BOOL ENV;
 @property (assign) IBOutlet NSPanel *taskView;
 @property (assign) IBOutlet TaskViewController *taskViewController;
 
+// Button
+@property (assign) IBOutlet NSButton *statusBtn;
+@property (assign) IBOutlet NSButton *infoBtn;
+@property (assign) IBOutlet NSButton *registerBtn;
+@property (assign) IBOutlet NSButton *deleteBtn;
+@property (assign) BOOL statusFlag;
+
+
 // Main Thread
 #define INTERVAL 60  // 秒
 
