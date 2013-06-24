@@ -61,7 +61,7 @@
     
     // SkypeのMessageを取得
     NSMutableArray *result = [self getSkypeMessages:sql];
-    NSLog(@"sql:%@, result:%@", sql, result);
+//    NSLog(@"sql:%@, result:%@", sql, result);         // logが肥大化するためコメントアウト
     
     // Messageが空であった場合はノートは作成しない
     if([result count] == 0){
@@ -87,10 +87,11 @@
     NSMutableArray *tagNames = [NSMutableArray arrayWithArray:[self.source splitTags]];
     
     // Notebookの指定
-    //    NSString* parentNotebookGUID;
-    //    if(parentNotebook) {
-    //        parentNotebookGUID = parentNotebook.guid;
-    //    }
+    NSString *notebookGUID = self.source.notebook_guid;
+    AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+    if(![appDelegate isExistNotebook:notebookGUID]){
+        notebookGUID = nil;
+    }
     
     // ENMLの作成
     int count = 0;
@@ -130,7 +131,7 @@
     NSLog(@"body:\n%@", noteContent);
     
     // NOTEを登録
-    EDAMNote* note = [[EDAMNote alloc] initWithGuid:nil title:noteTitle content:noteContent contentHash:nil contentLength:(int)noteContent.length created:0 updated:0 deleted:0 active:YES updateSequenceNum:0 notebookGuid:nil tagGuids:nil resources:nil attributes:nil tagNames:tagNames];
+    EDAMNote* note = [[EDAMNote alloc] initWithGuid:nil title:noteTitle content:noteContent contentHash:nil contentLength:(int)noteContent.length created:0 updated:0 deleted:0 active:YES updateSequenceNum:0 notebookGuid:notebookGUID tagGuids:nil resources:nil attributes:nil tagNames:tagNames];
     
     return note;
 }

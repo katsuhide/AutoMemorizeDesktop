@@ -44,5 +44,16 @@
     return [NSString stringWithFormat:@"%@=%@|", key, value];
 }
 
+-(void)changeCustomTaskView:(BOOL)isEditable andData:(TaskSource*)source{
+    // 指定されたモードに設定
+    [_targetFilePathField setEditable:isEditable];
+    [_fileExtensionField setEditable:isEditable];
+    
+    // データを設定もしくは初期化
+    [_targetFilePathField setStringValue:[source getKeyValue:@"file_path"]];
+    [_fileExtensionField setStringValue:[source getKeyValue:@"extension"]];
+    
+}
+
 
 @end

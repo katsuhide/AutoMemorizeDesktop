@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "TaskSource.h"
 
 @interface SkypeViewController : NSViewController
 @property (assign) IBOutlet NSTextField *skypeDBFilePathField;
@@ -17,5 +18,7 @@
 -(NSString*)getParticipantsField;
 
 -(NSMutableString*)getParams;
+
+-(void)changeCustomTaskView:(BOOL)isEditable andData:(TaskSource*)source;
 
 @end

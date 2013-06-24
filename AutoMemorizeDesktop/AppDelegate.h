@@ -30,7 +30,7 @@ extern const BOOL ENV;
 
 // View
 @property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSPanel *taskView;
+@property (strong) IBOutlet NSPanel *taskView;
 @property (assign) IBOutlet TaskViewController *taskViewController;
 
 // Button
@@ -38,12 +38,12 @@ extern const BOOL ENV;
 @property (assign) IBOutlet NSButton *infoBtn;
 @property (assign) IBOutlet NSButton *registerBtn;
 @property (assign) IBOutlet NSButton *deleteBtn;
+@property (assign) IBOutlet NSButton *registerOKBtn;
 @property (assign) BOOL statusFlag;
 
 
 // Main Thread
 #define INTERVAL 60  // 秒
-
 @property (retain) NSMutableArray *taskQueue;
 
 // Task Panle
@@ -53,6 +53,7 @@ extern const BOOL ENV;
 @property (assign) IBOutlet NSComboBox *notebookField;
 @property (assign) IBOutlet NSTokenField *tagField;
 
+@property (strong) NSMutableArray *notebookList;
 
 /*
  * EvernoteにNOTEを新規保存する処理を実行する
@@ -61,5 +62,10 @@ extern const BOOL ENV;
 
 // Save
 -(void)save;
+
+/*
+ * 指定されたGUIDのNotebookが存在するかをチェックする
+ */
+-(BOOL)isExistNotebook:(NSString*)guid;
 
 @end

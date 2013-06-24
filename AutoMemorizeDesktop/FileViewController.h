@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "TaskSource.h"
 
 @interface FileViewController : NSViewController
 
@@ -18,5 +19,7 @@
 -(NSString*)getFileExtensionField;
 
 -(NSMutableString*)getParams;
+
+-(void)changeCustomTaskView:(BOOL)isEditable andData:(TaskSource*)source;
 
 @end

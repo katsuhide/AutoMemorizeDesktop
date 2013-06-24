@@ -21,10 +21,10 @@
 @dynamic note_title;
 @dynamic notebook_guid;
 @dynamic params;
-@dynamic participants;
 @dynamic update_time;
 @dynamic statusImage;
 @dynamic typeImage;
+@dynamic noteBook;
 
 -(void)print{
     NSLog(@"{\n"
@@ -129,10 +129,10 @@
  */
 -(NSImage*)getStatusImage{
     NSString *file;
-    if(([self.status intValue] % 2) == 0){
-        file = [[NSBundle mainBundle] pathForResource:@"Play" ofType:@"tif"];
-    }else{
+    if([self.status intValue] == 0){
         file = [[NSBundle mainBundle] pathForResource:@"Pause" ofType:@"tif"];
+    }else{
+        file = [[NSBundle mainBundle] pathForResource:@"Play" ofType:@"tif"];
     }
     NSImage *image = [[NSImage alloc]initByReferencingFile:file];
     return image;

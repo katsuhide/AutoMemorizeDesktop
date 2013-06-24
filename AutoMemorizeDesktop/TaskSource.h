@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "NSDate+Util.h"
+#import <EvernoteSDK-Mac/EvernoteSDK.h>
 
 @interface TaskSource : NSManagedObject
 
+// save to DB
 @property (nonatomic, retain) NSString * task_name;
 @property (nonatomic, retain) NSNumber * task_type;
 @property (nonatomic, retain) NSNumber * status;
@@ -22,10 +24,12 @@
 @property (nonatomic, retain) NSString * note_title;
 @property (nonatomic, retain) NSString * notebook_guid;
 @property (nonatomic, retain) NSString * params;
-@property (nonatomic, retain) NSString * participants;
 @property (nonatomic, retain) NSDate * update_time;
-@property (retain) NSImage  *statusImage;
-@property (retain) NSImage  *typeImage;
+
+// not save to DB
+@property (assign) NSImage  *statusImage;
+@property (assign) NSImage  *typeImage;
+@property (assign) EDAMNotebook *noteBook;
 
 -(void)print;
 

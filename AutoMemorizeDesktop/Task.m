@@ -25,7 +25,7 @@
 - (BOOL)check:(NSDate*)now {
     // Task StatusがOFFならskipする
     if([self.source.status intValue] == 0){
-        NSLog(@"The status of the %@ is OFF.", self.source.task_name);
+        NSLog(@"[TaskName:%@]The status is OFF.", self.source.task_name);
         return NO;
     }
 
@@ -34,10 +34,11 @@
     NSDate *nextTime = [self.source.last_execute_time dateByAddingTimeInterval:(intval * 3600)];
     
     // 時間の判定
-    NSLog(@"result:%ld, now:%@, next:%@",[now compare:nextTime], [now toString], [nextTime toString]);
     if([now compare:nextTime] < 0){
+        NSLog(@"[TaskName:%@]Disable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
         return NO;
     }else{
+        NSLog(@"[TaskName:%@]Enable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
         return YES;
     }
 

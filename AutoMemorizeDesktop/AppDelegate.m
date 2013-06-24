@@ -28,7 +28,7 @@ const BOOL ENV = NO;
     if(ENV){
         freopen([@"/tmp/xcode.log" fileSystemRepresentation], "w+", stderr);
     }
-    
+
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
     NSError *error = nil;
@@ -39,41 +39,24 @@ const BOOL ENV = NO;
     
     // ArrayControllerとmanagedObjectContextの紐付け
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
+
+    // Evernoteへログイン
+    [self doAuthorize:nil];
+
+    // Notebookの一覧を取得
+    [self getNotebookList];
     
     // Main画面を初期化
     [self initialize];
-    
+
     // メインスレッドのポーリングを開始
 //    [self run];
 }
 
 -(void)testMethod{
-    
-    // 正規表現検索
-//    NSString *string = @"red. blue. <ss type> yellow. green. blue. </ss> black. white.<ss type> hoge </ss>aaaa";
-    NSString *string = @"hahaha <ss type=\"cool\">(cool)</ss></span></p><p style=><span style=>Katz Lifehack : 2013-06-18 02:56:45</span><br/><span>???</span></p><p><span style=>Yota Sato : 2013-06-18 09:31:15</span><br/><span>7月に小野田さんと飲みにでも行\343\201\215ません？";
-    NSError *error   = nil;
-    NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:@"<ss type.+?</ss>" options:0 error:&error];
-    
-    if (error != nil) {
-        NSLog(@"%@", error);
-    } else {
-        NSArray *matchs = [regexp matchesInString:string options:0 range:NSMakeRange(0, string.length)];
-        for(NSTextCheckingResult *match in matchs){
-            int count = (int)match.numberOfRanges;
-            for(int i = 0; i < count; i++){
-                NSLog(@"%@", [string substringWithRange:[match rangeAtIndex:i]]);
-            }
-            
-        }
-    }
-    
-    // 正規表現検索置換
-    NSString *template = @"";   // 置換後文字列
-    NSString *replaced = [regexp stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0,string.length) withTemplate:template];
-    NSLog(@"%@",string);
-    NSLog(@"%@",replaced);
-    
+    NSLog(@"testMethod");
+//    [self doLogoutOAuth:nil];
+//    [self doAuthorize:nil];
     
     exit(0);
 }
@@ -95,17 +78,17 @@ const BOOL ENV = NO;
         switch (taskType) {
             case 0:
                 // Skype Task
-                NSLog(@"Skype Task created");
+                NSLog(@"Skype Task created.[TaskName:%@]", source.task_name);
                 task = [[TaskForSkype alloc]initWithTaskSource:source];
                 break;
             case 1:
                 // File Task
-                NSLog(@"File Task Created.");
+                NSLog(@"File Task Created.[TaskName:%@]", source.task_name);
                 task = [[TaskForFile alloc]initWithTaskSource:source];
                 break;
             default:
                 // Other Task
-                NSLog(@"Other Task Created.");
+                NSLog(@"Other Task Created.[TaskName:%@]", source.task_name);
                 task = [[Task alloc]initWithTaskSource:source];
                 break;
         }
@@ -143,23 +126,8 @@ const BOOL ENV = NO;
         _statusFlag = true;
     }
     
-    // StatusButtonを切り替える
-    [self changeStatusBtn];
-    
 }
 
-// StatusBtnを切り替える
--(void)changeStatusBtn{
-    NSString *imagePath;
-    if(_statusFlag){
-        imagePath = [[NSBundle mainBundle] pathForResource:@"Play" ofType:@"tif"];
-    }else{
-        imagePath = [[NSBundle mainBundle] pathForResource:@"Pause" ofType:@"tif"];
-    }
-    NSImage *statusBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
-    [_statusBtn setImage:statusBtnImage];
-    
-}
 
 /*
  * メインスレッドのポーリング処理を再実行
@@ -190,7 +158,16 @@ const BOOL ENV = NO;
     source.task_type = [NSNumber numberWithInt:[_taskViewController getTaskType]];
     source.interval = [_intervalField stringValue];
     source.note_title = [_notetitleField stringValue];
-    source.notebook_guid = [_notebookField stringValue];    // TODO GUIDに変換が必要
+    
+    NSString *notebookName = [_notebookField stringValue];
+    NSString *guid = @"";
+    for(NSDictionary *notebook in _notebookList){
+        if([notebookName isEqualToString:[notebook objectForKey:@"name"]]){
+            guid = [notebook objectForKey:@"guid"];
+        }
+    }
+    source.notebook_guid = guid;
+
     source.tags = [_tagField stringValue];
     NSMutableString *params = [_taskViewController getParams];
     source.params = params;
@@ -198,10 +175,6 @@ const BOOL ENV = NO;
     source.last_execute_time = now;
     source.last_added_time = now;
     source.update_time = now;
-
-//    source.task_type = [_taskTypeField stringValue];
-//    NSMutableString *params = [NSMutableString stringWithString:[source transformKeyValue:@"file_path" andValue:[_skypeDBFilePathField stringValue]]];
-//    [params appendString:[source transformKeyValue:@"participants" andValue:[_participantsField stringValue]]];
     
     // Taskを保存
     [self save];
@@ -226,7 +199,6 @@ const BOOL ENV = NO;
  */
 -(void)closeTaskView{
     NSLog(@"Close the TaskView");
-//    [self initializedTaskView];
     [_taskView close];
 }
 
@@ -270,17 +242,55 @@ const BOOL ENV = NO;
  */
 -(void)initializedTaskView{
     // 共通部分のアイテムを初期化
-    [_taskNameField setObjectValue:nil];
-//    [_taskTypeField setObjectValue:nil];
-    [_intervalField setObjectValue:nil];
-    [_notetitleField setObjectValue:nil];
-    [_notebookField setObjectValue:nil];
-    [_tagField setObjectValue:nil];
-    
+    [self changeTaskView:YES andData:nil];
     // 拡張部分のアイテムを初期化
     [_taskViewController initializedTaskView];
     
 }
+
+/*
+ * 選択されたTaskの情報を表示してTaskViewを開く(すべてDisableにする）
+ */
+-(void)viewTaskView:(TaskSource*)source{
+    // 共通部分のアイテムを初期化
+    [self changeTaskView:NO andData:source];
+    // 拡張部分のアイテムを初期化
+    [_taskViewController viewTaskView:source];
+
+}
+
+-(void)changeTaskView:(BOOL)isEditable andData:(TaskSource*)source{
+    // 指定されたモードに設定
+    [_taskNameField setEditable:isEditable];
+    [_intervalField setEditable:isEditable];
+    [_notetitleField setEditable:isEditable];
+    [_notebookField setEnabled:isEditable];
+    [_notebookField setSelectable:YES];
+    [_tagField setEditable:isEditable];
+    [_registerOKBtn setHidden:!isEditable];
+    
+    // データを設定もしくは初期化
+    if(isEditable){
+        // 登録モード
+        [_taskNameField setObjectValue:nil];
+        [_intervalField setObjectValue:nil];
+        [_notetitleField setObjectValue:nil];
+        [_notebookField setObjectValue:nil];   // 一度空にする
+        for(NSDictionary *notebook in _notebookList){
+            [_notebookField addItemWithObjectValue:[notebook objectForKey:@"name"]];
+        }
+        [_tagField setObjectValue:nil];
+    }else{
+        // 参照モード
+        [_taskNameField setObjectValue:source.task_name];
+        [_intervalField setObjectValue:source.interval];
+        [_notetitleField setObjectValue:source.note_title];
+        [_notebookField setObjectValue:[self transformGuidToName:source.notebook_guid]];
+        [_tagField setObjectValue:source.tags];
+    }
+
+}
+
 
 /*
  * TaskTableViewを初期化を実行する
@@ -298,6 +308,24 @@ const BOOL ENV = NO;
     [_taskArrayController setContent:objects];
     
 }
+
+/*
+ * 選択されたタスクの詳細情報を表示する
+ */
+-(IBAction)viewDetails:(id)sender{
+    // 選択されたindexを取得する
+    NSInteger row = [_taskTable selectedRow];
+    
+    if((int)row != -1){
+        NSLog(@"View the details of Task:%ld", row);
+        // 選択されたタスクのデータを表示する
+        [_taskArrayController setSelectionIndex:row];
+        NSArray *array = [_taskArrayController selectedObjects];
+        [self viewTaskView:[array objectAtIndex:0]];
+        [_taskView makeKeyAndOrderFront:sender];
+    }
+}
+
 
 /*
  * 選択されたタスクを削除する
@@ -370,6 +398,51 @@ const BOOL ENV = NO;
  */
 -(IBAction)doLogoutOAuth:(id)sender{
     [[EvernoteSession sharedSession] logout];
+}
+
+/*
+ * Notebookのリストを取得
+ */
+-(void)getNotebookList{
+    _notebookList = [[NSMutableArray alloc]init];
+    EvernoteNoteStore *noteStore = [EvernoteNoteStore noteStore];
+    [noteStore listNotebooksWithSuccess:^(NSArray *notebooks) {
+        for(EDAMNotebook *notebook in notebooks){
+            NSString *guid = [NSString stringWithString:notebook.guid];
+            NSString *name = [NSString stringWithString:notebook.name];
+            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 guid, @"guid",
+                                 name, @"name",nil];
+            [_notebookList addObject:dic];
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"Couldn't get the notebook list.[%@[", error);
+    }];
+}
+
+/*
+ * 指定されたGUIDのNotebookが存在するかをチェックする
+ */
+-(BOOL)isExistNotebook:(NSString*)guid{
+    for(NSDictionary *notebook in _notebookList){
+        if([guid isEqualToString:[notebook objectForKey:@"guid"]]){
+            return YES;
+        }
+    }
+    return NO;
+}
+
+/*
+ * GUIDからNotebookNameに変換する
+ */
+-(NSString*)transformGuidToName:(NSString*)guid{
+    NSString *notebookName = @"";
+    for(NSDictionary *notebook in _notebookList){
+        if([guid isEqualToString:[notebook objectForKey:@"guid"]]){
+            notebookName = [notebook objectForKey:@"name"];
+        }
+    }
+    return notebookName;
 }
 
 
@@ -613,8 +686,17 @@ const BOOL ENV = NO;
     }
 }
 
--(IBAction)testMethod:(id)sender{
-    NSLog(@"test method");
+// StatusBtnを切り替える
+-(void)changeStatusBtn{
+    NSString *imagePath;
+    if(_statusFlag){
+        imagePath = [[NSBundle mainBundle] pathForResource:@"Play" ofType:@"tif"];
+    }else{
+        imagePath = [[NSBundle mainBundle] pathForResource:@"Pause" ofType:@"tif"];
+    }
+    NSImage *statusBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_statusBtn setImage:statusBtnImage];
+    
 }
 
 @end
