@@ -30,6 +30,7 @@ extern const BOOL ENV;
 
 // View
 @property (assign) IBOutlet NSWindow *window;
+@property (strong) IBOutlet NSPanel *preWindow;
 @property (strong) IBOutlet NSPanel *taskView;
 @property (assign) IBOutlet TaskViewController *taskViewController;
 
@@ -39,6 +40,7 @@ extern const BOOL ENV;
 @property (assign) IBOutlet NSButton *registerBtn;
 @property (assign) IBOutlet NSButton *deleteBtn;
 @property (assign) IBOutlet NSButton *registerOKBtn;
+@property (assign) IBOutlet NSButton *signInOrOutBtn;
 @property (assign) BOOL statusFlag;
 
 
@@ -52,6 +54,8 @@ extern const BOOL ENV;
 @property (assign) IBOutlet NSTextField *notetitleField;
 @property (assign) IBOutlet NSComboBox *notebookField;
 @property (assign) IBOutlet NSTokenField *tagField;
+
+@property (assign) IBOutlet NSTextField *userNameLabel;
 
 @property (strong) NSMutableArray *notebookList;
 

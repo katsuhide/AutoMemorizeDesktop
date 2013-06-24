@@ -50,10 +50,13 @@
     [_fileExtensionField setEditable:isEditable];
     
     // データを設定もしくは初期化
-    [_targetFilePathField setStringValue:[source getKeyValue:@"file_path"]];
-    [_fileExtensionField setStringValue:[source getKeyValue:@"extension"]];
-    
+    if(isEditable){
+        [_targetFilePathField setStringValue:nil];
+        [_fileExtensionField setStringValue:nil];
+    }else{
+        [_targetFilePathField setStringValue:[source getKeyValue:@"file_path"]];
+        [_fileExtensionField setStringValue:[source getKeyValue:@"extension"]];
+    }
 }
-
 
 @end

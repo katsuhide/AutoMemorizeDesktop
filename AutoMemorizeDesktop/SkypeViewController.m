@@ -50,8 +50,14 @@
     [_participantsField setEditable:isEditable];
     
     // データを設定もしくは初期化
-    [_skypeDBFilePathField setStringValue:[source getKeyValue:@"file_path"]];
-    [_participantsField setStringValue:[source getKeyValue:@"participants"]];
+    if(isEditable){
+        [_skypeDBFilePathField setStringValue:nil];
+        [_participantsField setStringValue:nil];
+        
+    }else{
+        [_skypeDBFilePathField setStringValue:[source getKeyValue:@"file_path"]];
+        [_participantsField setStringValue:[source getKeyValue:@"participants"]];
+    }
     
 }
 

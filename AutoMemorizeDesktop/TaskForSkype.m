@@ -143,7 +143,7 @@
 - (NSMutableArray*)getSkypeMessages:(NSString*)sql{
     // DB設定情報
     NSString *databasePath = [self.source getKeyValue:@"file_path"];
-    FMDatabase *db  = [FMDatabase databaseWithPath:databasePath];
+    FMDatabase *db  = [FMDatabase databaseWithPath:[databasePath stringByExpandingTildeInPath]];
     
     // Open DB
     [db open];

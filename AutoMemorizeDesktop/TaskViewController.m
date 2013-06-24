@@ -37,14 +37,11 @@ NSString *const fileViewName = @"FileViewController";
         case 0:
             // Skype View
             self.taskViewController = [[SkypeViewController alloc]initWithNibName:skypeViewName bundle:nil];
-            [(SkypeViewController*)self.taskViewController changeCustomTaskView:NO andData:nil];
             break;
         case 1:
             // File View
             self.taskViewController = [[FileViewController alloc]initWithNibName:fileViewName bundle:nil];
-            [(FileViewController*)self.taskViewController changeCustomTaskView:NO andData:nil];
             break;
-            
         default:
             // Other（表示しない）
             flag = FALSE;
@@ -67,9 +64,6 @@ NSString *const fileViewName = @"FileViewController";
     NSLog(@"initializedTaskView ExtedsParts");
     // アイテムを初期化
     [self changeTaskView:YES andData:nil];
-//    [_taskTypeBtn selectItemAtIndex:0];
-//    [_taskTypeField selectItemAtIndex:0];
-    
     // Viewを初期化
     [self changeViewImpl];
 }
@@ -97,10 +91,21 @@ NSString *const fileViewName = @"FileViewController";
 }
 
 -(void)changeCustomTaskView:(BOOL)isEditable andData:(TaskSource*)source{
-    // TODO 分岐
-    [(SkypeViewController*)self.taskViewController changeCustomTaskView:NO andData:source];
-//    [(FileViewController*)self.taskViewController changeCustomTaskView:NO andData:source];
-
+    // 選択されているTaskTypeを取得
+    int taskType = (int)[_taskTypeField indexOfSelectedItem];
+    switch (taskType) {
+        case 0:
+            // Skype View
+            [(SkypeViewController*)self.taskViewController changeCustomTaskView:isEditable andData:source];
+            break;
+        case 1:
+            // File View
+            [(FileViewController*)self.taskViewController changeCustomTaskView:isEditable andData:source];
+            break;
+        default:
+            // Other（表示しない）
+            break;
+    }
 }
 
 
@@ -132,8 +137,6 @@ NSString *const fileViewName = @"FileViewController";
  */
 -(int)getTaskType{
     return (int)[_taskTypeField indexOfSelectedItem];
-//    return [NSString stringWithFormat:@"%ld",[_taskTypeField indexOfSelectedItem]];
-//    return [NSString stringWithFormat:@"%ld",(long)[_taskTypeBtn indexOfSelectedItem]];
 }
 
 

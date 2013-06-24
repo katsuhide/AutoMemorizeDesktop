@@ -22,7 +22,7 @@ const BOOL ENV = NO;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // test method
-//    [self testMethod];
+    [self testMethod:nil];
     
     // ログ出力
     if(ENV){
@@ -53,12 +53,23 @@ const BOOL ENV = NO;
 //    [self run];
 }
 
--(void)testMethod{
+-(IBAction)testMethod:(id)sender{
     NSLog(@"testMethod");
-//    [self doLogoutOAuth:nil];
-//    [self doAuthorize:nil];
-    
-    exit(0);
+    EvernoteSession *session = [EvernoteSession sharedSession];
+    if(session.isAuthenticated){
+        NSLog(@"login ok");
+         EvernoteUserStore *uStore = [EvernoteUserStore userStore];
+        [uStore getUserWithSuccess:^(EDAMUser *user){
+            NSLog(@"%@", user.username);
+        } failure:^(NSError *error) {
+            NSLog(@"Error : %@",error);
+        }];
+
+    }else{
+        NSLog(@"login ng");
+    }
+
+//    exit(0);
 }
 
 /*
@@ -184,6 +195,15 @@ const BOOL ENV = NO;
     [self closeTaskView];
 }
 
+
+/*
+ * PreferencesViewを開く
+ */
+-(IBAction)opnePreferences:(id)sender{
+    [_preWindow makeKeyAndOrderFront:sender];
+
+}
+
 /*
  * TaskViewを開く
  */
@@ -272,6 +292,7 @@ const BOOL ENV = NO;
     // データを設定もしくは初期化
     if(isEditable){
         // 登録モード
+        [_taskView setTitle:@"New Task"];
         [_taskNameField setObjectValue:nil];
         [_intervalField setObjectValue:nil];
         [_notetitleField setObjectValue:nil];
@@ -282,6 +303,7 @@ const BOOL ENV = NO;
         [_tagField setObjectValue:nil];
     }else{
         // 参照モード
+        [_taskView setTitle:@"View Task"];
         [_taskNameField setObjectValue:source.task_name];
         [_intervalField setObjectValue:source.interval];
         [_notetitleField setObjectValue:source.note_title];
@@ -399,6 +421,24 @@ const BOOL ENV = NO;
 -(IBAction)doLogoutOAuth:(id)sender{
     [[EvernoteSession sharedSession] logout];
 }
+
+/*
+ * Evernote SignIn or SignOut
+ */
+-(IBAction)doSignInOrOut:(id)sender{
+    EvernoteSession *session = [EvernoteSession sharedSession];
+    if(session.isAuthenticated){
+        // SignOut処理
+        [self doLogoutOAuth:nil];
+        
+        
+    }else{
+        // SignIn処理
+    }
+
+    
+}
+
 
 /*
  * Notebookのリストを取得
