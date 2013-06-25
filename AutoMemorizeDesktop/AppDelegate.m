@@ -50,26 +50,7 @@ const BOOL ENV = NO;
     [self initialize];
 
     // メインスレッドのポーリングを開始
-//    [self run];
-}
-
--(IBAction)testMethod:(id)sender{
-    NSLog(@"testMethod");
-    EvernoteSession *session = [EvernoteSession sharedSession];
-    if(session.isAuthenticated){
-        NSLog(@"login ok");
-         EvernoteUserStore *uStore = [EvernoteUserStore userStore];
-        [uStore getUserWithSuccess:^(EDAMUser *user){
-            NSLog(@"%@", user.username);
-        } failure:^(NSError *error) {
-            NSLog(@"Error : %@",error);
-        }];
-
-    }else{
-        NSLog(@"login ng");
-    }
-
-//    exit(0);
+    [self run];
 }
 
 /*
@@ -123,42 +104,6 @@ const BOOL ENV = NO;
 }
 
 /*
- * メインスレッドのポーリング処理を実行もしくは停止
- */
--(IBAction)startAndStop:(id)sender{
-    // 実行もしくは停止
-    if(_statusFlag){
-        // Status:true -> 停止命令
-        [self stop];
-        _statusFlag = false;
-    }else{
-        // Status:false -> 起動命令
-        [self start];
-        _statusFlag = true;
-    }
-    
-}
-
-
-/*
- * メインスレッドのポーリング処理を再実行
- */
--(void)start{
-    [self run];
-}
-
-/*
- * メインスレッドのポーリング処理を停止
- */
--(void)stop{
-    for(NSTimer *timer in _taskQueue){
-        [timer invalidate];
-        NSLog(@"Task has been stopped.");
-    }
-}
-
-
-/*
  * TaskViewのRegisterAction
  */
 -(IBAction)registerAction:(id)sender{
@@ -193,13 +138,15 @@ const BOOL ENV = NO;
     [self initializeTableView];
     // TaskViewを閉じる
     [self closeTaskView];
+    // Taskを初期化
+    [self startAndStop:nil];
 }
 
 
 /*
  * PreferencesViewを開く
  */
--(IBAction)opnePreferences:(id)sender{
+-(IBAction)openPreferences:(id)sender{
     [_preWindow makeKeyAndOrderFront:sender];
 
 }
@@ -208,7 +155,6 @@ const BOOL ENV = NO;
  * TaskViewを開く
  */
 -(IBAction)openTaskView:(id)sender{
-    NSLog(@"Open the TaskView");
     [self initializedTaskView];
     [_taskView makeKeyAndOrderFront:sender];
 }
@@ -218,7 +164,6 @@ const BOOL ENV = NO;
  * TaskViewを閉じる
  */
 -(void)closeTaskView{
-    NSLog(@"Close the TaskView");
     [_taskView close];
 }
 
@@ -318,7 +263,6 @@ const BOOL ENV = NO;
  * TaskTableViewを初期化を実行する
  */
 -(IBAction)view:(id)sender{
-    NSLog(@"view method");
     [self initializeTableView];
 }
 
@@ -367,6 +311,7 @@ const BOOL ENV = NO;
     
 }
 
+
 /*
  * 選択されたタスクのステータスのON/OFFを切り替える
  */
@@ -396,6 +341,14 @@ const BOOL ENV = NO;
         }
         else {
             NSLog(@"authenticationToken:%@", session.authenticationToken);
+            EvernoteUserStore *userStore = [EvernoteUserStore userStore];
+            [userStore getUserWithSuccess:^(EDAMUser *user){
+                [_signInOrOutBtn setTitle:@"Sign Out"];
+                [_userNameLabel setObjectValue:user.username];
+            } failure:^(NSError *error) {
+                NSLog(@"Error : %@",error);
+            }];
+
         }
     }];
 
@@ -420,6 +373,8 @@ const BOOL ENV = NO;
  */
 -(IBAction)doLogoutOAuth:(id)sender{
     [[EvernoteSession sharedSession] logout];
+    [_signInOrOutBtn setTitle:@"Sign In"];
+    [_userNameLabel setObjectValue:@""];
 }
 
 /*
@@ -431,9 +386,9 @@ const BOOL ENV = NO;
         // SignOut処理
         [self doLogoutOAuth:nil];
         
-        
     }else{
         // SignIn処理
+        [self doAuthorize:nil];
     }
 
     
@@ -670,73 +625,82 @@ const BOOL ENV = NO;
     }
 }
 
-// TaskListを取得する
+/*
+ * Task Listを取得する
+ */
 -(NSArray*)getTaskList{
     NSFetchRequest *fetchRequest = [self createRequest:TASK_SOURCE];
     NSError *error = nil;
     return [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
 }
 
+/*
+ * メインスレッドのポーリング処理を実行もしくは停止
+ */
+-(IBAction)startAndStop:(id)sender{
+    // 実行もしくは停止
+    if(_statusFlag){
+        // Status:true -> 停止命令
+        [self stop];
+        _statusFlag = false;
+    }else{
+        // Status:false -> 起動命令
+        [self start];
+        _statusFlag = true;
+    }
+}
 
 /*
- *
- * ===========ここ以降はいらないテストソース===================
- *
+ * メインスレッドのポーリング処理を再実行
  */
-
-// register method
-- (IBAction)registerActionTemp:(id)sender{
-    // NSManagedObjectの生成
-    TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
-    source.task_name = @"Other Task1";
-    source.task_type = [NSNumber numberWithInt:3];
-    source.status = [NSNumber numberWithInt:1];
-    source.interval = @"10";
-    source.tags = @"tag1,tag2";
-    source.note_title = @"Other Task Note Title1";
-    source.update_time = [NSDate date];
-    [self save];
+-(void)start{
+    [self run];
 }
 
-// update method
-- (IBAction)updateAction:(id)sender{
-    
-    NSArray *taskList = [self getTaskList];
-    for(TaskSource *source in taskList){
-        NSString *str = [NSString stringWithFormat:@"%@!", source.task_name];
-        source.task_name = str;
-        source.last_execute_time = [NSDate date];
-        source.update_time = [NSDate date];
+/*
+ * メインスレッドのポーリング処理を停止
+ */
+-(void)stop{
+    for(NSTimer *timer in _taskQueue){
+        [timer invalidate];
+        NSLog(@"Task has been stopped.");
     }
-    [self save];
 }
 
-
-// get method
-- (IBAction)getAction:(id)sender{
-    NSFetchRequest *fetchRequest = [self createRequest:TASK_SOURCE];
-    NSError *error = nil;
-    NSArray *result = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if(!result){
-        NSLog(@"%@:%@", error, [error userInfo]);
+/*
+ * テストメソッド
+ */
+-(IBAction)testMethod:(id)sender{
+    NSLog(@"testMethod");
+    EvernoteSession *session = [EvernoteSession sharedSession];
+    if(session.isAuthenticated){
+        NSLog(@"login ok");
+        EvernoteUserStore *uStore = [EvernoteUserStore userStore];
+        [uStore getUserWithSuccess:^(EDAMUser *user){
+            NSLog(@"%@", user.username);
+        } failure:^(NSError *error) {
+            NSLog(@"Error : %@",error);
+        }];
+        
     }else{
-        for(TaskSource *taskSource in result) {
-            [taskSource print];
-        }
+        NSLog(@"login ng");
     }
+    
+    //    exit(0);
 }
 
-// StatusBtnを切り替える
--(void)changeStatusBtn{
-    NSString *imagePath;
-    if(_statusFlag){
-        imagePath = [[NSBundle mainBundle] pathForResource:@"Play" ofType:@"tif"];
-    }else{
-        imagePath = [[NSBundle mainBundle] pathForResource:@"Pause" ofType:@"tif"];
-    }
-    NSImage *statusBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
-    [_statusBtn setImage:statusBtnImage];
-    
-}
+///*
+// * PreferencesViewを初期化
+// */
+//-(void)initializedPreferencesView{
+//    EvernoteSession *session = [EvernoteSession sharedSession];
+//    if(session.isAuthenticated){
+//        [_signInOrOutBtn setTitle:@"Sign Out"];
+//    }else{
+//        [_signInOrOutBtn setTitle:@"Sign In"];
+//        [_userNameLabel setObjectValue:@"-"];
+//    }
+//}
+
 
 @end
