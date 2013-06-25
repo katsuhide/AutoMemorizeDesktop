@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "425A64F6175A6DFF002DE6AF"
-               BuildableName = "AutoMemorizeDesktop.app"
-               BlueprintName = "AutoMemorizeDesktop"
-               ReferencedContainer = "container:AutoMemorizeDesktop.xcodeproj">
+               BuildableName = "RecDesktop.app"
+               BlueprintName = "RecDesktop"
+               ReferencedContainer = "container:RecDesktop.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "425A64F6175A6DFF002DE6AF"
-            BuildableName = "AutoMemorizeDesktop.app"
-            BlueprintName = "AutoMemorizeDesktop"
-            ReferencedContainer = "container:AutoMemorizeDesktop.xcodeproj">
+            BuildableName = "RecDesktop.app"
+            BlueprintName = "RecDesktop"
+            ReferencedContainer = "container:RecDesktop.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "425A64F6175A6DFF002DE6AF"
-            BuildableName = "AutoMemorizeDesktop.app"
-            BlueprintName = "AutoMemorizeDesktop"
-            ReferencedContainer = "container:AutoMemorizeDesktop.xcodeproj">
+            BuildableName = "RecDesktop.app"
+            BlueprintName = "RecDesktop"
+            ReferencedContainer = "container:RecDesktop.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "425A64F6175A6DFF002DE6AF"
-            BuildableName = "AutoMemorizeDesktop.app"
-            BlueprintName = "AutoMemorizeDesktop"
-            ReferencedContainer = "container:AutoMemorizeDesktop.xcodeproj">
+            BuildableName = "RecDesktop.app"
+            BlueprintName = "RecDesktop"
+            ReferencedContainer = "container:RecDesktop.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

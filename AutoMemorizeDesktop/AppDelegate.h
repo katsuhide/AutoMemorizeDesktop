@@ -21,7 +21,7 @@ extern const BOOL ENV;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-#define APP_NAME @"AutoMemorizeDesktop"
+#define APP_NAME @"RecDesktop"
 #define TASK_SOURCE @"TaskSource"
 
 // TableView
@@ -68,8 +68,16 @@ extern const BOOL ENV;
 -(void)save;
 
 /*
+ * EvernoteにSignIn済みかのチェック
+ */
+-(BOOL)isSignedEvernote;
+
+/*
  * 指定されたGUIDのNotebookが存在するかをチェックする
  */
 -(BOOL)isExistNotebook:(NSString*)guid;
+
+
+
 
 @end

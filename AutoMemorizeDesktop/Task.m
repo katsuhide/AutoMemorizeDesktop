@@ -23,6 +23,13 @@
  * タスクの実行判定
  */
 - (BOOL)check:(NSDate*)now {
+    // EvernoteとのSessionが確率されていなければskipする
+    AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+    if(![appDelegate isSignedEvernote]){
+        NSLog(@"[TaskName:%@]Didn't Signed In the Evernote.", self.source.task_name);
+        return NO;
+    }
+    
     // Task StatusがOFFならskipする
     if([self.source.status intValue] == 0){
         NSLog(@"[TaskName:%@]The status is OFF.", self.source.task_name);

@@ -109,15 +109,15 @@
 		42368B2D175CDBDF0098CFB3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		42368B34175CDCC70098CFB3 /* TaskSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskSource.h; sourceTree = "<group>"; };
 		42368B35175CDCC70098CFB3 /* TaskSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskSource.m; sourceTree = "<group>"; };
-		425A64F7175A6DFF002DE6AF /* AutoMemorizeDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoMemorizeDesktop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		425A64F7175A6DFF002DE6AF /* RecDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecDesktop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		425A64FA175A6DFF002DE6AF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		425A64FD175A6DFF002DE6AF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		425A64FE175A6DFF002DE6AF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		425A64FF175A6DFF002DE6AF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		425A6502175A6DFF002DE6AF /* AutoMemorizeDesktop-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AutoMemorizeDesktop-Info.plist"; sourceTree = "<group>"; };
+		425A6502175A6DFF002DE6AF /* RecDesktop-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RecDesktop-Info.plist"; sourceTree = "<group>"; };
 		425A6504175A6DFF002DE6AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		425A6506175A6DFF002DE6AF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		425A6508175A6DFF002DE6AF /* AutoMemorizeDesktop-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AutoMemorizeDesktop-Prefix.pch"; sourceTree = "<group>"; };
+		425A6508175A6DFF002DE6AF /* RecDesktop-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RecDesktop-Prefix.pch"; sourceTree = "<group>"; };
 		425A650A175A6DFF002DE6AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		425A650C175A6DFF002DE6AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		425A650D175A6E00002DE6AF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -209,7 +209,7 @@
 		425A64F8175A6DFF002DE6AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				425A64F7175A6DFF002DE6AF /* AutoMemorizeDesktop.app */,
+				425A64F7175A6DFF002DE6AF /* RecDesktop.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -256,10 +256,10 @@
 		425A6501175A6DFF002DE6AF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				425A6502175A6DFF002DE6AF /* AutoMemorizeDesktop-Info.plist */,
+				425A6502175A6DFF002DE6AF /* RecDesktop-Info.plist */,
 				425A6503175A6DFF002DE6AF /* InfoPlist.strings */,
 				425A6506175A6DFF002DE6AF /* main.m */,
-				425A6508175A6DFF002DE6AF /* AutoMemorizeDesktop-Prefix.pch */,
+				425A6508175A6DFF002DE6AF /* RecDesktop-Prefix.pch */,
 				425A6509175A6DFF002DE6AF /* Credits.rtf */,
 			);
 			name = "Supporting Files";
@@ -359,9 +359,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		425A64F6175A6DFF002DE6AF /* AutoMemorizeDesktop */ = {
+		425A64F6175A6DFF002DE6AF /* RecDesktop */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 425A6514175A6E00002DE6AF /* Build configuration list for PBXNativeTarget "AutoMemorizeDesktop" */;
+			buildConfigurationList = 425A6514175A6E00002DE6AF /* Build configuration list for PBXNativeTarget "RecDesktop" */;
 			buildPhases = (
 				425A64F3175A6DFF002DE6AF /* Sources */,
 				425A64F4175A6DFF002DE6AF /* Frameworks */,
@@ -373,9 +373,9 @@
 			dependencies = (
 				425A652B175A6EAD002DE6AF /* PBXTargetDependency */,
 			);
-			name = AutoMemorizeDesktop;
+			name = RecDesktop;
 			productName = AutoMemorizeDesktop;
-			productReference = 425A64F7175A6DFF002DE6AF /* AutoMemorizeDesktop.app */;
+			productReference = 425A64F7175A6DFF002DE6AF /* RecDesktop.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -387,7 +387,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = com.katzlifehack;
 			};
-			buildConfigurationList = 425A64F2175A6DFF002DE6AF /* Build configuration list for PBXProject "AutoMemorizeDesktop" */;
+			buildConfigurationList = 425A64F2175A6DFF002DE6AF /* Build configuration list for PBXProject "RecDesktop" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -405,7 +405,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				425A64F6175A6DFF002DE6AF /* AutoMemorizeDesktop */,
+				425A64F6175A6DFF002DE6AF /* RecDesktop */,
 			);
 		};
 /* End PBXProject section */
@@ -599,9 +599,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AutoMemorizeDesktop/AutoMemorizeDesktop-Prefix.pch";
-				INFOPLIST_FILE = "AutoMemorizeDesktop/AutoMemorizeDesktop-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "AutoMemorizeDesktop/RecDesktop-Prefix.pch";
+				INFOPLIST_FILE = "AutoMemorizeDesktop/RecDesktop-Info.plist";
+				PRODUCT_NAME = RecDesktop;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -612,9 +612,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AutoMemorizeDesktop/AutoMemorizeDesktop-Prefix.pch";
-				INFOPLIST_FILE = "AutoMemorizeDesktop/AutoMemorizeDesktop-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "AutoMemorizeDesktop/RecDesktop-Prefix.pch";
+				INFOPLIST_FILE = "AutoMemorizeDesktop/RecDesktop-Info.plist";
+				PRODUCT_NAME = RecDesktop;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -622,7 +622,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		425A64F2175A6DFF002DE6AF /* Build configuration list for PBXProject "AutoMemorizeDesktop" */ = {
+		425A64F2175A6DFF002DE6AF /* Build configuration list for PBXProject "RecDesktop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				425A6512175A6E00002DE6AF /* Debug */,
@@ -631,7 +631,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		425A6514175A6E00002DE6AF /* Build configuration list for PBXNativeTarget "AutoMemorizeDesktop" */ = {
+		425A6514175A6E00002DE6AF /* Build configuration list for PBXNativeTarget "RecDesktop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				425A6515175A6E00002DE6AF /* Debug */,

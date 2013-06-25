@@ -36,7 +36,7 @@
                 [self updateLastAddedTime:now];
             }
         }else{
-            NSLog(@"Didn't create the Note since file does note exist.");
+            NSLog(@"[TaskName:%@]Didn't create the Note since file does note exist.", self.source.task_name);
         }
         
         // タスクの実行時間を更新
@@ -45,8 +45,6 @@
         // 更新したTaskSourceを永続化
         [appDelegate save];
         
-    }else{
-        NSLog(@"File Task skipped since this time is not enable timing.");
     }
 }
 
@@ -80,7 +78,7 @@
  */
 -(NSMutableArray*)getFilePathList{
     // 指定された条件を取得
-    NSString *directoryPath = [self.source getKeyValue:@"file_path"];
+    NSString *directoryPath = [[self.source getKeyValue:@"file_path"] stringByExpandingTildeInPath];
     NSString *extension = [self.source getKeyValue:@"extension"];
 
     // 対象のパスのファイル一覧を取得
@@ -161,8 +159,9 @@
 -(void)moveFile:(EDAMNote*)note{
     // 退避ディレクトリを対象のパスの直下に作成
     NSDate *now = [NSDate date];
+    NSString *baseDir = [[self.source getKeyValue:@"file_path"] stringByExpandingTildeInPath];
     NSString *backupDirName = [now toStringWithFormat:@"yyyyMMdd_HHmmss"];
-    NSString *workPath = [[self.source getKeyValue:@"file_path"] stringByAppendingPathComponent:backupDirName];
+    NSString *workPath = [baseDir stringByAppendingPathComponent:backupDirName];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
     if(![fileManager createDirectoryAtPath:workPath withIntermediateDirectories:YES attributes:nil error:&error]){
@@ -172,7 +171,7 @@
 
     // 対象のファイルを移動する
     EDAMResource *resource = [note.resources objectAtIndex:0];  // Resourceは１つの前提のため
-    NSString *filePath = [[self.source getKeyValue:@"file_path"] stringByAppendingPathComponent:resource.attributes.fileName];
+    NSString *filePath = [baseDir stringByAppendingPathComponent:resource.attributes.fileName];
     NSString *toFilePath = [workPath stringByAppendingPathComponent:resource.attributes.fileName];
     if(![fileManager moveItemAtPath:filePath toPath:toFilePath error:&error]){
         NSLog(@"Couldn't move this file:[%@] to this path:[%@].[%@, %@]", filePath, workPath, error, [error userInfo]);

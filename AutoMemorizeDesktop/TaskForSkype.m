@@ -31,7 +31,7 @@
             // ノートの登録時間を更新
             [self updateLastAddedTime:now];
         }else{
-            NSLog(@"Didn't create the Note since body is blank.");
+            NSLog(@"[TaskName:%@]Didn't create the Note since body is blank.", self.source.task_name);
         }
 
         // タスクの実行時間を更新
@@ -39,11 +39,7 @@
         
         // 更新したTaskSourceを永続化
         [appDelegate save];
-
-    }else{
-        NSLog(@"Skype Task skipped since this time is not enable timing.");
     }
-
 }
 
 /*

@@ -22,11 +22,11 @@ const BOOL ENV = NO;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // test method
-    [self testMethod:nil];
-    
+//    [self testMethod:nil];
+
     // ログ出力
     if(ENV){
-        freopen([@"/tmp/xcode.log" fileSystemRepresentation], "w+", stderr);
+        freopen([@"/tmp/recdesktop.log" fileSystemRepresentation], "w+", stderr);
     }
 
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
@@ -39,7 +39,7 @@ const BOOL ENV = NO;
     
     // ArrayControllerとmanagedObjectContextの紐付け
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
-
+    
     // Evernoteへログイン
     [self doAuthorize:nil];
 
@@ -70,22 +70,22 @@ const BOOL ENV = NO;
         switch (taskType) {
             case 0:
                 // Skype Task
-                NSLog(@"Skype Task created.[TaskName:%@]", source.task_name);
+                NSLog(@"[TaskName:%@]Skype Task created.", source.task_name);
                 task = [[TaskForSkype alloc]initWithTaskSource:source];
                 break;
             case 1:
                 // File Task
-                NSLog(@"File Task Created.[TaskName:%@]", source.task_name);
+                NSLog(@"[TaskName:%@]File Task Created.", source.task_name);
                 task = [[TaskForFile alloc]initWithTaskSource:source];
                 break;
             default:
                 // Other Task
-                NSLog(@"Other Task Created.[TaskName:%@]", source.task_name);
+                NSLog(@"[TaskName:%@]Other Task Created.", source.task_name);
                 task = [[Task alloc]initWithTaskSource:source];
                 break;
         }
 
-        // インターバル条件を指定(TODOテスト時は5secに変更）
+        // インターバル条件を指定
         int interval = INTERVAL;
         if(!ENV) {
             interval = 5;
@@ -96,7 +96,8 @@ const BOOL ENV = NO;
                           scheduledTimerWithTimeInterval:interval
                           target:task
                           selector:@selector(polling:)
-                          userInfo:nil
+                          userInfo:source.task_name
+//                          userInfo:nil
                           repeats:YES];
         [_taskQueue addObject:timer];
     }
@@ -139,7 +140,7 @@ const BOOL ENV = NO;
     // TaskViewを閉じる
     [self closeTaskView];
     // Taskを初期化
-    [self startAndStop:nil];
+    [self restart:nil];
 }
 
 
@@ -376,6 +377,15 @@ const BOOL ENV = NO;
     [_signInOrOutBtn setTitle:@"Sign In"];
     [_userNameLabel setObjectValue:@""];
 }
+
+/*
+ * EvernoteにSignIn済みかのチェック
+ */
+-(BOOL)isSignedEvernote{
+    EvernoteSession *session = [EvernoteSession sharedSession];
+    return session.isAuthenticated;
+}
+
 
 /*
  * Evernote SignIn or SignOut
@@ -637,15 +647,15 @@ const BOOL ENV = NO;
 /*
  * メインスレッドのポーリング処理を実行もしくは停止
  */
--(IBAction)startAndStop:(id)sender{
+-(IBAction)startOrStop:(id)sender{
     // 実行もしくは停止
     if(_statusFlag){
         // Status:true -> 停止命令
-        [self stop];
+        [self stop:nil];
         _statusFlag = false;
     }else{
         // Status:false -> 起動命令
-        [self start];
+        [self start:nil];
         _statusFlag = true;
     }
 }
@@ -653,40 +663,44 @@ const BOOL ENV = NO;
 /*
  * メインスレッドのポーリング処理を再実行
  */
--(void)start{
+-(IBAction)start:(id)sender{
     [self run];
 }
 
 /*
  * メインスレッドのポーリング処理を停止
  */
--(void)stop{
+-(IBAction)stop:(id)sender{
     for(NSTimer *timer in _taskQueue){
+        NSLog(@"[TaskName:%@]Timer has been stopped.", timer.userInfo);
         [timer invalidate];
-        NSLog(@"Task has been stopped.");
     }
+}
+
+/*
+ * メインスレッドのポーリング処理をリスタート
+ */
+-(IBAction)restart:(id)sender{
+    [self stop:nil];
+    [self start:nil];
 }
 
 /*
  * テストメソッド
  */
 -(IBAction)testMethod:(id)sender{
-    NSLog(@"testMethod");
-    EvernoteSession *session = [EvernoteSession sharedSession];
-    if(session.isAuthenticated){
-        NSLog(@"login ok");
-        EvernoteUserStore *uStore = [EvernoteUserStore userStore];
-        [uStore getUserWithSuccess:^(EDAMUser *user){
-            NSLog(@"%@", user.username);
-        } failure:^(NSError *error) {
-            NSLog(@"Error : %@",error);
-        }];
-        
-    }else{
-        NSLog(@"login ng");
-    }
+    NSString *dir;
+    dir = @"~/Desktop";
+    NSLog(@"%@", dir);
+    NSLog(@"%@", [dir stringByExpandingTildeInPath]);
+
+    dir = @"/Users/AirMyac/Desktop";
+    NSLog(@"%@", dir);
     
-    //    exit(0);
+    
+//    NSString *path = - (NSString *)stringByAppendingPathComponent:(NSString *)aString
+    
+    exit(0);
 }
 
 ///*

@@ -61,7 +61,6 @@ NSString *const fileViewName = @"FileViewController";
  * TaskViewの初期化
  */
 -(void)initializedTaskView{
-    NSLog(@"initializedTaskView ExtedsParts");
     // アイテムを初期化
     [self changeTaskView:YES andData:nil];
     // Viewを初期化
@@ -72,7 +71,6 @@ NSString *const fileViewName = @"FileViewController";
  * 選択されたTaskの情報を表示してTaskViewを開く(すべてDisableにする）
  */
 -(void)viewTaskView:(TaskSource*)source{
-    NSLog(@"viewTaskView ExtedsParts");
     // TaskViewの拡張部分にデータを表示
     [self changeTaskView:NO andData:source];
     // CustomeViewを初期化
