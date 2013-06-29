@@ -41,6 +41,9 @@ extern const BOOL ENV;
 @property (assign) IBOutlet NSButton *deleteBtn;
 @property (assign) IBOutlet NSButton *registerOKBtn;
 @property (assign) IBOutlet NSButton *signInOrOutBtn;
+@property (assign) IBOutlet NSButton *allStartBtn;
+@property (assign) IBOutlet NSButton *allStopBtn;
+@property (assign) IBOutlet NSButton *allRestartBtn;
 @property (assign) BOOL statusFlag;
 
 

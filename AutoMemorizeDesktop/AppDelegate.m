@@ -51,6 +51,9 @@ const BOOL ENV = NO;
     // Main画面を初期化
     [self initialize];
 
+    // Preferences Viewの初期化
+    [self initializePreView];
+    
     // メインスレッドのポーリングを開始
 //    [self run];
 }
@@ -175,8 +178,9 @@ const BOOL ENV = NO;
  */
 -(void)initialize{
     // 背景
-    NSColor *color = [NSColor colorWithCalibratedRed:1 green:1 blue:1 alpha:1];
-    [_window setBackgroundColor:color];
+    NSString *hex = @"#FFFFFF";
+    NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
+    [_window setBackgroundColor:backColor];
 //    [_window setAlphaValue:0.95];
 
 //    for (NSTableColumn* column in [_taskTable tableColumns]) {
@@ -240,8 +244,9 @@ const BOOL ENV = NO;
  */
 -(void)initializedTaskView{
     // 背景
-    NSColor *color = [NSColor colorWithCalibratedRed:1 green:1 blue:1 alpha:1];
-    [_taskView setBackgroundColor:color];
+    NSString *hex = @"#FFFFFF";
+    NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
+    [_taskView setBackgroundColor:backColor];
 
     // 共通部分のアイテムを初期化
     [self changeTaskView:YES andData:nil];
@@ -261,14 +266,50 @@ const BOOL ENV = NO;
 
 }
 
+/*
+ * Preferences Viewの初期化
+ */
+-(void)initializePreView{
+    // 背景
+    NSString *hex = @"#FFFFFF";
+    NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
+    [_preWindow setBackgroundColor:backColor];
+    // ボタン
+    NSString *imagePath;
+    imagePath = @"/Users/AirMyac/Desktop/material/botton2/signInOrOut.psd";
+    NSImage *signInOrOutBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_signInOrOutBtn setImage:signInOrOutBtnImage];
+    [_signInOrOutBtn setBordered:NO];
+
+    imagePath = @"/Users/AirMyac/Desktop/material/botton2/AllStart.psd";
+    NSImage *allStartBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_allStartBtn setImage:allStartBtnImage];
+    [_allStartBtn setBordered:NO];
+
+    imagePath = @"/Users/AirMyac/Desktop/material/botton2/AllStop.psd";
+    NSImage *allStopBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_allStopBtn setImage:allStopBtnImage];
+    [_allStopBtn setBordered:NO];
+
+    imagePath = @"/Users/AirMyac/Desktop/material/botton2/AllRestart.psd";
+    NSImage *allRestartBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_allRestartBtn setImage:allRestartBtnImage];
+    [_allRestartBtn setBordered:NO];
+
+
+}
+
 -(void)changeTaskView:(BOOL)isEditable andData:(TaskSource*)source{
     // 指定されたモードに設定
     [_taskNameField setEditable:isEditable];
     [_intervalField setEditable:isEditable];
     [_notetitleField setEditable:isEditable];
     [_notebookField setEnabled:isEditable];
-    [_notebookField setSelectable:YES];
     [_tagField setEditable:isEditable];
+    NSString *imagePath = @"/Users/AirMyac/Desktop/material/botton2/RegisterOkBtn.psd";
+    NSImage *registerOkBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_registerOKBtn setImage:registerOkBtnImage];
+
     [_registerOKBtn setHidden:!isEditable];
     
     // データを設定もしくは初期化
@@ -292,6 +333,14 @@ const BOOL ENV = NO;
         [_notebookField setObjectValue:[self transformGuidToName:source.notebook_guid]];
         [_tagField setObjectValue:source.tags];
     }
+    // view
+//    NSString *hex = @"#ecf0f1";
+//    NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
+//    [_taskNameField setBackgroundColor:backColor];
+//    [_intervalField setBackgroundColor:backColor];
+//    [_notebookField setBackgroundColor:backColor];
+//    [_notetitleField setBackgroundColor:backColor];
+//    [_tagField setBackgroundColor:backColor];
 
 }
 

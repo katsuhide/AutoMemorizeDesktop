@@ -87,6 +87,11 @@ NSString *const fileViewName = @"FileViewController";
     [_taskTypeField setEnabled:isEditable];
     // データを設定もしくは初期化
     [_taskTypeField selectItemAtIndex:[source.task_type intValue]];
+    // 背景
+//    NSString *hex = @"#ecf0f1";
+//    NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
+//    [_taskTypeField setBackgroundColor:backColor];
+
 }
 
 -(void)changeCustomTaskView:(BOOL)isEditable andData:(TaskSource*)source{
