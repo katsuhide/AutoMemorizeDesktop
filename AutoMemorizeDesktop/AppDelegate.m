@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import <CommonCrypto/CommonCrypto.h>
 #import "TaskSource.h"
+#import "CustomHeaderCell.h"
+#import "NSColor+Hex.h"
 
 @implementation AppDelegate
 
@@ -41,16 +43,16 @@ const BOOL ENV = NO;
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
     
     // Evernoteへログイン
-    [self doAuthorize:nil];
+//    [self doAuthorize:nil];
 
     // Notebookの一覧を取得
-    [self getNotebookList];
+//    [self getNotebookList];
     
     // Main画面を初期化
     [self initialize];
 
     // メインスレッドのポーリングを開始
-    [self run];
+//    [self run];
 }
 
 /*
@@ -172,28 +174,58 @@ const BOOL ENV = NO;
  * Main画面を初期化
  */
 -(void)initialize{
+    // 背景
+    NSColor *color = [NSColor colorWithCalibratedRed:1 green:1 blue:1 alpha:1];
+    [_window setBackgroundColor:color];
+//    [_window setAlphaValue:0.95];
+
+//    for (NSTableColumn* column in [_taskTable tableColumns]) {
+//        NSTableHeaderCell *cell = [column headerCell];
+//        CustomHeaderCell *newCell = [[CustomHeaderCell alloc] init];
+//        [newCell setAttributedStringValue:[cell attributedStringValue]];
+//        [column setHeaderCell:newCell];
+//    }
+    
+//    NSTableHeaderView *tableHeaderView = [[NSTableHeaderView alloc] initWithFrame:NSMakeRect(0, 0, 10, 60)];
+//    NSTableHeaderView *tableHeaderView = _taskTable.headerView;
+//    NSRect frame = tableHeaderView.frame;
+//    frame.size.width = 200;
+//    tableHeaderView.frame = frame;
+//    [_taskTable setHeaderView:nil];
+//    [_taskTable setHeaderView:tableHeaderView];
+    
+//    NSString *hex = @"#F1EEFB";
+//    NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
+//    [tableHeaderView setFrameSize:NSMakeSize(100, 100)];
+//    [_taskTable setHeaderView:tableHeaderView];
+    
+    // 各種ボタン
     NSString *imagePath;
     // Status Button
     _statusFlag = false;    // 起動時はfalseで
     imagePath = [[NSBundle mainBundle] pathForResource:@"Last" ofType:@"tif"];
+    imagePath = @"/Users/AirMyac/Desktop/material/botton2/status.psd";
     NSImage *statusBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_statusBtn setImage:statusBtnImage];
     [_statusBtn setBordered:NO];
     
     // Info Button
     imagePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"tif"];
+    imagePath = @"/Users/AirMyac/Desktop/material/botton2/info.psd";
     NSImage *infoBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_infoBtn setImage:infoBtnImage];
     [_infoBtn setBordered:NO];
     
     // Register Button
-    imagePath = [[NSBundle mainBundle] pathForResource:@"Plus" ofType:@"tif"];
+//    imagePath = [[NSBundle mainBundle] pathForResource:@"Plus" ofType:@"tif"];
+    imagePath = @"/Users/AirMyac/Desktop/material/botton2/plus.psd";
     NSImage *registerBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_registerBtn setImage:registerBtnImage];
     [_registerBtn setBordered:NO];
     
     // Delete Button
     imagePath = [[NSBundle mainBundle] pathForResource:@"Block" ofType:@"tif"];
+    imagePath = @"/Users/AirMyac/Desktop/material/botton2/minus.psd";
     NSImage *deleteBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_deleteBtn setImage:deleteBtnImage];
     [_deleteBtn setBordered:NO];
@@ -207,6 +239,10 @@ const BOOL ENV = NO;
  * TaskViewを初期化
  */
 -(void)initializedTaskView{
+    // 背景
+    NSColor *color = [NSColor colorWithCalibratedRed:1 green:1 blue:1 alpha:1];
+    [_taskView setBackgroundColor:color];
+
     // 共通部分のアイテムを初期化
     [self changeTaskView:YES andData:nil];
     // 拡張部分のアイテムを初期化
@@ -689,18 +725,8 @@ const BOOL ENV = NO;
  * テストメソッド
  */
 -(IBAction)testMethod:(id)sender{
-    NSString *dir;
-    dir = @"~/Desktop";
-    NSLog(@"%@", dir);
-    NSLog(@"%@", [dir stringByExpandingTildeInPath]);
 
-    dir = @"/Users/AirMyac/Desktop";
-    NSLog(@"%@", dir);
-    
-    
-//    NSString *path = - (NSString *)stringByAppendingPathComponent:(NSString *)aString
-    
-    exit(0);
+//    exit(0);
 }
 
 ///*

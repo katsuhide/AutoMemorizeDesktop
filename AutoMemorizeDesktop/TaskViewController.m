@@ -7,6 +7,7 @@
 //
 
 #import "TaskViewController.h"
+#import "NSColor+Hex.h"
 
 @implementation TaskViewController
 
@@ -60,7 +61,7 @@ NSString *const fileViewName = @"FileViewController";
 /*
  * TaskViewの初期化
  */
--(void)initializedTaskView{
+-(void)initializedTaskView{    
     // アイテムを初期化
     [self changeTaskView:YES andData:nil];
     // Viewを初期化

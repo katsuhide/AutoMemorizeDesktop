@@ -22,6 +22,7 @@
 		425A6544175A7077002DE6AF /* TaskForSkype.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6540175A7077002DE6AF /* TaskForSkype.m */; };
 		425A6545175A7077002DE6AF /* TaskForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6542175A7077002DE6AF /* TaskForFile.m */; };
 		425A6546175A7077002DE6AF /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6543175A7077002DE6AF /* Task.m */; };
+		42762117177F2D0F00079CC9 /* logo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 42762116177F2D0F00079CC9 /* logo.icns */; };
 		42860F90175B779C00F68B03 /* NSDate+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 42860F8F175B779C00F68B03 /* NSDate+Util.m */; };
 		428615AF177771390028C38A /* Block.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615A8177771390028C38A /* Block.tif */; };
 		428615B0177771390028C38A /* documents_folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 428615A9177771390028C38A /* documents_folder.png */; };
@@ -31,6 +32,9 @@
 		428615B4177771390028C38A /* Plus.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615AD177771390028C38A /* Plus.tif */; };
 		428615B5177771390028C38A /* skype.png in Resources */ = {isa = PBXBuildFile; fileRef = 428615AE177771390028C38A /* skype.png */; };
 		428615B7177777860028C38A /* Last.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615B6177777860028C38A /* Last.tif */; };
+		429C1BA0177F3DCF0037A77C /* CustomHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1B9F177F3DCF0037A77C /* CustomHeaderCell.m */; };
+		429C1BA6177F418B0037A77C /* NSColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1BA5177F418B0037A77C /* NSColor+Hex.m */; };
+		429C1BA9177F574F0037A77C /* CustomTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1BA8177F574F0037A77C /* CustomTableHeaderView.m */; };
 		42CA7461175A7119002D469E /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA7458175A7119002D469E /* FMDatabase.m */; };
 		42CA7462175A7119002D469E /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA745A175A7119002D469E /* FMDatabaseAdditions.m */; };
 		42CA7463175A7119002D469E /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA745C175A7119002D469E /* FMDatabasePool.m */; };
@@ -130,6 +134,7 @@
 		425A6541175A7077002DE6AF /* TaskForFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskForFile.h; sourceTree = "<group>"; };
 		425A6542175A7077002DE6AF /* TaskForFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskForFile.m; sourceTree = "<group>"; };
 		425A6543175A7077002DE6AF /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		42762116177F2D0F00079CC9 /* logo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = logo.icns; sourceTree = "<group>"; };
 		42860F8E175B779C00F68B03 /* NSDate+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Util.h"; sourceTree = "<group>"; };
 		42860F8F175B779C00F68B03 /* NSDate+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Util.m"; sourceTree = "<group>"; };
 		428615A8177771390028C38A /* Block.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Block.tif; sourceTree = "<group>"; };
@@ -140,6 +145,12 @@
 		428615AD177771390028C38A /* Plus.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Plus.tif; sourceTree = "<group>"; };
 		428615AE177771390028C38A /* skype.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skype.png; sourceTree = "<group>"; };
 		428615B6177777860028C38A /* Last.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Last.tif; sourceTree = "<group>"; };
+		429C1B9E177F3DCF0037A77C /* CustomHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomHeaderCell.h; sourceTree = "<group>"; };
+		429C1B9F177F3DCF0037A77C /* CustomHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHeaderCell.m; sourceTree = "<group>"; };
+		429C1BA4177F418B0037A77C /* NSColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+Hex.h"; sourceTree = "<group>"; };
+		429C1BA5177F418B0037A77C /* NSColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+Hex.m"; sourceTree = "<group>"; };
+		429C1BA7177F574F0037A77C /* CustomTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableHeaderView.h; sourceTree = "<group>"; };
+		429C1BA8177F574F0037A77C /* CustomTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableHeaderView.m; sourceTree = "<group>"; };
 		42CA7457175A7119002D469E /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		42CA7458175A7119002D469E /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		42CA7459175A7119002D469E /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -198,6 +209,7 @@
 		425A64EE175A6DFF002DE6AF = {
 			isa = PBXGroup;
 			children = (
+				42762116177F2D0F00079CC9 /* logo.icns */,
 				425A652F175A6F83002DE6AF /* libsqlite3.0.dylib */,
 				425A6517175A6E3B002DE6AF /* EvernoteSDK.xcodeproj */,
 				425A6500175A6DFF002DE6AF /* AutoMemorizeDesktop */,
@@ -236,6 +248,7 @@
 		425A6500175A6DFF002DE6AF /* AutoMemorizeDesktop */ = {
 			isa = PBXGroup;
 			children = (
+				429C1B99177F3DB90037A77C /* MainView */,
 				42F94C241778CAE7009D3802 /* SystemPrefeerncesView */,
 				428615A3177770720028C38A /* Resource */,
 				4211CC0B176CC215000B566B /* Evernote */,
@@ -312,6 +325,8 @@
 			children = (
 				42860F8E175B779C00F68B03 /* NSDate+Util.h */,
 				42860F8F175B779C00F68B03 /* NSDate+Util.m */,
+				429C1BA4177F418B0037A77C /* NSColor+Hex.h */,
+				429C1BA5177F418B0037A77C /* NSColor+Hex.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -329,6 +344,17 @@
 				428615AE177771390028C38A /* skype.png */,
 			);
 			name = Resource;
+			sourceTree = "<group>";
+		};
+		429C1B99177F3DB90037A77C /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				429C1B9E177F3DCF0037A77C /* CustomHeaderCell.h */,
+				429C1B9F177F3DCF0037A77C /* CustomHeaderCell.m */,
+				429C1BA7177F574F0037A77C /* CustomTableHeaderView.h */,
+				429C1BA8177F574F0037A77C /* CustomTableHeaderView.m */,
+			);
+			name = MainView;
 			sourceTree = "<group>";
 		};
 		42F78063176C23B000CC3E7A /* TaskView */ = {
@@ -467,6 +493,7 @@
 				428615B5177771390028C38A /* skype.png in Resources */,
 				428615B7177777860028C38A /* Last.tif in Resources */,
 				42F94C291778CB41009D3802 /* PrefrencesViewController.xib in Resources */,
+				42762117177F2D0F00079CC9 /* logo.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +522,9 @@
 				42F78074176C854800CC3E7A /* TaskViewController.m in Sources */,
 				4211CC12176CC233000B566B /* NSData+EvernoteSDK.m in Sources */,
 				42F94C281778CB41009D3802 /* PrefrencesViewController.m in Sources */,
+				429C1BA0177F3DCF0037A77C /* CustomHeaderCell.m in Sources */,
+				429C1BA6177F418B0037A77C /* NSColor+Hex.m in Sources */,
+				429C1BA9177F574F0037A77C /* CustomTableHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

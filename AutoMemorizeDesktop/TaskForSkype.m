@@ -94,12 +94,7 @@
     NSMutableString *body = [NSMutableString string];
     for(NSDictionary *dic in result){
         // ENMLに対応していないタグを除去
-        NSString *string = [dic objectForKey:@"body"];  // 対象
-        NSString *pattern = @"<ss type.+?</ss>";   // 検索条件
-        NSString *template = @"";   // 置換後文字列
-        NSError *error   = nil;
-        NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
-        NSString *replaced = [regexp stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0,string.length) withTemplate:template];
+        NSString *replaced = [self excludeInvalidTag:[dic objectForKey:@"body"]];
         
         // 奇数、偶数でスタイルを変えてbodyを構成
         if(count % 2 == 0){
@@ -130,6 +125,29 @@
     EDAMNote* note = [[EDAMNote alloc] initWithGuid:nil title:noteTitle content:noteContent contentHash:nil contentLength:(int)noteContent.length created:0 updated:0 deleted:0 active:YES updateSequenceNum:0 notebookGuid:notebookGUID tagGuids:nil resources:nil attributes:nil tagNames:tagNames];
     
     return note;
+}
+
+// 非対応のタグを除去
+-(NSString*)excludeInvalidTag:(NSString*)original{
+    NSMutableString *replaced = [NSMutableString stringWithString:original];
+    NSString *template = @"";   // 置換後文字列
+    
+    NSString *pattern = @"<ss type.+?</ss>";   // 検索条件
+    [replaced setString:[self replaceInvalidTag:replaced andPattern:pattern andTemplate:template]];
+    
+    pattern = @"<quote .+?</quote>";    // 検索条件
+    [replaced setString:[self replaceInvalidTag:replaced andPattern:pattern andTemplate:template]];
+    return replaced;
+    
+}
+
+// 置換
+-(NSString*)replaceInvalidTag:(NSString*)target andPattern:(NSString*)pattern andTemplate:(NSString*)template{
+    NSError *error   = nil;
+    NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+    NSString *replaced = [regexp stringByReplacingMatchesInString:target options:0 range:NSMakeRange(0,target.length) withTemplate:template];
+    return replaced;
+    
 }
 
 
