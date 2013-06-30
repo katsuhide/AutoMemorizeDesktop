@@ -43,10 +43,10 @@ const BOOL ENV = NO;
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
     
     // Evernoteへログイン
-//    [self doAuthorize:nil];
+    [self doAuthorize:nil];
 
     // Notebookの一覧を取得
-//    [self getNotebookList];
+    [self getNotebookList];
     
     // Main画面を初期化
     [self initialize];
@@ -207,35 +207,62 @@ const BOOL ENV = NO;
     NSString *imagePath;
     // Status Button
     _statusFlag = false;    // 起動時はfalseで
-    imagePath = [[NSBundle mainBundle] pathForResource:@"Last" ofType:@"tif"];
-    imagePath = @"/Users/AirMyac/Desktop/material/botton2/status.psd";
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Status" ofType:@"psd"];
     NSImage *statusBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_statusBtn setImage:statusBtnImage];
     [_statusBtn setBordered:NO];
     
     // Info Button
-    imagePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"tif"];
-    imagePath = @"/Users/AirMyac/Desktop/material/botton2/info.psd";
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"psd"];
     NSImage *infoBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_infoBtn setImage:infoBtnImage];
     [_infoBtn setBordered:NO];
     
     // Register Button
-//    imagePath = [[NSBundle mainBundle] pathForResource:@"Plus" ofType:@"tif"];
-    imagePath = @"/Users/AirMyac/Desktop/material/botton2/plus.psd";
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Plus" ofType:@"psd"];
     NSImage *registerBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_registerBtn setImage:registerBtnImage];
     [_registerBtn setBordered:NO];
     
     // Delete Button
-    imagePath = [[NSBundle mainBundle] pathForResource:@"Block" ofType:@"tif"];
-    imagePath = @"/Users/AirMyac/Desktop/material/botton2/minus.psd";
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Minus" ofType:@"psd"];
     NSImage *deleteBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_deleteBtn setImage:deleteBtnImage];
     [_deleteBtn setBordered:NO];
-    
+
+    // Register Task Button
+    imagePath = @"/Users/AirMyac/Desktop/material/botton2/RegisterOkBtn.psd";
+    NSImage *registerOkBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_registerOKBtn setImage:registerOkBtnImage];
+    [_registerOKBtn setBordered:NO];
+
     // Table Viewの初期化
     [self initializeTableView];
+
+}
+
+/*
+ * Register Task Buttonの色をタスクタイプで変える
+ */
+-(void)changeRegisterOkBtn:(int)flag{
+    
+    NSString *imagePath;;
+    switch (flag) {
+        case 0:
+            [_registerOKBtn setHidden:NO];
+            imagePath = [[NSBundle mainBundle] pathForResource:@"RegisterOkBtnLightBlue" ofType:@"psd"];
+            break;
+        case 1:
+            [_registerOKBtn setHidden:NO];
+            imagePath = [[NSBundle mainBundle] pathForResource:@"RegisterOkBtnLightGreen" ofType:@"psd"];
+            break;
+        default:
+            [_registerOKBtn setHidden:YES]; //対応していないためボタンを非表示
+            return;
+    }
+    NSImage *registerOkBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_registerOKBtn setImage:registerOkBtnImage];
+    [_registerOKBtn setBordered:NO];
 
 }
 
@@ -276,26 +303,37 @@ const BOOL ENV = NO;
     [_preWindow setBackgroundColor:backColor];
     // ボタン
     NSString *imagePath;
-    imagePath = @"/Users/AirMyac/Desktop/material/botton2/signInOrOut.psd";
-    NSImage *signInOrOutBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
-    [_signInOrOutBtn setImage:signInOrOutBtnImage];
-    [_signInOrOutBtn setBordered:NO];
+    if([self isSignedEvernote]){
+        // 認証時の処理に任せるため何もしない
+    }else{
+        // Sign In表示
+        imagePath = @"/Users/AirMyac/Desktop/material/botton2/SignIn.psd";
+        NSImage *signInOrOutBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+        [_signInOrOutBtn setImage:signInOrOutBtnImage];
+        [_signInOrOutBtn setBordered:NO];
+        // ログインユーザを非表示
+        [_userNameLabel setObjectValue:@"(Not Signed)"];
+        
+    }
+    
 
-    imagePath = @"/Users/AirMyac/Desktop/material/botton2/AllStart.psd";
+    // All Start
+    imagePath = [[NSBundle mainBundle] pathForResource:@"AllStart" ofType:@"psd"];
     NSImage *allStartBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_allStartBtn setImage:allStartBtnImage];
     [_allStartBtn setBordered:NO];
 
-    imagePath = @"/Users/AirMyac/Desktop/material/botton2/AllStop.psd";
+    // All Stop
+    imagePath = [[NSBundle mainBundle] pathForResource:@"AllStop" ofType:@"psd"];
     NSImage *allStopBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_allStopBtn setImage:allStopBtnImage];
     [_allStopBtn setBordered:NO];
 
-    imagePath = @"/Users/AirMyac/Desktop/material/botton2/AllRestart.psd";
+    // All Restart
+    imagePath = [[NSBundle mainBundle] pathForResource:@"AllRestart" ofType:@"psd"];
     NSImage *allRestartBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_allRestartBtn setImage:allRestartBtnImage];
     [_allRestartBtn setBordered:NO];
-
 
 }
 
@@ -306,10 +344,6 @@ const BOOL ENV = NO;
     [_notetitleField setEditable:isEditable];
     [_notebookField setEnabled:isEditable];
     [_tagField setEditable:isEditable];
-    NSString *imagePath = @"/Users/AirMyac/Desktop/material/botton2/RegisterOkBtn.psd";
-    NSImage *registerOkBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
-    [_registerOKBtn setImage:registerOkBtnImage];
-
     [_registerOKBtn setHidden:!isEditable];
     
     // データを設定もしくは初期化
@@ -333,14 +367,6 @@ const BOOL ENV = NO;
         [_notebookField setObjectValue:[self transformGuidToName:source.notebook_guid]];
         [_tagField setObjectValue:source.tags];
     }
-    // view
-//    NSString *hex = @"#ecf0f1";
-//    NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
-//    [_taskNameField setBackgroundColor:backColor];
-//    [_intervalField setBackgroundColor:backColor];
-//    [_notebookField setBackgroundColor:backColor];
-//    [_notetitleField setBackgroundColor:backColor];
-//    [_tagField setBackgroundColor:backColor];
 
 }
 
@@ -429,10 +455,25 @@ const BOOL ENV = NO;
             NSLog(@"authenticationToken:%@", session.authenticationToken);
             EvernoteUserStore *userStore = [EvernoteUserStore userStore];
             [userStore getUserWithSuccess:^(EDAMUser *user){
-                [_signInOrOutBtn setTitle:@"Sign Out"];
+                // Sign Outボタンを表示
+                NSString *imagePath;
+                imagePath = [[NSBundle mainBundle] pathForResource:@"SignOut" ofType:@"psd"];
+                NSImage *signInOrOutBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+                [_signInOrOutBtn setImage:signInOrOutBtnImage];
+                [_signInOrOutBtn setBordered:NO];
+                // ログインユーザを表示
                 [_userNameLabel setObjectValue:user.username];
+                
             } failure:^(NSError *error) {
                 NSLog(@"Error : %@",error);
+                // Sign Inボタンを表示
+                NSString *imagePath;
+                imagePath = [[NSBundle mainBundle] pathForResource:@"SignIn" ofType:@"psd"];
+                NSImage *signInOrOutBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+                [_signInOrOutBtn setImage:signInOrOutBtnImage];
+                [_signInOrOutBtn setBordered:NO];
+                // ログインユーザを非表示
+                [_userNameLabel setObjectValue:@"(Not Signed)"];
             }];
 
         }
@@ -459,8 +500,17 @@ const BOOL ENV = NO;
  */
 -(IBAction)doLogoutOAuth:(id)sender{
     [[EvernoteSession sharedSession] logout];
-    [_signInOrOutBtn setTitle:@"Sign In"];
-    [_userNameLabel setObjectValue:@""];
+    // Sign Inボタンを表示
+    NSString *imagePath;
+    imagePath = [[NSBundle mainBundle] pathForResource:@"SignIn" ofType:@"psd"];
+    NSImage *signInOrOutBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_signInOrOutBtn setImage:signInOrOutBtnImage];
+    [_signInOrOutBtn setBordered:NO];
+    // ログインユーザを非表示
+    [_userNameLabel setObjectValue:@"(Not Signed)"];
+
+//    [_signInOrOutBtn setTitle:@"Sign In"];
+//    [_userNameLabel setObjectValue:@""];
 }
 
 /*

@@ -130,11 +130,9 @@
 -(NSImage*)getStatusImage{
     NSString *file;
     if([self.status intValue] == 0){
-        file = [[NSBundle mainBundle] pathForResource:@"Pause" ofType:@"tif"];
-        file = @"/Users/AirMyac/Desktop/material/botton2/pause.psd";
+        file = [[NSBundle mainBundle] pathForResource:@"Pause" ofType:@"psd"];
     }else{
-        file = [[NSBundle mainBundle] pathForResource:@"Play" ofType:@"tif"];
-        file = @"/Users/AirMyac/Desktop/material/botton2/play.psd";
+        file = [[NSBundle mainBundle] pathForResource:@"Play" ofType:@"psd"];
     }
     NSImage *image = [[NSImage alloc]initByReferencingFile:file];
     return image;

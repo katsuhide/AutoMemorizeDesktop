@@ -24,14 +24,8 @@
 		425A6546175A7077002DE6AF /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6543175A7077002DE6AF /* Task.m */; };
 		42762117177F2D0F00079CC9 /* logo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 42762116177F2D0F00079CC9 /* logo.icns */; };
 		42860F90175B779C00F68B03 /* NSDate+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 42860F8F175B779C00F68B03 /* NSDate+Util.m */; };
-		428615AF177771390028C38A /* Block.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615A8177771390028C38A /* Block.tif */; };
 		428615B0177771390028C38A /* documents_folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 428615A9177771390028C38A /* documents_folder.png */; };
-		428615B1177771390028C38A /* Info.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615AA177771390028C38A /* Info.tif */; };
-		428615B2177771390028C38A /* Pause.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615AB177771390028C38A /* Pause.tif */; };
-		428615B3177771390028C38A /* Play.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615AC177771390028C38A /* Play.tif */; };
-		428615B4177771390028C38A /* Plus.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615AD177771390028C38A /* Plus.tif */; };
 		428615B5177771390028C38A /* skype.png in Resources */ = {isa = PBXBuildFile; fileRef = 428615AE177771390028C38A /* skype.png */; };
-		428615B7177777860028C38A /* Last.tif in Resources */ = {isa = PBXBuildFile; fileRef = 428615B6177777860028C38A /* Last.tif */; };
 		429C1BA0177F3DCF0037A77C /* CustomHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1B9F177F3DCF0037A77C /* CustomHeaderCell.m */; };
 		429C1BA6177F418B0037A77C /* NSColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1BA5177F418B0037A77C /* NSColor+Hex.m */; };
 		429C1BA9177F574F0037A77C /* CustomTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1BA8177F574F0037A77C /* CustomTableHeaderView.m */; };
@@ -40,6 +34,19 @@
 		42CA7463175A7119002D469E /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA745C175A7119002D469E /* FMDatabasePool.m */; };
 		42CA7464175A7119002D469E /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA745E175A7119002D469E /* FMDatabaseQueue.m */; };
 		42CA7465175A7119002D469E /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA7460175A7119002D469E /* FMResultSet.m */; };
+		42E0239B17806F1F00556623 /* AllRestart.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0238E17806F1F00556623 /* AllRestart.psd */; };
+		42E0239C17806F1F00556623 /* AllStart.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0238F17806F1F00556623 /* AllStart.psd */; };
+		42E0239D17806F1F00556623 /* AllStop.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239017806F1F00556623 /* AllStop.psd */; };
+		42E0239E17806F1F00556623 /* Info.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239117806F1F00556623 /* Info.psd */; };
+		42E0239F17806F1F00556623 /* Minus.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239217806F1F00556623 /* Minus.psd */; };
+		42E023A017806F1F00556623 /* Pause.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239317806F1F00556623 /* Pause.psd */; };
+		42E023A117806F1F00556623 /* Play.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239417806F1F00556623 /* Play.psd */; };
+		42E023A217806F1F00556623 /* Plus.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239517806F1F00556623 /* Plus.psd */; };
+		42E023A317806F1F00556623 /* RegisterOkBtnLightBlue.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239617806F1F00556623 /* RegisterOkBtnLightBlue.psd */; };
+		42E023A417806F1F00556623 /* RegisterOkBtnLightGreen.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239717806F1F00556623 /* RegisterOkBtnLightGreen.psd */; };
+		42E023A517806F1F00556623 /* SignIn.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239817806F1F00556623 /* SignIn.psd */; };
+		42E023A617806F1F00556623 /* SignOut.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239917806F1F00556623 /* SignOut.psd */; };
+		42E023A717806F1F00556623 /* Status.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239A17806F1F00556623 /* Status.psd */; };
 		42F7806B176C23B900CC3E7A /* SkypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F78069176C23B900CC3E7A /* SkypeViewController.m */; };
 		42F7806C176C23B900CC3E7A /* SkypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F7806A176C23B900CC3E7A /* SkypeViewController.xib */; };
 		42F78070176C84BC00CC3E7A /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F7806E176C84BC00CC3E7A /* FileViewController.m */; };
@@ -137,14 +144,8 @@
 		42762116177F2D0F00079CC9 /* logo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = logo.icns; sourceTree = "<group>"; };
 		42860F8E175B779C00F68B03 /* NSDate+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Util.h"; sourceTree = "<group>"; };
 		42860F8F175B779C00F68B03 /* NSDate+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Util.m"; sourceTree = "<group>"; };
-		428615A8177771390028C38A /* Block.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Block.tif; sourceTree = "<group>"; };
 		428615A9177771390028C38A /* documents_folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = documents_folder.png; sourceTree = "<group>"; };
-		428615AA177771390028C38A /* Info.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Info.tif; sourceTree = "<group>"; };
-		428615AB177771390028C38A /* Pause.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Pause.tif; sourceTree = "<group>"; };
-		428615AC177771390028C38A /* Play.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Play.tif; sourceTree = "<group>"; };
-		428615AD177771390028C38A /* Plus.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Plus.tif; sourceTree = "<group>"; };
 		428615AE177771390028C38A /* skype.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skype.png; sourceTree = "<group>"; };
-		428615B6177777860028C38A /* Last.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Last.tif; sourceTree = "<group>"; };
 		429C1B9E177F3DCF0037A77C /* CustomHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomHeaderCell.h; sourceTree = "<group>"; };
 		429C1B9F177F3DCF0037A77C /* CustomHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHeaderCell.m; sourceTree = "<group>"; };
 		429C1BA4177F418B0037A77C /* NSColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+Hex.h"; sourceTree = "<group>"; };
@@ -161,6 +162,19 @@
 		42CA745E175A7119002D469E /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
 		42CA745F175A7119002D469E /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		42CA7460175A7119002D469E /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		42E0238E17806F1F00556623 /* AllRestart.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = AllRestart.psd; sourceTree = "<group>"; };
+		42E0238F17806F1F00556623 /* AllStart.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = AllStart.psd; sourceTree = "<group>"; };
+		42E0239017806F1F00556623 /* AllStop.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = AllStop.psd; sourceTree = "<group>"; };
+		42E0239117806F1F00556623 /* Info.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Info.psd; sourceTree = "<group>"; };
+		42E0239217806F1F00556623 /* Minus.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Minus.psd; sourceTree = "<group>"; };
+		42E0239317806F1F00556623 /* Pause.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pause.psd; sourceTree = "<group>"; };
+		42E0239417806F1F00556623 /* Play.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Play.psd; sourceTree = "<group>"; };
+		42E0239517806F1F00556623 /* Plus.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Plus.psd; sourceTree = "<group>"; };
+		42E0239617806F1F00556623 /* RegisterOkBtnLightBlue.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = RegisterOkBtnLightBlue.psd; sourceTree = "<group>"; };
+		42E0239717806F1F00556623 /* RegisterOkBtnLightGreen.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = RegisterOkBtnLightGreen.psd; sourceTree = "<group>"; };
+		42E0239817806F1F00556623 /* SignIn.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignIn.psd; sourceTree = "<group>"; };
+		42E0239917806F1F00556623 /* SignOut.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignOut.psd; sourceTree = "<group>"; };
+		42E0239A17806F1F00556623 /* Status.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Status.psd; sourceTree = "<group>"; };
 		42F78068176C23B900CC3E7A /* SkypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkypeViewController.h; sourceTree = "<group>"; };
 		42F78069176C23B900CC3E7A /* SkypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkypeViewController.m; sourceTree = "<group>"; };
 		42F7806A176C23B900CC3E7A /* SkypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SkypeViewController.xib; sourceTree = "<group>"; };
@@ -334,13 +348,20 @@
 		428615A3177770720028C38A /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				428615A8177771390028C38A /* Block.tif */,
-				428615B6177777860028C38A /* Last.tif */,
+				42E0238E17806F1F00556623 /* AllRestart.psd */,
+				42E0238F17806F1F00556623 /* AllStart.psd */,
+				42E0239017806F1F00556623 /* AllStop.psd */,
+				42E0239117806F1F00556623 /* Info.psd */,
+				42E0239217806F1F00556623 /* Minus.psd */,
+				42E0239317806F1F00556623 /* Pause.psd */,
+				42E0239417806F1F00556623 /* Play.psd */,
+				42E0239517806F1F00556623 /* Plus.psd */,
+				42E0239617806F1F00556623 /* RegisterOkBtnLightBlue.psd */,
+				42E0239717806F1F00556623 /* RegisterOkBtnLightGreen.psd */,
+				42E0239817806F1F00556623 /* SignIn.psd */,
+				42E0239917806F1F00556623 /* SignOut.psd */,
+				42E0239A17806F1F00556623 /* Status.psd */,
 				428615A9177771390028C38A /* documents_folder.png */,
-				428615AA177771390028C38A /* Info.tif */,
-				428615AB177771390028C38A /* Pause.tif */,
-				428615AC177771390028C38A /* Play.tif */,
-				428615AD177771390028C38A /* Plus.tif */,
 				428615AE177771390028C38A /* skype.png */,
 			);
 			name = Resource;
@@ -484,16 +505,23 @@
 				425A6511175A6E00002DE6AF /* MainMenu.xib in Resources */,
 				42F7806C176C23B900CC3E7A /* SkypeViewController.xib in Resources */,
 				42F78071176C84BC00CC3E7A /* FileViewController.xib in Resources */,
-				428615AF177771390028C38A /* Block.tif in Resources */,
 				428615B0177771390028C38A /* documents_folder.png in Resources */,
-				428615B1177771390028C38A /* Info.tif in Resources */,
-				428615B2177771390028C38A /* Pause.tif in Resources */,
-				428615B3177771390028C38A /* Play.tif in Resources */,
-				428615B4177771390028C38A /* Plus.tif in Resources */,
 				428615B5177771390028C38A /* skype.png in Resources */,
-				428615B7177777860028C38A /* Last.tif in Resources */,
 				42F94C291778CB41009D3802 /* PrefrencesViewController.xib in Resources */,
 				42762117177F2D0F00079CC9 /* logo.icns in Resources */,
+				42E0239B17806F1F00556623 /* AllRestart.psd in Resources */,
+				42E0239C17806F1F00556623 /* AllStart.psd in Resources */,
+				42E0239D17806F1F00556623 /* AllStop.psd in Resources */,
+				42E0239E17806F1F00556623 /* Info.psd in Resources */,
+				42E0239F17806F1F00556623 /* Minus.psd in Resources */,
+				42E023A017806F1F00556623 /* Pause.psd in Resources */,
+				42E023A117806F1F00556623 /* Play.psd in Resources */,
+				42E023A217806F1F00556623 /* Plus.psd in Resources */,
+				42E023A317806F1F00556623 /* RegisterOkBtnLightBlue.psd in Resources */,
+				42E023A417806F1F00556623 /* RegisterOkBtnLightGreen.psd in Resources */,
+				42E023A517806F1F00556623 /* SignIn.psd in Resources */,
+				42E023A617806F1F00556623 /* SignOut.psd in Resources */,
+				42E023A717806F1F00556623 /* Status.psd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

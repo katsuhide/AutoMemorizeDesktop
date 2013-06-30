@@ -80,7 +80,10 @@ extern const BOOL ENV;
  */
 -(BOOL)isExistNotebook:(NSString*)guid;
 
-
+/*
+ * Register Task Buttonの色をタスクタイプで変える
+ */
+-(void)changeRegisterOkBtn:(int)flag;
 
 
 @end

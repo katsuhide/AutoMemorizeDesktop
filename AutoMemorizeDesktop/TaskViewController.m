@@ -8,6 +8,7 @@
 
 #import "TaskViewController.h"
 #import "NSColor+Hex.h"
+#import "AppDelegate.h"
 
 @implementation TaskViewController
 
@@ -54,6 +55,10 @@ NSString *const fileViewName = @"FileViewController";
         [_taskView addSubview:[_taskViewController view]];
         [[_taskViewController view] setFrame:[_taskView bounds]];
     }
+
+    // ボタンの変更
+    AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+    [appDelegate changeRegisterOkBtn:taskType];
     
 }
 
@@ -86,7 +91,9 @@ NSString *const fileViewName = @"FileViewController";
     // 指定されたモードに設定
     [_taskTypeField setEnabled:isEditable];
     // データを設定もしくは初期化
-    [_taskTypeField selectItemAtIndex:[source.task_type intValue]];
+    int taskType = [source.task_type intValue];
+    [_taskTypeField selectItemAtIndex:taskType];
+    
     // 背景
 //    NSString *hex = @"#ecf0f1";
 //    NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
