@@ -42,11 +42,11 @@ const BOOL ENV = NO;
     // ArrayControllerとmanagedObjectContextの紐付け
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
     
-    // Evernoteへログイン
-    [self doAuthorize:nil];
-
-    // Notebookの一覧を取得
-    [self getNotebookList];
+//    // Evernoteへログイン
+//    [self doAuthorize:nil];
+//
+//    // Notebookの一覧を取得
+//    [self getNotebookList];
     
     // Main画面を初期化
     [self initialize];
@@ -138,6 +138,20 @@ const BOOL ENV = NO;
     source.last_added_time = now;
     source.update_time = now;
     
+    // 必須チェック
+    NSString *errorMsg = [self validateNewTask:source];
+    if(errorMsg.length != 0){
+        NSAlert *alert = [ NSAlert alertWithMessageText: @"Mandatory Field is left blank."
+                                          defaultButton: @"OK"
+                                        alternateButton: nil
+                                            otherButton: nil
+                              informativeTextWithFormat: @"%@", errorMsg];
+        [alert runModal];
+        // 保存しないようにオブジェクトを削除
+        [_managedObjectContext deleteObject:source];
+        return; // 後続の処理は実施しない
+    }
+    
     // Taskを保存
     [self save];
     // TaskTableViewを初期化
@@ -146,6 +160,50 @@ const BOOL ENV = NO;
     [self closeTaskView];
     // Taskを初期化
     [self restart:nil];
+    
+    
+}
+
+-(NSString*)validateNewTask:(TaskSource*)source{
+    NSMutableString *errorMsg = [NSMutableString string];
+    
+    // Task Name
+    if(source.task_name.length == 0){
+        [errorMsg appendString:@"Task Name\n"];
+    }
+    
+    // Interval
+    if(source.interval.length == 0){
+        [errorMsg appendString:@"Interval\n"];
+    }
+    
+    // Note Title
+    if(source.note_title.length == 0){
+        [errorMsg appendString:@"Note Title\n"];
+    }
+    
+    int taskType = [source.task_type intValue];
+    if(taskType == 0){
+        // Skype Task
+        // DB Fild Path
+        if([source getKeyValue:@"file_path"].length == 0){
+            [errorMsg appendString:@"Skype DB File Path\n"];            
+        }
+    
+    }else if(taskType == 1){
+        // File Task
+        // Target Directory
+        if([source getKeyValue:@"file_path"].length == 0){
+            [errorMsg appendString:@"Target Directory Path\n"];
+        }
+    
+    }else{
+        // Otherはないはずだが念のためメッセージを返す
+        [errorMsg appendString:@"Task Type\n"];
+    }
+    
+    return errorMsg;
+    
 }
 
 
@@ -315,7 +373,6 @@ const BOOL ENV = NO;
         [_userNameLabel setObjectValue:@"(Not Signed)"];
         
     }
-    
 
     // All Start
     imagePath = [[NSBundle mainBundle] pathForResource:@"AllStart" ofType:@"psd"];
@@ -824,7 +881,14 @@ const BOOL ENV = NO;
  * テストメソッド
  */
 -(IBAction)testMethod:(id)sender{
-
+    NSAlert *alert = [ NSAlert alertWithMessageText: @"Message"
+                                      defaultButton: @"OK"
+                                    alternateButton: nil
+                                        otherButton: nil
+                          informativeTextWithFormat: @"This is a message." ];
+    
+    [alert runModal];
+    
 //    exit(0);
 }
 

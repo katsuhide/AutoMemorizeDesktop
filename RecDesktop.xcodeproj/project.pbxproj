@@ -52,8 +52,6 @@
 		42F78070176C84BC00CC3E7A /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F7806E176C84BC00CC3E7A /* FileViewController.m */; };
 		42F78071176C84BC00CC3E7A /* FileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F7806F176C84BC00CC3E7A /* FileViewController.xib */; };
 		42F78074176C854800CC3E7A /* TaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F78073176C854800CC3E7A /* TaskViewController.m */; };
-		42F94C281778CB41009D3802 /* PrefrencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F94C261778CB41009D3802 /* PrefrencesViewController.m */; };
-		42F94C291778CB41009D3802 /* PrefrencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F94C271778CB41009D3802 /* PrefrencesViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,9 +181,6 @@
 		42F7806F176C84BC00CC3E7A /* FileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileViewController.xib; sourceTree = "<group>"; };
 		42F78072176C854800CC3E7A /* TaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskViewController.h; sourceTree = "<group>"; };
 		42F78073176C854800CC3E7A /* TaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskViewController.m; sourceTree = "<group>"; };
-		42F94C251778CB41009D3802 /* PrefrencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefrencesViewController.h; sourceTree = "<group>"; };
-		42F94C261778CB41009D3802 /* PrefrencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefrencesViewController.m; sourceTree = "<group>"; };
-		42F94C271778CB41009D3802 /* PrefrencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrefrencesViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,7 +258,6 @@
 			isa = PBXGroup;
 			children = (
 				429C1B99177F3DB90037A77C /* MainView */,
-				42F94C241778CAE7009D3802 /* SystemPrefeerncesView */,
 				428615A3177770720028C38A /* Resource */,
 				4211CC0B176CC215000B566B /* Evernote */,
 				42F78063176C23B000CC3E7A /* TaskView */,
@@ -393,16 +387,6 @@
 			name = TaskView;
 			sourceTree = "<group>";
 		};
-		42F94C241778CAE7009D3802 /* SystemPrefeerncesView */ = {
-			isa = PBXGroup;
-			children = (
-				42F94C251778CB41009D3802 /* PrefrencesViewController.h */,
-				42F94C261778CB41009D3802 /* PrefrencesViewController.m */,
-				42F94C271778CB41009D3802 /* PrefrencesViewController.xib */,
-			);
-			name = SystemPrefeerncesView;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -507,7 +491,6 @@
 				42F78071176C84BC00CC3E7A /* FileViewController.xib in Resources */,
 				428615B0177771390028C38A /* documents_folder.png in Resources */,
 				428615B5177771390028C38A /* skype.png in Resources */,
-				42F94C291778CB41009D3802 /* PrefrencesViewController.xib in Resources */,
 				42762117177F2D0F00079CC9 /* logo.icns in Resources */,
 				42E0239B17806F1F00556623 /* AllRestart.psd in Resources */,
 				42E0239C17806F1F00556623 /* AllStart.psd in Resources */,
@@ -549,7 +532,6 @@
 				42F78070176C84BC00CC3E7A /* FileViewController.m in Sources */,
 				42F78074176C854800CC3E7A /* TaskViewController.m in Sources */,
 				4211CC12176CC233000B566B /* NSData+EvernoteSDK.m in Sources */,
-				42F94C281778CB41009D3802 /* PrefrencesViewController.m in Sources */,
 				429C1BA0177F3DCF0037A77C /* CustomHeaderCell.m in Sources */,
 				429C1BA6177F418B0037A77C /* NSColor+Hex.m in Sources */,
 				429C1BA9177F574F0037A77C /* CustomTableHeaderView.m in Sources */,
