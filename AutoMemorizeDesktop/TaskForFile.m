@@ -111,7 +111,7 @@
  */
 - (EDAMNote*)createEDAMNote:(NSString*)filePath{
     // Note Titleの指定
-    NSString *noteTitle = self.source.task_name;
+    NSString *noteTitle = self.source.note_title;
     
     // tagの指定
     NSMutableArray *tagNames = [NSMutableArray arrayWithArray:[self.source splitTags]];

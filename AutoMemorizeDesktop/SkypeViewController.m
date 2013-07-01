@@ -50,11 +50,6 @@
     [_skypeDBFilePathField setEditable:isEditable];
     [_participantsField setEditable:isEditable];
     
-    NSString *hex = @"#ecf0f1";
-    NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
-    [_skypeDBFilePathField setBackgroundColor:backColor];
-    [_participantsField setBackgroundColor:backColor];
-
     // データを設定もしくは初期化
     if(isEditable){
         [_skypeDBFilePathField setStringValue:nil];

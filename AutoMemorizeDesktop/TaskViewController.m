@@ -50,10 +50,11 @@ NSString *const fileViewName = @"FileViewController";
             break;
     }
 
-    // Custom Viewを作成
     if(flag){
+        // Custom Viewを作成
         [_taskView addSubview:[_taskViewController view]];
         [[_taskViewController view] setFrame:[_taskView bounds]];
+        
     }
 
     // ボタンの変更
@@ -94,11 +95,6 @@ NSString *const fileViewName = @"FileViewController";
     int taskType = [source.task_type intValue];
     [_taskTypeField selectItemAtIndex:taskType];
     
-    // 背景
-//    NSString *hex = @"#ecf0f1";
-//    NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
-//    [_taskTypeField setBackgroundColor:backColor];
-
 }
 
 -(void)changeCustomTaskView:(BOOL)isEditable andData:(TaskSource*)source{

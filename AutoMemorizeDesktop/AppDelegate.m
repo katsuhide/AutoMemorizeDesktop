@@ -43,10 +43,10 @@ const BOOL ENV = NO;
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
     
 //    // Evernoteへログイン
-//    [self doAuthorize:nil];
+    [self doAuthorize:nil];
 //
 //    // Notebookの一覧を取得
-//    [self getNotebookList];
+    [self getNotebookList];
     
     // Main画面を初期化
     [self initialize];
@@ -55,7 +55,7 @@ const BOOL ENV = NO;
     [self initializePreView];
     
     // メインスレッドのポーリングを開始
-//    [self run];
+    [self run];
 }
 
 /*
@@ -239,14 +239,16 @@ const BOOL ENV = NO;
     NSString *hex = @"#FFFFFF";
     NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
     [_window setBackgroundColor:backColor];
-//    [_window setAlphaValue:0.95];
 
-//    for (NSTableColumn* column in [_taskTable tableColumns]) {
-//        NSTableHeaderCell *cell = [column headerCell];
-//        CustomHeaderCell *newCell = [[CustomHeaderCell alloc] init];
-//        [newCell setAttributedStringValue:[cell attributedStringValue]];
-//        [column setHeaderCell:newCell];
-//    }
+    int num = 0;
+    for (NSTableColumn* column in [_taskTable tableColumns]) {
+        NSTableHeaderCell *cell = [column headerCell];
+        CustomHeaderCell *newCell = [[CustomHeaderCell alloc] init];
+        [newCell changeBackColor:num];
+        [newCell setAttributedStringValue:[cell attributedStringValue]];
+        [column setHeaderCell:newCell];
+        num++;
+    }
     
 //    NSTableHeaderView *tableHeaderView = [[NSTableHeaderView alloc] initWithFrame:NSMakeRect(0, 0, 10, 60)];
 //    NSTableHeaderView *tableHeaderView = _taskTable.headerView;
@@ -318,6 +320,7 @@ const BOOL ENV = NO;
             [_registerOKBtn setHidden:YES]; //対応していないためボタンを非表示
             return;
     }
+    
     NSImage *registerOkBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_registerOKBtn setImage:registerOkBtnImage];
     [_registerOKBtn setBordered:NO];
@@ -344,10 +347,17 @@ const BOOL ENV = NO;
  * 選択されたTaskの情報を表示してTaskViewを開く(すべてDisableにする）
  */
 -(void)viewTaskView:(TaskSource*)source{
+    // 背景
+    NSString *hex = @"#FFFFFF";
+    NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
+    [_taskView setBackgroundColor:backColor];
+
     // 共通部分のアイテムを初期化
     [self changeTaskView:NO andData:source];
     // 拡張部分のアイテムを初期化
     [_taskViewController viewTaskView:source];
+    // Registerボタンを非表示に
+    [_registerOKBtn setHidden:YES];
 
 }
 

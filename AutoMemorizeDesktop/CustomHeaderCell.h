@@ -10,4 +10,8 @@
 
 @interface CustomHeaderCell : NSTableHeaderCell
 
+@property (strong) NSNumber *colorFlag;
+
+-(void)changeBackColor:(int)num;
+
 @end

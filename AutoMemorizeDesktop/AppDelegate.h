@@ -48,7 +48,7 @@ extern const BOOL ENV;
 
 
 // Main Thread
-#define INTERVAL 15  // 秒
+#define INTERVAL 60  // 秒
 @property (retain) NSMutableArray *taskQueue;
 
 // Task Panle
@@ -84,6 +84,5 @@ extern const BOOL ENV;
  * Register Task Buttonの色をタスクタイプで変える
  */
 -(void)changeRegisterOkBtn:(int)flag;
-
 
 @end
