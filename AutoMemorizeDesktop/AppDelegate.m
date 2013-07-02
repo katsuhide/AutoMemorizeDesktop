@@ -24,7 +24,7 @@ const BOOL ENV = NO;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // test method
-//    [self testMethod:nil];
+    [self testMethod:nil];
 
     // ログ出力
     if(ENV){
@@ -108,6 +108,31 @@ const BOOL ENV = NO;
     }
     
 }
+
+/*
+ * TaskSourceの新規作成
+ */
+-(TaskSource*)createTaskSource{
+    TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
+    return source;
+}
+
+/*
+ * タスクの登録
+ */
+-(void)registerTask:(TaskSource*)source{
+    // Taskを保存
+    [self save];
+
+    // TaskTableViewを初期化
+    
+    // TaskViewを閉じる
+    
+    // Taskを初期化
+    [self restart:nil];
+    
+}
+
 
 /*
  * TaskViewのRegisterAction
@@ -891,13 +916,7 @@ const BOOL ENV = NO;
  * テストメソッド
  */
 -(IBAction)testMethod:(id)sender{
-    NSAlert *alert = [ NSAlert alertWithMessageText: @"Message"
-                                      defaultButton: @"OK"
-                                    alternateButton: nil
-                                        otherButton: nil
-                          informativeTextWithFormat: @"This is a message." ];
-    
-    [alert runModal];
+
     
 //    exit(0);
 }
@@ -914,6 +933,19 @@ const BOOL ENV = NO;
 //        [_userNameLabel setObjectValue:@"-"];
 //    }
 //}
+
+
+
+/*
+ * Task Windowを開く
+ */
+-(IBAction)openTaskWindow:(id)sender{
+//    // Data Source Viewを設定
+//    [_taskWindowController displaySelectDataSourceView:nil];
+//    // Windowを開く
+//    [_taskWindow makeKeyAndOrderFront:sender];
+//    
+}
 
 
 @end

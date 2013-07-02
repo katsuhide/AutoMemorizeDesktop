@@ -146,5 +146,4 @@ NSString *const fileViewName = @"FileViewController";
     return (int)[_taskTypeField indexOfSelectedItem];
 }
 
-
 @end

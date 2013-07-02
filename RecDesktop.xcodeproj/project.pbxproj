@@ -7,9 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4210724817828A7E00B03452 /* TaskWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4210724717828A7E00B03452 /* TaskWindowController.m */; };
+		4210724C17828AF500B03452 /* SelectDataSourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4210724A17828AF500B03452 /* SelectDataSourceView.m */; };
+		4210724D17828AF500B03452 /* SelectDataSourceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4210724B17828AF500B03452 /* SelectDataSourceView.xib */; };
+		4210725117828D4A00B03452 /* SkypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4210724F17828D4A00B03452 /* SkypeView.m */; };
+		4210725217828D4A00B03452 /* SkypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4210725017828D4A00B03452 /* SkypeView.xib */; };
 		4211CC12176CC233000B566B /* NSData+EvernoteSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211CC11176CC233000B566B /* NSData+EvernoteSDK.m */; };
 		42368B2E175CDBDF0098CFB3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42368B2C175CDBDF0098CFB3 /* Model.xcdatamodeld */; };
 		42368B36175CDCC70098CFB3 /* TaskSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 42368B35175CDCC70098CFB3 /* TaskSource.m */; };
+		42402DD51783476B007A97BC /* AdditionalConditionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42402DD31783476A007A97BC /* AdditionalConditionView.m */; };
+		42402DD61783476B007A97BC /* AdditionalConditionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42402DD41783476A007A97BC /* AdditionalConditionView.xib */; };
 		425A64FB175A6DFF002DE6AF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425A64FA175A6DFF002DE6AF /* Cocoa.framework */; };
 		425A6505175A6DFF002DE6AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 425A6503175A6DFF002DE6AF /* InfoPlist.strings */; };
 		425A6507175A6DFF002DE6AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6506175A6DFF002DE6AF /* main.m */; };
@@ -113,11 +120,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4210724617828A7E00B03452 /* TaskWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskWindowController.h; sourceTree = "<group>"; };
+		4210724717828A7E00B03452 /* TaskWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskWindowController.m; sourceTree = "<group>"; };
+		4210724917828AF500B03452 /* SelectDataSourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectDataSourceView.h; sourceTree = "<group>"; };
+		4210724A17828AF500B03452 /* SelectDataSourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectDataSourceView.m; sourceTree = "<group>"; };
+		4210724B17828AF500B03452 /* SelectDataSourceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectDataSourceView.xib; sourceTree = "<group>"; };
+		4210724E17828D4A00B03452 /* SkypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkypeView.h; sourceTree = "<group>"; };
+		4210724F17828D4A00B03452 /* SkypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkypeView.m; sourceTree = "<group>"; };
+		4210725017828D4A00B03452 /* SkypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SkypeView.xib; sourceTree = "<group>"; };
 		4211CC10176CC233000B566B /* NSData+EvernoteSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+EvernoteSDK.h"; sourceTree = "<group>"; };
 		4211CC11176CC233000B566B /* NSData+EvernoteSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+EvernoteSDK.m"; sourceTree = "<group>"; };
 		42368B2D175CDBDF0098CFB3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		42368B34175CDCC70098CFB3 /* TaskSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskSource.h; sourceTree = "<group>"; };
 		42368B35175CDCC70098CFB3 /* TaskSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskSource.m; sourceTree = "<group>"; };
+		42402DD21783476A007A97BC /* AdditionalConditionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdditionalConditionView.h; sourceTree = "<group>"; };
+		42402DD31783476A007A97BC /* AdditionalConditionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdditionalConditionView.m; sourceTree = "<group>"; };
+		42402DD41783476A007A97BC /* AdditionalConditionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdditionalConditionView.xib; sourceTree = "<group>"; };
 		425A64F7175A6DFF002DE6AF /* RecDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecDesktop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		425A64FA175A6DFF002DE6AF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		425A64FD175A6DFF002DE6AF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -197,6 +215,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4210723C178288E300B03452 /* TaskWiondow */ = {
+			isa = PBXGroup;
+			children = (
+				4210724617828A7E00B03452 /* TaskWindowController.h */,
+				4210724717828A7E00B03452 /* TaskWindowController.m */,
+				4210724917828AF500B03452 /* SelectDataSourceView.h */,
+				4210724A17828AF500B03452 /* SelectDataSourceView.m */,
+				4210724B17828AF500B03452 /* SelectDataSourceView.xib */,
+				4210724E17828D4A00B03452 /* SkypeView.h */,
+				4210724F17828D4A00B03452 /* SkypeView.m */,
+				4210725017828D4A00B03452 /* SkypeView.xib */,
+				42402DD21783476A007A97BC /* AdditionalConditionView.h */,
+				42402DD31783476A007A97BC /* AdditionalConditionView.m */,
+				42402DD41783476A007A97BC /* AdditionalConditionView.xib */,
+			);
+			name = TaskWiondow;
+			sourceTree = "<group>";
+		};
 		4211CC0B176CC215000B566B /* Evernote */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +293,7 @@
 		425A6500175A6DFF002DE6AF /* AutoMemorizeDesktop */ = {
 			isa = PBXGroup;
 			children = (
+				4210723C178288E300B03452 /* TaskWiondow */,
 				429C1B99177F3DB90037A77C /* MainView */,
 				428615A3177770720028C38A /* Resource */,
 				4211CC0B176CC215000B566B /* Evernote */,
@@ -505,6 +542,9 @@
 				42E023A517806F1F00556623 /* SignIn.psd in Resources */,
 				42E023A617806F1F00556623 /* SignOut.psd in Resources */,
 				42E023A717806F1F00556623 /* Status.psd in Resources */,
+				4210724D17828AF500B03452 /* SelectDataSourceView.xib in Resources */,
+				4210725217828D4A00B03452 /* SkypeView.xib in Resources */,
+				42402DD61783476B007A97BC /* AdditionalConditionView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,6 +575,10 @@
 				429C1BA0177F3DCF0037A77C /* CustomHeaderCell.m in Sources */,
 				429C1BA6177F418B0037A77C /* NSColor+Hex.m in Sources */,
 				429C1BA9177F574F0037A77C /* CustomTableHeaderView.m in Sources */,
+				4210724817828A7E00B03452 /* TaskWindowController.m in Sources */,
+				4210724C17828AF500B03452 /* SelectDataSourceView.m in Sources */,
+				4210725117828D4A00B03452 /* SkypeView.m in Sources */,
+				42402DD51783476B007A97BC /* AdditionalConditionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

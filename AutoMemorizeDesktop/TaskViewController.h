@@ -44,5 +44,4 @@
  */
 -(int)getTaskType;
 
-
 @end

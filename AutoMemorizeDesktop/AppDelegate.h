@@ -12,6 +12,7 @@
 #import "TaskForSkype.h"
 #import <EvernoteSDK-Mac/EvernoteSDK.h>
 #import "TaskViewController.h"
+#import "TaskWindowController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 // Environment
@@ -84,5 +85,19 @@ extern const BOOL ENV;
  * Register Task Buttonの色をタスクタイプで変える
  */
 -(void)changeRegisterOkBtn:(int)flag;
+
+/*
+ * TaskSourceの新規作成
+ */
+-(TaskSource*)createTaskSource;
+
+/*
+ * タスクの登録
+ */
+-(void)registerTask:(TaskSource*)source;
+
+
+
+
 
 @end
