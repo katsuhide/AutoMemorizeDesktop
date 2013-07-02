@@ -42,11 +42,11 @@ const BOOL ENV = NO;
     // ArrayControllerとmanagedObjectContextの紐付け
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
     
-//    // Evernoteへログイン
-    [self doAuthorize:nil];
-//
-//    // Notebookの一覧を取得
-    [self getNotebookList];
+    // Evernoteへログイン
+//    [self doAuthorize:nil];
+
+    // Notebookの一覧を取得
+//    [self getNotebookList];
     
     // Main画面を初期化
     [self initialize];
@@ -55,7 +55,7 @@ const BOOL ENV = NO;
     [self initializePreView];
     
     // メインスレッドのポーリングを開始
-    [self run];
+//    [self run];
 }
 
 /*
