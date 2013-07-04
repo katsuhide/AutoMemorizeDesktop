@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4201439617859C070012E4B2 /* evernote_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4201439517859C070012E4B2 /* evernote_logo.png */; };
 		4210724817828A7E00B03452 /* TaskWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4210724717828A7E00B03452 /* TaskWindowController.m */; };
 		4210724C17828AF500B03452 /* SelectDataSourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4210724A17828AF500B03452 /* SelectDataSourceView.m */; };
 		4210724D17828AF500B03452 /* SelectDataSourceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4210724B17828AF500B03452 /* SelectDataSourceView.xib */; };
@@ -120,6 +121,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4201439517859C070012E4B2 /* evernote_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = evernote_logo.png; sourceTree = "<group>"; };
 		4210724617828A7E00B03452 /* TaskWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskWindowController.h; sourceTree = "<group>"; };
 		4210724717828A7E00B03452 /* TaskWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskWindowController.m; sourceTree = "<group>"; };
 		4210724917828AF500B03452 /* SelectDataSourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectDataSourceView.h; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				42E0239817806F1F00556623 /* SignIn.psd */,
 				42E0239917806F1F00556623 /* SignOut.psd */,
 				42E0239A17806F1F00556623 /* Status.psd */,
+				4201439517859C070012E4B2 /* evernote_logo.png */,
 				428615A9177771390028C38A /* documents_folder.png */,
 				428615AE177771390028C38A /* skype.png */,
 			);
@@ -545,6 +548,7 @@
 				4210724D17828AF500B03452 /* SelectDataSourceView.xib in Resources */,
 				4210725217828D4A00B03452 /* SkypeView.xib in Resources */,
 				42402DD61783476B007A97BC /* AdditionalConditionView.xib in Resources */,
+				4201439617859C070012E4B2 /* evernote_logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,8 +29,33 @@
     
 }
 
--(NSString*)getTest{
-    return [_test stringValue];
+/*
+ * 初期化
+ */
+-(void)initilize{
+    NSString *imagePath;
+    NSImage *image;
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Status" ofType:@"psd"];
+    image= [[NSImage alloc]initByReferencingFile:imagePath];
+    [_skypeBtn setImage:image];
+    [_skypeBtn setBordered:NO];
+    
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Status" ofType:@"psd"];
+    image= [[NSImage alloc]initByReferencingFile:imagePath];
+    [_pdfBtn setImage:image];
+    [_pdfBtn setBordered:NO];
+
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Status" ofType:@"psd"];
+    image= [[NSImage alloc]initByReferencingFile:imagePath];
+    [_excelBtn setImage:image];
+    [_excelBtn setBordered:NO];
+
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Status" ofType:@"psd"];
+    image= [[NSImage alloc]initByReferencingFile:imagePath];
+    [_markdownBtn setImage:image];
+    [_markdownBtn setBordered:NO];
+
+    
 }
 
 

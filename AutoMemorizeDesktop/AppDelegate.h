@@ -94,9 +94,20 @@ extern const BOOL ENV;
 /*
  * タスクの登録
  */
--(void)registerTask:(TaskSource*)source;
+-(void)registerTask:(NSDictionary*)inputData;
+
+/*
+ * NotebookNameからGUIDを取得
+ */
+-(NSString*)getNotebookGuid:(NSString*)notebookName;
+
+/*
+ * NotebookListを取得
+ */
+-(NSMutableArray*)getNotebookList;
 
 
+-(IBAction)testMethod:(id)sender;
 
 
 

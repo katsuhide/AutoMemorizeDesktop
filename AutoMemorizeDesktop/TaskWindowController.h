@@ -25,12 +25,32 @@
 // Viewの履歴
 @property (retain) NSNumber *viewNumber;
 
+// Image View
+@property (retain) IBOutlet NSImageView *dataSourceView;
+@property (retain) IBOutlet NSImageView *rightBow;
+@property (retain) IBOutlet NSImageView *evernoteView;
 
-// ボタン
-@property (assign) IBOutlet NSButton *nextBtn;  // DataSourceViewのボタン
+// Register View
+@property (assign) IBOutlet NSTextField *dataSourceLabel;
+@property (assign) IBOutlet NSButton *skypeBtn;  // SKYPE
+@property (assign) IBOutlet NSButton *pdfBtn;  // PDF
+@property (assign) IBOutlet NSButton *textBtn;  // TEXT
+@property (assign) IBOutlet NSButton *excelBtn;  // EXCEL
+@property (assign) IBOutlet NSButton *wordBtn;  // WORD
+@property (assign) IBOutlet NSButton *powerpointBtn;  // POWERPOINT
+@property (assign) IBOutlet NSButton *numbersBtn;  // NUMBERS
+@property (assign) IBOutlet NSButton *pagesBtn;  // PAGES
+@property (assign) IBOutlet NSButton *keyBtn;  // KEYNOTE
+@property (assign) IBOutlet NSButton *csvBtn;  // CSV
+@property (assign) IBOutlet NSButton *markdownBtn;  // MARKDOWN
+
+// 全View共通コンポーネント
 @property (assign) IBOutlet NSButton *backBtn;  // 全画面共通の前へ戻るためのボタン
-@property (assign) IBOutlet NSButton *addtitonalBtn; // AdditionalConditin画面を開くためのボタン
-@property (assign) IBOutlet NSButton *registerOKBtn;    // Register実行用のボタン
+@property (assign) IBOutlet NSButton *registerBtn;    // Register実行用のボタン
+@property (assign) IBOutlet NSButton *nextBtn;  // DataSourceViewのボタン
+@property (assign) IBOutlet NSTextField *backLabel;
+@property (assign) IBOutlet NSTextField *registerLabel;
+@property (assign) IBOutlet NSTextField *nextLabel;
 
 // 入力されたタスクに関する情報
 @property (retain) NSMutableDictionary *inputData;
@@ -42,6 +62,12 @@
 -(IBAction)openTaskWindow:(id)sender;
 
 /*
+ * When user push the Skype Button
+ */
+-(IBAction)pushSkypeBtn:(id)sender;
+
+
+/*
  * Display the Select Data Source View
  */
 -(IBAction)displaySelectDataSourceView:(id)sender;
@@ -50,6 +76,11 @@
  * When user push the next btn
  */
 -(IBAction)pushNextBtn:(id)sender;
+
+/*
+ * When user push the additional btn
+ */
+-(IBAction)pushAdditionalBtn:(id)sender;
 
 /*
  * Display the Skype User View

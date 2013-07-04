@@ -24,8 +24,15 @@
     return self;
 }
 
--(NSString*)getSkypeUser{
-    return [_skypeUserField stringValue];
+-(void)initilize:(NSMutableDictionary*)inputData{
+    [_skypeUserField setObjectValue:[inputData objectForKey:@"skypeUser"]];
+}
+
+
+-(NSMutableDictionary*)setViewData:(NSMutableDictionary*)inputData{
+    NSString *skypeUser = [_skypeUserField stringValue];
+    [inputData setValue:skypeUser forKey:@"skypeUser"];
+    return inputData;
 }
 
 @end

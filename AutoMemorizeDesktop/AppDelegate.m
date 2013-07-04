@@ -24,7 +24,7 @@ const BOOL ENV = NO;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // test method
-    [self testMethod:nil];
+//    [self testMethod:nil];
 
     // ログ出力
     if(ENV){
@@ -43,10 +43,10 @@ const BOOL ENV = NO;
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
     
     // Evernoteへログイン
-//    [self doAuthorize:nil];
+    [self doAuthorize:nil];
 
-    // Notebookの一覧を取得
-//    [self getNotebookList];
+    // Notebookの一覧を取得して設定
+    [self setupNotebookList];
     
     // Main画面を初期化
     [self initialize];
@@ -120,16 +120,60 @@ const BOOL ENV = NO;
 /*
  * タスクの登録
  */
--(void)registerTask:(TaskSource*)source{
+-(void)registerTask:(NSDictionary*)inputData{
+    // 画面の入力値からTaskを生成する
+    TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
+
+    // Basic Information
+    NSNumber *dataSourceType = [inputData objectForKey:@"dataSourceType"];
+    source.task_type = dataSourceType;
+    source.status = [NSNumber numberWithInt:1];
+
+    // Data Source 毎に固有の処理
+    switch ([dataSourceType intValue]) {
+        case 0:
+        {
+            NSString *skypeUser = [inputData objectForKey:@"skypeUser"];
+            source.task_name = [NSString stringWithFormat:@"Upload %@ Data by 5 minutes", skypeUser];
+            //            source.interval = @"0.42";  // 約5min TODO
+            source.interval = @"0.003";  // 約10sec
+            NSString *skypePath = [NSString stringWithFormat:@"~/Library/Application Support/Skype/%@/main.db", skypeUser];
+            
+            NSMutableString *params = [NSMutableString string];
+            [params appendString:[source transformKeyValue:@"file_path" andValue:skypePath]];
+            source.params = params;
+        
+        }
+            break;
+        default:
+            source.task_name = @"Upload Download Directory Data by relatime";
+            source.interval = @"0.003";  // 約10sec
+            break;
+    }
+    
+    // Addtional Condition for Evernote
+    source.note_title = [inputData objectForKey:@"notetitle"];
+    NSString *notebookName = [inputData objectForKey:@"notebook"];
+    NSString *guid = @"";
+    for(NSDictionary *notebook in _notebookList){
+        if([notebookName isEqualToString:[notebook objectForKey:@"name"]]){
+            guid = [notebook objectForKey:@"guid"];
+        }
+    }
+    source.notebook_guid = guid;
+    source.tags = [inputData objectForKey:@"tag"];  // TODO 形式を要チェック
+    
+    // System Information
+    NSDate *now = [NSDate date];
+    source.last_execute_time = now;
+    source.last_added_time = now;
+    source.update_time = now;
+
     // Taskを保存
     [self save];
-
-    // TaskTableViewを初期化
-    
-    // TaskViewを閉じる
     
     // Taskを初期化
-    [self restart:nil];
+//    [self restart:nil];
     
 }
 
@@ -635,7 +679,7 @@ const BOOL ENV = NO;
 /*
  * Notebookのリストを取得
  */
--(void)getNotebookList{
+-(void)setupNotebookList{
     _notebookList = [[NSMutableArray alloc]init];
     EvernoteNoteStore *noteStore = [EvernoteNoteStore noteStore];
     [noteStore listNotebooksWithSuccess:^(NSArray *notebooks) {
@@ -675,6 +719,26 @@ const BOOL ENV = NO;
         }
     }
     return notebookName;
+}
+
+/*
+ * NotebookListを取得
+ */
+-(NSMutableArray*)getNotebookList{
+    return _notebookList;
+}
+
+/*
+ * NotebookNameからGUIDを取得
+ */
+-(NSString*)getNotebookGuid:(NSString*)notebookName{
+    NSString *guid = @"";
+    for(NSDictionary *notebook in _notebookList){
+        if([notebookName isEqualToString:[notebook objectForKey:@"name"]]){
+            guid = [notebook objectForKey:@"guid"];
+        }
+    }
+    return guid;
 }
 
 
@@ -916,7 +980,7 @@ const BOOL ENV = NO;
  * テストメソッド
  */
 -(IBAction)testMethod:(id)sender{
-
+    NSLog(@"testMethod by Appdelegate.");
     
 //    exit(0);
 }
@@ -934,18 +998,6 @@ const BOOL ENV = NO;
 //    }
 //}
 
-
-
-/*
- * Task Windowを開く
- */
--(IBAction)openTaskWindow:(id)sender{
-//    // Data Source Viewを設定
-//    [_taskWindowController displaySelectDataSourceView:nil];
-//    // Windowを開く
-//    [_taskWindow makeKeyAndOrderFront:sender];
-//    
-}
 
 
 @end
