@@ -21,6 +21,7 @@
 		42368B36175CDCC70098CFB3 /* TaskSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 42368B35175CDCC70098CFB3 /* TaskSource.m */; };
 		42402DD51783476B007A97BC /* AdditionalConditionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42402DD31783476A007A97BC /* AdditionalConditionView.m */; };
 		42402DD61783476B007A97BC /* AdditionalConditionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42402DD41783476A007A97BC /* AdditionalConditionView.xib */; };
+		4251AC14178733EE005B92BE /* SignIn2.psd in Resources */ = {isa = PBXBuildFile; fileRef = 4251AC13178733EE005B92BE /* SignIn2.psd */; };
 		425A64FB175A6DFF002DE6AF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425A64FA175A6DFF002DE6AF /* Cocoa.framework */; };
 		425A6505175A6DFF002DE6AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 425A6503175A6DFF002DE6AF /* InfoPlist.strings */; };
 		425A6507175A6DFF002DE6AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6506175A6DFF002DE6AF /* main.m */; };
@@ -157,6 +158,7 @@
 		42402DD21783476A007A97BC /* AdditionalConditionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdditionalConditionView.h; sourceTree = "<group>"; };
 		42402DD31783476A007A97BC /* AdditionalConditionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdditionalConditionView.m; sourceTree = "<group>"; };
 		42402DD41783476A007A97BC /* AdditionalConditionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdditionalConditionView.xib; sourceTree = "<group>"; };
+		4251AC13178733EE005B92BE /* SignIn2.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignIn2.psd; sourceTree = "<group>"; };
 		425A64F7175A6DFF002DE6AF /* RecDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecDesktop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		425A64FA175A6DFF002DE6AF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		425A64FD175A6DFF002DE6AF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -419,6 +421,7 @@
 		428615A3177770720028C38A /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				4251AC13178733EE005B92BE /* SignIn2.psd */,
 				42C4C4C6178685090069A7F1 /* Word.psd */,
 				42C4C4C4178684FE0069A7F1 /* PowerPoint.psd */,
 				4272DDBE1786E5F70047B988 /* question.png */,
@@ -611,6 +614,7 @@
 				4272DDBF1786E5F70047B988 /* question.png in Resources */,
 				4272DDC4178714950047B988 /* ChooseBackupDirectoryView.xib in Resources */,
 				4272DDC61787248C0047B988 /* FileChoose.png in Resources */,
+				4251AC14178733EE005B92BE /* SignIn2.psd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

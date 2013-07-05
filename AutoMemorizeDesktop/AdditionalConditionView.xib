@@ -45,7 +45,7 @@
 					<object class="NSTextField" id="442951765">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{10, 327}, {440, 43}}</string>
+						<string key="NSFrame">{{10, 327}, {442, 43}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="556694622"/>
@@ -54,7 +54,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="538933226">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Set the additional information if neseccary.</string>
+							<string key="NSContents">Enter the additional information if necessary.</string>
 							<object class="NSFont" key="NSSupport">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">20</double>
@@ -128,7 +128,8 @@ c3BlY2lmaXksIHRoZSBOb3RlIHdpbGwgYmUgY3JlYXRlZCBpbiB0aGUgZGVmYXVsdCBOb3RlYm9vay4<
 						<object class="NSTextFieldCell" key="NSCell" id="371872076">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">272629760</int>
-							<string key="NSContents">* Create the Note by using this Item.</string>
+							<string type="base64-UTF8" key="NSContents">KiBDcmVhdGUgdGhlIE5vdGUgYnkgdXNpbmcgdGhpcyBJdGVtLgogICBJZiB5b3Ugbm90IGVudGVyLCBO
+b3RlIFRpdGxlIHdpbGwgYmUgZGF0YSB0eXBlIG9yIGZpbGUgbmFtZS4</string>
 							<object class="NSFont" key="NSSupport">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">13</double>
@@ -155,6 +156,7 @@ c3BlY2lmaXksIHRoZSBOb3RlIHdpbGwgYmUgY3JlYXRlZCBpbiB0aGUgZGVmYXVsdCBOb3RlYm9vay4<
 						<string key="NSFrame">{{15, 65}, {461, 35}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTokenFieldCell" key="NSCell" id="786359966">
@@ -835,33 +837,12 @@ c3BlY2lmaXksIHRoZSBOb3RlIHdpbGwgYmUgY3JlYXRlZCBpbiB0aGUgZGVmYXVsdCBOb3RlYm9vay4<
 								<float key="scoringTypeFloat">9</float>
 								<int key="contentType">1</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="911127273">
-								<reference key="firstItem" ref="442951765"/>
-								<int key="firstAttribute">7</int>
-								<int key="relation">0</int>
-								<nil key="secondItem"/>
-								<int key="secondAttribute">0</int>
-								<float key="multiplier">1</float>
-								<object class="IBLayoutConstant" key="constant">
-									<double key="value">434</double>
-								</object>
-								<float key="priority">1000</float>
-								<reference key="containingView" ref="442951765"/>
-								<int key="scoringType">3</int>
-								<float key="scoringTypeFloat">9</float>
-								<int key="contentType">1</int>
-							</object>
 						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">142</int>
 						<reference key="object" ref="538933226"/>
-						<reference key="parent" ref="442951765"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">146</int>
-						<reference key="object" ref="911127273"/>
 						<reference key="parent" ref="442951765"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -989,14 +970,12 @@ c3BlY2lmaXksIHRoZSBOb3RlIHdpbGwgYmUgY3JlYXRlZCBpbiB0aGUgZGVmYXVsdCBOb3RlYm9vay4<
 				<boolean value="NO" key="119.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="119.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="120.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<array key="141.IBNSViewMetadataConstraints">
-					<reference ref="911127273"/>
+				<array class="NSMutableArray" key="141.IBNSViewMetadataConstraints">
 					<reference ref="602643735"/>
 				</array>
 				<boolean value="NO" key="141.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="141.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="142.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="146.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="147.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="150.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="151.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>

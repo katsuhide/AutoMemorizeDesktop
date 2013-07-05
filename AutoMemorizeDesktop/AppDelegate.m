@@ -23,9 +23,6 @@ const BOOL ENV = NO;
 // Insert code here to initialize your application
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // test method
-//    [self testMethod:nil];
-
     // ログ出力
     if(ENV){
         freopen([@"/tmp/recdesktop.log" fileSystemRepresentation], "w+", stderr);
@@ -34,7 +31,14 @@ const BOOL ENV = NO;
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
     NSError *error = nil;
-    if(![[NSFileManager defaultManager] createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error]){
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isFirst = ![fileManager fileExistsAtPath:[applicationFilesDirectory path]];
+    if(isFirst){
+        // 初回起動のみヘルプを表示
+        [self help:nil];
+    }
+    
+    if(![fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error]){
         NSLog(@"Couldn't create the data store directory.[%@, %@]", error, [error userInfo]);
         abort();
     }
@@ -42,13 +46,15 @@ const BOOL ENV = NO;
     // ArrayControllerとmanagedObjectContextの紐付け
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
     
-    // Evernoteへログイン
-    [self doAuthorize:nil];
+    if(!isFirst){
+        // Evernoteへログイン
+        [self doAuthorize:nil];
 
-    // Notebookの一覧を取得して設定
-    _notebookList = [[NSMutableArray alloc]init];
-    [self setupNotebookList];
-    
+        // Notebookの一覧を取得して設定
+        _notebookList = [[NSMutableArray alloc]init];
+        [self setupNotebookList];
+    }
+
     // Main画面を初期化
     [self initialize];
 
@@ -139,7 +145,7 @@ const BOOL ENV = NO;
         {
             // Skype
             NSString *skypeUser = [inputData objectForKey:@"skypeUser"];
-            source.task_name = [NSString stringWithFormat:@"Upload %@ Data by 5 minutes", skypeUser];
+            source.task_name = [NSString stringWithFormat:@"Upload %@'s Data every 5 minutes.", skypeUser];
             //            source.interval = @"0.42";  // 約5min TODO
             source.interval = @"0.003";  // 約10sec
             NSString *skypePath = [NSString stringWithFormat:@"~/Library/Application Support/Skype/%@/main.db", skypeUser];
@@ -174,12 +180,12 @@ const BOOL ENV = NO;
             source.params = params;
             
             // Upload Rule Description
-            source.task_name = [NSString stringWithFormat:@"Upload %@@%@ Data by realtime", extension, filePath];
+            source.task_name = [NSString stringWithFormat:@"Upload %@@%@ Data in real-time.", extension, filePath];
         }
             break;
             
         default:
-            source.task_name = @"Upload Download Directory Data by relatime";
+            source.task_name = @"Upload Download Directory Data in real-time.";
             source.interval = @"0.003";  // 約10sec
             break;
     }
@@ -517,7 +523,7 @@ const BOOL ENV = NO;
         // 認証時の処理に任せるため何もしない
     }else{
         // Sign In表示
-        imagePath = @"/Users/AirMyac/Desktop/material/botton2/SignIn.psd";
+        imagePath = [[NSBundle mainBundle] pathForResource:@"SignIn2" ofType:@"psd"];
         NSImage *signInOrOutBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
         [_signInOrOutBtn setImage:signInOrOutBtnImage];
         [_signInOrOutBtn setBordered:NO];
@@ -1054,10 +1060,19 @@ const BOOL ENV = NO;
 }
 
 /*
+ * ヘルプメニュー
+ */
+-(IBAction)help:(id)sender{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://docs.google.com/drawings/d/1vaUyT2ML_46XwCHNqRkx-ztj5ys7JNWrdQ9UGkL4LwA/edit?usp=sharing"]];
+}
+
+
+/*
  * テストメソッド
  */
 -(IBAction)testMethod:(id)sender{
-    NSLog(@"testMethod by Appdelegate.");
+
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://docs.google.com/drawings/d/1Sr5DjyLGmy9b2ACPaWKpw-f948374l-4ArILJbLKE5k/edit"]];
     
 //    exit(0);
 }

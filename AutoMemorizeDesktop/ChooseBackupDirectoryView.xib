@@ -82,7 +82,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="214905009">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">272629760</int>
-							<string key="NSContents">Uploaded File is moved to the backup directory automatically.</string>
+							<string key="NSContents">Uploaded File will be moved to the backup directory automatically.</string>
 							<object class="NSFont" key="NSSupport" id="82662644">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">13</double>
@@ -128,7 +128,6 @@ AAAmIgAAEn8AALFwA</bytes>
 						<string key="NSFrame">{{22, 202}, {427, 34}}</string>
 						<reference key="NSSuperview" ref="282421684"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
@@ -818,8 +817,8 @@ AAAmIgAAEn8AALFwA</bytes>
 				<string key="148.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="149.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array key="15.IBNSViewMetadataConstraints">
-					<reference ref="812315489"/>
 					<reference ref="56931170"/>
+					<reference ref="812315489"/>
 				</array>
 				<boolean value="NO" key="15.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="15.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -854,8 +853,8 @@ AAAmIgAAEn8AALFwA</bytes>
 				<boolean value="NO" key="39.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="39.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<array key="4.IBNSViewMetadataConstraints">
-					<reference ref="1012216024"/>
 					<reference ref="39385316"/>
+					<reference ref="1012216024"/>
 				</array>
 				<boolean value="NO" key="4.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
