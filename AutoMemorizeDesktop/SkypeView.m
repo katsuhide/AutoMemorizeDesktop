@@ -26,6 +26,7 @@
 
 -(void)initilize:(NSMutableDictionary*)inputData{
     [_skypeUserField setObjectValue:[inputData objectForKey:@"skypeUser"]];
+    [_skypeUserError setHidden:YES];
 }
 
 
@@ -34,5 +35,15 @@
     [inputData setValue:skypeUser forKey:@"skypeUser"];
     return inputData;
 }
+
+-(BOOL)validate{
+    BOOL isValidate = NO;
+    if([_skypeUserField stringValue].length == 0){
+        [_skypeUserError setHidden:NO];
+        isValidate = YES;
+    }
+    return isValidate;
+}
+
 
 @end

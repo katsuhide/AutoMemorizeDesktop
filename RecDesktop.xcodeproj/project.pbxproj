@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4201439617859C070012E4B2 /* evernote_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4201439517859C070012E4B2 /* evernote_logo.png */; };
+		4201439F1785EE170012E4B2 /* FileTaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4201439D1785EE170012E4B2 /* FileTaskView.m */; };
+		420143A01785EE170012E4B2 /* FileTaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4201439E1785EE170012E4B2 /* FileTaskView.xib */; };
+		420143A617867C900012E4B2 /* Numbers.psd in Resources */ = {isa = PBXBuildFile; fileRef = 420143A517867C900012E4B2 /* Numbers.psd */; };
 		4210724817828A7E00B03452 /* TaskWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4210724717828A7E00B03452 /* TaskWindowController.m */; };
 		4210724C17828AF500B03452 /* SelectDataSourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4210724A17828AF500B03452 /* SelectDataSourceView.m */; };
 		4210724D17828AF500B03452 /* SelectDataSourceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4210724B17828AF500B03452 /* SelectDataSourceView.xib */; };
@@ -37,6 +40,13 @@
 		429C1BA0177F3DCF0037A77C /* CustomHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1B9F177F3DCF0037A77C /* CustomHeaderCell.m */; };
 		429C1BA6177F418B0037A77C /* NSColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1BA5177F418B0037A77C /* NSColor+Hex.m */; };
 		429C1BA9177F574F0037A77C /* CustomTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1BA8177F574F0037A77C /* CustomTableHeaderView.m */; };
+		42C4C4B7178682A00069A7F1 /* Pdf.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4B6178682A00069A7F1 /* Pdf.psd */; };
+		42C4C4BD178682B30069A7F1 /* Text.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4BC178682B30069A7F1 /* Text.psd */; };
+		42C4C4BF178684D50069A7F1 /* Keynote.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4BE178684D50069A7F1 /* Keynote.psd */; };
+		42C4C4C1178684DF0069A7F1 /* Excel.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4C0178684DF0069A7F1 /* Excel.psd */; };
+		42C4C4C3178684F10069A7F1 /* Pages.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4C2178684F10069A7F1 /* Pages.psd */; };
+		42C4C4C5178684FE0069A7F1 /* PowerPoint.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4C4178684FE0069A7F1 /* PowerPoint.psd */; };
+		42C4C4C7178685090069A7F1 /* Word.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4C6178685090069A7F1 /* Word.psd */; };
 		42CA7461175A7119002D469E /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA7458175A7119002D469E /* FMDatabase.m */; };
 		42CA7462175A7119002D469E /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA745A175A7119002D469E /* FMDatabaseAdditions.m */; };
 		42CA7463175A7119002D469E /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA745C175A7119002D469E /* FMDatabasePool.m */; };
@@ -122,6 +132,10 @@
 
 /* Begin PBXFileReference section */
 		4201439517859C070012E4B2 /* evernote_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = evernote_logo.png; sourceTree = "<group>"; };
+		4201439C1785EE170012E4B2 /* FileTaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileTaskView.h; sourceTree = "<group>"; };
+		4201439D1785EE170012E4B2 /* FileTaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileTaskView.m; sourceTree = "<group>"; };
+		4201439E1785EE170012E4B2 /* FileTaskView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileTaskView.xib; sourceTree = "<group>"; };
+		420143A517867C900012E4B2 /* Numbers.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Numbers.psd; sourceTree = "<group>"; };
 		4210724617828A7E00B03452 /* TaskWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskWindowController.h; sourceTree = "<group>"; };
 		4210724717828A7E00B03452 /* TaskWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskWindowController.m; sourceTree = "<group>"; };
 		4210724917828AF500B03452 /* SelectDataSourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectDataSourceView.h; sourceTree = "<group>"; };
@@ -170,6 +184,13 @@
 		429C1BA5177F418B0037A77C /* NSColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+Hex.m"; sourceTree = "<group>"; };
 		429C1BA7177F574F0037A77C /* CustomTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableHeaderView.h; sourceTree = "<group>"; };
 		429C1BA8177F574F0037A77C /* CustomTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableHeaderView.m; sourceTree = "<group>"; };
+		42C4C4B6178682A00069A7F1 /* Pdf.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pdf.psd; sourceTree = "<group>"; };
+		42C4C4BC178682B30069A7F1 /* Text.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Text.psd; sourceTree = "<group>"; };
+		42C4C4BE178684D50069A7F1 /* Keynote.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Keynote.psd; sourceTree = "<group>"; };
+		42C4C4C0178684DF0069A7F1 /* Excel.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Excel.psd; sourceTree = "<group>"; };
+		42C4C4C2178684F10069A7F1 /* Pages.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pages.psd; sourceTree = "<group>"; };
+		42C4C4C4178684FE0069A7F1 /* PowerPoint.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = PowerPoint.psd; sourceTree = "<group>"; };
+		42C4C4C6178685090069A7F1 /* Word.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Word.psd; sourceTree = "<group>"; };
 		42CA7457175A7119002D469E /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		42CA7458175A7119002D469E /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		42CA7459175A7119002D469E /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -231,6 +252,9 @@
 				42402DD21783476A007A97BC /* AdditionalConditionView.h */,
 				42402DD31783476A007A97BC /* AdditionalConditionView.m */,
 				42402DD41783476A007A97BC /* AdditionalConditionView.xib */,
+				4201439C1785EE170012E4B2 /* FileTaskView.h */,
+				4201439D1785EE170012E4B2 /* FileTaskView.m */,
+				4201439E1785EE170012E4B2 /* FileTaskView.xib */,
 			);
 			name = TaskWiondow;
 			sourceTree = "<group>";
@@ -381,7 +405,15 @@
 		428615A3177770720028C38A /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				42C4C4C6178685090069A7F1 /* Word.psd */,
+				42C4C4C4178684FE0069A7F1 /* PowerPoint.psd */,
+				42C4C4C2178684F10069A7F1 /* Pages.psd */,
+				42C4C4C0178684DF0069A7F1 /* Excel.psd */,
+				42C4C4BE178684D50069A7F1 /* Keynote.psd */,
+				42C4C4BC178682B30069A7F1 /* Text.psd */,
+				42C4C4B6178682A00069A7F1 /* Pdf.psd */,
 				42E0238E17806F1F00556623 /* AllRestart.psd */,
+				420143A517867C900012E4B2 /* Numbers.psd */,
 				42E0238F17806F1F00556623 /* AllStart.psd */,
 				42E0239017806F1F00556623 /* AllStop.psd */,
 				42E0239117806F1F00556623 /* Info.psd */,
@@ -549,6 +581,15 @@
 				4210725217828D4A00B03452 /* SkypeView.xib in Resources */,
 				42402DD61783476B007A97BC /* AdditionalConditionView.xib in Resources */,
 				4201439617859C070012E4B2 /* evernote_logo.png in Resources */,
+				420143A01785EE170012E4B2 /* FileTaskView.xib in Resources */,
+				420143A617867C900012E4B2 /* Numbers.psd in Resources */,
+				42C4C4B7178682A00069A7F1 /* Pdf.psd in Resources */,
+				42C4C4BD178682B30069A7F1 /* Text.psd in Resources */,
+				42C4C4BF178684D50069A7F1 /* Keynote.psd in Resources */,
+				42C4C4C1178684DF0069A7F1 /* Excel.psd in Resources */,
+				42C4C4C3178684F10069A7F1 /* Pages.psd in Resources */,
+				42C4C4C5178684FE0069A7F1 /* PowerPoint.psd in Resources */,
+				42C4C4C7178685090069A7F1 /* Word.psd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +624,7 @@
 				4210724C17828AF500B03452 /* SelectDataSourceView.m in Sources */,
 				4210725117828D4A00B03452 /* SkypeView.m in Sources */,
 				42402DD51783476B007A97BC /* AdditionalConditionView.m in Sources */,
+				4201439F1785EE170012E4B2 /* FileTaskView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

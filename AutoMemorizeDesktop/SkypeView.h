@@ -12,8 +12,12 @@
 
 @property (retain) IBOutlet NSTextField *skypeUserField;
 
+@property (retain) IBOutlet NSTextField *skypeUserError;
+
 -(void)initilize:(NSMutableDictionary*)inputData;
 
 -(NSMutableDictionary*)setViewData:(NSMutableDictionary*)inputData;
+
+-(BOOL)validate;
 
 @end

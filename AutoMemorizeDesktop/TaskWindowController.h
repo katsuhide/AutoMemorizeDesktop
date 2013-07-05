@@ -10,7 +10,7 @@
 #import "SelectDataSourceView.h"
 #import "SkypeView.h"
 #import "AdditionalConditionView.h"
-#import "TaskSource.h"
+#import "FileTaskView.h"
 
 @interface TaskWindowController : NSObject
 
@@ -24,6 +24,9 @@
 
 // Viewの履歴
 @property (retain) NSNumber *viewNumber;
+
+// Data Type
+@property (retain) NSNumber *dataType;
 
 // Image View
 @property (retain) IBOutlet NSImageView *dataSourceView;
@@ -41,8 +44,8 @@
 @property (assign) IBOutlet NSButton *numbersBtn;  // NUMBERS
 @property (assign) IBOutlet NSButton *pagesBtn;  // PAGES
 @property (assign) IBOutlet NSButton *keyBtn;  // KEYNOTE
-@property (assign) IBOutlet NSButton *csvBtn;  // CSV
-@property (assign) IBOutlet NSButton *markdownBtn;  // MARKDOWN
+//@property (assign) IBOutlet NSButton *csvBtn;  // CSV
+//@property (assign) IBOutlet NSButton *markdownBtn;  // MARKDOWN
 
 // 全View共通コンポーネント
 @property (assign) IBOutlet NSButton *backBtn;  // 全画面共通の前へ戻るためのボタン
@@ -78,12 +81,7 @@
 -(IBAction)pushNextBtn:(id)sender;
 
 /*
- * When user push the additional btn
- */
--(IBAction)pushAdditionalBtn:(id)sender;
-
-/*
- * Display the Skype User View
+ * Display the Skype View
  */
 - (IBAction)displaySkypeView:(id)sender;
 
@@ -91,6 +89,12 @@
  * Display the Additional Condition View
  */
 - (IBAction)displayAdditionalConditionView:(id)sender;
+
+/*
+ * Display the File View
+ */
+- (IBAction)displayFileView:(id)sender;
+
 
 /*
  * Display the previous View

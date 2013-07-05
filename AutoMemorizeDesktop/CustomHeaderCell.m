@@ -53,27 +53,28 @@
 
 -(NSString*)getHex:(NSNumber*)num{
     NSString *hex;
-    int flag = [num intValue];
-    switch (flag) {
-        case 0:
-            hex = @"#5cb6ff";   // light blue
-            break;
-        case 1:
-            hex = @"#9be8c5";   // light green
-            break;
-        case 2:
-            hex = @"#ed7a6e";   // light red
-            break;
-        case 3:
-            hex = @"#f6d965";   // light orange
-            break;
-        case 4:
-            hex = @"#4f73cf";   // light drak blue
-            break;
-        default:
-            hex = @"#ecf0f1";   // cloud
-            break;
-    }
+//    int flag = [num intValue];
+//    switch (flag) {
+//        case 0:
+//            hex = @"#5cb6ff";   // light blue
+//            break;
+//        case 1:
+//            hex = @"#9be8c5";   // light green
+//            break;
+//        case 2:
+//            hex = @"#ed7a6e";   // light red
+//            break;
+//        case 3:
+//            hex = @"#f6d965";   // light orange
+//            break;
+//        case 4:
+//            hex = @"#4f73cf";   // light drak blue
+//            break;
+//        default:
+//            hex = @"#ecf0f1";   // cloud
+//            break;
+//    }
+    hex = @"#bdc3c7";   // Silver
     return hex;
 }
 

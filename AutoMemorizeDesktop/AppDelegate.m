@@ -126,7 +126,11 @@ const BOOL ENV = NO;
 
     // Basic Information
     NSNumber *dataSourceType = [inputData objectForKey:@"dataSourceType"];
-    source.task_type = dataSourceType;
+    if([dataSourceType intValue] == 0){
+        source.task_type = dataSourceType;
+    }else{
+        source.task_type = [NSNumber numberWithInt:1];
+    }
     source.status = [NSNumber numberWithInt:1];
 
     // Data Source 毎に固有の処理
@@ -145,6 +149,43 @@ const BOOL ENV = NO;
         
         }
             break;
+        case 1:
+        {
+            
+            int directoryFlag = [[inputData objectForKey:@"directory"] intValue];
+            NSDictionary *directoryType = [NSDictionary dictionaryWithObjectsAndKeys:
+                                           @"~/Desktop", @"0",
+                                           @"~/Downloads", @"1",
+                                           @"~/Documents", @"2",
+                                           nil];
+            NSString *directory = [directoryType objectForKey:[[NSNumber numberWithInt:directoryFlag] stringValue]];
+            NSString *filePath = [directory stringByExpandingTildeInPath];
+            NSMutableString *params = [NSMutableString string];
+            [params appendString:[source transformKeyValue:@"file_path" andValue:filePath]];
+            
+            NSDictionary *extensionType = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       @"pdf", @"1",
+                                       @"txt", @"2",
+                                       @"xls", @"3",
+                                       @"doc", @"4",
+                                       @"ppt", @"5",
+                                       @"numbers", @"6",
+                                       @"pages", @"7",
+                                       @"key", @"8",
+                                       @"csv", @"9",
+                                       @"md", @"10",                                       
+                                       nil];
+
+            NSNumber *extensionFlag = [inputData objectForKey:@"dataSourceType"];
+            NSString *extension = [extensionType objectForKey:[extensionFlag stringValue]];
+            [params appendString:[source transformKeyValue:@"extension" andValue:extension]];
+
+            source.params = params;
+            source.task_name = [NSString stringWithFormat:@"Upload %@@%@ Data by realtime", extension, filePath];
+
+        }
+            break;
+            
         default:
             source.task_name = @"Upload Download Directory Data by relatime";
             source.interval = @"0.003";  // 約10sec
