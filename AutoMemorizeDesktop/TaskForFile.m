@@ -111,7 +111,12 @@
  */
 - (EDAMNote*)createEDAMNote:(NSString*)filePath{
     // Note Titleの指定
-    NSString *noteTitle = self.source.note_title;
+    NSString *noteTitle;
+    if([self.source.note_title length] == 0){
+        noteTitle = filePath;
+    }else{
+        noteTitle = self.source.note_title;
+    }
     
     // tagの指定
     NSMutableArray *tagNames = [NSMutableArray arrayWithArray:[self.source splitTags]];
@@ -161,10 +166,10 @@
     NSDate *now = [NSDate date];
     NSString *baseDir = [[self.source getKeyValue:@"file_path"] stringByExpandingTildeInPath];
     NSString *backupDirName = [now toStringWithFormat:@"yyyyMMdd_HHmmss"];
-    NSString *workPath = [baseDir stringByAppendingPathComponent:backupDirName];
+    NSString *backupPath = [[self.source getKeyValue:@"backupPath"] stringByAppendingPathComponent:backupDirName];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
-    if(![fileManager createDirectoryAtPath:workPath withIntermediateDirectories:YES attributes:nil error:&error]){
+    if(![fileManager createDirectoryAtPath:backupPath withIntermediateDirectories:YES attributes:nil error:&error]){
         NSLog(@"Couldn't create the data store directory.[%@, %@]", error, [error userInfo]);
         return;
     }
@@ -172,9 +177,9 @@
     // 対象のファイルを移動する
     EDAMResource *resource = [note.resources objectAtIndex:0];  // Resourceは１つの前提のため
     NSString *filePath = [baseDir stringByAppendingPathComponent:resource.attributes.fileName];
-    NSString *toFilePath = [workPath stringByAppendingPathComponent:resource.attributes.fileName];
+    NSString *toFilePath = [backupPath stringByAppendingPathComponent:resource.attributes.fileName];
     if(![fileManager moveItemAtPath:filePath toPath:toFilePath error:&error]){
-        NSLog(@"Couldn't move this file:[%@] to this path:[%@].[%@, %@]", filePath, workPath, error, [error userInfo]);
+        NSLog(@"Couldn't move this file:[%@] to this path:[%@].[%@, %@]", filePath, backupPath, error, [error userInfo]);
 //        // ファイルが存在していて失敗した場合、別名で保存しておく TODO ちゃんとエラーハンドリングする
 //        // oldディレクトリを日付形式に変えて作成して重複を防ぐ
 //        NSDate *now = [NSDate date];
@@ -185,7 +190,7 @@
 //            NSLog(@"Finished moving this file:[%@] to this path:[%@] as new file name:[%@].", filePath, workPath, toFilePath2);
 //        }
     }else{
-        NSLog(@"Finished moving this file:[%@] to this path:[%@].", filePath, workPath);
+        NSLog(@"Finished moving this file:[%@] to this path:[%@].", filePath, backupPath);
     }
     
 }

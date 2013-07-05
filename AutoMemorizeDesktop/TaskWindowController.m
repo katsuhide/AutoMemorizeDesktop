@@ -16,6 +16,10 @@ NSString *const selectDataSourceViewClass = @"SelectDataSourceView";
 NSString *const skypeViewClass = @"SkypeView";
 NSString *const additionalConditionClass = @"AdditionalConditionView";
 NSString *const fileTaskViewClass = @"FileTaskView";
+NSString *const chooseBackupDirViewClass = @"ChooseBackupDirectoryView";
+
+NSString *const nextLabelString = @"       Next       ";
+NSString *const additionalLabelString = @"Additional Setting";
 
 typedef enum dataTypeEnum : NSInteger{
     SKYPE,
@@ -35,7 +39,8 @@ typedef enum viewTypeEnum : NSInteger{
     DATA_SOURCE_VIEW,
     SKYPE_USER_VIEW,
     ADDITIONAL_CONDITION_VIEW,
-    FILE_VIEW
+    FILE_VIEW,
+    CHOOSE_BACKUPDIR_VIEW
 } viewTypeEnum;
 
 
@@ -61,12 +66,12 @@ typedef enum viewTypeEnum : NSInteger{
     // Data Source Icon
     NSString *imagePath;
     NSImage *image;
-    imagePath = [[NSBundle mainBundle] pathForResource:@"Status" ofType:@"psd"];
+    imagePath = [[NSBundle mainBundle] pathForResource:@"question" ofType:@"png"];
     image= [[NSImage alloc]initByReferencingFile:imagePath];
     [_dataSourceView setImage:image];
 
     // Right Bow Icon
-    imagePath = [[NSBundle mainBundle] pathForResource:@"Status" ofType:@"psd"];
+    imagePath = [[NSBundle mainBundle] pathForResource:@"RightBow" ofType:@"png"];
     image= [[NSImage alloc]initByReferencingFile:imagePath];
     [_rightBow setImage:image];
     
@@ -89,6 +94,12 @@ typedef enum viewTypeEnum : NSInteger{
 
 }
 
+// Data Source Iconの切り替え
+-(void)changeDataSourceIcon:(NSString*)imagePath{
+    NSImage *image= [[NSImage alloc]initByReferencingFile:imagePath];
+    [_dataSourceView setImage:image];
+}
+
 // DataSource部分の切り替え
 -(void)changeRegisterWindow:(BOOL)isDisable{
     // 画像の設定
@@ -97,12 +108,10 @@ typedef enum viewTypeEnum : NSInteger{
     imagePath = [[NSBundle mainBundle] pathForResource:@"skype" ofType:@"png"];
     image= [[NSImage alloc]initByReferencingFile:imagePath];
     [_skypeBtn setImage:image];
-//    [_skypeBtn setBordered:NO];
     
     imagePath = [[NSBundle mainBundle] pathForResource:@"Pdf" ofType:@"psd"];
     image= [[NSImage alloc]initByReferencingFile:imagePath];
     [_pdfBtn setImage:image];
-//    [_pdfBtn setBordered:NO];
     
     imagePath = [[NSBundle mainBundle] pathForResource:@"Text" ofType:@"psd"];
     image= [[NSImage alloc]initByReferencingFile:imagePath];
@@ -198,29 +207,170 @@ typedef enum viewTypeEnum : NSInteger{
     
     // Data Source部分を非表示にする
     [self changeRegisterWindow:YES];
-    
+
+    // Data Source Iconを切り替える
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"skype" ofType:@"png"];
+    [self changeDataSourceIcon:imagePath];
+
     // Skype Viewを表示する
     [self displaySkypeView:nil];
     
 }
 
 /*
- * When user push the Skype Button
+ * When user push the Pdf Button
  */
 -(IBAction)pushPdfBtn:(id)sender{
     // DataSourceTypeを登録
     _dataType = [NSNumber numberWithInt:PDF];
     [_inputData setValue:_dataType forKey:@"dataSourceType"];
     
-    // Data Source部分を非表示にする
-    [self changeRegisterWindow:YES];
-    
-    // Skype Viewを表示する
-    [self displayFileView:nil];
-    
+    // 共通処理
+    [self pushFileTypeBtn];
     
 }
 
+/*
+ * When user push the Text Button
+ */
+-(IBAction)pushTextBtn:(id)sender{
+    // DataSourceTypeを登録
+    _dataType = [NSNumber numberWithInt:TEXT];
+    [_inputData setValue:_dataType forKey:@"dataSourceType"];
+    
+    // 共通処理
+    [self pushFileTypeBtn];
+    
+}
+
+/*
+ * When user push the EXCEL Button
+ */
+-(IBAction)pushExcelBtn:(id)sender{
+    // DataSourceTypeを登録
+    _dataType = [NSNumber numberWithInt:EXCEL];
+    [_inputData setValue:_dataType forKey:@"dataSourceType"];
+    
+    // 共通処理
+    [self pushFileTypeBtn];
+    
+}
+
+/*
+ * When user push the WORD Button
+ */
+-(IBAction)pushWordBtn:(id)sender{
+    // DataSourceTypeを登録
+    _dataType = [NSNumber numberWithInt:WORD];
+    [_inputData setValue:_dataType forKey:@"dataSourceType"];
+    
+    // 共通処理
+    [self pushFileTypeBtn];
+    
+}
+
+/*
+ * When user push the POWERPOINT Button
+ */
+-(IBAction)pushPowerpointBtn:(id)sender{
+    // DataSourceTypeを登録
+    _dataType = [NSNumber numberWithInt:POWERPOINT];
+    [_inputData setValue:_dataType forKey:@"dataSourceType"];
+    
+    // 共通処理
+    [self pushFileTypeBtn];
+    
+}
+
+/*
+ * When user push the NUMBERS Button
+ */
+-(IBAction)pushNumbersBtn:(id)sender{
+    // DataSourceTypeを登録
+    _dataType = [NSNumber numberWithInt:NUMBERS];
+    [_inputData setValue:_dataType forKey:@"dataSourceType"];
+    
+    // 共通処理
+    [self pushFileTypeBtn];
+    
+}
+
+/*
+ * When user push the PAGES Button
+ */
+-(IBAction)pushPagesBtn:(id)sender{
+    // DataSourceTypeを登録
+    _dataType = [NSNumber numberWithInt:PAGES];
+    [_inputData setValue:_dataType forKey:@"dataSourceType"];
+    
+    // 共通処理
+    [self pushFileTypeBtn];
+    
+}
+
+
+/*
+ * When user push the KEYNOTE Button
+ */
+-(IBAction)pushKeyBtn:(id)sender{
+    // DataSourceTypeを登録
+    _dataType = [NSNumber numberWithInt:KEY];
+    [_inputData setValue:_dataType forKey:@"dataSourceType"];
+    
+    // 共通処理
+    [self pushFileTypeBtn];
+    
+}
+
+
+// File Type 関連のボタンが押下された場合の共通処理
+-(void)pushFileTypeBtn{
+    // Data Source部分を非表示にする
+    [self changeRegisterWindow:YES];
+    
+    // Data Source Iconを切り替える
+    NSString *imagePath = [self getFileTypeImagePath];
+    [self changeDataSourceIcon:imagePath];
+
+    // File Viewを表示する
+    [self displayFileView:nil];
+    
+}
+
+// 各種FileTypeの画像パスを取得する
+-(NSString*)getFileTypeImagePath{
+    NSString *imagePath;
+    
+    switch ([[_inputData objectForKey:@"dataSourceType"] intValue]) {
+        case PDF:
+            imagePath = [[NSBundle mainBundle] pathForResource:@"Pdf" ofType:@"psd"];
+            break;
+        case TEXT:
+            imagePath = [[NSBundle mainBundle] pathForResource:@"Text" ofType:@"psd"];
+            break;
+        case EXCEL:
+            imagePath = [[NSBundle mainBundle] pathForResource:@"Excel" ofType:@"psd"];
+            break;
+        case WORD:
+            imagePath = [[NSBundle mainBundle] pathForResource:@"Word" ofType:@"psd"];
+            break;
+        case POWERPOINT:
+            imagePath = [[NSBundle mainBundle] pathForResource:@"PowerPoint" ofType:@"psd"];
+            break;
+        case NUMBERS:
+            imagePath = [[NSBundle mainBundle] pathForResource:@"Numbers" ofType:@"psd"];
+            break;
+        case PAGES:
+            imagePath = [[NSBundle mainBundle] pathForResource:@"Pages" ofType:@"psd"];
+            break;
+        case KEY:
+            imagePath = [[NSBundle mainBundle] pathForResource:@"Keynote" ofType:@"psd"];
+            break;
+        default:
+            break;
+    }
+    return imagePath;
+}
 
 
 /*
@@ -230,9 +380,18 @@ typedef enum viewTypeEnum : NSInteger{
     // その画面のデータをセットする
     BOOL isSucceeded = [self executeSetViewData];
     
-    // Additional画面を表示する
+    // 次の画面を表示する
     if(isSucceeded){
-        [self displayAdditionalConditionView:nil];
+        switch ([_viewNumber intValue]) {
+            case FILE_VIEW:
+                //
+                [self displayChooseBackupDirectoryView:nil];
+                break;
+            default:    // File Task View以外はAdditional Viewを表示
+                [self displayAdditionalConditionView:nil];
+                break;
+        }
+        
     }
 
 }
@@ -275,10 +434,7 @@ typedef enum viewTypeEnum : NSInteger{
     // 画面の初期化
     [self initializedView];
     
-    
-    
 }
-
 
 /*
  * Display the Additional Condition View
@@ -300,6 +456,23 @@ typedef enum viewTypeEnum : NSInteger{
 }
 
 /*
+ * Display the Choose Backup Directory View
+ */
+- (IBAction)displayChooseBackupDirectoryView:(id)sender{
+    [[_taskWindowController view] removeFromSuperview];
+    _taskWindowController = [[ChooseBackupDirectoryView alloc]initWithNibName:chooseBackupDirViewClass bundle:nil];
+    [_taskWindow addSubview:[_taskWindowController view]];
+    [[_taskWindowController view] setFrame:[_taskWindow bounds]];
+    
+    // 履歴の登録
+    _viewNumber = [NSNumber numberWithInteger:CHOOSE_BACKUPDIR_VIEW];
+    
+    // 画面の初期化
+    [self initializedView];
+}
+
+
+/*
  * Display the previous View
  */
 -(IBAction)backView:(id)sender{
@@ -311,15 +484,20 @@ typedef enum viewTypeEnum : NSInteger{
         case SKYPE_USER_VIEW:
             [self initializedRegisterWindow:NO];
             break;
-        case ADDITIONAL_CONDITION_VIEW:
-            if(dataTypeFlag == 0){
-                [self displaySkypeView:nil];
-            }else{
-                [self displayFileView:nil];
-            }
-            break;
         case FILE_VIEW:
             [self initializedRegisterWindow:NO];
+            break;
+        case CHOOSE_BACKUPDIR_VIEW:
+            [self displayFileView:nil];
+            break;
+        case ADDITIONAL_CONDITION_VIEW:
+            if(dataTypeFlag == 0){
+                // Skype
+                [self displaySkypeView:nil];
+            }else{
+                // File
+                [self displayChooseBackupDirectoryView:nil];
+            }
             break;
         default:
             break;
@@ -367,15 +545,6 @@ typedef enum viewTypeEnum : NSInteger{
             
         }
             break;
-        case ADDITIONAL_CONDITION_VIEW:
-        {
-            // データをセット
-            AdditionalConditionView *currentView = (AdditionalConditionView*)self.taskWindowController;
-            [currentView setViewData:_inputData];
-            
-            // 任意項目なのでバリデーションは不要
-        }
-            break;
         case FILE_VIEW:
         {
             FileTaskView *currentView = (FileTaskView*)self.taskWindowController;
@@ -388,6 +557,29 @@ typedef enum viewTypeEnum : NSInteger{
             // データをセット
             [currentView setViewData:_inputData];
 
+        }
+            break;
+        case CHOOSE_BACKUPDIR_VIEW:
+        {
+            ChooseBackupDirectoryView *currentView = (ChooseBackupDirectoryView*)self.taskWindowController;
+            // validation
+            if([currentView validate]){
+                isSucceeded = NO;
+                break;
+            }
+            
+            // データをセット
+            [currentView setViewData:_inputData];
+            
+        }
+            break;
+        case ADDITIONAL_CONDITION_VIEW:
+        {
+            // データをセット
+            AdditionalConditionView *currentView = (AdditionalConditionView*)self.taskWindowController;
+            [currentView setViewData:_inputData];
+            
+            // 任意項目なのでバリデーションは不要
         }
             break;
         default:
@@ -427,7 +619,7 @@ typedef enum viewTypeEnum : NSInteger{
             [_backLabel setHidden:NO];
             [_registerLabel setHidden:NO];
             [_nextLabel setHidden:NO];
-
+            [_nextLabel setStringValue:additionalLabelString];
             
             // 画面固有のコンポーネントの初期化
             SkypeView *currentView = (SkypeView*)self.taskWindowController;
@@ -435,6 +627,44 @@ typedef enum viewTypeEnum : NSInteger{
         }
             break;
             
+        case FILE_VIEW:
+        {
+            // ボタンを全て非表示にしたうえで必要なボタンのみ表示
+            [self disableAllBtn];
+            [_backBtn setHidden:NO];
+            [_registerBtn setHidden:YES];
+            [_nextBtn setHidden:NO];
+            [_backLabel setHidden:NO];
+            [_registerLabel setHidden:YES];
+            [_nextLabel setHidden:NO];
+            [_nextLabel setStringValue:nextLabelString];
+            
+            // 画面固有のコンポーネントの初期化
+            FileTaskView *currentView = (FileTaskView*)self.taskWindowController;
+            [currentView initialize:_inputData];
+
+        }
+            break;
+
+        case CHOOSE_BACKUPDIR_VIEW:
+        {
+            // ボタンを全て非表示にしたうえで必要なボタンのみ表示
+            [self disableAllBtn];
+            [_backBtn setHidden:NO];
+            [_registerBtn setHidden:NO];
+            [_nextBtn setHidden:NO];
+            [_backLabel setHidden:NO];
+            [_registerLabel setHidden:NO];
+            [_nextLabel setHidden:NO];
+            [_nextLabel setStringValue:additionalLabelString];
+            
+            // 画面固有のコンポーネントの初期化
+            FileTaskView *currentView = (FileTaskView*)self.taskWindowController;
+            [currentView initialize:_inputData];
+            
+        }
+            break;
+
         case ADDITIONAL_CONDITION_VIEW:
         {
             // ボタンを全て非表示にしたうえで必要なボタンのみ表示
@@ -452,24 +682,6 @@ typedef enum viewTypeEnum : NSInteger{
         }
             break;
             
-        case FILE_VIEW:
-        {
-            // ボタンを全て非表示にしたうえで必要なボタンのみ表示
-            [self disableAllBtn];
-            [_backBtn setHidden:NO];
-            [_registerBtn setHidden:NO];
-            [_nextBtn setHidden:NO];
-            [_backLabel setHidden:NO];
-            [_registerLabel setHidden:NO];
-            [_nextLabel setHidden:NO];
-            
-            // 画面固有のコンポーネントの初期化
-            FileTaskView *currentView = (FileTaskView*)self.taskWindowController;
-            [currentView initialize:_inputData];
-
-        }
-            break;
-
         default:
             break;
     }
@@ -486,5 +698,20 @@ typedef enum viewTypeEnum : NSInteger{
     [_nextLabel setHidden:YES];
 }
 
+-(IBAction)hoge:(id)sender{
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setCanChooseFiles:NO];
+    [panel setCanChooseDirectories:YES];
+    [panel setAllowsMultipleSelection:YES]; // yes if more than one dir is allowed
+    
+    NSInteger clicked = [panel runModal];
+    
+    if (clicked == NSFileHandlingPanelOKButton) {
+        for (NSURL *url in [panel URLs]) {
+            // do something with the url here.
+            NSLog(@"url:%@", [url path]);
+        }
+    }
+}
 
 @end

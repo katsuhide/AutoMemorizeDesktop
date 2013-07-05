@@ -29,13 +29,11 @@
     [_directoryField selectItemAtIndex:0];
     [_directoryError setHidden:YES];
     [_otherDirectoryField setObjectValue:[inputData objectForKey:@"otherPath"]];
-
     [_otherDirectoryField setHidden:YES];
     
 }
 
 -(NSMutableDictionary*)setViewData:(NSMutableDictionary*)inputData{
-    
     [inputData setValue:[NSNumber numberWithInteger:[_directoryField indexOfSelectedItem]] forKey:@"directory"];
     [inputData setValue:[_otherDirectoryField stringValue] forKey:@"otherPath"];
     return inputData;

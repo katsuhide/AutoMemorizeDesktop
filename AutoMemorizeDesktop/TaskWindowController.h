@@ -11,6 +11,7 @@
 #import "SkypeView.h"
 #import "AdditionalConditionView.h"
 #import "FileTaskView.h"
+#import "ChooseBackupDirectoryView.h"
 
 @interface TaskWindowController : NSObject
 
@@ -71,6 +72,45 @@
 
 
 /*
+ * When user push the PDF Button
+ */
+-(IBAction)pushPdfBtn:(id)sender;
+
+/*
+ * When user push the Text Button
+ */
+-(IBAction)pushTextBtn:(id)sender;
+
+/*
+ * When user push the EXCEL Button
+ */
+-(IBAction)pushExcelBtn:(id)sender;
+
+/*
+ * When user push the WORD Button
+ */
+-(IBAction)pushWordBtn:(id)sender;
+
+/*
+ * When user push the POWERPOINT Button
+ */
+-(IBAction)pushPowerpointBtn:(id)sender;
+
+/*
+ * When user push the NUMBERS Button
+ */
+-(IBAction)pushNumbersBtn:(id)sender;
+
+/*
+ * When user push the PAGES Button
+ */
+-(IBAction)pushPagesBtn:(id)sender;
+
+/*
+ * When user push the KEYNOTE Button
+ */
+-(IBAction)pushKeyBtn:(id)sender;
+/*
  * Display the Select Data Source View
  */
 -(IBAction)displaySelectDataSourceView:(id)sender;
@@ -105,6 +145,8 @@
  * Register Action Execute
  */
 -(IBAction)registerTask:(id)sender;
+
+-(IBAction)hoge:(id)sender;
 
 
 @end

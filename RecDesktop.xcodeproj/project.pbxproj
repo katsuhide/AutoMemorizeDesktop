@@ -33,6 +33,11 @@
 		425A6544175A7077002DE6AF /* TaskForSkype.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6540175A7077002DE6AF /* TaskForSkype.m */; };
 		425A6545175A7077002DE6AF /* TaskForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6542175A7077002DE6AF /* TaskForFile.m */; };
 		425A6546175A7077002DE6AF /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6543175A7077002DE6AF /* Task.m */; };
+		4272DDB71786E1490047B988 /* RightBow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4272DDB61786E1490047B988 /* RightBow.png */; };
+		4272DDBF1786E5F70047B988 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 4272DDBE1786E5F70047B988 /* question.png */; };
+		4272DDC3178714950047B988 /* ChooseBackupDirectoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4272DDC1178714950047B988 /* ChooseBackupDirectoryView.m */; };
+		4272DDC4178714950047B988 /* ChooseBackupDirectoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4272DDC2178714950047B988 /* ChooseBackupDirectoryView.xib */; };
+		4272DDC61787248C0047B988 /* FileChoose.png in Resources */ = {isa = PBXBuildFile; fileRef = 4272DDC51787248C0047B988 /* FileChoose.png */; };
 		42762117177F2D0F00079CC9 /* logo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 42762116177F2D0F00079CC9 /* logo.icns */; };
 		42860F90175B779C00F68B03 /* NSDate+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 42860F8F175B779C00F68B03 /* NSDate+Util.m */; };
 		428615B0177771390028C38A /* documents_folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 428615A9177771390028C38A /* documents_folder.png */; };
@@ -173,6 +178,12 @@
 		425A6541175A7077002DE6AF /* TaskForFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskForFile.h; sourceTree = "<group>"; };
 		425A6542175A7077002DE6AF /* TaskForFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskForFile.m; sourceTree = "<group>"; };
 		425A6543175A7077002DE6AF /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		4272DDB61786E1490047B988 /* RightBow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RightBow.png; sourceTree = "<group>"; };
+		4272DDBE1786E5F70047B988 /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = question.png; sourceTree = "<group>"; };
+		4272DDC0178714950047B988 /* ChooseBackupDirectoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseBackupDirectoryView.h; sourceTree = "<group>"; };
+		4272DDC1178714950047B988 /* ChooseBackupDirectoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseBackupDirectoryView.m; sourceTree = "<group>"; };
+		4272DDC2178714950047B988 /* ChooseBackupDirectoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseBackupDirectoryView.xib; sourceTree = "<group>"; };
+		4272DDC51787248C0047B988 /* FileChoose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FileChoose.png; sourceTree = "<group>"; };
 		42762116177F2D0F00079CC9 /* logo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = logo.icns; sourceTree = "<group>"; };
 		42860F8E175B779C00F68B03 /* NSDate+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Util.h"; sourceTree = "<group>"; };
 		42860F8F175B779C00F68B03 /* NSDate+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Util.m"; sourceTree = "<group>"; };
@@ -242,6 +253,9 @@
 			isa = PBXGroup;
 			children = (
 				4210724617828A7E00B03452 /* TaskWindowController.h */,
+				4272DDC0178714950047B988 /* ChooseBackupDirectoryView.h */,
+				4272DDC1178714950047B988 /* ChooseBackupDirectoryView.m */,
+				4272DDC2178714950047B988 /* ChooseBackupDirectoryView.xib */,
 				4210724717828A7E00B03452 /* TaskWindowController.m */,
 				4210724917828AF500B03452 /* SelectDataSourceView.h */,
 				4210724A17828AF500B03452 /* SelectDataSourceView.m */,
@@ -407,6 +421,8 @@
 			children = (
 				42C4C4C6178685090069A7F1 /* Word.psd */,
 				42C4C4C4178684FE0069A7F1 /* PowerPoint.psd */,
+				4272DDBE1786E5F70047B988 /* question.png */,
+				4272DDB61786E1490047B988 /* RightBow.png */,
 				42C4C4C2178684F10069A7F1 /* Pages.psd */,
 				42C4C4C0178684DF0069A7F1 /* Excel.psd */,
 				42C4C4BE178684D50069A7F1 /* Keynote.psd */,
@@ -416,6 +432,7 @@
 				420143A517867C900012E4B2 /* Numbers.psd */,
 				42E0238F17806F1F00556623 /* AllStart.psd */,
 				42E0239017806F1F00556623 /* AllStop.psd */,
+				4272DDC51787248C0047B988 /* FileChoose.png */,
 				42E0239117806F1F00556623 /* Info.psd */,
 				42E0239217806F1F00556623 /* Minus.psd */,
 				42E0239317806F1F00556623 /* Pause.psd */,
@@ -590,6 +607,10 @@
 				42C4C4C3178684F10069A7F1 /* Pages.psd in Resources */,
 				42C4C4C5178684FE0069A7F1 /* PowerPoint.psd in Resources */,
 				42C4C4C7178685090069A7F1 /* Word.psd in Resources */,
+				4272DDB71786E1490047B988 /* RightBow.png in Resources */,
+				4272DDBF1786E5F70047B988 /* question.png in Resources */,
+				4272DDC4178714950047B988 /* ChooseBackupDirectoryView.xib in Resources */,
+				4272DDC61787248C0047B988 /* FileChoose.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,6 +646,7 @@
 				4210725117828D4A00B03452 /* SkypeView.m in Sources */,
 				42402DD51783476B007A97BC /* AdditionalConditionView.m in Sources */,
 				4201439F1785EE170012E4B2 /* FileTaskView.m in Sources */,
+				4272DDC3178714950047B988 /* ChooseBackupDirectoryView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

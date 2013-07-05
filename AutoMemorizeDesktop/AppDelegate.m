@@ -46,6 +46,7 @@ const BOOL ENV = NO;
     [self doAuthorize:nil];
 
     // Notebookの一覧を取得して設定
+    _notebookList = [[NSMutableArray alloc]init];
     [self setupNotebookList];
     
     // Main画面を初期化
@@ -102,7 +103,6 @@ const BOOL ENV = NO;
                           target:task
                           selector:@selector(polling:)
                           userInfo:source.task_name
-//                          userInfo:nil
                           repeats:YES];
         [_taskQueue addObject:timer];
     }
@@ -137,6 +137,7 @@ const BOOL ENV = NO;
     switch ([dataSourceType intValue]) {
         case 0:
         {
+            // Skype
             NSString *skypeUser = [inputData objectForKey:@"skypeUser"];
             source.task_name = [NSString stringWithFormat:@"Upload %@ Data by 5 minutes", skypeUser];
             //            source.interval = @"0.42";  // 約5min TODO
@@ -150,39 +151,30 @@ const BOOL ENV = NO;
         }
             break;
         case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
         {
-            
-            int directoryFlag = [[inputData objectForKey:@"directory"] intValue];
-            NSDictionary *directoryType = [NSDictionary dictionaryWithObjectsAndKeys:
-                                           @"~/Desktop", @"0",
-                                           @"~/Downloads", @"1",
-                                           @"~/Documents", @"2",
-                                           nil];
-            NSString *directory = [directoryType objectForKey:[[NSNumber numberWithInt:directoryFlag] stringValue]];
-            NSString *filePath = [directory stringByExpandingTildeInPath];
+            // PDF
             NSMutableString *params = [NSMutableString string];
+            // File Path
+            NSString *filePath = [self getFilePath:inputData];
             [params appendString:[source transformKeyValue:@"file_path" andValue:filePath]];
-            
-            NSDictionary *extensionType = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       @"pdf", @"1",
-                                       @"txt", @"2",
-                                       @"xls", @"3",
-                                       @"doc", @"4",
-                                       @"ppt", @"5",
-                                       @"numbers", @"6",
-                                       @"pages", @"7",
-                                       @"key", @"8",
-                                       @"csv", @"9",
-                                       @"md", @"10",                                       
-                                       nil];
-
-            NSNumber *extensionFlag = [inputData objectForKey:@"dataSourceType"];
-            NSString *extension = [extensionType objectForKey:[extensionFlag stringValue]];
+            // File Extension
+            NSString *extension = [self getFileExtension:inputData];
             [params appendString:[source transformKeyValue:@"extension" andValue:extension]];
-
             source.params = params;
+            // Backup Path
+            NSString *backupPath = [self getBackupPath:inputData];
+            [params appendString:[source transformKeyValue:@"backupPath" andValue:backupPath]];
+            source.params = params;
+            
+            // Upload Rule Description
             source.task_name = [NSString stringWithFormat:@"Upload %@@%@ Data by realtime", extension, filePath];
-
         }
             break;
             
@@ -216,6 +208,46 @@ const BOOL ENV = NO;
     // Taskを初期化
 //    [self restart:nil];
     
+}
+
+// File Pathを取得する
+-(NSString*)getFilePath:(NSDictionary*)inputData{
+    int directoryFlag = [[inputData objectForKey:@"directory"] intValue];
+    NSDictionary *directoryType = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"~/Desktop", @"0",
+                                   @"~/Downloads", @"1",
+                                   @"~/Documents", @"2",
+                                   nil];
+    NSString *directory = [directoryType objectForKey:[[NSNumber numberWithInt:directoryFlag] stringValue]];
+    NSString *filePath = [directory stringByExpandingTildeInPath];
+    return filePath;
+}
+
+// File Extensionを取得する
+-(NSString*)getFileExtension:(NSDictionary*)inputData{
+    NSDictionary *extensionType = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   @"pdf", @"1",
+                                   @"txt", @"2",
+                                   @"xls", @"3",
+                                   @"doc", @"4",
+                                   @"ppt", @"5",
+                                   @"numbers", @"6",
+                                   @"pages", @"7",
+                                   @"key", @"8",
+                                   @"csv", @"9",
+                                   @"md", @"10",
+                                   nil];
+    
+    NSNumber *extensionFlag = [inputData objectForKey:@"dataSourceType"];
+    NSString *extension = [extensionType objectForKey:[extensionFlag stringValue]];
+    return extension;
+}
+
+// Backup Pathを取得する
+-(NSString*)getBackupPath:(NSDictionary*)inputData{
+    NSString *directory = [inputData objectForKey:@"backupPath"];
+    NSString *filePath = [directory stringByExpandingTildeInPath];
+    return filePath;
 }
 
 
@@ -629,7 +661,13 @@ const BOOL ENV = NO;
             NSRunCriticalAlertPanel(@"Error", @"Could not authenticate", @"OK", nil, nil);
         }
         else {
-            NSLog(@"authenticationToken:%@", session.authenticationToken);
+//            NSLog(@"authenticationToken:%@", session.authenticationToken);
+            NSLog(@"Login");
+            
+            // NoteBookの取得
+            [self setupNotebookList];
+            
+            // Login User周りの情報を更新
             EvernoteUserStore *userStore = [EvernoteUserStore userStore];
             [userStore getUserWithSuccess:^(EDAMUser *user){
                 // Sign Outボタンを表示
@@ -686,8 +724,6 @@ const BOOL ENV = NO;
     // ログインユーザを非表示
     [_userNameLabel setObjectValue:@"(Not Signed)"];
 
-//    [_signInOrOutBtn setTitle:@"Sign In"];
-//    [_userNameLabel setObjectValue:@""];
 }
 
 /*
@@ -721,9 +757,9 @@ const BOOL ENV = NO;
  * Notebookのリストを取得
  */
 -(void)setupNotebookList{
-    _notebookList = [[NSMutableArray alloc]init];
     EvernoteNoteStore *noteStore = [EvernoteNoteStore noteStore];
     [noteStore listNotebooksWithSuccess:^(NSArray *notebooks) {
+        [_notebookList removeAllObjects];
         for(EDAMNotebook *notebook in notebooks){
             NSString *guid = [NSString stringWithString:notebook.guid];
             NSString *name = [NSString stringWithString:notebook.name];

@@ -91,7 +91,11 @@
 
 
 -(NSArray*)splitTags{
-    return [self.tags componentsSeparatedByString:@","];
+    if([self.tags length] == 0){
+        return nil;
+    }else{
+        return [self.tags componentsSeparatedByString:@","];
+    }
 }
 
 -(NSMutableDictionary*)splitParams{
