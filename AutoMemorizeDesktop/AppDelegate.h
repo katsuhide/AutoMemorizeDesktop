@@ -49,7 +49,7 @@ extern const BOOL ENV;
 
 
 // Main Thread
-#define INTERVAL 60  // 秒
+#define INTERVAL 10  // 秒
 @property (retain) NSMutableArray *taskQueue;
 
 // Task Panle

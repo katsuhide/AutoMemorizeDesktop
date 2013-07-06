@@ -38,8 +38,21 @@
 
 -(BOOL)validate{
     BOOL isValidate = NO;
-    if([_skypeUserField stringValue].length == 0){
+    // 必須チェック
+    NSString *skypeUser = [_skypeUserField stringValue];
+    if(skypeUser.length == 0){
         [_skypeUserError setHidden:NO];
+        [_skypeUserError setStringValue:@"* Enter your Skype User Name."];
+        isValidate = YES;
+    }
+    
+    // Skype Userチェック
+    NSString *skypePath = [NSHomeDirectory() stringByAppendingString:@"/Library/Application Support/Skype/"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *filePath = [skypePath stringByAppendingString:skypeUser];
+    if(![fileManager fileExistsAtPath:filePath]){
+        [_skypeUserError setHidden:NO];
+        [_skypeUserError setStringValue:@"* Invalid Skype User Name."];
         isValidate = YES;
     }
     return isValidate;

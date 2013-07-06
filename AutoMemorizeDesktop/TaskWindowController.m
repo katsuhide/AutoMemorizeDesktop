@@ -80,6 +80,18 @@ typedef enum viewTypeEnum : NSInteger{
     image= [[NSImage alloc]initByReferencingFile:imagePath];
     [_evernoteView setImage:image];
     
+    // Back Btn
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Left" ofType:@"png"];
+    image= [[NSImage alloc]initByReferencingFile:imagePath];
+    [_backBtn setImage:image];
+    [_backBtn setBordered:YES];
+
+    // Next Btn
+    imagePath = [[NSBundle mainBundle] pathForResource:@"Right" ofType:@"png"];
+    image= [[NSImage alloc]initByReferencingFile:imagePath];
+    [_nextBtn setImage:image];
+    [_nextBtn setBordered:YES];
+    
     // inputDataのインスタンスを初期化
     _inputData = [NSMutableDictionary dictionary];
  

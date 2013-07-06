@@ -17,11 +17,14 @@
 		4210725117828D4A00B03452 /* SkypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4210724F17828D4A00B03452 /* SkypeView.m */; };
 		4210725217828D4A00B03452 /* SkypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4210725017828D4A00B03452 /* SkypeView.xib */; };
 		4211CC12176CC233000B566B /* NSData+EvernoteSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211CC11176CC233000B566B /* NSData+EvernoteSDK.m */; };
+		422BE2A31787935700A11739 /* SignOut.psd in Resources */ = {isa = PBXBuildFile; fileRef = 422BE2A21787935700A11739 /* SignOut.psd */; };
+		422BE2A51787936200A11739 /* SignIn.psd in Resources */ = {isa = PBXBuildFile; fileRef = 422BE2A41787936200A11739 /* SignIn.psd */; };
+		422BE2A71787957800A11739 /* Left.png in Resources */ = {isa = PBXBuildFile; fileRef = 422BE2A61787957800A11739 /* Left.png */; };
+		422BE2A91787965300A11739 /* Right.png in Resources */ = {isa = PBXBuildFile; fileRef = 422BE2A81787965300A11739 /* Right.png */; };
 		42368B2E175CDBDF0098CFB3 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 42368B2C175CDBDF0098CFB3 /* Model.xcdatamodeld */; };
 		42368B36175CDCC70098CFB3 /* TaskSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 42368B35175CDCC70098CFB3 /* TaskSource.m */; };
 		42402DD51783476B007A97BC /* AdditionalConditionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42402DD31783476A007A97BC /* AdditionalConditionView.m */; };
 		42402DD61783476B007A97BC /* AdditionalConditionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42402DD41783476A007A97BC /* AdditionalConditionView.xib */; };
-		4251AC14178733EE005B92BE /* SignIn2.psd in Resources */ = {isa = PBXBuildFile; fileRef = 4251AC13178733EE005B92BE /* SignIn2.psd */; };
 		425A64FB175A6DFF002DE6AF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425A64FA175A6DFF002DE6AF /* Cocoa.framework */; };
 		425A6505175A6DFF002DE6AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 425A6503175A6DFF002DE6AF /* InfoPlist.strings */; };
 		425A6507175A6DFF002DE6AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6506175A6DFF002DE6AF /* main.m */; };
@@ -68,8 +71,6 @@
 		42E023A217806F1F00556623 /* Plus.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239517806F1F00556623 /* Plus.psd */; };
 		42E023A317806F1F00556623 /* RegisterOkBtnLightBlue.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239617806F1F00556623 /* RegisterOkBtnLightBlue.psd */; };
 		42E023A417806F1F00556623 /* RegisterOkBtnLightGreen.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239717806F1F00556623 /* RegisterOkBtnLightGreen.psd */; };
-		42E023A517806F1F00556623 /* SignIn.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239817806F1F00556623 /* SignIn.psd */; };
-		42E023A617806F1F00556623 /* SignOut.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239917806F1F00556623 /* SignOut.psd */; };
 		42E023A717806F1F00556623 /* Status.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239A17806F1F00556623 /* Status.psd */; };
 		42F7806B176C23B900CC3E7A /* SkypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F78069176C23B900CC3E7A /* SkypeViewController.m */; };
 		42F7806C176C23B900CC3E7A /* SkypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F7806A176C23B900CC3E7A /* SkypeViewController.xib */; };
@@ -152,13 +153,16 @@
 		4210725017828D4A00B03452 /* SkypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SkypeView.xib; sourceTree = "<group>"; };
 		4211CC10176CC233000B566B /* NSData+EvernoteSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+EvernoteSDK.h"; sourceTree = "<group>"; };
 		4211CC11176CC233000B566B /* NSData+EvernoteSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+EvernoteSDK.m"; sourceTree = "<group>"; };
+		422BE2A21787935700A11739 /* SignOut.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignOut.psd; sourceTree = "<group>"; };
+		422BE2A41787936200A11739 /* SignIn.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignIn.psd; sourceTree = "<group>"; };
+		422BE2A61787957800A11739 /* Left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Left.png; sourceTree = "<group>"; };
+		422BE2A81787965300A11739 /* Right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Right.png; sourceTree = "<group>"; };
 		42368B2D175CDBDF0098CFB3 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		42368B34175CDCC70098CFB3 /* TaskSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskSource.h; sourceTree = "<group>"; };
 		42368B35175CDCC70098CFB3 /* TaskSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskSource.m; sourceTree = "<group>"; };
 		42402DD21783476A007A97BC /* AdditionalConditionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdditionalConditionView.h; sourceTree = "<group>"; };
 		42402DD31783476A007A97BC /* AdditionalConditionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdditionalConditionView.m; sourceTree = "<group>"; };
 		42402DD41783476A007A97BC /* AdditionalConditionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdditionalConditionView.xib; sourceTree = "<group>"; };
-		4251AC13178733EE005B92BE /* SignIn2.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignIn2.psd; sourceTree = "<group>"; };
 		425A64F7175A6DFF002DE6AF /* RecDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecDesktop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		425A64FA175A6DFF002DE6AF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		425A64FD175A6DFF002DE6AF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -224,8 +228,6 @@
 		42E0239517806F1F00556623 /* Plus.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Plus.psd; sourceTree = "<group>"; };
 		42E0239617806F1F00556623 /* RegisterOkBtnLightBlue.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = RegisterOkBtnLightBlue.psd; sourceTree = "<group>"; };
 		42E0239717806F1F00556623 /* RegisterOkBtnLightGreen.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = RegisterOkBtnLightGreen.psd; sourceTree = "<group>"; };
-		42E0239817806F1F00556623 /* SignIn.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignIn.psd; sourceTree = "<group>"; };
-		42E0239917806F1F00556623 /* SignOut.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignOut.psd; sourceTree = "<group>"; };
 		42E0239A17806F1F00556623 /* Status.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Status.psd; sourceTree = "<group>"; };
 		42F78068176C23B900CC3E7A /* SkypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkypeViewController.h; sourceTree = "<group>"; };
 		42F78069176C23B900CC3E7A /* SkypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkypeViewController.m; sourceTree = "<group>"; };
@@ -421,10 +423,13 @@
 		428615A3177770720028C38A /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				4251AC13178733EE005B92BE /* SignIn2.psd */,
+				422BE2A41787936200A11739 /* SignIn.psd */,
+				422BE2A21787935700A11739 /* SignOut.psd */,
+				422BE2A81787965300A11739 /* Right.png */,
 				42C4C4C6178685090069A7F1 /* Word.psd */,
 				42C4C4C4178684FE0069A7F1 /* PowerPoint.psd */,
 				4272DDBE1786E5F70047B988 /* question.png */,
+				422BE2A61787957800A11739 /* Left.png */,
 				4272DDB61786E1490047B988 /* RightBow.png */,
 				42C4C4C2178684F10069A7F1 /* Pages.psd */,
 				42C4C4C0178684DF0069A7F1 /* Excel.psd */,
@@ -443,8 +448,6 @@
 				42E0239517806F1F00556623 /* Plus.psd */,
 				42E0239617806F1F00556623 /* RegisterOkBtnLightBlue.psd */,
 				42E0239717806F1F00556623 /* RegisterOkBtnLightGreen.psd */,
-				42E0239817806F1F00556623 /* SignIn.psd */,
-				42E0239917806F1F00556623 /* SignOut.psd */,
 				42E0239A17806F1F00556623 /* Status.psd */,
 				4201439517859C070012E4B2 /* evernote_logo.png */,
 				428615A9177771390028C38A /* documents_folder.png */,
@@ -594,8 +597,6 @@
 				42E023A217806F1F00556623 /* Plus.psd in Resources */,
 				42E023A317806F1F00556623 /* RegisterOkBtnLightBlue.psd in Resources */,
 				42E023A417806F1F00556623 /* RegisterOkBtnLightGreen.psd in Resources */,
-				42E023A517806F1F00556623 /* SignIn.psd in Resources */,
-				42E023A617806F1F00556623 /* SignOut.psd in Resources */,
 				42E023A717806F1F00556623 /* Status.psd in Resources */,
 				4210724D17828AF500B03452 /* SelectDataSourceView.xib in Resources */,
 				4210725217828D4A00B03452 /* SkypeView.xib in Resources */,
@@ -614,7 +615,10 @@
 				4272DDBF1786E5F70047B988 /* question.png in Resources */,
 				4272DDC4178714950047B988 /* ChooseBackupDirectoryView.xib in Resources */,
 				4272DDC61787248C0047B988 /* FileChoose.png in Resources */,
-				4251AC14178733EE005B92BE /* SignIn2.psd in Resources */,
+				422BE2A31787935700A11739 /* SignOut.psd in Resources */,
+				422BE2A51787936200A11739 /* SignIn.psd in Resources */,
+				422BE2A71787957800A11739 /* Left.png in Resources */,
+				422BE2A91787965300A11739 /* Right.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

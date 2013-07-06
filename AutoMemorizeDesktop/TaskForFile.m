@@ -96,7 +96,8 @@
             // 拡張子条件が空の場合
             NSString *fullPath = [directoryPath stringByAppendingPathComponent:fileName];
             [filePathList addObject:fullPath];
-        }else if ([[fileName pathExtension] isEqualToString:extension]) {
+//        }else if ([[fileName pathExtension] isEqualToString:extension]) {
+        }else if ([self isExistFile:fileName andExtension:extension]) {
             // 拡張子条件が存在する場合
             NSString *fullPath = [directoryPath stringByAppendingPathComponent:fileName];
             [filePathList addObject:fullPath];
@@ -104,6 +105,19 @@
     }
     return filePathList;
     
+}
+
+// 設定されている拡張子と一致するファイルが存在するか
+-(BOOL)isExistFile:(NSString*)fileName andExtension:(NSString*)extension{
+    BOOL isExist = NO;
+    NSString *target = [fileName pathExtension];
+    NSArray *params = [extension componentsSeparatedByString:@","];
+    for(NSString *param in params){
+        if([target isEqualToString:param]){
+            isExist = YES;
+        }
+    }
+    return isExist;
 }
 
 /*

@@ -23,6 +23,7 @@ const BOOL ENV = NO;
 // Insert code here to initialize your application
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    
     // ログ出力
     if(ENV){
         freopen([@"/tmp/recdesktop.log" fileSystemRepresentation], "w+", stderr);
@@ -45,13 +46,13 @@ const BOOL ENV = NO;
     
     // ArrayControllerとmanagedObjectContextの紐付け
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
-    
+
+    _notebookList = [[NSMutableArray alloc]init];
     if(!isFirst){
         // Evernoteへログイン
         [self doAuthorize:nil];
 
         // Notebookの一覧を取得して設定
-        _notebookList = [[NSMutableArray alloc]init];
         [self setupNotebookList];
     }
 
@@ -62,7 +63,7 @@ const BOOL ENV = NO;
     [self initializePreView];
     
     // メインスレッドのポーリングを開始
-//    [self run];
+    [self run];
 }
 
 /*
@@ -146,8 +147,8 @@ const BOOL ENV = NO;
             // Skype
             NSString *skypeUser = [inputData objectForKey:@"skypeUser"];
             source.task_name = [NSString stringWithFormat:@"Upload %@'s Data every 5 minutes.", skypeUser];
-            //            source.interval = @"0.42";  // 約5min TODO
-            source.interval = @"0.003";  // 約10sec
+            source.interval = @"0.0833";  // 約5min
+//            source.interval = @"0.003";  // 約10sec
             NSString *skypePath = [NSString stringWithFormat:@"~/Library/Application Support/Skype/%@/main.db", skypeUser];
             
             NSMutableString *params = [NSMutableString string];
@@ -200,7 +201,7 @@ const BOOL ENV = NO;
         }
     }
     source.notebook_guid = guid;
-    source.tags = [inputData objectForKey:@"tag"];  // TODO 形式を要チェック
+    source.tags = [inputData objectForKey:@"tag"];
     
     // System Information
     NSDate *now = [NSDate date];
@@ -212,7 +213,7 @@ const BOOL ENV = NO;
     [self save];
     
     // Taskを初期化
-//    [self restart:nil];
+    [self restart:nil];
     
 }
 
@@ -234,9 +235,9 @@ const BOOL ENV = NO;
     NSDictionary *extensionType = [NSDictionary dictionaryWithObjectsAndKeys:
                                    @"pdf", @"1",
                                    @"txt", @"2",
-                                   @"xls", @"3",
-                                   @"doc", @"4",
-                                   @"ppt", @"5",
+                                   @"xls,xlsx", @"3",
+                                   @"doc,docx", @"4",
+                                   @"ppt,pptx", @"5",
                                    @"numbers", @"6",
                                    @"pages", @"7",
                                    @"key", @"8",
@@ -523,7 +524,7 @@ const BOOL ENV = NO;
         // 認証時の処理に任せるため何もしない
     }else{
         // Sign In表示
-        imagePath = [[NSBundle mainBundle] pathForResource:@"SignIn2" ofType:@"psd"];
+        imagePath = [[NSBundle mainBundle] pathForResource:@"SignIn" ofType:@"psd"];
         NSImage *signInOrOutBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
         [_signInOrOutBtn setImage:signInOrOutBtnImage];
         [_signInOrOutBtn setBordered:NO];
@@ -626,16 +627,30 @@ const BOOL ENV = NO;
 -(IBAction)deleteTask:(id)sender{
     // 選択されたindexを取得する
     NSInteger row = [_taskTable selectedRow];
-    
+
     if((int)row != -1){
-        NSLog(@"delete:%ld", row);
-        // 選択されたindexのデータを削除する
-        [_taskArrayController setSelectionIndex:row];
-        // 選択された行を削除
-        [_taskArrayController removeObjectAtArrangedObjectIndex:row];
-        [self save];
+        // 本当に削除するか確認
+        NSInteger deleteFlag = 0;
+        NSString *errorMsg = @"Are you sure you want to delete this Upload Rule?";
+        if(errorMsg.length != 0){
+            NSAlert *alert = [ NSAlert alertWithMessageText: @"RecDesktop"
+                                              defaultButton: @"OK"  // 1
+                                            alternateButton: @"Cancel"  // 0
+                                                otherButton: nil    // -1
+                                  informativeTextWithFormat: @"%@", errorMsg];
+            deleteFlag = [alert runModal];
+        }
+        // OKの場合のみ削除
+        if(deleteFlag == 1){
+            NSLog(@"delete:%ld", row);
+            // 選択されたindexのデータを削除する
+            [_taskArrayController setSelectionIndex:row];
+            // 選択された行を削除
+            [_taskArrayController removeObjectAtArrangedObjectIndex:row];
+            [self save];
+        }
     }
-    
+
 }
 
 
@@ -709,7 +724,7 @@ const BOOL ENV = NO;
     NSString *EVERNOTE_HOST = BootstrapServerBaseURLStringSandbox;
     NSString *CONSUMER_KEY = @"katzlifehack";
     NSString *CONSUMER_SECRET = @"9490d8896d0bb1a3";
-    
+
     [EvernoteSession setSharedSessionHost:EVERNOTE_HOST
                               consumerKey:CONSUMER_KEY
                            consumerSecret:CONSUMER_SECRET];
@@ -729,7 +744,8 @@ const BOOL ENV = NO;
     [_signInOrOutBtn setBordered:NO];
     // ログインユーザを非表示
     [_userNameLabel setObjectValue:@"(Not Signed)"];
-
+    // NotebookListを空にする
+    [_notebookList removeAllObjects];
 }
 
 /*
@@ -1072,9 +1088,6 @@ const BOOL ENV = NO;
  */
 -(IBAction)testMethod:(id)sender{
 
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://docs.google.com/drawings/d/1Sr5DjyLGmy9b2ACPaWKpw-f948374l-4ArILJbLKE5k/edit"]];
-    
-//    exit(0);
 }
 
 ///*

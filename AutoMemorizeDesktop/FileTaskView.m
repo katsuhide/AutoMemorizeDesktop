@@ -26,7 +26,7 @@
 
 
 -(void)initialize:(NSMutableDictionary*)inputData{
-    [_directoryField selectItemAtIndex:0];
+    [_directoryField selectItemAtIndex:[[inputData objectForKey:@"directory"] integerValue]];
     [_directoryError setHidden:YES];
     [_otherDirectoryField setObjectValue:[inputData objectForKey:@"otherPath"]];
     [_otherDirectoryField setHidden:YES];
