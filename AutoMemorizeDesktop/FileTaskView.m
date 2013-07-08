@@ -36,6 +36,7 @@
 -(NSMutableDictionary*)setViewData:(NSMutableDictionary*)inputData{
     [inputData setValue:[NSNumber numberWithInteger:[_directoryField indexOfSelectedItem]] forKey:@"directory"];
     [inputData setValue:[_otherDirectoryField stringValue] forKey:@"otherPath"];
+    [inputData setValue:[NSNumber numberWithInteger:[_searchSubDirectory state]] forKey:@"search"];
     return inputData;
     
 }

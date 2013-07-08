@@ -47,5 +47,10 @@
  */
 -(void)updateLastAddedTime:(NSDate*)now;
 
+/*
+ * ノート登録後の後処理
+ */
+-(void)afterRegister:(BOOL)isSuceeded;
+
 
 @end

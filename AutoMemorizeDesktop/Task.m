@@ -101,4 +101,11 @@
     self.source.last_added_time = now;
 }
 
+/*
+ * ノート登録後の後処理
+ */
+-(void)afterRegister:(BOOL)isSuceeded{
+    NSLog(@"Not implemented.");
+}
+
 @end

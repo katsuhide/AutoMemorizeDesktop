@@ -34,7 +34,4 @@
 
 -(int)getDataSource;
 
--(NSString*)getTest;
-
-
 @end

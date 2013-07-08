@@ -16,6 +16,8 @@
 
 @property (assign) IBOutlet NSTextField *otherDirectoryField;
 
+@property (assign) IBOutlet NSButton *searchSubDirectory;
+
 -(void)initialize:(NSMutableDictionary*)inputData;
 
 -(BOOL)validate;

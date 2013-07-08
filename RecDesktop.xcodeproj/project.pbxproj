@@ -17,6 +17,7 @@
 		4210725117828D4A00B03452 /* SkypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4210724F17828D4A00B03452 /* SkypeView.m */; };
 		4210725217828D4A00B03452 /* SkypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4210725017828D4A00B03452 /* SkypeView.xib */; };
 		4211CC12176CC233000B566B /* NSData+EvernoteSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 4211CC11176CC233000B566B /* NSData+EvernoteSDK.m */; };
+		42154318178B0A3300044183 /* RecDesktopLogo.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42154317178B0A3300044183 /* RecDesktopLogo.psd */; };
 		422BE2A31787935700A11739 /* SignOut.psd in Resources */ = {isa = PBXBuildFile; fileRef = 422BE2A21787935700A11739 /* SignOut.psd */; };
 		422BE2A51787936200A11739 /* SignIn.psd in Resources */ = {isa = PBXBuildFile; fileRef = 422BE2A41787936200A11739 /* SignIn.psd */; };
 		422BE2A71787957800A11739 /* Left.png in Resources */ = {isa = PBXBuildFile; fileRef = 422BE2A61787957800A11739 /* Left.png */; };
@@ -153,6 +154,7 @@
 		4210725017828D4A00B03452 /* SkypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SkypeView.xib; sourceTree = "<group>"; };
 		4211CC10176CC233000B566B /* NSData+EvernoteSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+EvernoteSDK.h"; sourceTree = "<group>"; };
 		4211CC11176CC233000B566B /* NSData+EvernoteSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+EvernoteSDK.m"; sourceTree = "<group>"; };
+		42154317178B0A3300044183 /* RecDesktopLogo.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = RecDesktopLogo.psd; sourceTree = "<group>"; };
 		422BE2A21787935700A11739 /* SignOut.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignOut.psd; sourceTree = "<group>"; };
 		422BE2A41787936200A11739 /* SignIn.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignIn.psd; sourceTree = "<group>"; };
 		422BE2A61787957800A11739 /* Left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Left.png; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 				4272DDB61786E1490047B988 /* RightBow.png */,
 				42C4C4C2178684F10069A7F1 /* Pages.psd */,
 				42C4C4C0178684DF0069A7F1 /* Excel.psd */,
+				42154317178B0A3300044183 /* RecDesktopLogo.psd */,
 				42C4C4BE178684D50069A7F1 /* Keynote.psd */,
 				42C4C4BC178682B30069A7F1 /* Text.psd */,
 				42C4C4B6178682A00069A7F1 /* Pdf.psd */,
@@ -619,6 +622,7 @@
 				422BE2A51787936200A11739 /* SignIn.psd in Resources */,
 				422BE2A71787957800A11739 /* Left.png in Resources */,
 				422BE2A91787965300A11739 /* Right.png in Resources */,
+				42154318178B0A3300044183 /* RecDesktopLogo.psd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,6 +23,7 @@ const BOOL ENV = NO;
 // Insert code here to initialize your application
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+//    [self testMethod:nil];
     
     // ログ出力
     if(ENV){
@@ -178,6 +179,10 @@ const BOOL ENV = NO;
             // Backup Path
             NSString *backupPath = [self getBackupPath:inputData];
             [params appendString:[source transformKeyValue:@"backupPath" andValue:backupPath]];
+            source.params = params;
+            // Search Sub Directory
+            NSNumber *searchSubDirectory = [inputData objectForKey:@"search"];
+            [params appendString:[source transformKeyValue:@"search" andValue:[searchSubDirectory stringValue]]];
             source.params = params;
             
             // Upload Rule Description
@@ -1087,6 +1092,30 @@ const BOOL ENV = NO;
  * テストメソッド
  */
 -(IBAction)testMethod:(id)sender{
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *directoryPath = @"/Users/AirMyac/Desktop";
+    NSArray *contents = [fileManager contentsOfDirectoryAtPath: directoryPath // (NSString*) 走査したいディレクトリのパス
+                                                         error: NULL];        // (NSError**) エラー
+    NSLog(@"low:%@", contents);
+    
+    for(NSString *target in contents){
+        NSString *extension = [target pathExtension];
+        if([extension isEqualToString:@"pdf"]){
+            NSLog(@"low2:%@", target);
+        }
+    }
+    
+    NSDirectoryEnumerator *directoryEnumerator = [fileManager enumeratorAtPath:directoryPath];
+    for(NSString *file in directoryEnumerator){
+        NSLog(@"deep:%@", file);
+        NSString *extension = [file pathExtension];
+        if([extension isEqualToString:@"pdf"]){
+            NSLog(@"deep2:%@", file);
+        }
+    }
+    
+    exit(0);
 
 }
 
