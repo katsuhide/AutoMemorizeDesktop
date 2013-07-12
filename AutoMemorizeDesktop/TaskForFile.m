@@ -157,7 +157,7 @@
     // Note Titleの指定
     NSString *noteTitle;
     if([self.source.note_title length] == 0){
-        noteTitle = filePath;
+        noteTitle = [filePath lastPathComponent];
     }else{
         noteTitle = self.source.note_title;
     }

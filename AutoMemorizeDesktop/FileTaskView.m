@@ -24,12 +24,12 @@
     return self;
 }
 
-
 -(void)initialize:(NSMutableDictionary*)inputData{
     [_directoryField selectItemAtIndex:[[inputData objectForKey:@"directory"] integerValue]];
     [_directoryError setHidden:YES];
     [_otherDirectoryField setObjectValue:[inputData objectForKey:@"otherPath"]];
     [_otherDirectoryField setHidden:YES];
+    [_searchSubDirectory setState:[[inputData objectForKey:@"search"] integerValue]];
     
 }
 
@@ -50,6 +50,10 @@
     return isValidate;
 }
 
-
+-(IBAction)changeVisibleOthterDirectoryPath:(id)sender{
+    // TODO Otherが選択された時の動作を実装
+    NSLog(@"hoge");
+    
+}
 
 @end

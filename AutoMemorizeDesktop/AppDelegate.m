@@ -148,12 +148,17 @@ const BOOL ENV = NO;
             // Skype
             NSString *skypeUser = [inputData objectForKey:@"skypeUser"];
             source.task_name = [NSString stringWithFormat:@"Upload %@'s Data every 5 minutes.", skypeUser];
-            source.interval = @"0.0833";  // 約5min
-//            source.interval = @"0.003";  // 約10sec
+            if(ENV){
+                source.interval = @"0.0833";  // 約5min
+            }else{
+                source.interval = @"0.003";  // 約10sec
+            }
             NSString *skypePath = [NSString stringWithFormat:@"~/Library/Application Support/Skype/%@/main.db", skypeUser];
             
             NSMutableString *params = [NSMutableString string];
             [params appendString:[source transformKeyValue:@"file_path" andValue:skypePath]];
+            [params appendString:[source transformKeyValue:@"isClassify" andValue:[inputData objectForKey:@"isClassify"]]];
+            
             source.params = params;
         
         }
@@ -403,19 +408,6 @@ const BOOL ENV = NO;
         [column setHeaderCell:newCell];
         num++;
     }
-    
-//    NSTableHeaderView *tableHeaderView = [[NSTableHeaderView alloc] initWithFrame:NSMakeRect(0, 0, 10, 60)];
-//    NSTableHeaderView *tableHeaderView = _taskTable.headerView;
-//    NSRect frame = tableHeaderView.frame;
-//    frame.size.width = 200;
-//    tableHeaderView.frame = frame;
-//    [_taskTable setHeaderView:nil];
-//    [_taskTable setHeaderView:tableHeaderView];
-    
-//    NSString *hex = @"#F1EEFB";
-//    NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
-//    [tableHeaderView setFrameSize:NSMakeSize(100, 100)];
-//    [_taskTable setHeaderView:tableHeaderView];
     
     // 各種ボタン
     NSString *imagePath;
@@ -1092,28 +1084,6 @@ const BOOL ENV = NO;
  * テストメソッド
  */
 -(IBAction)testMethod:(id)sender{
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *directoryPath = @"/Users/AirMyac/Desktop";
-    NSArray *contents = [fileManager contentsOfDirectoryAtPath: directoryPath // (NSString*) 走査したいディレクトリのパス
-                                                         error: NULL];        // (NSError**) エラー
-    NSLog(@"low:%@", contents);
-    
-    for(NSString *target in contents){
-        NSString *extension = [target pathExtension];
-        if([extension isEqualToString:@"pdf"]){
-            NSLog(@"low2:%@", target);
-        }
-    }
-    
-    NSDirectoryEnumerator *directoryEnumerator = [fileManager enumeratorAtPath:directoryPath];
-    for(NSString *file in directoryEnumerator){
-        NSLog(@"deep:%@", file);
-        NSString *extension = [file pathExtension];
-        if([extension isEqualToString:@"pdf"]){
-            NSLog(@"deep2:%@", file);
-        }
-    }
     
     exit(0);
 

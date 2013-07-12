@@ -19,8 +19,8 @@
     NSDate *now = [NSDate date];
     if([self check:now]){
         // タスクを実行してNoteListを作成する
-        NSMutableArray *noteList = [self execute];
-        
+        NSMutableArray *noteList = [self createNoteList];
+
         // Note登録を実行する
         AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
         if(_canAddNote) {
@@ -28,7 +28,7 @@
             for(EDAMNote *note in noteList){
                 [appDelegate doAddNote:note];
             }
-            // ノートの登録時間を更新
+            // ノートの登録時間を更新  TODO 最長メッセージ
             [self updateLastAddedTime:now];
         }else{
             NSLog(@"[TaskName:%@]Didn't create the Note since body is blank.", self.source.task_name);
@@ -43,44 +43,87 @@
 }
 
 /*
- * タスクの処理内容
+ * SkypeLogのNoteListを作成する
  */
-- (NSMutableArray*) execute {
-    // タスク情報からQueryを作成
-    NSMutableString *sql = [NSMutableString stringWithFormat:@"select from_dispname, datetime(timestamp,\"unixepoch\",\"localtime\") as datetime, body_xml from messages where timestamp >= strftime('%%s', datetime('%@', 'utc'))", [self.source.last_added_time toStringWithFormat:@"yyyy-MM-dd HH:mm:ss"]];
-    NSString *participants = [self.source getKeyValue:@"participants"];
-    if(participants.length != 0){
-        [sql appendFormat:@" and convo_id = (select distinct conv_dbid from chats where participants = '%@');",[self.source getKeyValue:@"participants"]];
+- (NSMutableArray*) createNoteList {
+    // 初期設定をNote作成フラグNOに設定
+    _canAddNote = NO;
+    
+    // Topicの一覧を取得する
+    NSArray* topicList = [self getTopicList];
+
+    // Topic毎にノートを作成する
+    NSMutableArray *noteList = [NSMutableArray array];
+    int isClassifyFlag = [[self.source getKeyValue:@"isClassify"] intValue];
+    if(isClassifyFlag == 0){
+        // まとめて作成
+        // タスク情報からQueryを作成
+        NSString *sql = [NSString stringWithFormat:@"select from_dispname, datetime(timestamp,\"unixepoch\",\"localtime\") as datetime, body_xml from messages where timestamp >= strftime('%%s', datetime('%@', 'utc'));", [self.source.last_added_time toStringWithFormat:@"yyyy-MM-dd HH:mm:ss"]];
+        
+        // SkypeのMessageを取得
+        NSMutableArray *result = [self getSkypeMessages:sql];
+        //    NSLog(@"sql:%@, result:%@", sql, result);         // logが肥大化するためコメントアウト
+        
+        // Messageが空ではない場合のみノートは作成する
+        if([result count] != 0){
+            _canAddNote = YES;
+            // EDAMNoteを作成しNoteListを作成
+            EDAMNote *note = [self createEDAMNote:result andTopic:nil];
+            [noteList addObject:note];
+        }
+        
     }else{
-        [sql appendString:@";"];
+        // Topic毎に作成
+        for(NSDictionary* topic in topicList){
+            // タスク情報からQueryを作成
+            NSMutableString *sql = [NSMutableString stringWithFormat:@"select msg.from_dispname, datetime(msg.timestamp,\"unixepoch\",\"localtime\") as datetime, msg.body_xml from messages msg inner join conversations conv on msg.convo_id = conv.id where msg.timestamp >= strftime('%%s', datetime('%@', 'utc')) and conv.id = '%@'", [self.source.last_added_time toStringWithFormat:@"yyyy-MM-dd HH:mm:ss"], [topic objectForKey:@"topicId"]];
+            
+            // SkypeのMessageを取得
+            NSMutableArray *result = [self getSkypeMessages:sql];
+//            NSLog(@"sql:%@, result:%@", sql, result);         // logが肥大化するためコメントアウト
+            
+            // Messageが空であった場合はノートは作成しない
+            if([result count] != 0){
+                _canAddNote = YES;
+                // EDAMNoteを作成しNoteListを作成
+                EDAMNote *note = [self createEDAMNote:result andTopic:[topic objectForKey:@"topicName"]];
+                [noteList addObject:note];
+            }
+        }
     }
-    
-    // SkypeのMessageを取得
-    NSMutableArray *result = [self getSkypeMessages:sql];
-//    NSLog(@"sql:%@, result:%@", sql, result);         // logが肥大化するためコメントアウト
-    
-    // Messageが空であった場合はノートは作成しない
-    if([result count] == 0){
-        _canAddNote = FALSE;
-    }else{
-        _canAddNote = TRUE;
-    }
-    
-    // EDAMNoteを作成しNoteListを作成
-    EDAMNote *note = [self createEDAMNote:result];
-    NSMutableArray *noteList = [[NSMutableArray alloc]initWithObjects:note, nil];
+
     return noteList;
 }
 
 /*
  * SkypeTask用のEDAMNOTEを作成する
  */
-- (EDAMNote*)createEDAMNote:(NSMutableArray*)result{
+-(NSArray*)getTopicList{
+    // Queryを作成
+    NSString *sql = @"select id, displayname from conversations;";
+
+    // Queryを実行
+    return [self getTopicListFromDB:sql];
+    
+}
+
+
+/*
+ * SkypeTask用のEDAMNOTEを作成する
+ */
+- (EDAMNote*)createEDAMNote:(NSMutableArray*)result andTopic:(NSString*)topic{
     // Note Titleの指定
     NSString *noteTitle;
     if([self.source.note_title length] == 0){
-        noteTitle = @"Skype Log";
+        // NoteTitleが指定されていない場合、デフォルトタイトルかTopic名称を設定する
+        if(topic == nil){
+            noteTitle = @"Skype Log";
+        }else{
+            noteTitle = topic;
+        }
+        
     }else{
+        // NoteTitleが指定されている場合はそちらを優先
         noteTitle = self.source.note_title;
     }
 
@@ -97,7 +140,7 @@
     // ENMLの作成
     int count = 0;
     NSMutableString *body = [NSMutableString string];
-    for(NSDictionary *dic in result){
+    for(NSDictionary *dic in result){   // TODO resultを分解しておく必要あり
         // ENMLに対応していないタグを除去
         NSString *replaced = [self excludeInvalidTag:[dic objectForKey:@"body"]];
         
@@ -189,5 +232,38 @@
     return result;
     
 }
+
+/*
+ * SkypeにDBに接続してTopicを取得する
+ */
+- (NSMutableArray*)getTopicListFromDB:(NSString*)sql{
+    // DB設定情報
+    NSString *databasePath = [self.source getKeyValue:@"file_path"];
+
+    // Open DB
+    FMDatabase *db  = [FMDatabase databaseWithPath:[databasePath stringByExpandingTildeInPath]];
+    [db open];
+    
+    // Execute Query
+    FMResultSet *results = [db executeQuery:sql];
+    
+    // Output
+    NSMutableArray *result = [NSMutableArray array];
+    while ([results next]) {
+        NSArray *key = [NSArray arrayWithObjects:@"topicId", @"topicName", nil];
+        NSArray *value = [NSArray arrayWithObjects:[results stringForColumn:@"id"], [results stringForColumn:@"displayname"], nil];
+        NSDictionary *dic = [NSDictionary dictionaryWithObjects:value forKeys:key];
+        [result addObject:dic];
+    }
+    
+    // Release result set
+    [results close];
+    
+    // Close DB
+    [db close];
+    return result;
+    
+}
+
 
 @end

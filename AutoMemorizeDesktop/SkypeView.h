@@ -14,6 +14,8 @@
 
 @property (retain) IBOutlet NSTextField *skypeUserError;
 
+@property (retain) IBOutlet NSButton *isClassify;
+
 -(void)initilize:(NSMutableDictionary*)inputData;
 
 -(NSMutableDictionary*)setViewData:(NSMutableDictionary*)inputData;

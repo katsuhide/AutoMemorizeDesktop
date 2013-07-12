@@ -27,12 +27,15 @@
 -(void)initilize:(NSMutableDictionary*)inputData{
     [_skypeUserField setObjectValue:[inputData objectForKey:@"skypeUser"]];
     [_skypeUserError setHidden:YES];
+    [_isClassify setState:[[inputData objectForKey:@"isClassify"] integerValue]];
+    
 }
 
 
 -(NSMutableDictionary*)setViewData:(NSMutableDictionary*)inputData{
     NSString *skypeUser = [_skypeUserField stringValue];
     [inputData setValue:skypeUser forKey:@"skypeUser"];
+    [inputData setValue:[NSNumber numberWithInteger:[_isClassify state]] forKey:@"isClassify"];
     return inputData;
 }
 
