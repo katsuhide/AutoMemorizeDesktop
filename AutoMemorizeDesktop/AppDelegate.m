@@ -717,11 +717,34 @@ const BOOL ENV = NO;
 // EvernoteAPIのSessionを作成
 -(void)createEvernoteSession{
     // EvernoteAPIの設定情報
-//    NSString *EVERNOTE_HOST = BootstrapServerBaseURLStringUS;
-    NSString *EVERNOTE_HOST = BootstrapServerBaseURLStringSandbox;
-    NSString *CONSUMER_KEY = @"katzlifehack";
-    NSString *CONSUMER_SECRET = @"9490d8896d0bb1a3";
     
+    NSString *EVERNOTE_HOST;
+    NSString *filePath;
+    if(ENV){
+        EVERNOTE_HOST = BootstrapServerBaseURLStringUS;
+        filePath = [[NSBundle mainBundle] pathForResource:@"recdesktop" ofType:@"plist"];
+    }else{
+        EVERNOTE_HOST = BootstrapServerBaseURLStringSandbox;
+        filePath = [[NSBundle mainBundle] pathForResource:@"recdesktop_sandbox" ofType:@"plist"];
+    }
+    
+    // ファイルマネージャを作成
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    // ファイルが存在しないか?
+    if (![fileManager fileExistsAtPath:filePath]) { // yes
+        NSLog(@"plistが存在しません．");
+        exit(0);
+    }
+    
+    // plistを読み込む
+    NSDictionary *output = [NSDictionary dictionaryWithContentsOfFile:filePath];
+    NSLog(@"%@", output);
+    exit(0);
+    
+    NSString *CONSUMER_KEY = [output objectForKey:@"CONSUMER_KEY"];
+    NSString *CONSUMER_SECRET = [output objectForKey:@"CONSUMER_SECRET"];
+
     [EvernoteSession setSharedSessionHost:EVERNOTE_HOST
                               consumerKey:CONSUMER_KEY
                            consumerSecret:CONSUMER_SECRET];
@@ -1088,20 +1111,5 @@ const BOOL ENV = NO;
     exit(0);
 
 }
-
-///*
-// * PreferencesViewを初期化
-// */
-//-(void)initializedPreferencesView{
-//    EvernoteSession *session = [EvernoteSession sharedSession];
-//    if(session.isAuthenticated){
-//        [_signInOrOutBtn setTitle:@"Sign Out"];
-//    }else{
-//        [_signInOrOutBtn setTitle:@"Sign In"];
-//        [_userNameLabel setObjectValue:@"-"];
-//    }
-//}
-
-
 
 @end

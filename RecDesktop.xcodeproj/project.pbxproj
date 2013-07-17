@@ -50,6 +50,8 @@
 		429C1BA0177F3DCF0037A77C /* CustomHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1B9F177F3DCF0037A77C /* CustomHeaderCell.m */; };
 		429C1BA6177F418B0037A77C /* NSColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1BA5177F418B0037A77C /* NSColor+Hex.m */; };
 		429C1BA9177F574F0037A77C /* CustomTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1BA8177F574F0037A77C /* CustomTableHeaderView.m */; };
+		42B32A5B1796448B00A6F0A0 /* recdesktop_sandbox.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42B32A5A1796448B00A6F0A0 /* recdesktop_sandbox.plist */; };
+		42B32A611796469400A6F0A0 /* recdesktop.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42B32A601796469400A6F0A0 /* recdesktop.plist */; };
 		42C4C4B7178682A00069A7F1 /* Pdf.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4B6178682A00069A7F1 /* Pdf.psd */; };
 		42C4C4BD178682B30069A7F1 /* Text.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4BC178682B30069A7F1 /* Text.psd */; };
 		42C4C4BF178684D50069A7F1 /* Keynote.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4BE178684D50069A7F1 /* Keynote.psd */; };
@@ -203,6 +205,8 @@
 		429C1BA5177F418B0037A77C /* NSColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+Hex.m"; sourceTree = "<group>"; };
 		429C1BA7177F574F0037A77C /* CustomTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableHeaderView.h; sourceTree = "<group>"; };
 		429C1BA8177F574F0037A77C /* CustomTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableHeaderView.m; sourceTree = "<group>"; };
+		42B32A5A1796448B00A6F0A0 /* recdesktop_sandbox.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = recdesktop_sandbox.plist; sourceTree = "<group>"; };
+		42B32A601796469400A6F0A0 /* recdesktop.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = recdesktop.plist; sourceTree = "<group>"; };
 		42C4C4B6178682A00069A7F1 /* Pdf.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pdf.psd; sourceTree = "<group>"; };
 		42C4C4BC178682B30069A7F1 /* Text.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Text.psd; sourceTree = "<group>"; };
 		42C4C4BE178684D50069A7F1 /* Keynote.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Keynote.psd; sourceTree = "<group>"; };
@@ -425,6 +429,8 @@
 		428615A3177770720028C38A /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				42B32A5A1796448B00A6F0A0 /* recdesktop_sandbox.plist */,
+				42B32A601796469400A6F0A0 /* recdesktop.plist */,
 				422BE2A41787936200A11739 /* SignIn.psd */,
 				422BE2A21787935700A11739 /* SignOut.psd */,
 				422BE2A81787965300A11739 /* Right.png */,
@@ -623,6 +629,8 @@
 				422BE2A71787957800A11739 /* Left.png in Resources */,
 				422BE2A91787965300A11739 /* Right.png in Resources */,
 				42154318178B0A3300044183 /* RecDesktopLogo.psd in Resources */,
+				42B32A5B1796448B00A6F0A0 /* recdesktop_sandbox.plist in Resources */,
+				42B32A611796469400A6F0A0 /* recdesktop.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
