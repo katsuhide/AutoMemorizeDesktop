@@ -10,9 +10,12 @@
 #import "Task.h"
 #import "TaskForFile.h"
 #import "TaskForSkype.h"
+#import "TaskForSafari.h"
 #import <EvernoteSDK-Mac/EvernoteSDK.h>
 #import "TaskViewController.h"
 #import "TaskWindowController.h"
+#import "NSDate+Util.h"
+
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 // Environment
@@ -51,6 +54,7 @@ extern const BOOL ENV;
 // Main Thread
 #define INTERVAL 10  // 秒
 @property (retain) NSMutableArray *taskQueue;
+@property (retain) NSMutableDictionary *serviceQueue;
 
 // Task Panle
 @property (assign) IBOutlet NSTextField *taskNameField;
@@ -109,6 +113,6 @@ extern const BOOL ENV;
 
 -(IBAction)testMethod:(id)sender;
 
-
+-(void)deleteServiceQueue:(int)queueId;
 
 @end

@@ -11,6 +11,7 @@
 #import "TaskSource.h"
 #import "CustomHeaderCell.h"
 #import "NSColor+Hex.h"
+#import "SafariTaskService.h"
 
 @implementation AppDelegate
 
@@ -23,13 +24,13 @@ const BOOL ENV = NO;
 // Insert code here to initialize your application
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-//    [self testMethod:nil];
+    [self testMethod:nil];
     
     // ログ出力
     if(ENV){
         freopen([@"/tmp/recdesktop.log" fileSystemRepresentation], "w+", stderr);
     }
-
+    
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
     NSError *error = nil;
@@ -64,7 +65,7 @@ const BOOL ENV = NO;
     [self initializePreView];
     
     // メインスレッドのポーリングを開始
-    [self run];
+//    [self run];
 }
 
 /*
@@ -740,7 +741,6 @@ const BOOL ENV = NO;
     // plistを読み込む
     NSDictionary *output = [NSDictionary dictionaryWithContentsOfFile:filePath];
     NSLog(@"%@", output);
-    exit(0);
     
     NSString *CONSUMER_KEY = [output objectForKey:@"CONSUMER_KEY"];
     NSString *CONSUMER_SECRET = [output objectForKey:@"CONSUMER_SECRET"];
@@ -1107,9 +1107,106 @@ const BOOL ENV = NO;
  * テストメソッド
  */
 -(IBAction)testMethod:(id)sender{
-    
-    exit(0);
 
+    _serviceQueue = [NSMutableDictionary dictionary];
+
+    NSMutableArray *urlList = [NSMutableArray array];
+    [urlList addObject:@"http://www.cocoalife.net/2009/09/post_845.html"];
+    [urlList addObject:@"https://evernote.com"];
+    [urlList addObject:@"http://yahoo.co.jp"];
+    
+    int count = 0;
+    for(NSString *urlString in urlList){
+        SafariTaskService *service = [[SafariTaskService alloc]init];
+        [_serviceQueue setObject:service forKey:[[NSNumber alloc]initWithInt:count]];
+        [service loadWebHistory:urlString andQueueId:count];
+        count++;
+    }
+    
+    
+//    TaskForSafari *task = [[TaskForSafari alloc]initWithTaskSource:[self createTestTaskSource]];
+//    
+//    int interval = INTERVAL;
+//    if(!ENV) {
+//        interval = 5;
+//    }
+//    
+//    // タスクタイマーを生成し、タスクキューに追加
+//    NSTimer *timer = [NSTimer
+//                      scheduledTimerWithTimeInterval:interval
+//                      target:task
+//                      selector:@selector(polling:)
+//                      userInfo:@"safari test"
+//                      repeats:YES];
+//    
+
+}
+
+-(IBAction)statusServiceQueue:(id)sender{
+    NSLog(@"%@", _serviceQueue);
+}
+
+-(void)deleteServiceQueue:(int)queueId{
+    [_serviceQueue removeObjectForKey:[[NSNumber alloc]initWithInt:queueId]];
+    [self statusServiceQueue:nil];
+}
+
+-(TaskSource*)createTestTaskSource{
+    TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
+    NSDate *now = [NSDate date];
+    source.last_added_time = now;
+//    source.last_added_time = [now dateByAddingTimeInterval:-3600];
+    
+    return source;
+    
+}
+-(void)replaceBr{
+    
+    // タスク情報からQueryを作成
+    NSString *sql = @"select id, body_xml from messages order by id desc limit 10;";
+    //    NSString *sql = @"select id, displayname from conversations;";
+    
+    // DB設定情報
+    NSString *databasePath = @"/Users/AirMyac/Library/Application Support/Skype/katsuhide1982/main.db";
+    FMDatabase *db  = [FMDatabase databaseWithPath:[databasePath stringByExpandingTildeInPath]];
+    
+    // Open DB
+    [db open];
+    
+    // Execute Query
+    FMResultSet *results = [db executeQuery:sql];
+    
+    // Output
+    NSMutableArray *result = [NSMutableArray array];
+    while ([results next]) {
+        
+        //        NSArray *key = [NSArray arrayWithObjects:@"name", @"datetime", @"body", nil];
+        NSString *body_xml = ([results stringForColumn:@"body_xml"].length == 0) ? @"":[results stringForColumn:@"body_xml"];
+        //        NSLog(@"%@", body_xml);
+        
+        [self replaceTag:body_xml];
+    }
+    
+    // Release result set
+    [results close];
+    
+    // Close DB
+    [db close];
+
+
+}
+-(NSString*)replaceTag:(NSString*)string{
+    
+    // 正規表現検索置換
+    NSError *error   = nil;
+    NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:@"\\r\\n" options:0 error:&error];
+    NSString *template = @"<br/>";   // 置換後文字列
+    NSString *replaced = [regexp stringByReplacingMatchesInString:string options:0 range:NSMakeRange(0,string.length) withTemplate:template];
+    NSLog(@"[string]:%@",string);
+    NSLog(@"[replaced]:%@",replaced);
+    
+    
+    return nil;
 }
 
 @end

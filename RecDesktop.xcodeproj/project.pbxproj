@@ -26,6 +26,8 @@
 		42368B36175CDCC70098CFB3 /* TaskSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 42368B35175CDCC70098CFB3 /* TaskSource.m */; };
 		42402DD51783476B007A97BC /* AdditionalConditionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42402DD31783476A007A97BC /* AdditionalConditionView.m */; };
 		42402DD61783476B007A97BC /* AdditionalConditionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42402DD41783476A007A97BC /* AdditionalConditionView.xib */; };
+		4249C3EF1798C5C00009970D /* TaskForSafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 4249C3EE1798C5C00009970D /* TaskForSafari.m */; };
+		4249C3FE179D39D60009970D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4249C3FD179D39D60009970D /* WebKit.framework */; };
 		425A64FB175A6DFF002DE6AF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 425A64FA175A6DFF002DE6AF /* Cocoa.framework */; };
 		425A6505175A6DFF002DE6AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 425A6503175A6DFF002DE6AF /* InfoPlist.strings */; };
 		425A6507175A6DFF002DE6AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6506175A6DFF002DE6AF /* main.m */; };
@@ -52,6 +54,7 @@
 		429C1BA9177F574F0037A77C /* CustomTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1BA8177F574F0037A77C /* CustomTableHeaderView.m */; };
 		42B32A5B1796448B00A6F0A0 /* recdesktop_sandbox.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42B32A5A1796448B00A6F0A0 /* recdesktop_sandbox.plist */; };
 		42B32A611796469400A6F0A0 /* recdesktop.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42B32A601796469400A6F0A0 /* recdesktop.plist */; };
+		42B8ECAB179EE943004727A1 /* SafariTaskService.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B8ECAA179EE943004727A1 /* SafariTaskService.m */; };
 		42C4C4B7178682A00069A7F1 /* Pdf.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4B6178682A00069A7F1 /* Pdf.psd */; };
 		42C4C4BD178682B30069A7F1 /* Text.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4BC178682B30069A7F1 /* Text.psd */; };
 		42C4C4BF178684D50069A7F1 /* Keynote.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4BE178684D50069A7F1 /* Keynote.psd */; };
@@ -167,6 +170,9 @@
 		42402DD21783476A007A97BC /* AdditionalConditionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdditionalConditionView.h; sourceTree = "<group>"; };
 		42402DD31783476A007A97BC /* AdditionalConditionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdditionalConditionView.m; sourceTree = "<group>"; };
 		42402DD41783476A007A97BC /* AdditionalConditionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdditionalConditionView.xib; sourceTree = "<group>"; };
+		4249C3ED1798C5C00009970D /* TaskForSafari.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskForSafari.h; sourceTree = "<group>"; };
+		4249C3EE1798C5C00009970D /* TaskForSafari.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskForSafari.m; sourceTree = "<group>"; };
+		4249C3FD179D39D60009970D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		425A64F7175A6DFF002DE6AF /* RecDesktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecDesktop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		425A64FA175A6DFF002DE6AF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		425A64FD175A6DFF002DE6AF /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -207,6 +213,8 @@
 		429C1BA8177F574F0037A77C /* CustomTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableHeaderView.m; sourceTree = "<group>"; };
 		42B32A5A1796448B00A6F0A0 /* recdesktop_sandbox.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = recdesktop_sandbox.plist; sourceTree = "<group>"; };
 		42B32A601796469400A6F0A0 /* recdesktop.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = recdesktop.plist; sourceTree = "<group>"; };
+		42B8ECA9179EE943004727A1 /* SafariTaskService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafariTaskService.h; sourceTree = "<group>"; };
+		42B8ECAA179EE943004727A1 /* SafariTaskService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SafariTaskService.m; sourceTree = "<group>"; };
 		42C4C4B6178682A00069A7F1 /* Pdf.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pdf.psd; sourceTree = "<group>"; };
 		42C4C4BC178682B30069A7F1 /* Text.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Text.psd; sourceTree = "<group>"; };
 		42C4C4BE178684D50069A7F1 /* Keynote.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Keynote.psd; sourceTree = "<group>"; };
@@ -250,6 +258,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4249C3FE179D39D60009970D /* WebKit.framework in Frameworks */,
 				425A6530175A6F83002DE6AF /* libsqlite3.0.dylib in Frameworks */,
 				425A6529175A6EA8002DE6AF /* EvernoteSDK-Mac.framework in Frameworks */,
 				425A64FB175A6DFF002DE6AF /* Cocoa.framework in Frameworks */,
@@ -304,6 +313,7 @@
 		425A64EE175A6DFF002DE6AF = {
 			isa = PBXGroup;
 			children = (
+				4249C3FD179D39D60009970D /* WebKit.framework */,
 				42762116177F2D0F00079CC9 /* logo.icns */,
 				425A652F175A6F83002DE6AF /* libsqlite3.0.dylib */,
 				425A6517175A6E3B002DE6AF /* EvernoteSDK.xcodeproj */,
@@ -411,6 +421,10 @@
 				425A6541175A7077002DE6AF /* TaskForFile.h */,
 				425A6542175A7077002DE6AF /* TaskForFile.m */,
 				425A6543175A7077002DE6AF /* Task.m */,
+				4249C3ED1798C5C00009970D /* TaskForSafari.h */,
+				4249C3EE1798C5C00009970D /* TaskForSafari.m */,
+				42B8ECA9179EE943004727A1 /* SafariTaskService.h */,
+				42B8ECAA179EE943004727A1 /* SafariTaskService.m */,
 			);
 			name = Task;
 			sourceTree = "<group>";
@@ -667,6 +681,8 @@
 				42402DD51783476B007A97BC /* AdditionalConditionView.m in Sources */,
 				4201439F1785EE170012E4B2 /* FileTaskView.m in Sources */,
 				4272DDC3178714950047B988 /* ChooseBackupDirectoryView.m in Sources */,
+				4249C3EF1798C5C00009970D /* TaskForSafari.m in Sources */,
+				42B8ECAB179EE943004727A1 /* SafariTaskService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

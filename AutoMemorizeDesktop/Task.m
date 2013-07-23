@@ -94,11 +94,11 @@
 /*
  * ノート登録時間の更新
  */
--(void)updateLastAddedTime:(NSDate*)now{
+-(void)updateLastAddedTime:(NSDate*)date{
     // ノート登録時間を出力
-    NSLog(@"[Class:%@][PreviousAddedTime:%@][CurrentAddedTime:%@]", NSStringFromClass([self class]), [self.source.last_added_time toString], [now toString]);
+    NSLog(@"[Class:%@][PreviousAddedTime:%@][CurrentAddedTime:%@]", NSStringFromClass([self class]), [self.source.last_added_time toString], [date toString]);
     // ノート登録時間を更新
-    self.source.last_added_time = now;
+    self.source.last_added_time = date;
 }
 
 /*
