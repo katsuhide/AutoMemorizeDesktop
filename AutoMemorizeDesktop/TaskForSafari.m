@@ -9,6 +9,7 @@
 #import "TaskForSafari.h"
 #import "AppDelegate.h"
 #import "NSData+EvernoteSDK.h"
+#import "SafariTaskService.h"
 
 // LOCK OBJECT
 BOOL LOAD_ROCK;
@@ -19,60 +20,52 @@ BOOL LOAD_ROCK;
  * 定期実行で実行される処理
  */
 - (void)polling:(NSTimer*)timer{
+        
     NSDate *now = [NSDate date];
     
-    NSLog(@"check");
     if(LOAD_ROCK){
+        NSLog(@"ROCK!!!");
         return;
     }
     
     // 実行すべき時間か判定する
 //    if([self check:now]){
-        if(YES){    //TODO
-            
-        NSLog(@"check true");
+    if(YES){    //TODO
         
         // 履歴のURL一覧を取得
-        NSDate *lastExecutedTime = self.source.last_added_time;
-        NSArray *targetURLs = [self getURLList:lastExecutedTime];
+        NSArray *targetURLs = [self getURLList:self.source.last_added_time];
+        NSLog(@"targetURLs:\r\n%@", targetURLs);
         
         // 対象URLが存在しない場合処理しない
         if([targetURLs count] == 0){
             NSLog(@"[TaskName:%@]Didn't create the Note since web history does note exist.", self.source.task_name);
             return;
         }
-        
+
+        // ロックの取得
+        LOAD_ROCK = YES;
+
+        // Queueを初期化
+        _serviceQueue = [NSMutableDictionary dictionary];
+
         // 対象のURL毎にPDFに一旦ページを保存してNoteを作成してフィアルのローテートを実施する
-        AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+        int count = 0;
         for(NSString *targetURL in targetURLs){
-
-            NSLog(@"file loop");
+            NSLog(@"Create Queue for %@", targetURL);
+            // 1URLに対して1サービスを作成し、Queueに登録
+            SafariTaskService *service = [[SafariTaskService alloc]init];
+            [_serviceQueue setObject:service forKey:[[NSNumber alloc]initWithInt:count]];
+            service.delegate = self;
             
-            // ロックのチェック
-            if(LOAD_ROCK){
-                NSLog(@"start of file loop");
-                [NSThread sleepForTimeInterval:5];
-            }
-
-            // ロックを取得
-            LOAD_ROCK = YES;
-            [NSThread sleepForTimeInterval:5];  // 念のため少し待つ　TODO PDFNoteを作成するまで待つならplistにロックを定義すべき？
-
-            // URLのページをPDFに一時的に保存
-            [self loadWebHistory:targetURL];
+            // サービスの実行
+            [service loadWebHistory:targetURL andQueueId:count];
             
-            // Noteの作成
-//            NSString *targetFilePath = nil;
-//            EDAMNote *note = [self createEDAMNote:targetFilePath andURL:(NSString*)targetURL];
-            
-            // Noteの登録
-//            [appDelegate doAddNote:note];
+            // インクリメント
+            count++;
             
             // ノートの登録時間を更新
             NSDate *date = [self getFileTimeStamp:targetURL andDirectoryPath:@"/Users/AirMyac/Library/Caches/Metadata/Safari/History"];
             [self updateLastAddedTime:date];
-            
-            break;
             // 対象ファイルを削除
             
         }
@@ -84,6 +77,18 @@ BOOL LOAD_ROCK;
 //        [appDelegate save];
         
     }
+}
+
+-(void)deleteServiceQueue:(int)queueId{
+    [_serviceQueue removeObjectForKey:[[NSNumber alloc]initWithInt:queueId]];
+    [self statusServiceQueue:nil];
+    if ([_serviceQueue count] == 0) {
+        LOAD_ROCK = NO; // ロックの解除
+    }
+}
+
+-(void)statusServiceQueue:(id)sender{
+    NSLog(@"Service Queue: %@", _serviceQueue);
 }
 
 /*

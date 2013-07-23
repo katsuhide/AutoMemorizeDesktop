@@ -1108,37 +1108,37 @@ const BOOL ENV = NO;
  */
 -(IBAction)testMethod:(id)sender{
 
-    _serviceQueue = [NSMutableDictionary dictionary];
-
-    NSMutableArray *urlList = [NSMutableArray array];
-    [urlList addObject:@"http://www.cocoalife.net/2009/09/post_845.html"];
-    [urlList addObject:@"https://evernote.com"];
-    [urlList addObject:@"http://yahoo.co.jp"];
+//    _serviceQueue = [NSMutableDictionary dictionary];
+//
+//    NSMutableArray *urlList = [NSMutableArray array];
+//    [urlList addObject:@"http://www.cocoalife.net/2009/09/post_845.html"];
+//    [urlList addObject:@"https://evernote.com"];
+//    [urlList addObject:@"http://yahoo.co.jp"];
+//    
+//    int count = 0;
+//    for(NSString *urlString in urlList){
+//        SafariTaskService *service = [[SafariTaskService alloc]init];
+//        [_serviceQueue setObject:service forKey:[[NSNumber alloc]initWithInt:count]];
+//        [service loadWebHistory:urlString andQueueId:count];
+//        count++;
+//    }
     
-    int count = 0;
-    for(NSString *urlString in urlList){
-        SafariTaskService *service = [[SafariTaskService alloc]init];
-        [_serviceQueue setObject:service forKey:[[NSNumber alloc]initWithInt:count]];
-        [service loadWebHistory:urlString andQueueId:count];
-        count++;
+    
+    TaskForSafari *task = [[TaskForSafari alloc]initWithTaskSource:[self createTestTaskSource]];
+    
+    int interval = INTERVAL;
+    if(!ENV) {
+        interval = 5;
     }
     
+    // タスクタイマーを生成し、タスクキューに追加
+    NSTimer *timer = [NSTimer
+                      scheduledTimerWithTimeInterval:interval
+                      target:task
+                      selector:@selector(polling:)
+                      userInfo:@"safari test"
+                      repeats:YES];
     
-//    TaskForSafari *task = [[TaskForSafari alloc]initWithTaskSource:[self createTestTaskSource]];
-//    
-//    int interval = INTERVAL;
-//    if(!ENV) {
-//        interval = 5;
-//    }
-//    
-//    // タスクタイマーを生成し、タスクキューに追加
-//    NSTimer *timer = [NSTimer
-//                      scheduledTimerWithTimeInterval:interval
-//                      target:task
-//                      selector:@selector(polling:)
-//                      userInfo:@"safari test"
-//                      repeats:YES];
-//    
 
 }
 

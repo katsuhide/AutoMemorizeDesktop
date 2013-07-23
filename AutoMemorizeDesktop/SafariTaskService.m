@@ -7,9 +7,22 @@
 //
 
 #import "SafariTaskService.h"
-#import "AppDelegate.h"
+//#import "AppDelegate.h"
 
 @implementation SafariTaskService
+
+@synthesize delegate;
+
+/**
+ * イニシャライザ
+ */
+- (id)init
+{
+    if (self = [super init]) {
+        // 初期処理
+    }
+    return self;
+}
 
 -(void)loadWebHistory:(NSString*)targetURL andQueueId:(int)queueId{
     
@@ -38,12 +51,16 @@
  * 描画に成功した場合の処理（PDFに保存しNoteを作成する
  */
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
-    NSLog(@"finish");
+    NSLog(@"page loading...");
     if ([sender mainFrame] == frame) {
-        NSLog(@"didFinishLoadForFrame");
+        NSLog(@"Finish Load.");
         [self saveWebPageToPDF];
-        AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
-        [appDelegate deleteServiceQueue:_serviceQueueId];
+        
+        // デリゲート先がちゃんと「sampleMethod1」というメソッドを持っているか?
+        if ([self.delegate respondsToSelector:@selector(deleteServiceQueue:)]) {
+            // sampleMethod1を呼び出す
+            [self.delegate deleteServiceQueue:_serviceQueueId];
+        }
     }
 }
 
@@ -72,6 +89,7 @@
     NSString *pdfName = [NSString stringWithFormat:@"%d.pdf", _serviceQueueId];
     NSString* path = [NSString stringWithFormat:@"/Users/AirMyac/Desktop/%@", pdfName];
     [outdata writeToFile:path atomically:YES];
+    NSLog(@"Finished saving pdf file.[%@]", pdfName);
     
 }
 

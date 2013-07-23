@@ -11,10 +11,16 @@
 
 @interface TaskForSafari : Task
 
+@property (retain) TaskSource *source;
+
 @property (assign) BOOL canAddNote;
 
 @property (strong) WebView *webView;
 
+@property (retain) NSMutableDictionary *serviceQueue;
+
 - (void)polling:(NSTimer*)timer;
+
+-(void)deleteServiceQueue:(int)queueId;
 
 @end
