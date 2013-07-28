@@ -40,6 +40,7 @@
 		425A6544175A7077002DE6AF /* TaskForSkype.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6540175A7077002DE6AF /* TaskForSkype.m */; };
 		425A6545175A7077002DE6AF /* TaskForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6542175A7077002DE6AF /* TaskForFile.m */; };
 		425A6546175A7077002DE6AF /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A6543175A7077002DE6AF /* Task.m */; };
+		426C5E33179F5A84007E5AA3 /* EvernoteServiceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 426C5E32179F5A84007E5AA3 /* EvernoteServiceUtil.m */; };
 		4272DDB71786E1490047B988 /* RightBow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4272DDB61786E1490047B988 /* RightBow.png */; };
 		4272DDBF1786E5F70047B988 /* question.png in Resources */ = {isa = PBXBuildFile; fileRef = 4272DDBE1786E5F70047B988 /* question.png */; };
 		4272DDC3178714950047B988 /* ChooseBackupDirectoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4272DDC1178714950047B988 /* ChooseBackupDirectoryView.m */; };
@@ -194,6 +195,8 @@
 		425A6541175A7077002DE6AF /* TaskForFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskForFile.h; sourceTree = "<group>"; };
 		425A6542175A7077002DE6AF /* TaskForFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskForFile.m; sourceTree = "<group>"; };
 		425A6543175A7077002DE6AF /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		426C5E31179F5A84007E5AA3 /* EvernoteServiceUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvernoteServiceUtil.h; sourceTree = "<group>"; };
+		426C5E32179F5A84007E5AA3 /* EvernoteServiceUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvernoteServiceUtil.m; sourceTree = "<group>"; };
 		4272DDB61786E1490047B988 /* RightBow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RightBow.png; sourceTree = "<group>"; };
 		4272DDBE1786E5F70047B988 /* question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = question.png; sourceTree = "<group>"; };
 		4272DDC0178714950047B988 /* ChooseBackupDirectoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseBackupDirectoryView.h; sourceTree = "<group>"; };
@@ -425,6 +428,8 @@
 				4249C3EE1798C5C00009970D /* TaskForSafari.m */,
 				42B8ECA9179EE943004727A1 /* SafariTaskService.h */,
 				42B8ECAA179EE943004727A1 /* SafariTaskService.m */,
+				426C5E31179F5A84007E5AA3 /* EvernoteServiceUtil.h */,
+				426C5E32179F5A84007E5AA3 /* EvernoteServiceUtil.m */,
 			);
 			name = Task;
 			sourceTree = "<group>";
@@ -683,6 +688,7 @@
 				4272DDC3178714950047B988 /* ChooseBackupDirectoryView.m in Sources */,
 				4249C3EF1798C5C00009970D /* TaskForSafari.m in Sources */,
 				42B8ECAB179EE943004727A1 /* SafariTaskService.m in Sources */,
+				426C5E33179F5A84007E5AA3 /* EvernoteServiceUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,6 +21,9 @@
 
 - (void)polling:(NSTimer*)timer;
 
+/*
+ * サービスキューを削除し、空になった場合はロックを解除する
+ */
 -(void)deleteServiceQueue:(int)queueId;
 
 @end

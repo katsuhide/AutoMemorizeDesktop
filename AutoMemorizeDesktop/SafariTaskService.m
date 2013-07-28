@@ -7,9 +7,11 @@
 //
 
 #import "SafariTaskService.h"
-//#import "AppDelegate.h"
+#import "AppDelegate.h"
 
 @implementation SafariTaskService
+
+const NSString *pdfDirectory = @"~/Desktop/";
 
 @synthesize delegate;
 
@@ -24,6 +26,9 @@
     return self;
 }
 
+/*
+ * 指定されたURLのページを描画する
+ */
 -(void)loadWebHistory:(NSString*)targetURL andQueueId:(int)queueId{
     
     _serviceQueueId = queueId;
@@ -48,21 +53,44 @@
 }
 
 /*
- * 描画に成功した場合の処理（PDFに保存しNoteを作成する
+ * 描画に成功した場合の処理（PDFに保存しNoteを作成する）
  */
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
     NSLog(@"page loading...");
     if ([sender mainFrame] == frame) {
         NSLog(@"Finish Load.");
-        [self saveWebPageToPDF];
         
-        // デリゲート先がちゃんと「sampleMethod1」というメソッドを持っているか?
+        // PDFファイルを作成
+        NSDictionary *condition = [self saveWebPageToPDF];
+        
+        // サービスキューの削除
         if ([self.delegate respondsToSelector:@selector(deleteServiceQueue:)]) {
-            // sampleMethod1を呼び出す
             [self.delegate deleteServiceQueue:_serviceQueueId];
         }
+
+        // 作成したPDFを元にEDAMNoteを作成する
+        EvernoteServiceUtil *enService = [[EvernoteServiceUtil alloc]init];
+        EDAMNote *note = [enService createEDAMNote:condition];
+        NSLog(@"EDAMNote has created.");
+  
+        // EvernoteServiceUtilのdelegateにTaskForSafariをセットする
+//        if ([self.delegate respondsToSelector:@selector(setEvernoteDelegate:)]) {
+//            [self.delegate setEvernoteDelegate:enService];
+//        }
+        
+        // PDFファイルを削除する
+        NSFileManager *fileManager=[[NSFileManager alloc] init];
+        NSError *error = nil;
+        NSString *filePath = [condition objectForKey:@"filePath"];
+        [fileManager removeItemAtPath:filePath error:&error];
+        NSLog(@"file delete.[%@]", filePath);
+        
+        // EDAMNOTEをENにuploadする
+        [enService registerNote:note];
+        
     }
 }
+
 
 /*
  * 描画に失敗した場合の処理（何もしないで次のURLへ処理を回す）
@@ -80,18 +108,24 @@
 }
 
 // viewをpdfに保存する
--(void)saveWebPageToPDF{
+-(NSDictionary*)saveWebPageToPDF{
     NSLog(@"start save web pdf.");
     [_webView setMediaStyle:@"screen"];
     NSView* view = [[[_webView mainFrame] frameView] documentView];
     NSRect rectForPDF = [view bounds];
     NSData* outdata = [view dataWithPDFInsideRect:rectForPDF];
     NSString *pdfName = [NSString stringWithFormat:@"%d.pdf", _serviceQueueId];
-    NSString* path = [NSString stringWithFormat:@"/Users/AirMyac/Desktop/%@", pdfName];
+    NSString *path = [[pdfDirectory stringByAppendingPathComponent:pdfName] stringByExpandingTildeInPath];
     [outdata writeToFile:path atomically:YES];
     NSLog(@"Finished saving pdf file.[%@]", pdfName);
     
+    NSMutableDictionary *condition = [NSMutableDictionary dictionary];
+    NSString *title = [_webView mainFrameTitle];
+    [condition setObject:title forKey:@"noteTitle"];
+    NSString *url = [_webView mainFrameURL];
+    [condition setObject:url forKey:@"body"];
+    [condition setObject:path forKey:@"filePath"];
+    return condition;
 }
-
 
 @end

@@ -24,7 +24,7 @@ const BOOL ENV = NO;
 // Insert code here to initialize your application
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    [self testMethod:nil];
+//    [self testMethod:nil];
     
     // ログ出力
     if(ENV){
@@ -65,7 +65,7 @@ const BOOL ENV = NO;
     [self initializePreView];
     
     // メインスレッドのポーリングを開始
-//    [self run];
+    [self run];
 }
 
 /*
@@ -92,6 +92,11 @@ const BOOL ENV = NO;
                 // File Task
                 NSLog(@"[TaskName:%@]File Task Created.", source.task_name);
                 task = [[TaskForFile alloc]initWithTaskSource:source];
+                break;
+            case 2:
+                // Safari Task
+                NSLog(@"[TaskName:%@]File Task Created.", source.task_name);
+                task = [[TaskForSafari alloc]initWithTaskSource:source];
                 break;
             default:
                 // Other Task
@@ -897,6 +902,13 @@ const BOOL ENV = NO;
     
 }
 
+/*
+ * EvernoteSessionを取得する（ログインされている前提）
+ */
+-(EvernoteSession*)getEvernoteSession{
+    EvernoteSession *session = [EvernoteSession sharedSession];
+    return session;
+}
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "AutoMemorizeDesktop" in the user's Application Support directory.
 - (NSURL *)applicationFilesDirectory
@@ -1107,22 +1119,6 @@ const BOOL ENV = NO;
  * テストメソッド
  */
 -(IBAction)testMethod:(id)sender{
-
-//    _serviceQueue = [NSMutableDictionary dictionary];
-//
-//    NSMutableArray *urlList = [NSMutableArray array];
-//    [urlList addObject:@"http://www.cocoalife.net/2009/09/post_845.html"];
-//    [urlList addObject:@"https://evernote.com"];
-//    [urlList addObject:@"http://yahoo.co.jp"];
-//    
-//    int count = 0;
-//    for(NSString *urlString in urlList){
-//        SafariTaskService *service = [[SafariTaskService alloc]init];
-//        [_serviceQueue setObject:service forKey:[[NSNumber alloc]initWithInt:count]];
-//        [service loadWebHistory:urlString andQueueId:count];
-//        count++;
-//    }
-    
     
     TaskForSafari *task = [[TaskForSafari alloc]initWithTaskSource:[self createTestTaskSource]];
     
@@ -1153,6 +1149,8 @@ const BOOL ENV = NO;
 
 -(TaskSource*)createTestTaskSource{
     TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
+    source.task_name = @"Safari Task";
+    source.task_type = [NSNumber numberWithInt:2];
     NSDate *now = [NSDate date];
     source.last_added_time = now;
 //    source.last_added_time = [now dateByAddingTimeInterval:-3600];

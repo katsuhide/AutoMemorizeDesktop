@@ -33,7 +33,13 @@ BOOL LOAD_ROCK;
     if(YES){    //TODO
         
         // 履歴のURL一覧を取得
-        NSArray *targetURLs = [self getURLList:self.source.last_added_time];
+        NSArray *hisotryURLs = [self getURLList:self.source.last_added_time];
+        
+        // 不要な履歴を削除する
+        NSArray *targetURLs = [self excludeURLList:hisotryURLs];
+        
+        // 履歴を昇順にソートする
+        targetURLs = [self sortAscByTimestamp:targetURLs];
         NSLog(@"targetURLs:\r\n%@", targetURLs);
         
         // 対象URLが存在しない場合処理しない
@@ -66,7 +72,6 @@ BOOL LOAD_ROCK;
             // ノートの登録時間を更新
             NSDate *date = [self getFileTimeStamp:targetURL andDirectoryPath:@"/Users/AirMyac/Library/Caches/Metadata/Safari/History"];
             [self updateLastAddedTime:date];
-            // 対象ファイルを削除
             
         }
         
@@ -74,11 +79,15 @@ BOOL LOAD_ROCK;
         [self updateLastExecuteTime:now];
         
         // 更新したTaskSourceを永続化
-//        [appDelegate save];
+        AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+        [appDelegate save];
         
     }
 }
 
+/*
+ * サービスキューを削除し、空になった場合はロックを解除する
+ */
 -(void)deleteServiceQueue:(int)queueId{
     [_serviceQueue removeObjectForKey:[[NSNumber alloc]initWithInt:queueId]];
     [self statusServiceQueue:nil];
@@ -87,72 +96,25 @@ BOOL LOAD_ROCK;
     }
 }
 
+/*
+ * EvernoteServiceUtilのDelegateをセット
+ */
+-(void)setEvernoteDelegate:(EvernoteServiceUtil*)enService{
+    enService.enDelegate = self;
+}
+
+/*
+ * EvernoteにNoteを登録成功した場合の処理
+ */
+-(void)afterRegisterNote:(EDAMNote*)note{
+    // TODO
+}
+
+/*
+ * サービスキューの状態を出力
+ */
 -(void)statusServiceQueue:(id)sender{
     NSLog(@"Service Queue: %@", _serviceQueue);
-}
-
-/*
- * 指定されたURLのWebページをPDFファイルに保存してそのパスを返す
- */
--(void)loadWebHistory:(NSString*)targetURL{
-    
-//    // TODO
-//    while (LOAD_ROCK) {
-//        NSLog(@"sleep");
-//        [NSThread sleepForTimeInterval:5];
-//    }
-//    // ロックを取得
-//    LOAD_ROCK = YES;
-    
-    
-    // URLをデコードする
-    NSString *temp = [self decode:targetURL];
-    
-    // 拡張子を除外してURLにする
-    NSLog(@"%@", temp);
-    NSString *urlString = [temp stringByReplacingOccurrencesOfString:@".webhistory" withString:@""];
-    NSLog(@"%@", urlString);
-    
-    // 指定されたURLを開く
-    NSRect rect = NSMakeRect(-1000, -10000, 100, 100);
-    _webView = [[WebView alloc] initWithFrame:rect];
-    
-    [[[_webView mainFrame] frameView] setAllowsScrolling:NO];
-    
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [_webView setFrameLoadDelegate:self];
-    [[_webView mainFrame] loadRequest:request];
-    
-}
-
-/*
- * 描画に成功した場合の処理（PDFに保存しNoteを作成する
- */
-- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
-    NSLog(@"finish");
-    if ([sender mainFrame] == frame) {
-        NSLog(@"didFinishLoadForFrame");
-        [self saveWebPageToPDF];
-        LOAD_ROCK = NO;
-    }
-}
-
-/*
- * 描画に失敗した場合の処理（何もしないで次のURLへ処理を回す）
- */
-- (void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame{
-    NSLog(@"[TaskName:%@]Failed to draw this page.[%@]", self.source.task_name, error);
-}
-
-
-
-
-// デコード
--(NSString*)decode:(NSString*)string{
-    NSString *decodedString = (NSString*)CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)string, CFSTR(""), kCFStringEncodingUTF8));
-    return decodedString;
-    
 }
 
 
@@ -271,110 +233,64 @@ BOOL LOAD_ROCK;
     return isExist;
 }
 
-/*
- * FileTask用のEDAMNoteを作成する
- */
-- (EDAMNote*)createEDAMNote:(NSString*)filePath andURL:(NSString*)targetURL{
-    // Note Titleの指定
-    NSString *noteTitle;
-    if([self.source.note_title length] == 0){
-        noteTitle = targetURL;
-    }else{
-        noteTitle = self.source.note_title;
+// 不要な履歴を削除する
+-(NSArray*)excludeURLList:(NSArray*)historyURLs{
+    NSMutableArray* targetURLs = [NSMutableArray array];
+    for(NSString* url in historyURLs){
+        BOOL isTarget = YES;
+        
+        // httpを含まないURLは削除
+        NSRange range = [url rangeOfString:@"http"];
+        if(range.location == NSNotFound){
+            isTarget = NO;
+        }
+        
+        // Evernoteを含むURLは削除
+        range = [url rangeOfString:@"evernote.com"];
+        if(range.location != NSNotFound){
+            isTarget = NO;
+        }
+
+        // google.comを含むURLは削除
+        range = [url rangeOfString:@"google.com"];
+        if(range.location != NSNotFound){
+            isTarget = NO;
+        }
+
+        // 対象ならリストに追加
+        if(isTarget){
+            [targetURLs addObject:url];
+        }
     }
-    
-    // tagの指定
-    NSMutableArray *tagNames = [NSMutableArray arrayWithArray:[self.source splitTags]];
-    
-    // Notebookの指定
-    NSString *notebookGUID = self.source.notebook_guid;
-    AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
-    if(![appDelegate isExistNotebook:notebookGUID]){
-        notebookGUID = nil;
-    }
-    
-    // EDAMResourceをリストに格納
-    NSMutableArray *resources = [[NSMutableArray alloc] init];
-    [self createResources:filePath andResouces:resources];
-    
-    
-    // ENMLの作成
-    NSMutableString* body = [NSMutableString string];
-    // <en-media>
-    for(EDAMResource *resouce in resources){
-        [body appendString:@"<en-media type=\""];
-        [body appendString:resouce.mime];
-        [body appendString:@"\" hash=\""];
-        [body appendString:[resouce.data.bodyHash enlowercaseHexDigits]];
-        [body appendString:@"\"/>"];
-    }
-    NSString *noteContent = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                             "<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">"
-                             "<en-note>"
-                             "%@"
-                             "</en-note>",body];
-    NSLog(@"body:\n%@", noteContent);
-    
-    
-    // NOTEを登録
-    EDAMNote* note = [[EDAMNote alloc] initWithGuid:nil title:noteTitle content:noteContent contentHash:nil contentLength:(int)noteContent.length created:0 updated:0 deleted:0 active:YES updateSequenceNum:0 notebookGuid:notebookGUID tagGuids:nil resources:resources attributes:nil tagNames:tagNames];
-    
-    return note;
+    return targetURLs;
     
 }
 
-/*
- * 対象のファイルを削除する
- */
--(void)deleteFile:(NSString*)targetFile{
-    
-    
-    
-}
-
-/*
- * ファイルパスからResourcesを作成
- */
-- (void) createResources:(NSString*) filePath andResouces:(NSMutableArray*) resouces{
-    // 指定されたファイルパスからEDAMResourceを作成
-    NSString *fileName = [filePath lastPathComponent];
-    NSString *mime = [self mimeTypeForFileAtPath:filePath];
-    NSData *myFileData = [NSData dataWithContentsOfFile:filePath];
-    NSData *bodyHash = [myFileData enmd5];
-    EDAMData *edamData = [[EDAMData alloc] initWithBodyHash:bodyHash size:(int)myFileData.length body:myFileData];
-    EDAMResourceAttributes *attribute = [[EDAMResourceAttributes alloc] init];
-    attribute.fileName = fileName;
-    EDAMResource* resource = [[EDAMResource alloc] initWithGuid:nil noteGuid:nil data:edamData mime:mime width:0 height:0 duration:0 active:0 recognition:0 attributes:attribute updateSequenceNum:0 alternateData:nil];
-    [resouces addObject:resource];
-}
-
-/*
- * ファイルパスからMIMEを取得する
- */
-- (NSString*) mimeTypeForFileAtPath: (NSString *) path {
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        return nil;
+// ファイルのタイムスタンプでソート
+-(NSArray*)sortAscByTimestamp:(NSArray*)array{
+    NSMutableArray *attributes = [NSMutableArray array];
+    NSString *directoryPath = @"/Users/AirMyac/Library/Caches/Metadata/Safari/History";
+    NSError *error = nil;
+    for(NSString *fileName in array){
+        NSMutableDictionary *tmpDictionary = [NSMutableDictionary dictionary];
+        NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
+        NSDictionary *attr = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
+        [tmpDictionary setDictionary:attr];
+        [tmpDictionary setObject:fileName forKey:@"FileName"];
+        [tmpDictionary setObject:filePath forKey:@"FilePath"];
+        [attributes addObject:tmpDictionary];
     }
-    CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)[path pathExtension], NULL);
-    CFStringRef mimeType = UTTypeCopyPreferredTagWithClass (UTI, kUTTagClassMIMEType);
-    CFRelease(UTI);
-    if (!mimeType) {
-        return @"application/octet-stream";
+    // ソート
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:NSFileCreationDate ascending:YES];
+    NSArray *sortarray = [NSArray arrayWithObject:sortDescriptor];
+    
+    // 並び替えられたファイル配列
+    NSArray *resultarray = [attributes sortedArrayUsingDescriptors:sortarray];
+    NSMutableArray *arrays = [NSMutableArray array];
+    for(NSDictionary *dic in resultarray){
+        [arrays addObject:[dic objectForKey:@"FileName"]];
     }
-    return (__bridge_transfer NSString*)mimeType;
-}
-
--(void)saveWebPageToPDF{
-
-    NSLog(@"load web page");
-    
-    [_webView setMediaStyle:@"screen"];
-    NSView* view = [[[_webView mainFrame] frameView] documentView];
-    NSRect rectForPDF = [view bounds];
-    NSData* outdata = [view dataWithPDFInsideRect:rectForPDF];
-    NSString* path = @"/Users/AirMyac/Desktop/normal.pdf";
-    [outdata writeToFile:path atomically:YES];
-    
+    return arrays;
 }
 
 @end

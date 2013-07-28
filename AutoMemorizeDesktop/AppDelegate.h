@@ -110,6 +110,10 @@ extern const BOOL ENV;
  */
 -(NSMutableArray*)getNotebookList;
 
+/*
+ * EvernoteSessionを取得する
+ */
+-(EvernoteSession*)getEvernoteSession;
 
 -(IBAction)testMethod:(id)sender;
 
