@@ -7,6 +7,7 @@
 //
 
 #import "ChooseBackupDirectoryView.h"
+#import "AppDelegate.h"
 
 @interface ChooseBackupDirectoryView ()
 
@@ -14,11 +15,14 @@
 
 @implementation ChooseBackupDirectoryView
 
+NSDictionary *inputDataOfView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Initialization code here.
+        inputDataOfView = [NSDictionary dictionary];
     }
     
     return self;
@@ -26,22 +30,37 @@
 
 
 -(void)initialize:(NSMutableDictionary*)inputData{
+    inputDataOfView = inputData;
     [_backupDirectoryField setObjectValue:[inputData objectForKey:@"backupPath"]];
     [_directoryError setHidden:YES];
     
     NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"FileChoose" ofType:@"png"];
     NSImage *image = [[NSImage alloc]initByReferencingFile:imagePath];
     [_fileChooseBtn setImage:image];
-//    [_fileChooseBtn setBordered:NO];
 
 }
 
 -(BOOL)validate{
     BOOL isValidate = NO;
-    if([[_backupDirectoryField stringValue] length] == 0){
-        [_directoryError setHidden:NO];
+    // 必須チェック
+    NSString *backupDirectroy = [_backupDirectoryField stringValue];
+    if([backupDirectroy length] == 0){
+        [_directoryError setStringValue:@"* Choose the backup directory."];
         isValidate = YES;
+        [_directoryError setHidden:!isValidate];
+        return isValidate;
     }
+    
+    // バックアップディレクトリをサブディレクトリに設定していないかをチェック
+    AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+    NSString *targetDirectoryPath = [appDelegate getFilePath:inputDataOfView];
+    if([self isIncludeDirectory:targetDirectoryPath andSubDirectory:backupDirectroy]){
+        [_directoryError setStringValue:[NSString stringWithFormat:@"* Can't specify the subdirectory of this directory.[%@]", targetDirectoryPath]];
+        isValidate = YES;
+        [_directoryError setHidden:!isValidate];
+        return isValidate;
+    }
+    
     return isValidate;
 }
 
@@ -65,5 +84,14 @@
     [_backupDirectoryField setStringValue:path];
 }
 
+
+-(BOOL)isIncludeDirectory:(NSString*)parentDirectory andSubDirectory:(NSString*)subDirectory{
+    BOOL isInclude = YES;
+    NSRange range = [subDirectory rangeOfString:parentDirectory];
+    if (range.location == NSNotFound) {
+        isInclude = NO;
+    }
+    return isInclude;
+}
 
 @end

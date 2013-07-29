@@ -734,7 +734,7 @@ typedef enum viewTypeEnum : NSInteger{
             [_nextLabel setStringValue:additionalLabelString];
             
             // 画面固有のコンポーネントの初期化
-            FileTaskView *currentView = (FileTaskView*)self.taskWindowController;
+            ChooseBackupDirectoryView *currentView = (ChooseBackupDirectoryView*)self.taskWindowController;
             [currentView initialize:_inputData];
             
         }

@@ -119,6 +119,9 @@ extern const BOOL ENV;
  */
 -(BOOL)isExistSafariTask;
 
+// File Taskで選択されたFile Pathを取得する
+-(NSString*)getFilePath:(NSDictionary*)inputData;
+    
 -(IBAction)testMethod:(id)sender;
 
 -(void)deleteServiceQueue:(int)queueId;

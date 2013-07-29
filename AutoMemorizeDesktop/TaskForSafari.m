@@ -14,6 +14,9 @@
 // LOCK OBJECT
 BOOL LOAD_ROCK;
 
+// LOCK COUNT
+int lockCount;
+
 @implementation TaskForSafari
 
 /*
@@ -22,14 +25,20 @@ BOOL LOAD_ROCK;
 - (void)polling:(NSTimer*)timer{
     // ロック中か確認する
     if(LOAD_ROCK){
-        NSLog(@"ROCK!!!");
+        NSLog(@"ROCK![Check Count:%d]", lockCount);
+        [NSThread sleepForTimeInterval:5];
+        if(lockCount >= 100){
+            NSLog(@"Lock Count is over 100. Application will be shutdown.");
+            exit(0);
+        }
+        lockCount++;
         return;
     }
     
     // 実行すべき時間か判定する
     NSDate *now = [NSDate date];
     if([self check:now]){
-        // 履歴のURL一覧を取得
+        // 履歴のURL一覧を取得（前回登録したURLの最新時刻で検索）
         NSArray *hisotryURLs = [self getURLList:self.source.last_added_time];
         
         // 不要な履歴を削除する
@@ -37,7 +46,7 @@ BOOL LOAD_ROCK;
         
         // 履歴を昇順にソートする
         targetURLs = [self sortAscByTimestamp:targetURLs];
-        NSLog(@"targetURLs:\r\n%@", targetURLs);
+//        NSLog(@"targetURLs:\r\n%@", targetURLs);
         
         // 対象URLが存在しない場合処理しない
         if([targetURLs count] == 0){
@@ -47,7 +56,8 @@ BOOL LOAD_ROCK;
 
         // ロックの取得
         LOAD_ROCK = YES;
-
+        lockCount = 0;
+        
         // Queueを初期化
         _serviceQueue = [NSMutableDictionary dictionary];
 
@@ -57,6 +67,7 @@ BOOL LOAD_ROCK;
             NSLog(@"Create Queue for %@", targetURL);
             // 1URLに対して1サービスを作成し、Queueに登録
             SafariTaskService *service = [[SafariTaskService alloc]init];
+            service.source = self.source;
             [_serviceQueue setObject:service forKey:[[NSNumber alloc]initWithInt:count]];
             service.delegate = self;
             
@@ -67,7 +78,8 @@ BOOL LOAD_ROCK;
             count++;
             
             // ノートの登録時間を更新
-            NSDate *date = [self getFileTimeStamp:targetURL andDirectoryPath:@"/Users/AirMyac/Library/Caches/Metadata/Safari/History"];
+            NSString *webHistoryPath = [NSHomeDirectory() stringByAppendingString:@"/Library/Caches/Metadata/Safari/History"];
+            NSDate *date = [self getFileTimeStamp:targetURL andDirectoryPath:webHistoryPath];
             [self updateLastAddedTime:date];
             
         }
@@ -119,9 +131,8 @@ BOOL LOAD_ROCK;
  * 履歴のURL一覧を取得
  */
 -(NSArray*)getURLList:(NSDate*)lastExecutedTime{
-    
     // Safariの履歴ディレクトリのファイル一覧を取得
-    NSString *directoryPath = @"/Users/AirMyac/Library/Caches/Metadata/Safari/History";
+    NSString *directoryPath = [NSHomeDirectory() stringByAppendingString:@"/Library/Caches/Metadata/Safari/History"];
     NSString *extension = @"webhistory";
     NSArray *allFileList = [self getFileList:directoryPath andFileExtension:extension andIncludeSubDirectory:NO];
     
@@ -135,9 +146,7 @@ BOOL LOAD_ROCK;
         }
         
     }
-    
     return urlList;
-    
 }
 
 /*
@@ -154,7 +163,7 @@ BOOL LOAD_ROCK;
 
     // 比較
     NSDate *fileTimeStamp = [dicFileAttributes objectForKey:@"NSFileModificationDate"];
-    NSLog(@"file:%@, target:%@", [fileTimeStamp toLocalTime], [lastExecutedTime toLocalTime]);
+//    NSLog(@"file:%@, target:%@", [fileTimeStamp toLocalTime], [lastExecutedTime toLocalTime]);
     NSComparisonResult result = [fileTimeStamp compare:lastExecutedTime];
     return result;
     
@@ -235,23 +244,24 @@ BOOL LOAD_ROCK;
     NSMutableArray* targetURLs = [NSMutableArray array];
     for(NSString* url in historyURLs){
         BOOL isTarget = YES;
-        
+
         // httpを含まないURLは削除
         NSRange range = [url rangeOfString:@"http"];
         if(range.location == NSNotFound){
             isTarget = NO;
         }
-        
-        // Evernoteを含むURLは削除
-        range = [url rangeOfString:@"evernote.com"];
-        if(range.location != NSNotFound){
-            isTarget = NO;
-        }
 
-        // google.comを含むURLは削除
-        range = [url rangeOfString:@"google.com"];
-        if(range.location != NSNotFound){
-            isTarget = NO;
+        // 1つでもexcludeリストに合致したら削除
+        NSMutableArray *excludeList = [NSMutableArray array];
+        [excludeList addObject:@"evernote.com"];
+        [excludeList addObject:@"google.com"];
+        [excludeList addObject:@"facebook.com"];
+        [excludeList addObject:@"youtube.com"];
+        for(NSString *str in excludeList){
+            NSRange range = [url rangeOfString:str];
+            if(range.location != NSNotFound){
+                isTarget = NO;
+            }
         }
 
         // 対象ならリストに追加
@@ -266,7 +276,7 @@ BOOL LOAD_ROCK;
 // ファイルのタイムスタンプでソート
 -(NSArray*)sortAscByTimestamp:(NSArray*)array{
     NSMutableArray *attributes = [NSMutableArray array];
-    NSString *directoryPath = @"/Users/AirMyac/Library/Caches/Metadata/Safari/History";
+    NSString *directoryPath = [NSHomeDirectory() stringByAppendingString:@"/Library/Caches/Metadata/Safari/History"];
     NSError *error = nil;
     for(NSString *fileName in array){
         NSMutableDictionary *tmpDictionary = [NSMutableDictionary dictionary];

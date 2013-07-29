@@ -40,11 +40,6 @@ typedef enum dataTypeEnum : NSInteger{
 {
 //    [self testMethod:nil];
     
-    // ログ出力
-    if(ENV){
-        freopen([@"/tmp/recdesktop.log" fileSystemRepresentation], "w+", stderr);
-    }
-    
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
     NSError *error = nil;
@@ -60,6 +55,12 @@ typedef enum dataTypeEnum : NSInteger{
         abort();
     }
     
+    // ログ出力
+    if(ENV){
+        NSString *logPath = [[applicationFilesDirectory path] stringByAppendingPathComponent:@"recdesktop.log"];
+        freopen([logPath fileSystemRepresentation], "w+", stderr);
+    }
+
     // ArrayControllerとmanagedObjectContextの紐付け
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
 

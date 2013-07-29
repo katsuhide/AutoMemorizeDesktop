@@ -82,8 +82,10 @@
 // デバッグ用メソッド
 -(void)debugEDAMNote:(EDAMNote*)note{
     NSLog(@"EDAMNote:NoteTitle:%@", note.title);
-    NSLog(@"EDAMNote:Tags:%@", note.tagNames);
-    NSLog(@"EDAMNote:Note Content:%@", note.content);
+//    NSLog(@"EDAMNote:Tag Guids:%@", note.tagGuids);
+//    NSLog(@"EDAMNote:Tags:%@", note.tagNames);
+    NSLog(@"EDAMNote:Note Guid:%@", note.guid);
+//    NSLog(@"EDAMNote:Note Content:%@", note.content);
 }
 
 /*

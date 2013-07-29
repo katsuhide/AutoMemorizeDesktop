@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 #import "NSData+EvernoteSDK.h"
 #import "EvernoteServiceUtil.h"
+#import "TaskSource.h"
 
 // デリゲートを定義
 @protocol SafariDelegate <NSObject>
@@ -23,6 +24,8 @@
 @interface SafariTaskService : NSObject
 
 @property (retain) WebView *webView;
+
+@property (retain) TaskSource *source;
 
 @property int serviceQueueId;
 

@@ -11,8 +11,6 @@
 
 @implementation SafariTaskService
 
-const NSString *pdfDirectory = @"~/Desktop/";
-
 @synthesize delegate;
 
 /**
@@ -56,7 +54,6 @@ const NSString *pdfDirectory = @"~/Desktop/";
  * 描画に成功した場合の処理（PDFに保存しNoteを作成する）
  */
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
-    NSLog(@"page loading...");
     if ([sender mainFrame] == frame) {
         NSLog(@"Finish Load.");
         
@@ -109,23 +106,53 @@ const NSString *pdfDirectory = @"~/Desktop/";
 
 // viewをpdfに保存する
 -(NSDictionary*)saveWebPageToPDF{
-    NSLog(@"start save web pdf.");
+    // ViewをPDFに保存
     [_webView setMediaStyle:@"screen"];
     NSView* view = [[[_webView mainFrame] frameView] documentView];
     NSRect rectForPDF = [view bounds];
     NSData* outdata = [view dataWithPDFInsideRect:rectForPDF];
     NSString *pdfName = [NSString stringWithFormat:@"%d.pdf", _serviceQueueId];
-    NSString *path = [[pdfDirectory stringByAppendingPathComponent:pdfName] stringByExpandingTildeInPath];
+    NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
+    NSString *path = [[[applicationFilesDirectory path] stringByAppendingPathComponent:pdfName] stringByExpandingTildeInPath];
     [outdata writeToFile:path atomically:YES];
     NSLog(@"Finished saving pdf file.[%@]", pdfName);
     
+    // EDAMNoteを作成するための情報をセット
     NSMutableDictionary *condition = [NSMutableDictionary dictionary];
+
+    // Note Titleの指定
     NSString *title = [_webView mainFrameTitle];
+    if([self.source.note_title length] == 0){
+        // NoteTitleが指定されていない場合、ページタイトルをセット
+        title = [_webView mainFrameTitle];
+    }else{
+        // NoteTitleが指定されている場合はそちらを優先
+        title = self.source.note_title;
+    }
     [condition setObject:title forKey:@"noteTitle"];
+    
+    // tagの指定
+    NSMutableArray *tagNames = [NSMutableArray arrayWithArray:[self.source splitTags]];
+    [condition setObject:tagNames forKey:@"tagNames"];
+    
+    // Notebookの指定
+    NSString *notebookGUID = self.source.notebook_guid;
+    [condition setObject:notebookGUID forKey:@"notebookGUID"];
+    
+    // body情報の指定
     NSString *url = [_webView mainFrameURL];
     [condition setObject:url forKey:@"body"];
     [condition setObject:path forKey:@"filePath"];
+    
     return condition;
 }
+
+- (NSURL *)applicationFilesDirectory
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *appSupportURL = [[fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
+    return [appSupportURL URLByAppendingPathComponent:APP_NAME];
+}
+
 
 @end

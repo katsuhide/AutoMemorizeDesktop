@@ -110,7 +110,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{22, 202}, {427, 34}}</string>
 						<reference key="NSSuperview" ref="282421684"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
@@ -281,7 +280,6 @@
 						<int key="objectID">3</int>
 						<reference key="object" ref="282421684"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="260697203"/>
 							<reference ref="534927652"/>
 							<object class="IBNSLayoutConstraint" id="843044570">
 								<reference key="firstItem" ref="189322323"/>
@@ -462,6 +460,7 @@
 							<reference ref="442156006"/>
 							<reference ref="695690793"/>
 							<reference ref="189322323"/>
+							<reference ref="260697203"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
