@@ -71,6 +71,9 @@
         case 1:
             str = @"File Task";
             break;
+        case 2:
+            str = @"Safari Task";
+            break;
         default:
             break;
     }
@@ -152,6 +155,8 @@
         file = [[NSBundle mainBundle] pathForResource:@"skype" ofType:@"png"];
     }else if(type == 1){
         file = [[NSBundle mainBundle] pathForResource:@"documents_folder" ofType:@"png"];
+    }else if(type == 2){
+        file = [[NSBundle mainBundle] pathForResource:@"safari" ofType:@"png"];
     }else{
         
     }

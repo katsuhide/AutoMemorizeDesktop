@@ -40,7 +40,6 @@ extern const BOOL ENV;
 
 // Button
 @property (assign) IBOutlet NSButton *statusBtn;
-@property (assign) IBOutlet NSButton *infoBtn;
 @property (assign) IBOutlet NSButton *registerBtn;
 @property (assign) IBOutlet NSButton *deleteBtn;
 @property (assign) IBOutlet NSButton *registerOKBtn;
@@ -114,6 +113,11 @@ extern const BOOL ENV;
  * EvernoteSessionを取得する
  */
 -(EvernoteSession*)getEvernoteSession;
+
+/*
+ * Safariタスクが既に登録されているかを確認する
+ */
+-(BOOL)isExistSafariTask;
 
 -(IBAction)testMethod:(id)sender;
 

@@ -24,7 +24,7 @@
     return self;
 }
 
--(void)initilize:(NSMutableDictionary*)inputData{
+-(void)initialize:(NSMutableDictionary*)inputData{
     [_skypeUserField setObjectValue:[inputData objectForKey:@"skypeUser"]];
     [_skypeUserError setHidden:YES];
     [_isClassify setState:[[inputData objectForKey:@"isClassify"] integerValue]];
@@ -47,6 +47,7 @@
         [_skypeUserError setHidden:NO];
         [_skypeUserError setStringValue:@"* Enter your Skype User Name."];
         isValidate = YES;
+        return isValidate;
     }
     
     // Skype Userチェック
@@ -57,6 +58,7 @@
         [_skypeUserError setHidden:NO];
         [_skypeUserError setStringValue:@"* Invalid Skype User Name."];
         isValidate = YES;
+        return isValidate;
     }
     return isValidate;
 }

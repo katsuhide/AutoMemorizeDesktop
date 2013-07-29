@@ -21,6 +21,20 @@
 
 const BOOL ENV = NO;
 
+typedef enum dataTypeEnum : NSInteger{
+    SKYPE,
+    PDF,
+    TEXT,
+    EXCEL,
+    WORD,
+    POWERPOINT,
+    NUMBERS,
+    PAGES,
+    KEY,
+    SAFARI
+} dataTypeEnum;
+
+
 // Insert code here to initialize your application
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -140,8 +154,10 @@ const BOOL ENV = NO;
 
     // Basic Information
     NSNumber *dataSourceType = [inputData objectForKey:@"dataSourceType"];
-    if([dataSourceType intValue] == 0){
+    if([dataSourceType intValue] == SKYPE){
         source.task_type = dataSourceType;
+    }else if([dataSourceType intValue] == SAFARI){
+        source.task_type = [NSNumber numberWithInt:2];
     }else{
         source.task_type = [NSNumber numberWithInt:1];
     }
@@ -149,11 +165,11 @@ const BOOL ENV = NO;
 
     // Data Source 毎に固有の処理
     switch ([dataSourceType intValue]) {
-        case 0:
+        case SKYPE:
         {
             // Skype
             NSString *skypeUser = [inputData objectForKey:@"skypeUser"];
-            source.task_name = [NSString stringWithFormat:@"Upload %@'s Data every 5 minutes.", skypeUser];
+            source.task_name = [NSString stringWithFormat:@"Upload %@'s Skype Log every 5 minutes.", skypeUser];
             if(ENV){
                 source.interval = @"0.0833";  // 約5min
             }else{
@@ -169,14 +185,14 @@ const BOOL ENV = NO;
         
         }
             break;
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
+        case PDF:
+        case TEXT:
+        case EXCEL:
+        case WORD:
+        case POWERPOINT:
+        case NUMBERS:
+        case PAGES:
+        case KEY:
         {
             // PDF
             NSMutableString *params = [NSMutableString string];
@@ -200,7 +216,19 @@ const BOOL ENV = NO;
             source.task_name = [NSString stringWithFormat:@"Upload %@@%@ Data in real-time.", extension, filePath];
         }
             break;
+        case SAFARI:
+        {
+            // SAFARI
+            source.task_name = [NSString stringWithFormat:@"Upload Safari's Web History every 5 minutes."];
+            if(ENV){
+                source.interval = @"0.0833";  // 約5min
+            }else{
+                source.interval = @"0.003";  // 約10sec
+            }
             
+        }
+            break;
+
         default:
             source.task_name = @"Upload Download Directory Data in real-time.";
             source.interval = @"0.003";  // 約10sec
@@ -424,12 +452,6 @@ const BOOL ENV = NO;
     [_statusBtn setImage:statusBtnImage];
     [_statusBtn setBordered:NO];
     
-    // Info Button
-    imagePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"psd"];
-    NSImage *infoBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
-    [_infoBtn setImage:infoBtnImage];
-    [_infoBtn setBordered:NO];
-    
     // Register Button
     imagePath = [[NSBundle mainBundle] pathForResource:@"Plus" ofType:@"psd"];
     NSImage *registerBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
@@ -441,12 +463,6 @@ const BOOL ENV = NO;
     NSImage *deleteBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_deleteBtn setImage:deleteBtnImage];
     [_deleteBtn setBordered:NO];
-
-    // Register Task Button
-    imagePath = @"/Users/AirMyac/Desktop/material/botton2/RegisterOkBtn.psd";
-    NSImage *registerOkBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
-    [_registerOKBtn setImage:registerOkBtnImage];
-    [_registerOKBtn setBordered:NO];
 
     // Table Viewの初期化
     [self initializeTableView];
@@ -1112,6 +1128,24 @@ const BOOL ENV = NO;
  */
 -(IBAction)help:(id)sender{
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://docs.google.com/drawings/d/1vaUyT2ML_46XwCHNqRkx-ztj5ys7JNWrdQ9UGkL4LwA/edit?usp=sharing"]];
+}
+
+/*
+ * Safariタスクが既に登録されているかを確認する
+ */
+-(BOOL)isExistSafariTask{
+    // TaskTypeがSafariのタスクを取得する
+    NSFetchRequest *fetchRequest = [self createRequest:TASK_SOURCE];
+    NSError *error = nil;
+    // 取得条件の設定
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"task_type = %ld", 2];  // 1:key, 2:value
+    [fetchRequest setPredicate:pred];
+    NSArray *result = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if([result count] == 0){
+        return NO;
+    }else{
+        return YES;
+    }
 }
 
 

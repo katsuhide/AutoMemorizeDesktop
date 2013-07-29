@@ -20,18 +20,15 @@ BOOL LOAD_ROCK;
  * 定期実行で実行される処理
  */
 - (void)polling:(NSTimer*)timer{
-        
-    NSDate *now = [NSDate date];
-    
+    // ロック中か確認する
     if(LOAD_ROCK){
         NSLog(@"ROCK!!!");
         return;
     }
     
     // 実行すべき時間か判定する
-//    if([self check:now]){
-    if(YES){    //TODO
-        
+    NSDate *now = [NSDate date];
+    if([self check:now]){
         // 履歴のURL一覧を取得
         NSArray *hisotryURLs = [self getURLList:self.source.last_added_time];
         

@@ -17,6 +17,7 @@ NSString *const skypeViewClass = @"SkypeView";
 NSString *const additionalConditionClass = @"AdditionalConditionView";
 NSString *const fileTaskViewClass = @"FileTaskView";
 NSString *const chooseBackupDirViewClass = @"ChooseBackupDirectoryView";
+NSString *const safariViewClass = @"SafariView";
 
 NSString *const nextLabelString = @"       Next       ";
 NSString *const additionalLabelString = @"Additional Setting";
@@ -31,8 +32,7 @@ typedef enum dataTypeEnum : NSInteger{
     NUMBERS,
     PAGES,
     KEY,
-    CSV,
-    MARKDOWN,
+    SAFARI
 } dataTypeEnum;
 
 typedef enum viewTypeEnum : NSInteger{
@@ -40,7 +40,8 @@ typedef enum viewTypeEnum : NSInteger{
     SKYPE_USER_VIEW,
     ADDITIONAL_CONDITION_VIEW,
     FILE_VIEW,
-    CHOOSE_BACKUPDIR_VIEW
+    CHOOSE_BACKUPDIR_VIEW,
+    SAFARI_VIEW
 } viewTypeEnum;
 
 
@@ -152,16 +153,10 @@ typedef enum viewTypeEnum : NSInteger{
     imagePath = [[NSBundle mainBundle] pathForResource:@"Keynote" ofType:@"psd"];
     image= [[NSImage alloc]initByReferencingFile:imagePath];
     [_keyBtn setImage:image];
-    
-//    imagePath = [[NSBundle mainBundle] pathForResource:@"Status" ofType:@"psd"];
-//    image= [[NSImage alloc]initByReferencingFile:imagePath];
-//    [_csvBtn setImage:image];
-//    [_csvBtn setBordered:NO];
-//    
-//    imagePath = [[NSBundle mainBundle] pathForResource:@"Status" ofType:@"psd"];
-//    image= [[NSImage alloc]initByReferencingFile:imagePath];
-//    [_markdownBtn setImage:image];
-//    [_markdownBtn setBordered:NO];
+
+    imagePath = [[NSBundle mainBundle] pathForResource:@"safari" ofType:@"png"];
+    image= [[NSImage alloc]initByReferencingFile:imagePath];
+    [_safariBtn setImage:image];
 
     // 表示・非表示の切り替え
     [_dataSourceLabel setHidden:isDisable];
@@ -174,8 +169,7 @@ typedef enum viewTypeEnum : NSInteger{
     [_numbersBtn setHidden:isDisable];
     [_pagesBtn setHidden:isDisable];
     [_keyBtn setHidden:isDisable];
-//    [_csvBtn setHidden:isDisable];
-//    [_markdownBtn setHidden:isDisable];
+    [_safariBtn setHidden:isDisable];
     
 }
 
@@ -212,8 +206,6 @@ typedef enum viewTypeEnum : NSInteger{
  */
 -(IBAction)pushSkypeBtn:(id)sender{
     // DataSourceTypeを登録
-//    int dataSourceType = SKYPE;
-//    [_inputData setValue:[NSNumber numberWithInt:dataSourceType] forKey:@"dataSourceType"];
     _dataType = [NSNumber numberWithInt:SKYPE];
     [_inputData setValue:_dataType forKey:@"dataSourceType"];
     
@@ -335,6 +327,27 @@ typedef enum viewTypeEnum : NSInteger{
 }
 
 
+/*
+ * When user push the SAFARI Button
+ */
+-(IBAction)pushSafariBtn:(id)sender{
+    // DataSourceTypeを登録
+    _dataType = [NSNumber numberWithInt:SAFARI];
+    [_inputData setValue:_dataType forKey:@"dataSourceType"];
+    
+    // Data Source部分を非表示にする
+    [self changeRegisterWindow:YES];
+    
+    // Data Source Iconを切り替える
+    NSString *imagePath = [self getFileTypeImagePath];
+    [self changeDataSourceIcon:imagePath];
+    
+    // Safari Viewを表示する
+    [self displaySafariView:nil];
+    
+}
+
+
 // File Type 関連のボタンが押下された場合の共通処理
 -(void)pushFileTypeBtn{
     // Data Source部分を非表示にする
@@ -349,7 +362,7 @@ typedef enum viewTypeEnum : NSInteger{
     
 }
 
-// 各種FileTypeの画像パスを取得する
+// 各種DataSourceの画像パスを取得する
 -(NSString*)getFileTypeImagePath{
     NSString *imagePath;
     
@@ -377,6 +390,9 @@ typedef enum viewTypeEnum : NSInteger{
             break;
         case KEY:
             imagePath = [[NSBundle mainBundle] pathForResource:@"Keynote" ofType:@"psd"];
+            break;
+        case SAFARI:
+            imagePath = [[NSBundle mainBundle] pathForResource:@"safari" ofType:@"png"];
             break;
         default:
             break;
@@ -412,7 +428,6 @@ typedef enum viewTypeEnum : NSInteger{
  * Display the Skype View
  */
 - (IBAction)displaySkypeView:(id)sender{
-    NSLog(@"displaySkypeView");
     [[_taskWindowController view] removeFromSuperview];
 
     _taskWindowController = [[SkypeView alloc]initWithNibName:skypeViewClass bundle:nil];
@@ -432,7 +447,6 @@ typedef enum viewTypeEnum : NSInteger{
  * Display the File View
  */
 - (IBAction)displayFileView:(id)sender{
-    NSLog(@"displayFileView");
     [[_taskWindowController view] removeFromSuperview];
     
     _taskWindowController = [[FileTaskView alloc]initWithNibName:fileTaskViewClass bundle:nil];
@@ -447,6 +461,26 @@ typedef enum viewTypeEnum : NSInteger{
     [self initializedView];
     
 }
+
+/*
+ * Display the Safari View
+ */
+- (IBAction)displaySafariView:(id)sender{
+    [[_taskWindowController view] removeFromSuperview];
+    
+    _taskWindowController = [[SafariView alloc]initWithNibName:safariViewClass bundle:nil];
+    
+    [_taskWindow addSubview:[_taskWindowController view]];
+    [[_taskWindowController view] setFrame:[_taskWindow bounds]];
+    
+    // 履歴の登録
+    _viewNumber = [NSNumber numberWithInteger:SAFARI_VIEW];
+    
+    // 画面の初期化
+    [self initializedView];
+    
+}
+
 
 /*
  * Display the Additional Condition View
@@ -499,13 +533,19 @@ typedef enum viewTypeEnum : NSInteger{
         case FILE_VIEW:
             [self initializedRegisterWindow:NO];
             break;
+        case SAFARI_VIEW:
+            [self initializedRegisterWindow:NO];
+            break;
         case CHOOSE_BACKUPDIR_VIEW:
             [self displayFileView:nil];
             break;
         case ADDITIONAL_CONDITION_VIEW:
-            if(dataTypeFlag == 0){
+            if(dataTypeFlag == SKYPE){
                 // Skype
                 [self displaySkypeView:nil];
+            }else if(dataTypeFlag == SAFARI){
+                // Safari
+                [self displaySafariView:nil];
             }else{
                 // File
                 [self displayChooseBackupDirectoryView:nil];
@@ -594,20 +634,24 @@ typedef enum viewTypeEnum : NSInteger{
             // 任意項目なのでバリデーションは不要
         }
             break;
+        case SAFARI_VIEW:
+        {
+            SafariView *currentView = (SafariView*)self.taskWindowController;
+            // validation
+            if([currentView validate]){
+                isSucceeded = NO;
+                break;
+            }
+            // データをセット
+            [currentView setViewData:_inputData];
+            
+        }
+            break;
         default:
             break;
     }
     
     return isSucceeded;
-}
-
--(void)validateAction:(NSString*)errorMsg{
-        NSAlert *alert = [ NSAlert alertWithMessageText: @"Don't complete the item."
-                                          defaultButton: @"OK"
-                                        alternateButton: nil
-                                            otherButton: nil
-                              informativeTextWithFormat: @"%@", errorMsg];
-        [alert runModal];
 }
 
 // 今いる画面の初期化を実行する
@@ -635,7 +679,7 @@ typedef enum viewTypeEnum : NSInteger{
             
             // 画面固有のコンポーネントの初期化
             SkypeView *currentView = (SkypeView*)self.taskWindowController;
-            [currentView initilize:_inputData];
+            [currentView initialize:_inputData];
         }
             break;
             
@@ -658,6 +702,25 @@ typedef enum viewTypeEnum : NSInteger{
         }
             break;
 
+        case SAFARI_VIEW:
+        {
+            // ボタンを全て非表示にしたうえで必要なボタンのみ表示
+            [self disableAllBtn];
+            [_backBtn setHidden:NO];
+            [_registerBtn setHidden:NO];
+            [_nextBtn setHidden:NO];
+            [_backLabel setHidden:NO];
+            [_registerLabel setHidden:NO];
+            [_nextLabel setHidden:NO];
+            [_nextLabel setStringValue:additionalLabelString];
+            
+            // 画面固有のコンポーネントの初期化
+            SafariView *currentView = (SafariView*)self.taskWindowController;
+            [currentView initialize:_inputData];
+            
+        }
+            break;
+            
         case CHOOSE_BACKUPDIR_VIEW:
         {
             // ボタンを全て非表示にしたうえで必要なボタンのみ表示

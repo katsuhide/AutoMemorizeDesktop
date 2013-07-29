@@ -12,6 +12,7 @@
 #import "AdditionalConditionView.h"
 #import "FileTaskView.h"
 #import "ChooseBackupDirectoryView.h"
+#import "SafariView.h"
 
 @interface TaskWindowController : NSObject
 
@@ -45,6 +46,7 @@
 @property (assign) IBOutlet NSButton *numbersBtn;  // NUMBERS
 @property (assign) IBOutlet NSButton *pagesBtn;  // PAGES
 @property (assign) IBOutlet NSButton *keyBtn;  // KEYNOTE
+@property (assign) IBOutlet NSButton *safariBtn;  // KEYNOTE
 //@property (assign) IBOutlet NSButton *csvBtn;  // CSV
 //@property (assign) IBOutlet NSButton *markdownBtn;  // MARKDOWN
 
@@ -110,6 +112,12 @@
  * When user push the KEYNOTE Button
  */
 -(IBAction)pushKeyBtn:(id)sender;
+
+/*
+ * When user push the SAFARI Button
+ */
+-(IBAction)pushSafariBtn:(id)sender;
+
 /*
  * Display the Select Data Source View
  */

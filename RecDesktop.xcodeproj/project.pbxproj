@@ -11,6 +11,9 @@
 		4201439F1785EE170012E4B2 /* FileTaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4201439D1785EE170012E4B2 /* FileTaskView.m */; };
 		420143A01785EE170012E4B2 /* FileTaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4201439E1785EE170012E4B2 /* FileTaskView.xib */; };
 		420143A617867C900012E4B2 /* Numbers.psd in Resources */ = {isa = PBXBuildFile; fileRef = 420143A517867C900012E4B2 /* Numbers.psd */; };
+		420F8C9217A615410069D7CA /* SafariView.m in Sources */ = {isa = PBXBuildFile; fileRef = 420F8C9017A615400069D7CA /* SafariView.m */; };
+		420F8C9317A615410069D7CA /* SafariView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420F8C9117A615410069D7CA /* SafariView.xib */; };
+		420F8C9B17A691CF0069D7CA /* safari.png in Resources */ = {isa = PBXBuildFile; fileRef = 420F8C9A17A691CF0069D7CA /* safari.png */; };
 		4210724817828A7E00B03452 /* TaskWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4210724717828A7E00B03452 /* TaskWindowController.m */; };
 		4210724C17828AF500B03452 /* SelectDataSourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4210724A17828AF500B03452 /* SelectDataSourceView.m */; };
 		4210724D17828AF500B03452 /* SelectDataSourceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4210724B17828AF500B03452 /* SelectDataSourceView.xib */; };
@@ -150,6 +153,10 @@
 		4201439D1785EE170012E4B2 /* FileTaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileTaskView.m; sourceTree = "<group>"; };
 		4201439E1785EE170012E4B2 /* FileTaskView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileTaskView.xib; sourceTree = "<group>"; };
 		420143A517867C900012E4B2 /* Numbers.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Numbers.psd; sourceTree = "<group>"; };
+		420F8C8F17A615400069D7CA /* SafariView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafariView.h; sourceTree = "<group>"; };
+		420F8C9017A615400069D7CA /* SafariView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SafariView.m; sourceTree = "<group>"; };
+		420F8C9117A615410069D7CA /* SafariView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SafariView.xib; sourceTree = "<group>"; };
+		420F8C9A17A691CF0069D7CA /* safari.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = safari.png; sourceTree = "<group>"; };
 		4210724617828A7E00B03452 /* TaskWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskWindowController.h; sourceTree = "<group>"; };
 		4210724717828A7E00B03452 /* TaskWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskWindowController.m; sourceTree = "<group>"; };
 		4210724917828AF500B03452 /* SelectDataSourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectDataSourceView.h; sourceTree = "<group>"; };
@@ -282,6 +289,9 @@
 				4210724917828AF500B03452 /* SelectDataSourceView.h */,
 				4210724A17828AF500B03452 /* SelectDataSourceView.m */,
 				4210724B17828AF500B03452 /* SelectDataSourceView.xib */,
+				420F8C8F17A615400069D7CA /* SafariView.h */,
+				420F8C9017A615400069D7CA /* SafariView.m */,
+				420F8C9117A615410069D7CA /* SafariView.xib */,
 				4210724E17828D4A00B03452 /* SkypeView.h */,
 				4210724F17828D4A00B03452 /* SkypeView.m */,
 				4210725017828D4A00B03452 /* SkypeView.xib */,
@@ -450,6 +460,7 @@
 			children = (
 				42B32A5A1796448B00A6F0A0 /* recdesktop_sandbox.plist */,
 				42B32A601796469400A6F0A0 /* recdesktop.plist */,
+				420F8C9A17A691CF0069D7CA /* safari.png */,
 				422BE2A41787936200A11739 /* SignIn.psd */,
 				422BE2A21787935700A11739 /* SignOut.psd */,
 				422BE2A81787965300A11739 /* Right.png */,
@@ -650,6 +661,8 @@
 				42154318178B0A3300044183 /* RecDesktopLogo.psd in Resources */,
 				42B32A5B1796448B00A6F0A0 /* recdesktop_sandbox.plist in Resources */,
 				42B32A611796469400A6F0A0 /* recdesktop.plist in Resources */,
+				420F8C9317A615410069D7CA /* SafariView.xib in Resources */,
+				420F8C9B17A691CF0069D7CA /* safari.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,6 +702,7 @@
 				4249C3EF1798C5C00009970D /* TaskForSafari.m in Sources */,
 				42B8ECAB179EE943004727A1 /* SafariTaskService.m in Sources */,
 				426C5E33179F5A84007E5AA3 /* EvernoteServiceUtil.m in Sources */,
+				420F8C9217A615410069D7CA /* SafariView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
