@@ -51,7 +51,8 @@
     
     // Topicの一覧を取得する
     NSArray* topicList = [self getTopicList];
-
+//    NSLog(@"Finishied getting the Topic List.");
+    
     // Topic毎にノートを作成する
     NSMutableArray *noteList = [NSMutableArray array];
     int isClassifyFlag = [[self.source getKeyValue:@"isClassify"] intValue];
@@ -91,6 +92,7 @@
             }
         }
     }
+//    NSLog(@"Finishied creating the EDAMNote List.");
 
     return noteList;
 }
@@ -144,6 +146,9 @@
         // ENMLに対応していないタグを除去
         NSString *replaced = [self excludeInvalidTag:[dic objectForKey:@"body"]];
         
+        // 改行コードを<br/>に置換
+        replaced = [self replaceBrTag:replaced];
+        
         // 奇数、偶数でスタイルを変えてbodyを構成
         if(count % 2 == 0){
             [body appendString:[NSString stringWithFormat:@"<p style=\"background-color:#EBF2FF\">"
@@ -189,13 +194,21 @@
     
 }
 
-// 置換
+// 正規表現置換
 -(NSString*)replaceInvalidTag:(NSString*)target andPattern:(NSString*)pattern andTemplate:(NSString*)template{
     NSError *error   = nil;
     NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
     NSString *replaced = [regexp stringByReplacingMatchesInString:target options:0 range:NSMakeRange(0,target.length) withTemplate:template];
     return replaced;
     
+}
+
+// 改行コードを<br>に置換
+-(NSString*)replaceBrTag:(NSString*)string{
+    // 文字列置換
+    NSString *template = @"<br/>";   // 置換後文字列
+    NSString *replaced = [string stringByReplacingOccurrencesOfString:@"\n" withString:template];
+    return replaced;
 }
 
 
@@ -237,6 +250,7 @@
  * SkypeにDBに接続してTopicを取得する
  */
 - (NSMutableArray*)getTopicListFromDB:(NSString*)sql{
+//    NSLog(@"Start getting data from DB.");
     // DB設定情報
     NSString *databasePath = [self.source getKeyValue:@"file_path"];
 

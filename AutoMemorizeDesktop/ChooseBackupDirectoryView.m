@@ -54,11 +54,23 @@ NSDictionary *inputDataOfView;
     // バックアップディレクトリをサブディレクトリに設定していないかをチェック
     AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
     NSString *targetDirectoryPath = [appDelegate getFilePath:inputDataOfView];
-    if([self isIncludeDirectory:targetDirectoryPath andSubDirectory:backupDirectroy]){
-        [_directoryError setStringValue:[NSString stringWithFormat:@"* Can't specify the subdirectory of this directory.[%@]", targetDirectoryPath]];
-        isValidate = YES;
-        [_directoryError setHidden:!isValidate];
-        return isValidate;
+    int includeSubdirectory = [[inputDataOfView objectForKey:@"search"] intValue];
+    if(includeSubdirectory == 0){
+        // サブディレクトリを検索対象に含めない場合
+        if([[targetDirectoryPath stringByExpandingTildeInPath] isEqualToString:[backupDirectroy stringByExpandingTildeInPath]]){
+            [_directoryError setStringValue:[NSString stringWithFormat:@"* Can't specify the subdirectory of this directory.[%@]", targetDirectoryPath]];
+            isValidate = YES;
+            [_directoryError setHidden:!isValidate];
+            return isValidate;
+        }
+    }else{
+        // サブディレクトリを検索対象に含める場合
+        if([self isIncludeDirectory:targetDirectoryPath andSubDirectory:backupDirectroy]){
+            [_directoryError setStringValue:[NSString stringWithFormat:@"* Can't specify the subdirectory of this directory.[%@]", targetDirectoryPath]];
+            isValidate = YES;
+            [_directoryError setHidden:!isValidate];
+            return isValidate;
+        }
     }
     
     return isValidate;
