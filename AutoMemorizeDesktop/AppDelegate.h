@@ -124,6 +124,13 @@ extern const BOOL ENV;
     
 -(IBAction)testMethod:(id)sender;
 
--(void)deleteServiceQueue:(int)queueId;
+/*
+ * EvernoteへNoteを登録した後の処理
+ */
+-(void)afterRegisterNote:(EDAMNote*)note;
+
+-(IBAction)hoge:(id)sender;
+
+-(IBAction)search:(id)sender;
 
 @end

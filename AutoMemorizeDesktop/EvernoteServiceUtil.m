@@ -47,7 +47,6 @@
     NSString *filePath = [condition objectForKey:@"filePath"];
     NSMutableArray *resources = [[NSMutableArray alloc] init];
     [self createResources:filePath andResouces:resources];
-
     
     // EMNLを作成
     NSMutableString* body = [NSMutableString string];
@@ -76,22 +75,29 @@
     // EDAMNoteを作成
     EDAMNote* note = [[EDAMNote alloc] initWithGuid:nil title:noteTitle content:noteContent contentHash:nil contentLength:(int)noteContent.length created:0 updated:0 deleted:0 active:YES updateSequenceNum:0 notebookGuid:notebookGUID tagGuids:nil resources:resources attributes:nil tagNames:tagNames];
     
+    [self debugEDAMNote:note];
+    
     return note;
 }
 
 // デバッグ用メソッド
 -(void)debugEDAMNote:(EDAMNote*)note{
     NSLog(@"EDAMNote:NoteTitle:%@", note.title);
-//    NSLog(@"EDAMNote:Tag Guids:%@", note.tagGuids);
-//    NSLog(@"EDAMNote:Tags:%@", note.tagNames);
+    NSLog(@"EDAMNote:Tag Guids:%@", note.tagGuids);
+    NSLog(@"EDAMNote:Tags:%@", note.tagNames);
     NSLog(@"EDAMNote:Note Guid:%@", note.guid);
-//    NSLog(@"EDAMNote:Note Content:%@", note.content);
+    NSLog(@"EDAMNote:Note Content:%@", note.content);
 }
 
 /*
  * ファイルパスからResourcesを作成
  */
 - (void) createResources:(NSString*) filePath andResouces:(NSMutableArray*) resouces{
+    // 指定されたファイルパスが空なら何も作成しない
+    if([filePath length] == 0){
+        return;
+    }
+    
     // 指定されたファイルパスからEDAMResourceを作成
     NSString *fileName = [filePath lastPathComponent];
     NSString *mime = [self mimeTypeForFileAtPath:filePath];
@@ -127,13 +133,13 @@
     // 作成されたEDAMNoteを登録する
     [[EvernoteNoteStore noteStore] createNote:note success:^(EDAMNote *note) {
         // Log the created note object
-        NSLog(@"Note created.=====");
+        NSLog(@"Note has registered.=====");
         [self debugEDAMNote:note];
         
         // 後処理
-//        if([self.enDelegate respondsToSelector:@selector(afterRegisterNote:)]){
-//            [self.enDelegate afterRegisterNote:note];
-//        }
+        if([self.enDelegate respondsToSelector:@selector(afterRegisterNote:)]){
+            [self.enDelegate afterRegisterNote:note];
+        }
         
     } failure:^(NSError *error) {
         // Something was wrong with the note data
@@ -145,6 +151,39 @@
 }
 
 
+/*
+ * 指定された条件でNoteを検索する
+ */
+-(NSArray*)findNotes:(NSDictionary*)filters{
+    EDAMNoteFilter *filter = [[EDAMNoteFilter alloc]init];
+    [[EvernoteNoteStore noteStore] findNotesWithFilter:filter offset:1 maxNotes:10 success:^(EDAMNoteList *list) {
+        NSString *guid = [NSString string];
+        for(EDAMNote *note in [list notes]){
+//            [self debugEDAMNote:note];
+            guid = note.guid;
+        }
+        [self getNote:guid];
+    } failure:^(NSError *error) {
+        NSLog(@"error:[%@]", error);
+    }];
+    return nil;
+}
 
+/*
+ * 指定されたguidでNoteを取得する
+ */
+-(EDAMNote*)getNote:(NSString*)guid{
+    [[EvernoteNoteStore noteStore] getNoteWithGuid:guid withContent:YES withResourcesData:YES withResourcesRecognition:YES withResourcesAlternateData:YES success:^(EDAMNote *note) {
+        NSLog(@"ok:%@", note);
+    } failure:^(NSError *error) {
+        NSLog(@"ng:%@", error);
+    }];
+
+    return nil;
+    
+}
+
+
+    
 
 @end

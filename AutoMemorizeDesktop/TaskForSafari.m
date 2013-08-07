@@ -257,6 +257,11 @@ int lockCount;
         [excludeList addObject:@"google.com"];
         [excludeList addObject:@"facebook.com"];
         [excludeList addObject:@"youtube.com"];
+        [excludeList addObject:@"github.com"];
+        [excludeList addObject:@"gistboxapp.com"];
+        [excludeList addObject:@"wri.pe"];
+        [excludeList addObject:@"dailymotion.com"];
+
         for(NSString *str in excludeList){
             NSRange range = [url rangeOfString:str];
             if(range.location != NSNotFound){

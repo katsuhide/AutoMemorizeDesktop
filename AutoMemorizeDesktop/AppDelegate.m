@@ -12,6 +12,7 @@
 #import "CustomHeaderCell.h"
 #import "NSColor+Hex.h"
 #import "SafariTaskService.h"
+#import "EvernoteServiceUtil.h"
 
 @implementation AppDelegate
 
@@ -45,8 +46,9 @@ typedef enum dataTypeEnum : NSInteger{
     NSError *error = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isFirst = ![fileManager fileExistsAtPath:[applicationFilesDirectory path]];
+
+    // 初回起動のみヘルプを表示
     if(isFirst){
-        // 初回起動のみヘルプを表示
         [self help:nil];
     }
     
@@ -64,13 +66,12 @@ typedef enum dataTypeEnum : NSInteger{
     // ArrayControllerとmanagedObjectContextの紐付け
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
 
+    // Notebokのメモリを確保
     _notebookList = [[NSMutableArray alloc]init];
-    if(!isFirst){
-        // Evernoteへログイン
-        [self doAuthorize:nil];
 
-        // Notebookの一覧を取得して設定
-        [self setupNotebookList];
+    // 初回ログインではない場合ログインする
+    if(!isFirst){
+        [self doAuthorize:nil];
     }
 
     // Main画面を初期化
@@ -80,7 +81,7 @@ typedef enum dataTypeEnum : NSInteger{
     [self initializePreView];
     
     // メインスレッドのポーリングを開始
-    [self run];
+//    [self run];
 }
 
 /*
@@ -962,7 +963,8 @@ typedef enum dataTypeEnum : NSInteger{
     
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
     NSError *error = nil;
-    NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"main.db"];
+    NSString *dbName = [self getPropertyInfo:@"DB_NAME"];
+    NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:dbName];
     NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
     if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -1149,14 +1151,75 @@ typedef enum dataTypeEnum : NSInteger{
     }
 }
 
+/*
+ * Property Fileからデータを取得する
+ */
+-(id)getPropertyInfo:(NSString*)key{
+    // configuration property file
+    NSString *filePath;
+    if(ENV){
+        filePath = [[NSBundle mainBundle] pathForResource:@"recdesktop" ofType:@"plist"];
+    }else{
+        filePath = [[NSBundle mainBundle] pathForResource:@"recdesktop_sandbox" ofType:@"plist"];
+    }
+
+    // create file manager
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    // check whether file exist
+    if (![fileManager fileExistsAtPath:filePath]) { // yes
+        NSLog(@"Property file doesn't exist.[%@]", filePath);
+        exit(0);
+    }
+    
+    // get the data from property file
+    NSDictionary *output = [NSDictionary dictionaryWithContentsOfFile:filePath];
+    NSString *string = [output objectForKey:key];
+
+    return string;
+    
+}
 
 /*
  * テストメソッド
  */
 -(IBAction)testMethod:(id)sender{
 
-    exit(0);
+//    [self doAuthorize:nil];
+//    exit(0);
 
+}
+
+-(IBAction)hoge:(id)sender{
+    // ENMLの元データ作成
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:@"skype add test" forKey:@"noteTitle"];
+//    [dic setObject:@"skype" forKey:@"tagNames"];
+    [dic setObject:@"skype is test." forKey:@"body"];
+    
+    // ENMLの作成
+    EvernoteServiceUtil *enService = [[EvernoteServiceUtil alloc]init];
+    enService.enDelegate = self;
+    EDAMNote *note = [enService createEDAMNote:dic];
+    
+    // Evernoteへ登録
+    [enService registerNote:note];
+    
+}
+
+/*
+ * EvernoteへNoteを登録した後の処理
+ */
+-(void)afterRegisterNote:(EDAMNote*)note{
+    NSLog(@"Note Created.[%@]", note.title);
+}
+
+-(IBAction)search:(id)sender{
+    EvernoteServiceUtil *enService = [[EvernoteServiceUtil alloc]init];
+    enService.enDelegate = self;
+//    [enService findNotes:nil];
+    
+    [enService getNote:@"daef0e80-36a2-40f4-a4e7-183848412f8d"];
 }
 
 -(TaskSource*)createTestTaskSource{

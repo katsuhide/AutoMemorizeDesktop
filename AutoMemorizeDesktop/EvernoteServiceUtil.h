@@ -34,4 +34,15 @@
  */
 -(void)registerNote:(EDAMNote*)note;
 
+/*
+ * 指定された条件でNoteを検索する
+ */
+-(NSArray*)findNotes:(NSDictionary*)filters;
+
+/*
+ * 指定されたguidでNoteを取得する
+ */
+-(EDAMNote*)getNote:(NSString*)guid;
+
+
 @end

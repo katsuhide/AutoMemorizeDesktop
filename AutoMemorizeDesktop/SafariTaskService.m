@@ -141,7 +141,8 @@
     
     // body情報の指定
     NSString *url = [_webView mainFrameURL];
-    [condition setObject:url forKey:@"body"];
+    NSString *body = [NSString stringWithFormat:@"<a href=\"%@\">%@</a>", url, url];
+    [condition setObject:body forKey:@"body"];
     [condition setObject:path forKey:@"filePath"];
     
     return condition;

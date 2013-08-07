@@ -486,7 +486,6 @@ typedef enum viewTypeEnum : NSInteger{
  * Display the Additional Condition View
  */
 - (IBAction)displayAdditionalConditionView:(id)sender{
-    NSLog(@"displayAdditinalConditionView");
     [[_taskWindowController view] removeFromSuperview];
     
     _taskWindowController = [[AdditionalConditionView alloc]initWithNibName:additionalConditionClass bundle:nil];
