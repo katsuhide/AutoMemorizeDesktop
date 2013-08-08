@@ -1217,9 +1217,9 @@ typedef enum dataTypeEnum : NSInteger{
 -(IBAction)search:(id)sender{
     EvernoteServiceUtil *enService = [[EvernoteServiceUtil alloc]init];
     enService.enDelegate = self;
-//    [enService findNotes:nil];
-    
-    [enService getNote:@"daef0e80-36a2-40f4-a4e7-183848412f8d"];
+    [enService findNotes:nil];
+//    NSString *guid = @"daef0e80-36a2-40f4-a4e7-183848412f8d";
+//    [enService updateNote:guid andDEAMNoteCondition:nil];
 }
 
 -(TaskSource*)createTestTaskSource{

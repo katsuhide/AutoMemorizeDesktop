@@ -1061,11 +1061,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/EvernoteServiceUtil.m"
-         timestampString = "397549894.31247"
+         timestampString = "397645924.361824"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "137"
-         endingLineNumber = "137"
+         startingLineNumber = "133"
+         endingLineNumber = "133"
          landmarkName = "-registerNote:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1308,11 +1308,24 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "AutoMemorizeDesktop/EvernoteServiceUtil.m"
-         timestampString = "397593806.356491"
+         timestampString = "397645924.361824"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "158"
-         endingLineNumber = "158"
+         startingLineNumber = "154"
+         endingLineNumber = "154"
+         landmarkName = "-findNotes:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "AutoMemorizeDesktop/EvernoteServiceUtil.m"
+         timestampString = "397645924.361824"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "156"
+         endingLineNumber = "156"
          landmarkName = "-findNotes:"
          landmarkType = "5">
       </FileBreakpoint>

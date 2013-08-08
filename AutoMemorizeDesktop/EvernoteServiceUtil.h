@@ -44,5 +44,11 @@
  */
 -(EDAMNote*)getNote:(NSString*)guid;
 
+/*
+ * 指定されたguidでNoteを取得し、updateする
+ */
+-(void)updateNote:(NSString*)guid andDEAMNoteCondition:(NSDictionary*)condition;
+
+
 
 @end

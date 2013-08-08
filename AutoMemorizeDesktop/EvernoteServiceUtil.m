@@ -82,11 +82,7 @@
 
 // デバッグ用メソッド
 -(void)debugEDAMNote:(EDAMNote*)note{
-    NSLog(@"EDAMNote:NoteTitle:%@", note.title);
-    NSLog(@"EDAMNote:Tag Guids:%@", note.tagGuids);
-    NSLog(@"EDAMNote:Tags:%@", note.tagNames);
-    NSLog(@"EDAMNote:Note Guid:%@", note.guid);
-    NSLog(@"EDAMNote:Note Content:%@", note.content);
+    NSLog(@"EDAMNote{\nNote Title:%@\nTag Guids:%@\nTags:%@\nNote Guid:%@\nNote Content:%@\n}", note.title, note.tagGuids, note.tagNames, note.guid, note.content);
 }
 
 /*
@@ -156,13 +152,14 @@
  */
 -(NSArray*)findNotes:(NSDictionary*)filters{
     EDAMNoteFilter *filter = [[EDAMNoteFilter alloc]init];
-    [[EvernoteNoteStore noteStore] findNotesWithFilter:filter offset:1 maxNotes:10 success:^(EDAMNoteList *list) {
+    [filter setWords:@"intitle:updatenotetest intitle:2012/12/13"];
+    [[EvernoteNoteStore noteStore] findNotesWithFilter:filter offset:0 maxNotes:10 success:^(EDAMNoteList *list) {
         NSString *guid = [NSString string];
         for(EDAMNote *note in [list notes]){
-//            [self debugEDAMNote:note];
-            guid = note.guid;
+            [self debugEDAMNote:note];
+//            guid = note.guid;
         }
-        [self getNote:guid];
+//        [self getNote:guid];
     } failure:^(NSError *error) {
         NSLog(@"error:[%@]", error);
     }];
@@ -174,16 +171,111 @@
  */
 -(EDAMNote*)getNote:(NSString*)guid{
     [[EvernoteNoteStore noteStore] getNoteWithGuid:guid withContent:YES withResourcesData:YES withResourcesRecognition:YES withResourcesAlternateData:YES success:^(EDAMNote *note) {
-        NSLog(@"ok:%@", note);
+        // Note取得に成功した場合
+        NSLog(@"Get Note has beenn succeeded.");
+        [self debugEDAMNote:note];
+        
     } failure:^(NSError *error) {
-        NSLog(@"ng:%@", error);
+        // Note取得に失敗した場合
+        NSLog(@"Get Note has beenn failured.[%@]", error);
+
     }];
 
     return nil;
     
 }
 
-
+/*
+ * 指定されたguidでNoteを取得し、updateする
+ */
+-(void)updateNote:(NSString*)guid andDEAMNoteCondition:(NSDictionary*)condition{
+    // guid指定でNoteを取得
+    [[EvernoteNoteStore noteStore] getNoteWithGuid:guid withContent:YES withResourcesData:YES withResourcesRecognition:YES withResourcesAlternateData:YES success:^(EDAMNote *note) {
+        // Note取得に成功した場合
+        NSLog(@"Get Note has beenn succeeded.");
     
+        // 本文を取得
+        NSString *bfContent = note.content;
+
+        // 置換部分の抜き出し(en-noteタグで囲まれた文字列）
+        NSMutableString *afContent = [NSMutableString stringWithString:[self getEnNoteString:bfContent]];
+        
+        // 追加情報を追加
+        [afContent appendString:@"これはNoteの追記分だよ！！！"];
+        
+        // 置換
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:afContent forKey:@"body"];
+        NSString *content = [self createBody:dic and:nil];
+        note.content = content;
+        
+        // NoteをUpdate
+        [[EvernoteNoteStore noteStore] updateNote:note success:^(EDAMNote *note) {
+            NSLog(@"success update");
+        } failure:^(NSError *error) {
+            NSLog(@"failuer update");
+        }];
+        
+    } failure:^(NSError *error) {
+        // Note取得に失敗した場合
+        NSLog(@"Get Note has beenn failured.[%@]", error);
+
+    }];
+    
+}
+
+
+// <en-note>...</en-note>に囲まれた文字列を取得する
+-(NSString*)getEnNoteString:(NSString*)content{
+    
+    // <en-note>の開始位置を調べる
+    NSString *pattern = @"<en-note>";
+    NSRange rangeFrom = [content rangeOfString:pattern];
+    if(rangeFrom.location == NSNotFound){
+        return nil;
+    }
+        
+    // </en-note>の開始位置を調べる
+    pattern = @"</en-note>";
+    NSRange rangeTo = [content rangeOfString:pattern];
+    if(rangeTo.location == NSNotFound){
+        return nil;
+    }
+    
+    // <en-note>...</en-note>に囲まれた文字列を抜き出す
+    NSString *string = [content substringWithRange:NSMakeRange((rangeFrom.location + rangeFrom.length) , (rangeTo.location - rangeFrom.location - rangeFrom.length))];
+    
+    return string;
+}
+
+// Note.Contentを指定されたパラメーターで作成する
+-(NSString*)createBody:(NSDictionary*)condition and:(NSArray*)resources{
+    // EMNLを作成
+    NSMutableString* body = [NSMutableString string];
+    
+    // <en-body>（本文）
+    NSString *str = [condition objectForKey:@"body"];
+    if([str length] != 0){
+        [body appendString:str];
+        [body appendString:@"<br/>"];
+    }
+    
+    // <en-media>
+    for(EDAMResource *resouce in resources){
+        [body appendString:@"<en-media type=\""];
+        [body appendString:resouce.mime];
+        [body appendString:@"\" hash=\""];
+        [body appendString:[resouce.data.bodyHash enlowercaseHexDigits]];
+        [body appendString:@"\"/>"];
+    }
+    NSString *noteContent = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                             "<!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\">"
+                             "<en-note>"
+                             "%@"
+                             "</en-note>",body];
+
+    return noteContent;
+    
+}
 
 @end
