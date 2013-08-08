@@ -83,12 +83,12 @@
 /*
  * 実行時間の更新
  */
--(void)updateLastExecuteTime:(NSDate*)now{
+-(void)updateLastExecuteTime:(NSDate*)date{
     // 実行時間を出力
-    NSLog(@"[Class:%@][PreviousExecutedTime:%@][CurrentExecutedTime:%@]", NSStringFromClass([self class]), [self.source.last_execute_time toString], [now toString]);
+    NSLog(@"[Class:%@][PreviousExecutedTime:%@][CurrentExecutedTime:%@]", NSStringFromClass([self class]), [self.source.last_execute_time toString], [date toString]);
     // 実行時間を更新
-    self.source.last_execute_time = now;
-    self.source.update_time = now;
+    self.source.last_execute_time = date;
+    self.source.update_time = date;
 }
 
 /*
@@ -99,6 +99,7 @@
     NSLog(@"[Class:%@][PreviousAddedTime:%@][CurrentAddedTime:%@]", NSStringFromClass([self class]), [self.source.last_added_time toString], [date toString]);
     // ノート登録時間を更新
     self.source.last_added_time = date;
+    self.source.update_time = date;
 }
 
 /*

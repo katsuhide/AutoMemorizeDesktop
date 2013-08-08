@@ -81,7 +81,7 @@ typedef enum dataTypeEnum : NSInteger{
     [self initializePreView];
     
     // メインスレッドのポーリングを開始
-//    [self run];
+    [self run];
 }
 
 /*

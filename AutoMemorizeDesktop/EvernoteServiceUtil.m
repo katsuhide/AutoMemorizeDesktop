@@ -128,8 +128,7 @@
 -(void)registerNote:(EDAMNote*)note{
     // 作成されたEDAMNoteを登録する
     [[EvernoteNoteStore noteStore] createNote:note success:^(EDAMNote *note) {
-        // Log the created note object
-        NSLog(@"Note has registered.=====");
+        NSLog(@"====Registering Note has been succeeded.====");
         [self debugEDAMNote:note];
         
         // 後処理
@@ -138,10 +137,8 @@
         }
         
     } failure:^(NSError *error) {
-        // Something was wrong with the note data
-        // See EDAMErrorCode enumeration for error code explanation
-        // http://dev.evernote.com/documentation/reference/Errors.html#Enum_EDAMErrorCode
-        NSLog(@"Error : %@",error);
+        NSLog(@"Registering Note has been failured.[%@]",error);
+
     }];
 
 }
@@ -225,7 +222,9 @@
 }
 
 
-// <en-note>...</en-note>に囲まれた文字列を取得する
+/*
+ * <en-note>...</en-note>に囲まれた文字列を取得する
+ */
 -(NSString*)getEnNoteString:(NSString*)content{
     
     // <en-note>の開始位置を調べる

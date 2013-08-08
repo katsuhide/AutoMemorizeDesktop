@@ -35,6 +35,11 @@
 -(void)registerNote:(EDAMNote*)note;
 
 /*
+ * デバッグ用メソッド
+ */
+-(void)debugEDAMNote:(EDAMNote*)note;
+
+/*
  * 指定された条件でNoteを検索する
  */
 -(NSArray*)findNotes:(NSDictionary*)filters;
@@ -49,6 +54,14 @@
  */
 -(void)updateNote:(NSString*)guid andDEAMNoteCondition:(NSDictionary*)condition;
 
+/*
+ * <en-note>...</en-note>に囲まれた文字列を取得する
+ */
+-(NSString*)getEnNoteString:(NSString*)content;
 
+/*
+ * Note.Contentを指定されたパラメーターで作成する
+ */
+-(NSString*)createBody:(NSDictionary*)condition and:(NSArray*)resources;
 
 @end
