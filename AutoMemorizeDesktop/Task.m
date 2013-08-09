@@ -98,8 +98,10 @@
     // ノート登録時間を出力
     NSLog(@"[Class:%@][PreviousAddedTime:%@][CurrentAddedTime:%@]", NSStringFromClass([self class]), [self.source.last_added_time toString], [date toString]);
     // ノート登録時間を更新
-    self.source.last_added_time = date;
-    self.source.update_time = date;
+    NSComparisonResult result = [self.source.last_added_time compare:date];
+    if(result < 0){
+        self.source.last_added_time = date;
+    }
 }
 
 /*
