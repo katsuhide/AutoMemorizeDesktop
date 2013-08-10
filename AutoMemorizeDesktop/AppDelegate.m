@@ -58,7 +58,8 @@ typedef enum dataTypeEnum : NSInteger{
     }
     
     // ログ出力
-    if(ENV){
+    BOOL logFlag = [[self getPropertyInfo:@"LOG_FLAG"] boolValue];
+    if(logFlag){
         NSString *logPath = [[applicationFilesDirectory path] stringByAppendingPathComponent:@"recdesktop.log"];
         freopen([logPath fileSystemRepresentation], "w+", stderr);
     }
@@ -122,10 +123,7 @@ typedef enum dataTypeEnum : NSInteger{
         }
 
         // インターバル条件を指定
-        int interval = INTERVAL;
-        if(!ENV) {
-            interval = 5;
-        }
+        int interval = [(NSNumber*)[self getPropertyInfo:@"INTERVAL"] intValue];
         
         // タスクタイマーを生成し、タスクキューに追加
         NSTimer *timer = [NSTimer
@@ -168,21 +166,18 @@ typedef enum dataTypeEnum : NSInteger{
     // Data Source 毎に固有の処理
     switch ([dataSourceType intValue]) {
         case SKYPE:
-        {
-            // Skype
+        {   // Skype
+            // Upload Rule Description
             NSString *skypeUser = [inputData objectForKey:@"skypeUser"];
             source.task_name = [NSString stringWithFormat:@"Upload %@'s Skype Log every 5 minutes.", skypeUser];
-            if(ENV){
-                source.interval = @"0.0833";  // 約5min
-            }else{
-                source.interval = @"0.003";  // 約10sec
-            }
+            // Skype Uplodad Interval
+            source.interval = [[self getPropertyInfo:@"SKYPE_INTERVAL"] stringValue];
+            // Skype DB Path
             NSString *skypePath = [NSString stringWithFormat:@"~/Library/Application Support/Skype/%@/main.db", skypeUser];
-            
             NSMutableString *params = [NSMutableString string];
             [params appendString:[source transformKeyValue:@"file_path" andValue:skypePath]];
+            // Dividing Topic
             [params appendString:[source transformKeyValue:@"isClassify" andValue:[inputData objectForKey:@"isClassify"]]];
-            
             source.params = params;
         
         }
@@ -195,8 +190,7 @@ typedef enum dataTypeEnum : NSInteger{
         case NUMBERS:
         case PAGES:
         case KEY:
-        {
-            // PDF
+        {   // File
             NSMutableString *params = [NSMutableString string];
             // File Path
             NSString *filePath = [self getFilePath:inputData];
@@ -213,21 +207,20 @@ typedef enum dataTypeEnum : NSInteger{
             NSNumber *searchSubDirectory = [inputData objectForKey:@"search"];
             [params appendString:[source transformKeyValue:@"search" andValue:[searchSubDirectory stringValue]]];
             source.params = params;
-            
             // Upload Rule Description
             source.task_name = [NSString stringWithFormat:@"Upload %@@%@ Data in real-time.", extension, filePath];
+            // File Uplodad Interval
+            source.interval = [[self getPropertyInfo:@"FILE_INTERVAL"] stringValue];
+
         }
             break;
         case SAFARI:
-        {
-            // SAFARI
+        {   // SAFARI
+            // Upload Rule Description
             source.task_name = [NSString stringWithFormat:@"Upload Safari's Web History every 5 minutes."];
-            if(ENV){
-                source.interval = @"0.0833";  // 約5min
-            }else{
-                source.interval = @"0.003";  // 約10sec
-            }
-            
+            // Safari Uplodad Interval
+            source.interval = [[self getPropertyInfo:@"SAFARI_INTERVAL"] stringValue];
+
         }
             break;
 
@@ -746,7 +739,7 @@ typedef enum dataTypeEnum : NSInteger{
     
     NSString *EVERNOTE_HOST;
     NSString *filePath;
-    if(ENV){
+    if(YES){
         EVERNOTE_HOST = BootstrapServerBaseURLStringUS;
         filePath = [[NSBundle mainBundle] pathForResource:@"recdesktop" ofType:@"plist"];
     }else{
@@ -1174,9 +1167,7 @@ typedef enum dataTypeEnum : NSInteger{
     
     // get the data from property file
     NSDictionary *output = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    NSString *string = [output objectForKey:key];
-
-    return string;
+    return [output objectForKey:key];
     
 }
 
@@ -1190,23 +1181,6 @@ typedef enum dataTypeEnum : NSInteger{
 
 }
 
--(IBAction)hoge:(id)sender{
-    // ENMLの元データ作成
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@"skype add test" forKey:@"noteTitle"];
-//    [dic setObject:@"skype" forKey:@"tagNames"];
-    [dic setObject:@"skype is test." forKey:@"body"];
-    
-    // ENMLの作成
-    EvernoteServiceUtil *enService = [[EvernoteServiceUtil alloc]init];
-    enService.enDelegate = self;
-    EDAMNote *note = [enService createEDAMNote:dic];
-    
-    // Evernoteへ登録
-    [enService registerNote:note];
-    
-}
-
 /*
  * EvernoteへNoteを登録した後の処理
  */
@@ -1214,13 +1188,6 @@ typedef enum dataTypeEnum : NSInteger{
     NSLog(@"Note Created.[%@]", note.title);
 }
 
--(IBAction)search:(id)sender{
-    EvernoteServiceUtil *enService = [[EvernoteServiceUtil alloc]init];
-    enService.enDelegate = self;
-    [enService findNotes:nil];
-//    NSString *guid = @"daef0e80-36a2-40f4-a4e7-183848412f8d";
-//    [enService updateNote:guid andDEAMNoteCondition:nil];
-}
 
 -(TaskSource*)createTestTaskSource{
     TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];

@@ -151,12 +151,10 @@
     EDAMNoteFilter *filter = [[EDAMNoteFilter alloc]init];
     [filter setWords:@"intitle:updatenotetest intitle:2012/12/13"];
     [[EvernoteNoteStore noteStore] findNotesWithFilter:filter offset:0 maxNotes:10 success:^(EDAMNoteList *list) {
-        NSString *guid = [NSString string];
         for(EDAMNote *note in [list notes]){
             [self debugEDAMNote:note];
-//            guid = note.guid;
         }
-//        [self getNote:guid];
+
     } failure:^(NSError *error) {
         NSLog(@"error:[%@]", error);
     }];

@@ -51,7 +51,6 @@ extern const BOOL ENV;
 
 
 // Main Thread
-#define INTERVAL 10  // 秒
 @property (retain) NSMutableArray *taskQueue;
 @property (retain) NSMutableDictionary *serviceQueue;
 
@@ -128,9 +127,5 @@ extern const BOOL ENV;
  * EvernoteへNoteを登録した後の処理
  */
 -(void)afterRegisterNote:(EDAMNote*)note;
-
--(IBAction)hoge:(id)sender;
-
--(IBAction)search:(id)sender;
 
 @end
