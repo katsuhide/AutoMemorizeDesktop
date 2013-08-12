@@ -169,8 +169,12 @@ typedef enum viewTypeEnum : NSInteger{
     [_numbersBtn setHidden:isDisable];
     [_pagesBtn setHidden:isDisable];
     [_keyBtn setHidden:isDisable];
-    [_safariBtn setHidden:isDisable];
-    
+    if(PROTOTYPE){
+        [_safariBtn setHidden:isDisable];
+    }else{
+        [_safariBtn setHidden:YES];
+    }
+
 }
 
 

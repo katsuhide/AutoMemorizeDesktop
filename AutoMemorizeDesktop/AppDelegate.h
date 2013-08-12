@@ -15,11 +15,13 @@
 #import "TaskViewController.h"
 #import "TaskWindowController.h"
 #import "NSDate+Util.h"
-
+#import <HockeySDK/HockeySDK.h>
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
+
 // Environment
 extern const BOOL ENV;
+extern const BOOL PROTOTYPE;
 
 // CoreData
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -128,4 +130,7 @@ extern const BOOL ENV;
  */
 -(void)afterRegisterNote:(EDAMNote*)note;
 
+@end
+
+@interface AppDelegate() <BITCrashReportManagerDelegate> {}
 @end

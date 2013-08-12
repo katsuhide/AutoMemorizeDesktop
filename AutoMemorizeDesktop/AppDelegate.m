@@ -21,6 +21,7 @@
 @synthesize managedObjectContext = _managedObjectContext;
 
 const BOOL ENV = NO;
+const BOOL PROTOTYPE = YES;
 
 typedef enum dataTypeEnum : NSInteger{
     SKYPE,
@@ -39,6 +40,12 @@ typedef enum dataTypeEnum : NSInteger{
 // Insert code here to initialize your application
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    // HOCKEY.APP
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"d95691d40bc53aff6926939837aff798"
+                                                        companyName:@""
+                                         crashReportManagerDelegate:self];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+
 //    [self testMethod:nil];
     
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
@@ -83,6 +90,14 @@ typedef enum dataTypeEnum : NSInteger{
     
     // メインスレッドのポーリングを開始
     [self run];
+}
+
+// HOCEKY.APP
+- (void)showMainApplicationWindow {
+    // launch the main app window
+    // remember not to automatically show the main window if using NIBs
+    [_window makeFirstResponder: nil];
+    [_window makeKeyAndOrderFront:nil];
 }
 
 /*
@@ -739,7 +754,7 @@ typedef enum dataTypeEnum : NSInteger{
     
     NSString *EVERNOTE_HOST;
     NSString *filePath;
-    if(YES){
+    if(ENV){
         EVERNOTE_HOST = BootstrapServerBaseURLStringUS;
         filePath = [[NSBundle mainBundle] pathForResource:@"recdesktop" ofType:@"plist"];
     }else{

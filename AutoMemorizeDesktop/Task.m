@@ -26,13 +26,13 @@
     // EvernoteとのSessionが確率されていなければskipする
     AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
     if(![appDelegate isSignedEvernote]){
-        NSLog(@"[TaskName:%@]Didn't Signed In the Evernote.", self.source.task_name);
+//        NSLog(@"[TaskName:%@]Didn't Signed In the Evernote.", self.source.task_name);
         return NO;
     }
     
     // Task StatusがOFFならskipする
     if([self.source.status intValue] == 0){
-        NSLog(@"[TaskName:%@]The status is OFF.", self.source.task_name);
+//        NSLog(@"[TaskName:%@]The status is OFF.", self.source.task_name);
         return NO;
     }
 
@@ -42,10 +42,12 @@
     
     // 時間の判定
     if([now compare:nextTime] < 0){
-        NSLog(@"[TaskName:%@]Disable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
+//        NSLog(@"[TaskName:%@]Disable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
         return NO;
     }else{
-        NSLog(@"[TaskName:%@]Enable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
+        if(!ENV){
+            NSLog(@"[TaskName:%@]Enable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
+        }
         return YES;
     }
 

@@ -11,8 +11,4 @@
 
 @interface TaskForSkype : Task
 
-@property (assign) NSMutableString *participants;
-
-@property (assign) BOOL canAddNote;
-
 @end

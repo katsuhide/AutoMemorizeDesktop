@@ -24,7 +24,9 @@
         
         if([targetFiles count] == 0){
             // 対象のファイルが存在しない場合
-            NSLog(@"[TaskName:%@]Didn't create the Note since file does note exist.", self.source.task_name);
+            if(!ENV){
+                NSLog(@"[TaskName:%@]Didn't create the Note since file does note exist.", self.source.task_name);
+            }
             return;
         }
         

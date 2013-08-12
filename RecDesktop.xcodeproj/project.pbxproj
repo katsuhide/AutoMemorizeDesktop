@@ -53,6 +53,8 @@
 		42860F90175B779C00F68B03 /* NSDate+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 42860F8F175B779C00F68B03 /* NSDate+Util.m */; };
 		428615B0177771390028C38A /* documents_folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 428615A9177771390028C38A /* documents_folder.png */; };
 		428615B5177771390028C38A /* skype.png in Resources */ = {isa = PBXBuildFile; fileRef = 428615AE177771390028C38A /* skype.png */; };
+		4292209917B623A3007F8D6E /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4292209217B62166007F8D6E /* HockeySDK.framework */; };
+		4292209A17B623A8007F8D6E /* HockeySDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4292209217B62166007F8D6E /* HockeySDK.framework */; };
 		429C1BA0177F3DCF0037A77C /* CustomHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1B9F177F3DCF0037A77C /* CustomHeaderCell.m */; };
 		429C1BA6177F418B0037A77C /* NSColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1BA5177F418B0037A77C /* NSColor+Hex.m */; };
 		429C1BA9177F574F0037A77C /* CustomTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1BA8177F574F0037A77C /* CustomTableHeaderView.m */; };
@@ -142,6 +144,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				425A652E175A6EEF002DE6AF /* EvernoteSDK-Mac.framework in CopyFiles */,
+				4292209A17B623A8007F8D6E /* HockeySDK.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +218,7 @@
 		42860F8F175B779C00F68B03 /* NSDate+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Util.m"; sourceTree = "<group>"; };
 		428615A9177771390028C38A /* documents_folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = documents_folder.png; sourceTree = "<group>"; };
 		428615AE177771390028C38A /* skype.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skype.png; sourceTree = "<group>"; };
+		4292209217B62166007F8D6E /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "HockeySDK-Mac/HockeySDK.framework"; sourceTree = "<group>"; };
 		429C1B9E177F3DCF0037A77C /* CustomHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomHeaderCell.h; sourceTree = "<group>"; };
 		429C1B9F177F3DCF0037A77C /* CustomHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHeaderCell.m; sourceTree = "<group>"; };
 		429C1BA4177F418B0037A77C /* NSColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+Hex.h"; sourceTree = "<group>"; };
@@ -271,6 +275,7 @@
 				4249C3FE179D39D60009970D /* WebKit.framework in Frameworks */,
 				425A6530175A6F83002DE6AF /* libsqlite3.0.dylib in Frameworks */,
 				425A6529175A6EA8002DE6AF /* EvernoteSDK-Mac.framework in Frameworks */,
+				4292209917B623A3007F8D6E /* HockeySDK.framework in Frameworks */,
 				425A64FB175A6DFF002DE6AF /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +331,7 @@
 		425A64EE175A6DFF002DE6AF = {
 			isa = PBXGroup;
 			children = (
+				4292209217B62166007F8D6E /* HockeySDK.framework */,
 				4249C3FD179D39D60009970D /* WebKit.framework */,
 				42762116177F2D0F00079CC9 /* logo.icns */,
 				425A652F175A6F83002DE6AF /* libsqlite3.0.dylib */,
@@ -806,6 +812,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/HockeySDK-Mac\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AutoMemorizeDesktop/RecDesktop-Prefix.pch";
 				INFOPLIST_FILE = "AutoMemorizeDesktop/RecDesktop-Info.plist";
@@ -819,6 +829,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/HockeySDK-Mac\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AutoMemorizeDesktop/RecDesktop-Prefix.pch";
 				INFOPLIST_FILE = "AutoMemorizeDesktop/RecDesktop-Info.plist";

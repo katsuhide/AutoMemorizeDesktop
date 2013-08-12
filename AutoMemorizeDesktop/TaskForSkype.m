@@ -12,6 +12,7 @@
 
 @implementation TaskForSkype
 
+int skypeTaskQueue = 0;
 
 /*
  * 定期実行で実行される処理
@@ -22,22 +23,31 @@
     NSDate *now = [NSDate date];
     if([self check:now]){
         
-        // Topic毎に処理をするかを判定
-        int isClassifyFlag = [[self.source getKeyValue:@"isClassify"] intValue];
-        if(isClassifyFlag == 0){
-            // Topic毎に処理をしない場合
-            [self doWithoutDividingTopic:now];
-            
-        }else{
-            // Topic毎に処理をする場合
-            [self doWithDividingTopic:now];
-            
-        }
+        // Queueが残っている場合は処理をスキップする
+        if(skypeTaskQueue <= 0){
+
+            // Topic毎に処理をするかを判定
+            int isClassifyFlag = [[self.source getKeyValue:@"isClassify"] intValue];            
+            if(isClassifyFlag == 0){
+                // Queueを設定
+                skypeTaskQueue = 1;
+                
+                // Topic毎に処理をしない場合
+                [self doWithoutDividingTopic:now];
+                
+            }else{
+                // Topic毎に処理をする場合
+                [self doWithDividingTopic:now];
+                
+            }
+        
+        }   // スキップした場合は実行時間のみ更新する
 
         // タスクの実行時間を更新する
         AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
         [self updateLastExecuteTime:now];
         [appDelegate save];
+        
         
     }
 }
@@ -48,7 +58,8 @@
     // 既存ノートの有無を確認するための検索条件を設定する
     NSString *noteTitle = [self createNoteTitle:nil];
     EDAMNoteFilter *filter = [[EDAMNoteFilter alloc]init];
-    [filter setWords:[NSString stringWithFormat:@"intitle:%@", noteTitle]];
+    NSString *keyword = [NSString stringWithFormat:@"intitle:\"%@\"", noteTitle];
+    [filter setWords:keyword];
     
     // 既存ノートを検索する
     [[EvernoteNoteStore noteStore] findNotesWithFilter:filter offset:0 maxNotes:10 success:^(EDAMNoteList *list) {   // Note検索が成功した場合
@@ -69,13 +80,17 @@
     
     // 対象となるTopicリストを作成する
     NSArray *topicList = [self getTopicList];
+    
+    // Skype Task Queueを設定
+    skypeTaskQueue = (int)[topicList count];
 
     // Topic毎にSkyepMessagesを取得してNote登録を実行する
     for(NSDictionary *topic in topicList){
         // 既存ノートの有無を確認するための検索条件を設定する
         NSString *noteTitle = [self createNoteTitle:[topic objectForKey:@"topicName"]];
         EDAMNoteFilter *filter = [[EDAMNoteFilter alloc]init];
-        [filter setWords:[NSString stringWithFormat:@"intitle:%@", noteTitle]];
+        NSString *keyword = [NSString stringWithFormat:@"intitle:\"%@\"", noteTitle];
+        [filter setWords:keyword];
         
         // 既存ノートを検索する
         [[EvernoteNoteStore noteStore] findNotesWithFilter:filter offset:0 maxNotes:10 success:^(EDAMNoteList *list) {   // Note検索が成功した場合
@@ -149,7 +164,6 @@
 
     // 追加分があった場合のみ更新する
     if([addString length] != 0){    // 追加分が空ではなかった場合
-
         // 追加分を追記
         NSMutableString *newString = [NSMutableString stringWithString:baseString];
         [newString appendString:@"<br/>"];     // 改行を挿入
@@ -170,13 +184,21 @@
             AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
             [self updateLastAddedTime:latestTime];
             [appDelegate save];
+            // Skype Task Queueを減らす
+            skypeTaskQueue--;
             
         } failure:^(NSError *error) {
             NSLog(@"Updating Note has been failured.");
+            // Skype Task Queueを減らす
+            skypeTaskQueue--;
             
         }];
         
-    }   // 追加分が空であった場合何もしない
+    }else{  // 追加分が空であった場合
+        // Skype Task Queueを減らす
+        skypeTaskQueue--;
+
+    }
 
 }
 
@@ -246,12 +268,22 @@
             AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
             [self updateLastAddedTime:latestTime];
             [appDelegate save];
+            // Skype Task Queueを減らす
+            skypeTaskQueue--;
+
             
         } failure:^(NSError *error) {   // 登録に失敗した場合
             NSLog(@"Registering Note has been failured.[%@]",error);
+            // Skype Task Queueを減らす
+            skypeTaskQueue--;
+
         }];
         
-    }   // bodyが空であった場合何もしない
+    }else{  // bodyが空であった場合何もしない
+        // Skype Task Queueを減らす
+        skypeTaskQueue--;
+
+    }
     
 }
 
