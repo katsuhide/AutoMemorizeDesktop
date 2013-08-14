@@ -833,8 +833,12 @@ typedef enum dataTypeEnum : NSInteger{
 -(void)setupNotebookList{
     EvernoteNoteStore *noteStore = [EvernoteNoteStore noteStore];
     [noteStore listNotebooksWithSuccess:^(NSArray *notebooks) {
+        // Notebook Nameでソート
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        NSArray *sortedNotebooks = [notebooks sortedArrayUsingDescriptors:@[sortDescriptor]];
+        // Notebookをセット
         [_notebookList removeAllObjects];
-        for(EDAMNotebook *notebook in notebooks){
+        for(EDAMNotebook *notebook in sortedNotebooks){
             NSString *guid = [NSString stringWithString:notebook.guid];
             NSString *name = [NSString stringWithString:notebook.name];
             NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:
