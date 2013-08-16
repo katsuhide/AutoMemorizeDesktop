@@ -42,11 +42,15 @@
     
     // 時間の判定
     if([now compare:nextTime] < 0){
-//        NSLog(@"[TaskName:%@]Disable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
+    #if DEBUG
+        NSLog(@"[TaskName:%@]Disable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
+    #endif
         return NO;
     }else{
         if(!ENV){
-            NSLog(@"[TaskName:%@]Enable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
+            #if DEBUG
+                NSLog(@"[TaskName:%@]Enable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
+            #endif
         }
         return YES;
     }

@@ -128,6 +128,10 @@ int skypeTaskQueue = 0;
     
     // 既存ノートの情報を取得する
     [[EvernoteNoteStore noteStore] getNoteWithGuid:guid withContent:YES withResourcesData:YES withResourcesRecognition:YES withResourcesAlternateData:YES success:^(EDAMNote *note) {   // Note取得が成功した場合
+//        #if DEBUG
+//            NSLog(@"%@", note);
+//        #endif
+
         // ノートを追加更新する
         [self updatebyAppendingNoteContent:note andTopic:(NSDictionary*)topic];
         
@@ -163,7 +167,7 @@ int skypeTaskQueue = 0;
     NSDate *latestTime = [self getLatestTimeOfMessages:result];
 
     // 追加分があった場合のみ更新する
-    if([addString length] != 0){    // 追加分が空ではなかった場合
+    if(([addString length] != 0) || (baseString == nil)){    // 追加分が空ではなかった場合, 追加元の本文を取得できなかった場合
         // 追加分を追記
         NSMutableString *newString = [NSMutableString stringWithString:baseString];
         [newString appendString:@"<br/>"];     // 改行を挿入
@@ -194,7 +198,7 @@ int skypeTaskQueue = 0;
             
         }];
         
-    }else{  // 追加分が空であった場合
+    }else{  // 追加分が空であった場合, 追加元の本文を取得できなかった場合
         // Skype Task Queueを減らす
         skypeTaskQueue--;
 
@@ -444,9 +448,23 @@ int skypeTaskQueue = 0;
     NSMutableArray *result = [NSMutableArray array];
     while ([results next]) {
         NSArray *key = [NSArray arrayWithObjects:@"topicId", @"topicName", nil];
-        NSArray *value = [NSArray arrayWithObjects:[results stringForColumn:@"id"], [results stringForColumn:@"displayname"], nil];
+        NSString *topicId = [results stringForColumn:@"id"];
+        NSString *topicName = [results stringForColumn:@"displayname"];
+        // topicIdがnilならスキップ
+        if(topicId == nil){
+            continue;
+        }
+        
+        // topicNameがnilなら置き換える
+        if((topicName == nil) || ([topicName length] == 0)){
+           topicName = @"No Topic Name";
+        }
+
+        // セットする
+        NSArray *value = [NSArray arrayWithObjects:topicId, topicName, nil];
         NSDictionary *dic = [NSDictionary dictionaryWithObjects:value forKeys:key];
         [result addObject:dic];
+        
     }
     
     // Release result set

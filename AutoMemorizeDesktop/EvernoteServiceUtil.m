@@ -226,18 +226,19 @@
 -(NSString*)getEnNoteString:(NSString*)content{
     
     // <en-note>の開始位置を調べる
-    NSString *pattern = @"<en-note>";
-    NSRange rangeFrom = [content rangeOfString:pattern];
+    NSString *pattern = @"<en-note[^>]*>";
+    NSRange rangeFrom = [content rangeOfString:pattern options:NSRegularExpressionSearch];
     if(rangeFrom.location == NSNotFound){
         return nil;
     }
-        
+
     // </en-note>の開始位置を調べる
     pattern = @"</en-note>";
     NSRange rangeTo = [content rangeOfString:pattern];
     if(rangeTo.location == NSNotFound){
         return nil;
     }
+
     
     // <en-note>...</en-note>に囲まれた文字列を抜き出す
     NSString *string = [content substringWithRange:NSMakeRange((rangeFrom.location + rangeFrom.length) , (rangeTo.location - rangeFrom.location - rangeFrom.length))];

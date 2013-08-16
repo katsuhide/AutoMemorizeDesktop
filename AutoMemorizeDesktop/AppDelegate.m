@@ -1194,9 +1194,8 @@ typedef enum dataTypeEnum : NSInteger{
  * テストメソッド
  */
 -(IBAction)testMethod:(id)sender{
-
-//    [self doAuthorize:nil];
-//    exit(0);
+    
+    exit(0);
 
 }
 
