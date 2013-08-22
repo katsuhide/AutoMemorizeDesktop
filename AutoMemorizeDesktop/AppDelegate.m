@@ -46,7 +46,7 @@ typedef enum dataTypeEnum : NSInteger{
                                          crashReportManagerDelegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
 
-//    [self testMethod:nil];
+    [self testMethod:nil];
     
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
@@ -78,9 +78,9 @@ typedef enum dataTypeEnum : NSInteger{
     _notebookList = [[NSMutableArray alloc]init];
 
     // 初回ログインではない場合ログインする
-    if(!isFirst){
-        [self doAuthorize:nil];
-    }
+//    if(!isFirst){
+//        [self doAuthorize:nil];
+//    }
 
     // Main画面を初期化
     [self initialize];
@@ -1195,8 +1195,20 @@ typedef enum dataTypeEnum : NSInteger{
  */
 -(IBAction)testMethod:(id)sender{
     
-    exit(0);
+    EvernoteSession *session = [EvernoteSession sharedSession];
+    NSLog(@"auth:%d", session.isAuthenticated);
+    NSLog(@"aut2:%d", [session isAuthenticated]);
+    NSLog(@"state:%ld", session.state);
+    
+    NSLog(@"notestore:%@", [EvernoteNoteStore noteStore]);
+    
+    EvernoteServiceUtil *service = [[EvernoteServiceUtil alloc] init];
+    [service findNotes:nil];
 
+}
+
+-(IBAction)test2:(id)sender{
+    [self doAuthorize:nil];
 }
 
 /*

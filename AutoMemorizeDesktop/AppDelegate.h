@@ -125,6 +125,8 @@ extern const BOOL PROTOTYPE;
     
 -(IBAction)testMethod:(id)sender;
 
+-(IBAction)test2:(id)sender;
+
 /*
  * EvernoteへNoteを登録した後の処理
  */
