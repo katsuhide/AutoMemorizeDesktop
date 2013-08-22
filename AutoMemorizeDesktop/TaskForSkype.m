@@ -67,7 +67,7 @@ int skypeTaskQueue = 0;
         [self doByUpdatingNote:list andExecutedTime:(NSDate*)executedTime andTopic:nil];
         
     } failure:^(NSError *error) {   // Note検索が失敗した場合
-        NSLog(@"Find Note has beenn failured.[%@]", error);
+        NSLog(@"Find Note has been failured.[%@]", error);
         // ノートを新規作成する
         [self doByNewRegisteringNote:nil];
 
@@ -105,7 +105,7 @@ int skypeTaskQueue = 0;
             }
             
         } failure:^(NSError *error) {   // Note検索が失敗した場合
-            NSLog(@"Find Note has beenn failured.[%@]", error);
+            NSLog(@"Find Note has been failured.[%@]", error);
             // ノートを新規作成する
             [self doByNewRegisteringNote:topic];
             
@@ -136,7 +136,7 @@ int skypeTaskQueue = 0;
         [self updatebyAppendingNoteContent:note andTopic:(NSDictionary*)topic];
         
     } failure:^(NSError *error) {   // Note取得が失敗した場合
-        NSLog(@"Get Note has beenn failured.[%@]", error);
+        NSLog(@"Get Note has been failured.[%@]", error);
         // ノートを新規作成する
         [self doByNewRegisteringNote:topic];
     

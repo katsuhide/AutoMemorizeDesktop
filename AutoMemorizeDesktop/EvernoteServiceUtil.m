@@ -156,7 +156,7 @@
         }
 
     } failure:^(NSError *error) {
-        NSLog(@"error:[%@]", error);
+        NSLog(@"Couldn't find notes:[%@]", error);
     }];
     return nil;
 }

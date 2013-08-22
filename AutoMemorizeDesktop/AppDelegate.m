@@ -1202,6 +1202,12 @@ typedef enum dataTypeEnum : NSInteger{
     
     NSLog(@"notestore:%@", [EvernoteNoteStore noteStore]);
     
+    if([EvernoteNoteStore noteStore]){
+        NSLog(@"YES");
+    }else{
+        NSLog(@"No");
+    }
+    
     EvernoteServiceUtil *service = [[EvernoteServiceUtil alloc] init];
     [service findNotes:nil];
 
