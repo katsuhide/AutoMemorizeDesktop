@@ -13,6 +13,7 @@
 #import "NSColor+Hex.h"
 #import "SafariTaskService.h"
 #import "EvernoteServiceUtil.h"
+#import "Reachability.h"
 
 @implementation AppDelegate
 
@@ -46,7 +47,11 @@ typedef enum dataTypeEnum : NSInteger{
                                          crashReportManagerDelegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
 
-    [self testMethod:nil];
+    // Reachabilityの起動
+    _isReachable = NO;  // 一旦OFF LINEに
+    [self createReachability];
+    
+//    [self testMethod:nil];
     
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
@@ -78,9 +83,9 @@ typedef enum dataTypeEnum : NSInteger{
     _notebookList = [[NSMutableArray alloc]init];
 
     // 初回ログインではない場合ログインする
-//    if(!isFirst){
-//        [self doAuthorize:nil];
-//    }
+    if(!isFirst){
+        [self doAuthorize:nil];
+    }
 
     // Main画面を初期化
     [self initialize];
@@ -847,6 +852,9 @@ typedef enum dataTypeEnum : NSInteger{
             [_notebookList addObject:dic];
         }
     } failure:^(NSError *error) {
+        NSLog(@"error code :%ld", error.code);
+        NSLog(@"userInfo : %@", error.userInfo);
+        NSLog(@"userInfo error code: %@", [error.userInfo objectForKey:@"codes"]);
         NSLog(@"Couldn't get the notebook list.[%@[", error);
     }];
 }
@@ -1146,6 +1154,30 @@ typedef enum dataTypeEnum : NSInteger{
 }
 
 /*
+ *
+ */
+-(void)createReachability{
+    // Allocate a reachability object
+    Reachability* reach = [Reachability reachabilityWithHostname:@"www.google.com"];
+    
+    // Set the blocks
+    reach.reachableBlock = ^(Reachability*reach)
+    {
+        _isReachable = YES;
+    };
+    
+    reach.unreachableBlock = ^(Reachability*reach)
+    {
+        _isReachable = NO;
+    };
+    
+    // Start the notifier, which will cause the reachability object to retain itself!
+    [reach startNotifier];
+    
+}
+
+
+/*
  * Safariタスクが既に登録されているかを確認する
  */
 -(BOOL)isExistSafariTask{
@@ -1195,26 +1227,13 @@ typedef enum dataTypeEnum : NSInteger{
  */
 -(IBAction)testMethod:(id)sender{
     
-    EvernoteSession *session = [EvernoteSession sharedSession];
-    NSLog(@"auth:%d", session.isAuthenticated);
-    NSLog(@"aut2:%d", [session isAuthenticated]);
-    NSLog(@"state:%ld", session.state);
+//    exit(0);
     
-    NSLog(@"notestore:%@", [EvernoteNoteStore noteStore]);
-    
-    if([EvernoteNoteStore noteStore]){
-        NSLog(@"YES");
-    }else{
-        NSLog(@"No");
-    }
-    
-    EvernoteServiceUtil *service = [[EvernoteServiceUtil alloc] init];
-    [service findNotes:nil];
-
 }
 
 -(IBAction)test2:(id)sender{
-    [self doAuthorize:nil];
+    NSLog(@"%d", _isReachable);
+    
 }
 
 /*

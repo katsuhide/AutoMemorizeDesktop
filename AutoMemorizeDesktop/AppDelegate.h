@@ -55,6 +55,7 @@ extern const BOOL PROTOTYPE;
 // Main Thread
 @property (retain) NSMutableArray *taskQueue;
 @property (retain) NSMutableDictionary *serviceQueue;
+@property (assign) BOOL isReachable;
 
 // Task Panle
 @property (assign) IBOutlet NSTextField *taskNameField;

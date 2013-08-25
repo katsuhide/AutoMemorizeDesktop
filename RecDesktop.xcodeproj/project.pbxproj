@@ -73,6 +73,8 @@
 		42CA7463175A7119002D469E /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA745C175A7119002D469E /* FMDatabasePool.m */; };
 		42CA7464175A7119002D469E /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA745E175A7119002D469E /* FMDatabaseQueue.m */; };
 		42CA7465175A7119002D469E /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA7460175A7119002D469E /* FMResultSet.m */; };
+		42DED64817C9DDE40080C22C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DED64717C9DDE40080C22C /* SystemConfiguration.framework */; };
+		42DED64B17C9F3CC0080C22C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DED64A17C9F3CC0080C22C /* Reachability.m */; };
 		42E0239B17806F1F00556623 /* AllRestart.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0238E17806F1F00556623 /* AllRestart.psd */; };
 		42E0239C17806F1F00556623 /* AllStart.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0238F17806F1F00556623 /* AllStart.psd */; };
 		42E0239D17806F1F00556623 /* AllStop.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42E0239017806F1F00556623 /* AllStop.psd */; };
@@ -246,6 +248,9 @@
 		42CA745E175A7119002D469E /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
 		42CA745F175A7119002D469E /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		42CA7460175A7119002D469E /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		42DED64717C9DDE40080C22C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		42DED64917C9F3CC0080C22C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		42DED64A17C9F3CC0080C22C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		42E0238E17806F1F00556623 /* AllRestart.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = AllRestart.psd; sourceTree = "<group>"; };
 		42E0238F17806F1F00556623 /* AllStart.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = AllStart.psd; sourceTree = "<group>"; };
 		42E0239017806F1F00556623 /* AllStop.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = AllStop.psd; sourceTree = "<group>"; };
@@ -272,6 +277,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42DED64817C9DDE40080C22C /* SystemConfiguration.framework in Frameworks */,
 				4249C3FE179D39D60009970D /* WebKit.framework in Frameworks */,
 				425A6530175A6F83002DE6AF /* libsqlite3.0.dylib in Frameworks */,
 				425A6529175A6EA8002DE6AF /* EvernoteSDK-Mac.framework in Frameworks */,
@@ -331,6 +337,7 @@
 		425A64EE175A6DFF002DE6AF = {
 			isa = PBXGroup;
 			children = (
+				42DED64717C9DDE40080C22C /* SystemConfiguration.framework */,
 				4292209217B62166007F8D6E /* HockeySDK.framework */,
 				4249C3FD179D39D60009970D /* WebKit.framework */,
 				42762116177F2D0F00079CC9 /* logo.icns */,
@@ -453,6 +460,8 @@
 		42860F89175B776B00F68B03 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				42DED64917C9F3CC0080C22C /* Reachability.h */,
+				42DED64A17C9F3CC0080C22C /* Reachability.m */,
 				42860F8E175B779C00F68B03 /* NSDate+Util.h */,
 				42860F8F175B779C00F68B03 /* NSDate+Util.m */,
 				429C1BA4177F418B0037A77C /* NSColor+Hex.h */,
@@ -709,6 +718,7 @@
 				42B8ECAB179EE943004727A1 /* SafariTaskService.m in Sources */,
 				426C5E33179F5A84007E5AA3 /* EvernoteServiceUtil.m in Sources */,
 				420F8C9217A615410069D7CA /* SafariView.m in Sources */,
+				42DED64B17C9F3CC0080C22C /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,6 +767,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -789,6 +800,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;

@@ -128,9 +128,9 @@ int skypeTaskQueue = 0;
     
     // 既存ノートの情報を取得する
     [[EvernoteNoteStore noteStore] getNoteWithGuid:guid withContent:YES withResourcesData:YES withResourcesRecognition:YES withResourcesAlternateData:YES success:^(EDAMNote *note) {   // Note取得が成功した場合
-//        #if DEBUG
-//            NSLog(@"%@", note);
-//        #endif
+#if DEBUG
+        NSLog(@"%@", note);
+#endif
 
         // ノートを追加更新する
         [self updatebyAppendingNoteContent:note andTopic:(NSDictionary*)topic];
@@ -170,7 +170,6 @@ int skypeTaskQueue = 0;
     if(([addString length] != 0) || (baseString == nil)){    // 追加分が空ではなかった場合, 追加元の本文を取得できなかった場合
         // 追加分を追記
         NSMutableString *newString = [NSMutableString stringWithString:baseString];
-        [newString appendString:@"<br/>"];     // 改行を挿入
         [newString appendString:addString];    // 追加分を追記
         
         // EDAMNoteを更新

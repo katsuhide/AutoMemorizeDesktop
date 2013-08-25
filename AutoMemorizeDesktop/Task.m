@@ -23,16 +23,28 @@
  * タスクの実行判定
  */
 - (BOOL)check:(NSDate*)now {
-    // EvernoteとのSessionが確率されていなければskipする
+    // OFF LINEならskip
     AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+    if(!appDelegate.isReachable){
+#if DEBUG
+        NSLog(@"[TaskName:%@]The Internet connection appears to be offline.", self.source.task_name);
+#endif
+        return NO;
+    }
+    
+    // Evernoteで認証されていなければskipする
     if(![appDelegate isSignedEvernote]){
-//        NSLog(@"[TaskName:%@]Didn't Signed In the Evernote.", self.source.task_name);
+#if DEBUG
+        NSLog(@"[TaskName:%@]Didn't Signed In the Evernote.", self.source.task_name);
+#endif
         return NO;
     }
     
     // Task StatusがOFFならskipする
     if([self.source.status intValue] == 0){
-//        NSLog(@"[TaskName:%@]The status is OFF.", self.source.task_name);
+#if DEBUG
+        NSLog(@"[TaskName:%@]The status is OFF.", self.source.task_name);
+#endif
         return NO;
     }
 
@@ -42,16 +54,14 @@
     
     // 時間の判定
     if([now compare:nextTime] < 0){
-    #if DEBUG
+#if DEBUG
         NSLog(@"[TaskName:%@]Disable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
-    #endif
+#endif
         return NO;
     }else{
-        if(!ENV){
-            #if DEBUG
-                NSLog(@"[TaskName:%@]Enable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
-            #endif
-        }
+#if DEBUG
+        NSLog(@"[TaskName:%@]Enable timing. result:%ld, now:%@, next:%@", self.source.task_name, [now compare:nextTime], [now toString], [nextTime toString]);
+#endif
         return YES;
     }
 
