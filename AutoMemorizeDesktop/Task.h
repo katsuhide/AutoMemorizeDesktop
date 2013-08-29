@@ -52,5 +52,14 @@
  */
 -(void)afterRegister:(BOOL)isSuceeded;
 
+/*
+ * 指定したファイルと指定した時間の比較を実施
+ */
+-(NSComparisonResult)compareFileTimeStamp:(NSDate*)lastExecutedTime andFilePath:(NSString*)filePath;
+
+/*
+ * 指定したファイルのタイムスタンプを取得
+ */
+-(NSDate*)getFileTimeStamp:(NSString*)filePath;
 
 @end

@@ -9,6 +9,7 @@
 #import "TaskForFile.h"
 #import "AppDelegate.h"
 #import "NSData+EvernoteSDK.h"
+#import "EvernoteServiceUtil.h"
 
 @implementation TaskForFile
 
@@ -21,30 +22,49 @@
 
         // 対象に合致するファイルのフルパス一覧を取得
         NSArray *targetFiles = [self getFilePathList];
-        
-        if([targetFiles count] == 0){
-            // 対象のファイルが存在しない場合
-            if(!ENV){
-                NSLog(@"[TaskName:%@]Didn't create the Note since file does note exist.", self.source.task_name);
-            }
-            return;
-        }
-        
-        // 対象のファイル毎にNoteを作成してフィアルのローテートを実施する
+
         AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
-        for(NSString *targetFile in targetFiles){
-            // Noteの作成
-            EDAMNote *note = [self createEDAMNote:targetFile];
-
-            // Noteの登録
-            [appDelegate doAddNote:note];
-
-            // ノートの登録時間を更新
-            [self updateLastAddedTime:now];
-
-            // 対象ファイルのローテート
-            [self moveFile:targetFile andNow:now];
+        
+        if([targetFiles count] == 0){   // 対象のファイルが存在しない場合
+#if DEBUG
+            NSLog(@"[TaskName:%@]Didn't create the Note since file does note exist.", self.source.task_name);
+#endif
             
+        }else{  // 対象ファイルが存在する場合
+            // 対象のファイル毎にNoteを作成してフィアルのローテートを実施する
+            for(NSString *targetFile in targetFiles){
+                
+                
+                
+                // Noteの作成
+                EDAMNote *note = [self createEDAMNote:targetFile];
+
+                // Fileの更新時間
+                NSDate *fileTimeStamp = [self getFileTimeStamp:targetFile];
+                
+                // NoteをEvernoteに登録する
+                [[EvernoteNoteStore noteStore] createNote:note success:^(EDAMNote *note) {  // 登路に成功した場合
+                    NSLog(@"====Registering Note has been succeeded.====");
+                    // debug log
+                    EvernoteServiceUtil *enService = [[EvernoteServiceUtil alloc]init];
+                    [enService debugEDAMNote:note];
+                    
+                    // update last added time by fileTimeStamp
+                    [self updateLastAddedTime:fileTimeStamp];
+                    [appDelegate save];
+                
+                    
+                    // ローテート設定の場合、対象ファイルのローテート
+                    NSString *movesFile = [self.source getKeyValue:@"movesFile"];
+                    if([movesFile intValue] == 1){
+                        [self moveFile:targetFile andNow:now];
+                    }
+                 
+                } failure:^(NSError *error) {   // 登録に失敗した場合
+                    NSLog(@"Registering Note has been failured.[%@]",error);
+                    
+                }];
+            }
         }
 
         // タスクの実行時間を更新
@@ -55,6 +75,7 @@
         
     }
 }
+
 
 /*
  * FileTaskのロジックでEDAMNoteを生成する
@@ -89,53 +110,70 @@
     NSString *extension = [self.source getKeyValue:@"extension"];
 
     // 対象のパスのファイル一覧を取得
-    NSArray *allFileName = [self getFileNameList:self.source];
+    NSArray *allFileName = [self getFileNameList];
 
     // 拡張子で絞り込む
-    NSMutableArray *filePathList = [[NSMutableArray alloc] init];
+    NSMutableArray *filePathListExcludeExtension = [[NSMutableArray alloc] init];
     
     // 拡張子条件が存在する場合、各ファイルの拡張子が一致するかを確認したうえでフルパスのFileListを生成
     for (NSString *fileName in allFileName) {
         if([extension length] == 0){
             // 拡張子条件が空の場合
             NSString *fullPath = [directoryPath stringByAppendingPathComponent:fileName];
-            [filePathList addObject:fullPath];
-//        }else if ([[fileName pathExtension] isEqualToString:extension]) {
+            [filePathListExcludeExtension addObject:fullPath];
         }else if ([self isExistFile:fileName andExtension:extension]) {
             // 拡張子条件が存在する場合
             NSString *fullPath = [directoryPath stringByAppendingPathComponent:fileName];
-            [filePathList addObject:fullPath];
+            [filePathListExcludeExtension addObject:fullPath];
         }
     }
-    return filePathList;
+    
+    // ファイルローテートしない場合、前回アップロード時間以降に更新されたファイルのみ対象にする
+    NSMutableArray *targetFilePathList = [NSMutableArray array];
+    int movesFile = [[self.source getKeyValue:@"movesFile"] intValue];
+    if(movesFile == 1){    // ローテートする
+        targetFilePathList = filePathListExcludeExtension;
+    }else{  // ローテートしない
+        for(NSString *filePath in filePathListExcludeExtension){
+            // 前回処理時間より大きい場合は対象に含める
+            NSComparisonResult result = [self compareFileTimeStamp:self.source.last_added_time andFilePath:filePath];
+            if(result > 0){
+                [targetFilePathList addObject:filePath];
+            }
+        }
+    }
+
+    NSLog(@"%@", targetFilePathList);
+    
+    return targetFilePathList;
     
 }
 
 // 対象のパスのファイル一覧を取得
--(NSArray*)getFileNameList:(TaskSource*)souce{
+-(NSArray*)getFileNameList{
 
     NSFileManager *fileManager=[[NSFileManager alloc] init];
+    NSString *directoryPath = [[self.source getKeyValue:@"directoryPath"] stringByExpandingTildeInPath];
     NSError *error = nil;
     
+    // 対象ディレクトリのファイルを検索する（ファイル名の一覧）
+    NSMutableArray *allFiles = [NSMutableArray array];
     int includeSubDirectory = [[self.source getKeyValue:@"includeSubDirectory"] intValue];
     if(includeSubDirectory == 0){
         // Not Include Sub Directory
-        NSArray *allFileName = [fileManager contentsOfDirectoryAtPath:[self.source getKeyValue:@"directoryPath"] error:&error];
+        allFiles = [NSMutableArray arrayWithArray:[fileManager contentsOfDirectoryAtPath:directoryPath error:&error]];
         if (error) {
          return nil;
-        }else{
-            return allFileName;
         }
     }else{
         // Include Sub Directory
-        NSDirectoryEnumerator *directoryEnumerator = [fileManager enumeratorAtPath:[self.source getKeyValue:@"directoryPath"]];
-        NSMutableArray *allFileName = [NSMutableArray array];
-        for(NSString *filePath in directoryEnumerator){
-            [allFileName addObject:filePath];
+        NSDirectoryEnumerator *directoryEnumerator = [fileManager enumeratorAtPath:directoryPath];
+        for(NSString *fileName in directoryEnumerator){
+            [allFiles addObject:fileName];
         }
-        return allFileName;
     }
     
+    return allFiles;
 }
 
 // 設定されている拡張子と一致するファイルが存在するか

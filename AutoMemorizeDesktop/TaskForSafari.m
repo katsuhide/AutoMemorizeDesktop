@@ -79,7 +79,8 @@ int lockCount;
             
             // ノートの登録時間を更新
             NSString *webHistoryPath = [NSHomeDirectory() stringByAppendingString:@"/Library/Caches/Metadata/Safari/History"];
-            NSDate *date = [self getFileTimeStamp:targetURL andDirectoryPath:webHistoryPath];
+            NSString *filePath = [NSString stringWithString:[webHistoryPath stringByAppendingPathComponent:targetURL]];
+            NSDate *date = [self getFileTimeStamp:filePath];
             [self updateLastAddedTime:date];
             
         }
@@ -140,43 +141,14 @@ int lockCount;
     NSMutableArray *urlList = [NSMutableArray array];
     for(NSString *fileName in allFileList){
         // 前回処理時間より大きい場合は対象に含める
-        NSComparisonResult result = [self compareFileTimeStamp:lastExecutedTime andFilePath:fileName andDirectoryPath:directoryPath];
+        NSString *filePath = [NSString stringWithString:[directoryPath stringByAppendingPathComponent:fileName]];
+        NSComparisonResult result = [self compareFileTimeStamp:lastExecutedTime andFilePath:filePath];
         if(result > 0){
             [urlList addObject:fileName];
         }
         
     }
     return urlList;
-}
-
-/*
- * 指定したファイルと指定した時間の比較を実施
- */
--(NSComparisonResult)compareFileTimeStamp:(NSDate*)lastExecutedTime andFilePath:(NSString*)fileName andDirectoryPath:(NSString*)directoryPath{
-    // ファイルのタイムスタンプを取得
-    NSError *error = nil;
-    NSString *filePath = [NSString stringWithString:[directoryPath stringByAppendingPathComponent:fileName]];
-    NSDictionary* dicFileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
-    if (error) {
-        return -1;
-    }
-
-    // 比較
-    NSDate *fileTimeStamp = [dicFileAttributes objectForKey:@"NSFileModificationDate"];
-//    NSLog(@"file:%@, target:%@", [fileTimeStamp toLocalTime], [lastExecutedTime toLocalTime]);
-    NSComparisonResult result = [fileTimeStamp compare:lastExecutedTime];
-    return result;
-    
-}
-
-/*
- * 指定したファイルの時間を取得
- */
--(NSDate*)getFileTimeStamp:(NSString*)fileName andDirectoryPath:(NSString*)directoryPath{
-    NSError *error = nil;
-    NSString *filePath = [NSString stringWithString:[directoryPath stringByAppendingPathComponent:fileName]];
-    NSDictionary* dicFileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
-    return [dicFileAttributes objectForKey:@"NSFileModificationDate"];
 }
 
 

@@ -113,7 +113,8 @@
 -(void)updateLastAddedTime:(NSDate*)date{
     // ノート登録時間を出力
     NSLog(@"[Class:%@][PreviousAddedTime:%@][CurrentAddedTime:%@]", NSStringFromClass([self class]), [self.source.last_added_time toString], [date toString]);
-    // ノート登録時間を更新
+
+    // 前回更新時間と比較して時間が進んでいれば、ノート登録時間を更新する
     NSComparisonResult result = [self.source.last_added_time compare:date];
     if(result < 0){
         self.source.last_added_time = date;
@@ -125,6 +126,36 @@
  */
 -(void)afterRegister:(BOOL)isSuceeded{
     NSLog(@"Not implemented.");
+}
+
+/*
+ * 指定したファイルと指定した時間の比較を実施
+ */
+-(NSComparisonResult)compareFileTimeStamp:(NSDate*)lastExecutedTime andFilePath:(NSString*)filePath{
+    // ファイルのタイムスタンプを取得
+    NSError *error = nil;
+    NSDictionary* dicFileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
+    if (error) {
+        return -1;
+    }
+    
+    // 比較
+    NSDate *fileTimeStamp = [dicFileAttributes objectForKey:@"NSFileModificationDate"];
+#if DEBUG
+    NSLog(@"file:%@, target:%@", [fileTimeStamp toLocalTime], [lastExecutedTime toLocalTime]);
+#endif
+    NSComparisonResult result = [fileTimeStamp compare:lastExecutedTime];
+    return result;
+    
+}
+
+/*
+ * 指定したファイルのタイムスタンプを取得
+ */
+-(NSDate*)getFileTimeStamp:(NSString*)filePath{
+    NSError *error = nil;
+    NSDictionary* dicFileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
+    return [dicFileAttributes objectForKey:@"NSFileModificationDate"];
 }
 
 @end
