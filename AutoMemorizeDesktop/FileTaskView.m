@@ -25,9 +25,9 @@
 }
 
 -(void)initialize:(NSMutableDictionary*)inputData{
-    [_directoryField setObjectValue:[inputData objectForKey:@"directory"]];
+    [_directoryField setObjectValue:[inputData objectForKey:@"directoryPath"]];
     [_directoryError setHidden:YES];
-    [_searchSubDirectory setState:[[inputData objectForKey:@"search"] integerValue]];
+    [_searchSubDirectory setState:[[inputData objectForKey:@"includeSubDirectory"] integerValue]];
     
 }
 
@@ -41,10 +41,24 @@
 }
 
 -(NSMutableDictionary*)setViewData:(NSMutableDictionary*)inputData{
-    [inputData setValue:[_directoryField stringValue] forKey:@"directory"];
-    [inputData setValue:[NSNumber numberWithInteger:[_searchSubDirectory state]] forKey:@"search"];
+    [inputData setValue:[_directoryField stringValue] forKey:@"directoryPath"];
+    [inputData setValue:[NSNumber numberWithInteger:[_searchSubDirectory state]] forKey:@"includeSubDirectory"];
     return inputData;
 }
 
+-(IBAction)setChoosedFilePath:(id)sender{
+    NSString *path;
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setCanChooseFiles:NO];
+    [panel setCanChooseDirectories:YES];
+    [panel setAllowsMultipleSelection:YES]; // yes if more than one dir is allowed
+    NSInteger clicked = [panel runModal];
+    if (clicked == NSFileHandlingPanelOKButton) {
+        for (NSURL *url in [panel URLs]) {
+            path = [url path];
+        }
+    }
+    [_directoryField setStringValue:path];
+}
 
 @end
