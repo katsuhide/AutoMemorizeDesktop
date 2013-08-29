@@ -212,9 +212,9 @@ typedef enum dataTypeEnum : NSInteger{
         case KEY:
         {   // File
             NSMutableString *params = [NSMutableString string];
-            // File Path
-            NSString *filePath = [self getFilePath:inputData];
-            [params appendString:[source transformKeyValue:@"file_path" andValue:filePath]];
+            // Directory Path
+            NSString *directoryPath = [inputdate objectForKey:@"directoryPath"];
+            [params appendString:[source transformKeyValue:@"directoryPath" andValue:directoryPath]];
             // File Extension
             NSString *extension = [self getFileExtension:inputData];
             [params appendString:[source transformKeyValue:@"extension" andValue:extension]];
@@ -224,8 +224,8 @@ typedef enum dataTypeEnum : NSInteger{
             [params appendString:[source transformKeyValue:@"backupPath" andValue:backupPath]];
             source.params = params;
             // Search Sub Directory
-            NSNumber *searchSubDirectory = [inputData objectForKey:@"search"];
-            [params appendString:[source transformKeyValue:@"search" andValue:[searchSubDirectory stringValue]]];
+            NSNumber *includeSubDirectory = [inputData objectForKey:@"includeSubDirectory"];
+            [params appendString:[source transformKeyValue:@"includeSubDirectory" andValue:[includeSubDirectory stringValue]]];
             source.params = params;
             // Upload Rule Description
             source.task_name = [NSString stringWithFormat:@"Upload %@@%@ Data in real-time.", extension, filePath];
@@ -246,7 +246,7 @@ typedef enum dataTypeEnum : NSInteger{
 
         default:
             source.task_name = @"Upload Download Directory Data in real-time.";
-            source.interval = @"0.003";  // 約10sec
+            source.interval = @"1";  // 1hour
             break;
     }
     
@@ -274,19 +274,6 @@ typedef enum dataTypeEnum : NSInteger{
     // Taskを初期化
     [self restart:nil];
     
-}
-
-// File Pathを取得する
--(NSString*)getFilePath:(NSDictionary*)inputData{
-    int directoryFlag = [[inputData objectForKey:@"directory"] intValue];
-    NSDictionary *directoryType = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   @"~/Desktop", @"0",
-                                   @"~/Downloads", @"1",
-                                   @"~/Documents", @"2",
-                                   nil];
-    NSString *directory = [directoryType objectForKey:[[NSNumber numberWithInt:directoryFlag] stringValue]];
-    NSString *filePath = [directory stringByExpandingTildeInPath];
-    return filePath;
 }
 
 // File Extensionを取得する
