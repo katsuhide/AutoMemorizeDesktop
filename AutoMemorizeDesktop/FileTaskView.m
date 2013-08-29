@@ -25,9 +25,17 @@
 }
 
 -(void)initialize:(NSMutableDictionary*)inputData{
+    // target directory
     [_directoryField setObjectValue:[inputData objectForKey:@"directoryPath"]];
     [_directoryError setHidden:YES];
+    
+    // includeSubDirectory check box
     [_searchSubDirectory setState:[[inputData objectForKey:@"includeSubDirectory"] integerValue]];
+    
+    // file chooser btn
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"FileChoose" ofType:@"png"];
+    NSImage *image = [[NSImage alloc]initByReferencingFile:imagePath];
+    [_fileChooseBtn setImage:image];
     
 }
 

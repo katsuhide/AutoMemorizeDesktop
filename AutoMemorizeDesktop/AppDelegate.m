@@ -139,7 +139,7 @@ typedef enum dataTypeEnum : NSInteger{
         
         // インターバル条件を指定
         int interval = [(NSNumber*)[self getPropertyInfo:@"INTERVAL"] intValue];
-        
+
         // タスクタイマーを生成し、タスクキューに追加
         NSTimer *timer = [NSTimer
                           scheduledTimerWithTimeInterval:interval
@@ -221,6 +221,9 @@ typedef enum dataTypeEnum : NSInteger{
             // Search Sub Directory
             NSNumber *includeSubDirectory = [inputData objectForKey:@"includeSubDirectory"];
             [params appendString:[source transformKeyValue:@"includeSubDirectory" andValue:[includeSubDirectory stringValue]]];
+            // Move Files
+            NSString *movesFile = [inputData objectForKey:@"movesFile"];
+            [params appendString:[source transformKeyValue:@"movesFile" andValue:movesFile]];
             source.params = params;
             // Upload Rule Description
             source.task_name = [NSString stringWithFormat:@"Upload %@@%@ Data in real-time.", extension, directoryPath];
@@ -1210,11 +1213,6 @@ typedef enum dataTypeEnum : NSInteger{
 -(IBAction)testMethod:(id)sender{
     
     //    exit(0);
-    
-}
-
--(IBAction)test2:(id)sender{
-    NSLog(@"%d", _isReachable);
     
 }
 

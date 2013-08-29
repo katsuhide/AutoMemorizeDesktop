@@ -51,7 +51,7 @@ NSDictionary *inputDataOfView;
     
     // ディレクトリの存在チェック
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL existsSpecifiedDirectory = ![fileManager fileExistsAtPath:backupDirectory];
+    BOOL existsSpecifiedDirectory = [fileManager fileExistsAtPath:backupDirectory];
     if(!existsSpecifiedDirectory){
         [_directoryError setStringValue:[NSString stringWithFormat:@"* The specified directory does not exist.[%@]", backupDirectory]];
         isValidate = YES;
