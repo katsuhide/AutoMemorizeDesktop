@@ -234,8 +234,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "156"
          endingLineNumber = "156"
-         landmarkName = "@implementation TaskForFile"
-         landmarkType = "3">
+         landmarkName = "-isExistFile:andExtension:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -286,8 +286,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "247"
          endingLineNumber = "247"
-         landmarkName = "@implementation TaskForFile"
-         landmarkType = "3">
+         landmarkName = "-createResources:andResouces:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -299,8 +299,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "157"
          endingLineNumber = "157"
-         landmarkName = "@implementation TaskForFile"
-         landmarkType = "3">
+         landmarkName = "-isExistFile:andExtension:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -897,7 +897,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "102"
          endingLineNumber = "102"
-         landmarkName = "-isIncludeDirectory:andSubDirectory:"
+         landmarkName = "-validate"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

@@ -58,7 +58,7 @@ NSDictionary *inputDataOfView;
         [_directoryError setHidden:!isValidate];
         return isValidate;
     }
-    
+
     // バックアップディレクトリをサブディレクトリに設定していないかをチェック
     NSString *targetDirectoryPath = [inputDataOfView objectForKey:@"directoryPath"];
     int includeSubdirectory = [[inputDataOfView objectForKey:@"includeSubDirectory"] intValue];
@@ -92,7 +92,7 @@ NSDictionary *inputDataOfView;
         [inputData setValue:@"1" forKey:@"movesFile"];
     }
     
-    return inputData;    
+    return inputData;
 }
 
 -(IBAction)setChoosedFilePath:(id)sender{

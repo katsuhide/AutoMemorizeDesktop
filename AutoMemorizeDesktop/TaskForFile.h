@@ -12,10 +12,4 @@
 
 @property (assign) BOOL canAddNote;
 
-/*
- * ノート登録後の後処理
- */
--(void)afterRegister:(BOOL)isSuceeded;
-
-
 @end

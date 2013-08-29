@@ -46,5 +46,19 @@
     return inputData;
 }
 
+-(IBAction)setChoosedFilePath:(id)sender{
+    NSString *path;
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setCanChooseFiles:NO];
+    [panel setCanChooseDirectories:YES];
+    [panel setAllowsMultipleSelection:YES]; // yes if more than one dir is allowed
+    NSInteger clicked = [panel runModal];
+    if (clicked == NSFileHandlingPanelOKButton) {
+        for (NSURL *url in [panel URLs]) {
+            path = [url path];
+        }
+    }
+    [_directoryField setStringValue:path];
+}
 
 @end

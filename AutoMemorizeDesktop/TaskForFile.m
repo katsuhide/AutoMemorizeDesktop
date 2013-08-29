@@ -118,7 +118,6 @@
     NSError *error = nil;
     
     int includeSubDirectory = [[self.source getKeyValue:@"includeSubDirectory"] intValue];
-    
     if(includeSubDirectory == 0){
         // Not Include Sub Directory
         NSArray *allFileName = [fileManager contentsOfDirectoryAtPath:[self.source getKeyValue:@"directoryPath"] error:&error];
