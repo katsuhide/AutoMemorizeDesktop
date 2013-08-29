@@ -41,16 +41,24 @@ NSDictionary *inputDataOfView;
 }
 
 -(BOOL)validate{
-    BOOL isValidate = NO;
-    // 必須チェック
+    BOOL isValidate = NO; 
     NSString *backupDirectroy = [_backupDirectoryField stringValue];
+
+    // ディレクトリが指定されていない場合はファイル移動しないためバリデーションも不要
     if([backupDirectroy length] == 0){
-        [_directoryError setStringValue:@"* Choose the backup directory."];
-        isValidate = YES;
-        [_directoryError setHidden:!isValidate];
-        return isValidate;
+    	return isValidate;	
     }
-    
+
+    // ディレクトリの存在チェック
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL existsSpecifiedDirectory = ![fileManager fileExistsAtPath:[backupDirectroy path]];
+    if(!existsSpecifiedDirectory){
+            [_directoryError setStringValue:[NSString stringWithFormat:@"* The specified directory does not exist.[%@]", targetDirectoryPath]];
+            isValidate = YES;
+            [_directoryError setHidden:!isValidate];
+            return isValidate;
+    }
+
     // バックアップディレクトリをサブディレクトリに設定していないかをチェック
     AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
     NSString *targetDirectoryPath = [appDelegate getFilePath:inputDataOfView];
@@ -77,7 +85,13 @@ NSDictionary *inputDataOfView;
 }
 
 -(NSMutableDictionary*)setViewData:(NSMutableDictionary*)inputData{
-    [inputData setValue:[_backupDirectoryField stringValue] forKey:@"backupPath"];
+	NSString *backupDirectroy = [_backupDirectoryField stringValue];
+    [inputData setValue:backupDirectroy forKey:@"backupPath"];
+    if([backupDirectroy length] == 0){	// バックアップディレクトリが指定されていない場合はファイル移動しない
+	    [inputData setValue:@"0" forKey:@"movesFile"];
+    }else{	// バックアップディレクトリが指定されている場合はファイル移動する
+	    [inputData setValue:@"1" forKey:@"movesFile"];
+    }
     return inputData;    
 }
 
