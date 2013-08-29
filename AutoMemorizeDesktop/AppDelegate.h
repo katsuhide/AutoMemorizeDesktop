@@ -121,12 +121,7 @@ extern const BOOL PROTOTYPE;
  */
 -(BOOL)isExistSafariTask;
 
-// File Taskで選択されたFile Pathを取得する
--(NSString*)getFilePath:(NSDictionary*)inputData;
-    
 -(IBAction)testMethod:(id)sender;
-
--(IBAction)test2:(id)sender;
 
 /*
  * EvernoteへNoteを登録した後の処理

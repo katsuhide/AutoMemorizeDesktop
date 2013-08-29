@@ -42,22 +42,29 @@ NSDictionary *inputDataOfView;
 
 -(BOOL)validate{
     BOOL isValidate = NO;
-    // 必須チェック
-    NSString *backupDirectroy = [_backupDirectoryField stringValue];
-    if([backupDirectroy length] == 0){
-        [_directoryError setStringValue:@"* Choose the backup directory."];
+    NSString *backupDirectory = [_backupDirectoryField stringValue];
+    
+    // ディレクトリが指定されていない場合はファイル移動しないためバリデーションも不要
+    if([backupDirectory length] == 0){
+        return isValidate;
+    }
+    
+    // ディレクトリの存在チェック
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL existsSpecifiedDirectory = ![fileManager fileExistsAtPath:backupDirectory];
+    if(!existsSpecifiedDirectory){
+        [_directoryError setStringValue:[NSString stringWithFormat:@"* The specified directory does not exist.[%@]", backupDirectory]];
         isValidate = YES;
         [_directoryError setHidden:!isValidate];
         return isValidate;
     }
     
     // バックアップディレクトリをサブディレクトリに設定していないかをチェック
-    AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
-    NSString *targetDirectoryPath = [appDelegate getFilePath:inputDataOfView];
-    int includeSubdirectory = [[inputDataOfView objectForKey:@"search"] intValue];
+    NSString *targetDirectoryPath = [inputDataOfView objectForKey:@"directoryPath"];
+    int includeSubdirectory = [[inputDataOfView objectForKey:@"includeSubDirectory"] intValue];
     if(includeSubdirectory == 0){
         // サブディレクトリを検索対象に含めない場合
-        if([[targetDirectoryPath stringByExpandingTildeInPath] isEqualToString:[backupDirectroy stringByExpandingTildeInPath]]){
+        if([[targetDirectoryPath stringByExpandingTildeInPath] isEqualToString:[backupDirectory stringByExpandingTildeInPath]]){
             [_directoryError setStringValue:[NSString stringWithFormat:@"* Can't specify the subdirectory of this directory.[%@]", targetDirectoryPath]];
             isValidate = YES;
             [_directoryError setHidden:!isValidate];
@@ -65,7 +72,7 @@ NSDictionary *inputDataOfView;
         }
     }else{
         // サブディレクトリを検索対象に含める場合
-        if([self isIncludeDirectory:targetDirectoryPath andSubDirectory:backupDirectroy]){
+        if([self isIncludeDirectory:targetDirectoryPath andSubDirectory:backupDirectory]){
             [_directoryError setStringValue:[NSString stringWithFormat:@"* Can't specify the subdirectory of this directory.[%@]", targetDirectoryPath]];
             isValidate = YES;
             [_directoryError setHidden:!isValidate];
@@ -77,7 +84,14 @@ NSDictionary *inputDataOfView;
 }
 
 -(NSMutableDictionary*)setViewData:(NSMutableDictionary*)inputData{
-    [inputData setValue:[_backupDirectoryField stringValue] forKey:@"backupPath"];
+    NSString *backupDirectory = [_backupDirectoryField stringValue];
+    [inputData setValue:backupDirectory forKey:@"backupPath"];
+    if([backupDirectory length] == 0){  // バックアップディレクトリが指定されていない場合はファイル移動しない
+        [inputData setValue:@"0" forKey:@"movesFile"];
+    }else{  // バックアップディレクトリが指定されている場合はファイル移動する
+        [inputData setValue:@"1" forKey:@"movesFile"];
+    }
+    
     return inputData;    
 }
 

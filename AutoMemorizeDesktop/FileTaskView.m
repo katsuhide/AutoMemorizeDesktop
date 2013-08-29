@@ -25,9 +25,9 @@
 }
 
 -(void)initialize:(NSMutableDictionary*)inputData{
-    [_directoryField setObjectValue:[inputData objectForKey:@"directory"]];
+    [_directoryField setObjectValue:[inputData objectForKey:@"directoryPath"]];
     [_directoryError setHidden:YES];
-    [_searchSubDirectory setState:[[inputData objectForKey:@"search"] integerValue]];
+    [_searchSubDirectory setState:[[inputData objectForKey:@"includeSubDirectory"] integerValue]];
     
 }
 
@@ -41,8 +41,8 @@
 }
 
 -(NSMutableDictionary*)setViewData:(NSMutableDictionary*)inputData{
-    [inputData setValue:[_directoryField stringValue] forKey:@"directory"];
-    [inputData setValue:[NSNumber numberWithInteger:[_searchSubDirectory state]] forKey:@"search"];
+    [inputData setValue:[_directoryField stringValue] forKey:@"directoryPath"];
+    [inputData setValue:[NSNumber numberWithInteger:[_searchSubDirectory state]] forKey:@"includeSubDirectory"];
     return inputData;
 }
 

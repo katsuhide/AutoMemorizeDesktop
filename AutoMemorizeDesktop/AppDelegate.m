@@ -46,24 +46,19 @@ typedef enum dataTypeEnum : NSInteger{
                                                         companyName:@""
                                          crashReportManagerDelegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
-
+    
     // Reachabilityの起動
     _isReachable = NO;  // 一旦OFF LINEに
     [self createReachability];
     
-//    [self testMethod:nil];
+    //    [self testMethod:nil];
     
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
     NSError *error = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isFirst = ![fileManager fileExistsAtPath:[applicationFilesDirectory path]];
-
-    // 初回起動のみヘルプを表示
-//    if(isFirst){
-//        [self help:nil];
-//    }
-    
+        
     if(![fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error]){
         NSLog(@"Couldn't create the data store directory.[%@, %@]", error, [error userInfo]);
         abort();
@@ -75,21 +70,21 @@ typedef enum dataTypeEnum : NSInteger{
         NSString *logPath = [[applicationFilesDirectory path] stringByAppendingPathComponent:@"recdesktop.log"];
         freopen([logPath fileSystemRepresentation], "w+", stderr);
     }
-
+    
     // ArrayControllerとmanagedObjectContextの紐付け
     [_taskArrayController setManagedObjectContext:self.managedObjectContext];
-
+    
     // Notebokのメモリを確保
     _notebookList = [[NSMutableArray alloc]init];
-
+    
     // 初回ログインではない場合ログインする
     if(!isFirst){
         [self doAuthorize:nil];
     }
-
+    
     // Main画面を初期化
     [self initialize];
-
+    
     // Preferences Viewの初期化
     [self initializePreView];
     
@@ -141,7 +136,7 @@ typedef enum dataTypeEnum : NSInteger{
                 task = [[Task alloc]initWithTaskSource:source];
                 break;
         }
-
+        
         // インターバル条件を指定
         int interval = [(NSNumber*)[self getPropertyInfo:@"INTERVAL"] intValue];
         
@@ -171,7 +166,7 @@ typedef enum dataTypeEnum : NSInteger{
 -(void)registerTask:(NSDictionary*)inputData{
     // 画面の入力値からTaskを生成する
     TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
-
+    
     // Basic Information
     NSNumber *dataSourceType = [inputData objectForKey:@"dataSourceType"];
     if([dataSourceType intValue] == SKYPE){
@@ -182,7 +177,7 @@ typedef enum dataTypeEnum : NSInteger{
         source.task_type = [NSNumber numberWithInt:1];
     }
     source.status = [NSNumber numberWithInt:1];
-
+    
     // Data Source 毎に固有の処理
     switch ([dataSourceType intValue]) {
         case SKYPE:
@@ -199,7 +194,7 @@ typedef enum dataTypeEnum : NSInteger{
             // Dividing Topic
             [params appendString:[source transformKeyValue:@"isClassify" andValue:[inputData objectForKey:@"isClassify"]]];
             source.params = params;
-        
+            
         }
             break;
         case PDF:
@@ -212,9 +207,9 @@ typedef enum dataTypeEnum : NSInteger{
         case KEY:
         {   // File
             NSMutableString *params = [NSMutableString string];
-            // File Path
-            NSString *filePath = [self getFilePath:inputData];
-            [params appendString:[source transformKeyValue:@"file_path" andValue:filePath]];
+            // Directory Path
+            NSString *directoryPath = [inputData objectForKey:@"directoryPath"];
+            [params appendString:[source transformKeyValue:@"directoryPath" andValue:directoryPath]];
             // File Extension
             NSString *extension = [self getFileExtension:inputData];
             [params appendString:[source transformKeyValue:@"extension" andValue:extension]];
@@ -224,14 +219,14 @@ typedef enum dataTypeEnum : NSInteger{
             [params appendString:[source transformKeyValue:@"backupPath" andValue:backupPath]];
             source.params = params;
             // Search Sub Directory
-            NSNumber *searchSubDirectory = [inputData objectForKey:@"search"];
-            [params appendString:[source transformKeyValue:@"search" andValue:[searchSubDirectory stringValue]]];
+            NSNumber *includeSubDirectory = [inputData objectForKey:@"includeSubDirectory"];
+            [params appendString:[source transformKeyValue:@"includeSubDirectory" andValue:[includeSubDirectory stringValue]]];
             source.params = params;
             // Upload Rule Description
-            source.task_name = [NSString stringWithFormat:@"Upload %@@%@ Data in real-time.", extension, filePath];
+            source.task_name = [NSString stringWithFormat:@"Upload %@@%@ Data in real-time.", extension, directoryPath];
             // File Uplodad Interval
             source.interval = [[self getPropertyInfo:@"FILE_INTERVAL"] stringValue];
-
+            
         }
             break;
         case SAFARI:
@@ -240,13 +235,13 @@ typedef enum dataTypeEnum : NSInteger{
             source.task_name = [NSString stringWithFormat:@"Upload Safari's Web History every 5 minutes."];
             // Safari Uplodad Interval
             source.interval = [[self getPropertyInfo:@"SAFARI_INTERVAL"] stringValue];
-
+            
         }
             break;
-
+            
         default:
             source.task_name = @"Upload Download Directory Data in real-time.";
-            source.interval = @"0.003";  // 約10sec
+            source.interval = @"1";  // 1hour
             break;
     }
     
@@ -267,26 +262,13 @@ typedef enum dataTypeEnum : NSInteger{
     source.last_execute_time = now;
     source.last_added_time = now;
     source.update_time = now;
-
+    
     // Taskを保存
     [self save];
     
     // Taskを初期化
     [self restart:nil];
     
-}
-
-// File Pathを取得する
--(NSString*)getFilePath:(NSDictionary*)inputData{
-    int directoryFlag = [[inputData objectForKey:@"directory"] intValue];
-    NSDictionary *directoryType = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   @"~/Desktop", @"0",
-                                   @"~/Downloads", @"1",
-                                   @"~/Documents", @"2",
-                                   nil];
-    NSString *directory = [directoryType objectForKey:[[NSNumber numberWithInt:directoryFlag] stringValue]];
-    NSString *filePath = [directory stringByExpandingTildeInPath];
-    return filePath;
 }
 
 // File Extensionを取得する
@@ -337,7 +319,7 @@ typedef enum dataTypeEnum : NSInteger{
         }
     }
     source.notebook_guid = guid;
-
+    
     source.tags = [_tagField stringValue];
     NSMutableString *params = [_taskViewController getParams];
     source.params = params;
@@ -395,16 +377,16 @@ typedef enum dataTypeEnum : NSInteger{
         // Skype Task
         // DB Fild Path
         if([source getKeyValue:@"file_path"].length == 0){
-            [errorMsg appendString:@"Skype DB File Path\n"];            
+            [errorMsg appendString:@"Skype DB File Path\n"];
         }
-    
+        
     }else if(taskType == 1){
         // File Task
         // Target Directory
         if([source getKeyValue:@"file_path"].length == 0){
             [errorMsg appendString:@"Target Directory Path\n"];
         }
-    
+        
     }else{
         // Otherはないはずだが念のためメッセージを返す
         [errorMsg appendString:@"Task Type\n"];
@@ -420,7 +402,7 @@ typedef enum dataTypeEnum : NSInteger{
  */
 -(IBAction)openPreferences:(id)sender{
     [_preWindow makeKeyAndOrderFront:sender];
-
+    
 }
 
 /*
@@ -447,7 +429,7 @@ typedef enum dataTypeEnum : NSInteger{
     NSString *hex = @"#FFFFFF";
     NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
     [_window setBackgroundColor:backColor];
-
+    
     int num = 0;
     for (NSTableColumn* column in [_taskTable tableColumns]) {
         NSTableHeaderCell *cell = [column headerCell];
@@ -478,10 +460,10 @@ typedef enum dataTypeEnum : NSInteger{
     NSImage *deleteBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_deleteBtn setImage:deleteBtnImage];
     [_deleteBtn setBordered:NO];
-
+    
     // Table Viewの初期化
     [self initializeTableView];
-
+    
 }
 
 /*
@@ -507,7 +489,7 @@ typedef enum dataTypeEnum : NSInteger{
     NSImage *registerOkBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_registerOKBtn setImage:registerOkBtnImage];
     [_registerOKBtn setBordered:NO];
-
+    
 }
 
 /*
@@ -518,7 +500,7 @@ typedef enum dataTypeEnum : NSInteger{
     NSString *hex = @"#FFFFFF";
     NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
     [_taskView setBackgroundColor:backColor];
-
+    
     // 共通部分のアイテムを初期化
     [self changeTaskView:YES andData:nil];
     // 拡張部分のアイテムを初期化
@@ -534,14 +516,14 @@ typedef enum dataTypeEnum : NSInteger{
     NSString *hex = @"#FFFFFF";
     NSColor *backColor = [NSColor colorFromHexadecimalValue:hex];
     [_taskView setBackgroundColor:backColor];
-
+    
     // 共通部分のアイテムを初期化
     [self changeTaskView:NO andData:source];
     // 拡張部分のアイテムを初期化
     [_taskViewController viewTaskView:source];
     // Registerボタンを非表示に
     [_registerOKBtn setHidden:YES];
-
+    
 }
 
 /*
@@ -566,25 +548,25 @@ typedef enum dataTypeEnum : NSInteger{
         [_userNameLabel setObjectValue:@"(Not Signed)"];
         
     }
-
+    
     // All Start
     imagePath = [[NSBundle mainBundle] pathForResource:@"AllStart" ofType:@"psd"];
     NSImage *allStartBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_allStartBtn setImage:allStartBtnImage];
     [_allStartBtn setBordered:NO];
-
+    
     // All Stop
     imagePath = [[NSBundle mainBundle] pathForResource:@"AllStop" ofType:@"psd"];
     NSImage *allStopBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_allStopBtn setImage:allStopBtnImage];
     [_allStopBtn setBordered:NO];
-
+    
     // All Restart
     imagePath = [[NSBundle mainBundle] pathForResource:@"AllRestart" ofType:@"psd"];
     NSImage *allRestartBtnImage = [[NSImage alloc]initByReferencingFile:imagePath];
     [_allRestartBtn setImage:allRestartBtnImage];
     [_allRestartBtn setBordered:NO];
-
+    
 }
 
 -(void)changeTaskView:(BOOL)isEditable andData:(TaskSource*)source{
@@ -617,7 +599,7 @@ typedef enum dataTypeEnum : NSInteger{
         [_notebookField setObjectValue:[self transformGuidToName:source.notebook_guid]];
         [_tagField setObjectValue:source.tags];
     }
-
+    
 }
 
 
@@ -661,7 +643,7 @@ typedef enum dataTypeEnum : NSInteger{
 -(IBAction)deleteTask:(id)sender{
     // 選択されたindexを取得する
     NSInteger row = [_taskTable selectedRow];
-
+    
     if((int)row != -1){
         // 本当に削除するか確認
         NSInteger deleteFlag = 0;
@@ -684,7 +666,7 @@ typedef enum dataTypeEnum : NSInteger{
             [self save];
         }
     }
-
+    
 }
 
 
@@ -704,7 +686,7 @@ typedef enum dataTypeEnum : NSInteger{
         // テーブルを再描画
         [_taskTable reloadData];
     }
-
+    
 }
 
 /*
@@ -718,7 +700,7 @@ typedef enum dataTypeEnum : NSInteger{
             NSRunCriticalAlertPanel(@"Error", @"Could not authenticate", @"OK", nil, nil);
         }
         else {
-//            NSLog(@"authenticationToken:%@", session.authenticationToken);
+            //            NSLog(@"authenticationToken:%@", session.authenticationToken);
             NSLog(@"Login");
             
             // NoteBookの取得
@@ -747,10 +729,10 @@ typedef enum dataTypeEnum : NSInteger{
                 // ログインユーザを非表示
                 [_userNameLabel setObjectValue:@"(Not Signed)"];
             }];
-
+            
         }
     }];
-
+    
 }
 
 // EvernoteAPIのSessionを作成
@@ -781,7 +763,7 @@ typedef enum dataTypeEnum : NSInteger{
     
     NSString *CONSUMER_KEY = [output objectForKey:@"CONSUMER_KEY"];
     NSString *CONSUMER_SECRET = [output objectForKey:@"CONSUMER_SECRET"];
-
+    
     [EvernoteSession setSharedSessionHost:EVERNOTE_HOST
                               consumerKey:CONSUMER_KEY
                            consumerSecret:CONSUMER_SECRET];
@@ -827,7 +809,7 @@ typedef enum dataTypeEnum : NSInteger{
         // SignIn処理
         [self doAuthorize:nil];
     }
-
+    
     
 }
 
@@ -1206,7 +1188,7 @@ typedef enum dataTypeEnum : NSInteger{
     }else{
         filePath = [[NSBundle mainBundle] pathForResource:@"recdesktop_sandbox" ofType:@"plist"];
     }
-
+    
     // create file manager
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
@@ -1227,7 +1209,7 @@ typedef enum dataTypeEnum : NSInteger{
  */
 -(IBAction)testMethod:(id)sender{
     
-//    exit(0);
+    //    exit(0);
     
 }
 
@@ -1243,14 +1225,13 @@ typedef enum dataTypeEnum : NSInteger{
     NSLog(@"Note Created.[%@]", note.title);
 }
 
-
 -(TaskSource*)createTestTaskSource{
     TaskSource *source = (TaskSource*)[self createObject:TASK_SOURCE];
     source.task_name = @"Safari Task";
     source.task_type = [NSNumber numberWithInt:2];
     NSDate *now = [NSDate date];
     source.last_added_time = now;
-//    source.last_added_time = [now dateByAddingTimeInterval:-3600];
+    //    source.last_added_time = [now dateByAddingTimeInterval:-3600];
     
     return source;
     

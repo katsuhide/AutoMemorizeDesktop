@@ -85,7 +85,7 @@
  */
 -(NSMutableArray*)getFilePathList{
     // 指定された条件を取得
-    NSString *directoryPath = [[self.source getKeyValue:@"file_path"] stringByExpandingTildeInPath];
+    NSString *directoryPath = [[self.source getKeyValue:@"directoryPath"] stringByExpandingTildeInPath];
     NSString *extension = [self.source getKeyValue:@"extension"];
 
     // 対象のパスのファイル一覧を取得
@@ -117,11 +117,11 @@
     NSFileManager *fileManager=[[NSFileManager alloc] init];
     NSError *error = nil;
     
-    int serachSubDirectory = [[self.source getKeyValue:@"search"] intValue];
-
-    if(serachSubDirectory == 0){
+    int includeSubDirectory = [[self.source getKeyValue:@"includeSubDirectory"] intValue];
+    
+    if(includeSubDirectory == 0){
         // Not Include Sub Directory
-        NSArray *allFileName = [fileManager contentsOfDirectoryAtPath:[self.source getKeyValue:@"file_path"] error:&error];
+        NSArray *allFileName = [fileManager contentsOfDirectoryAtPath:[self.source getKeyValue:@"directoryPath"] error:&error];
         if (error) {
          return nil;
         }else{
@@ -129,7 +129,7 @@
         }
     }else{
         // Include Sub Directory
-        NSDirectoryEnumerator *directoryEnumerator = [fileManager enumeratorAtPath:[self.source getKeyValue:@"file_path"]];
+        NSDirectoryEnumerator *directoryEnumerator = [fileManager enumeratorAtPath:[self.source getKeyValue:@"directoryPath"]];
         NSMutableArray *allFileName = [NSMutableArray array];
         for(NSString *filePath in directoryEnumerator){
             [allFileName addObject:filePath];
@@ -209,7 +209,7 @@
  */
 -(void)moveFile:(NSString*)targetFile andNow:(NSDate*)now{
     // 退避ディレクトリを対象のパスの直下に作成
-    NSString *baseDir = [[self.source getKeyValue:@"file_path"] stringByExpandingTildeInPath];
+    NSString *baseDir = [[self.source getKeyValue:@"directoryPath"] stringByExpandingTildeInPath];
     NSString *backupDirName = [now toStringWithFormat:@"yyyyMMdd_HHmmss"];
     NSString *backupPath = [[self.source getKeyValue:@"backupPath"] stringByAppendingPathComponent:backupDirName];
     NSString *toFilePath = [targetFile stringByReplacingOccurrencesOfString:baseDir withString:backupPath]; // 対象のファイルパスを置換してローテート先のパスを作成
@@ -259,14 +259,6 @@
         return @"application/octet-stream";
     }
     return (__bridge_transfer NSString*)mimeType;
-}
-
-
-/*
- * ノート登録後の後処理
- */
--(void)afterRegister:(BOOL)isSuceeded{
-    
 }
 
 @end
