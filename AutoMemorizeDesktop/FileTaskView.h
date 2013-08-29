@@ -10,13 +10,13 @@
 
 @interface FileTaskView : NSViewController
 
-@property (assign) IBOutlet NSComboBox *directoryField;
+@property (assign) IBOutlet NSTextField *directoryField;
 
 @property (assign) IBOutlet NSTextField *directoryError;
 
-@property (assign) IBOutlet NSTextField *otherDirectoryField;
-
 @property (assign) IBOutlet NSButton *searchSubDirectory;
+
+@property (assign) IBOutlet NSButton *fileChooseBtn;
 
 -(void)initialize:(NSMutableDictionary*)inputData;
 

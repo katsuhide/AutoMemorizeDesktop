@@ -60,9 +60,9 @@ typedef enum dataTypeEnum : NSInteger{
     BOOL isFirst = ![fileManager fileExistsAtPath:[applicationFilesDirectory path]];
 
     // 初回起動のみヘルプを表示
-    if(isFirst){
-        [self help:nil];
-    }
+//    if(isFirst){
+//        [self help:nil];
+//    }
     
     if(![fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error]){
         NSLog(@"Couldn't create the data store directory.[%@, %@]", error, [error userInfo]);
