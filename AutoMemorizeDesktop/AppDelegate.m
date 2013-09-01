@@ -21,7 +21,7 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
-const BOOL ENV = YES;
+const BOOL ENV = NO;
 const BOOL PROTOTYPE = NO;
 
 typedef enum dataTypeEnum : NSInteger{

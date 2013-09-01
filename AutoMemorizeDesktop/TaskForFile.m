@@ -202,20 +202,41 @@ int fileTaskQueue = 0;
     }
     
     // ファイルローテートしない場合、前回アップロード時間以降に更新されたファイルのみ対象にする
-    NSMutableArray *targetFilePathList = [NSMutableArray array];
+    NSMutableArray *filePathListFromLastAddedTime = [NSMutableArray array];
     int movesFile = [[self.source getKeyValue:@"movesFile"] intValue];
     if(movesFile == 1){    // ローテートする
-        targetFilePathList = filePathListExcludeExtension;
+        filePathListFromLastAddedTime = filePathListExcludeExtension;
     }else{  // ローテートしない
         for(NSString *filePath in filePathListExcludeExtension){
             // 前回処理時間より大きい場合は対象に含める
             NSComparisonResult result = [self compareFileTimeStamp:self.source.last_added_time andFilePath:filePath];
             if(result > 0){
-                [targetFilePathList addObject:filePath];
+                [filePathListFromLastAddedTime addObject:filePath];
             }
         }
     }
-
+    
+    // 更新時間で昇順ソート
+    NSError *error = nil;
+    NSMutableArray *attributes = [NSMutableArray array];
+    for(NSString *filePath in filePathListFromLastAddedTime){
+        NSMutableDictionary *tmpDictionary = [NSMutableDictionary dictionary];
+        NSDictionary *attr = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&error];
+        [tmpDictionary setDictionary:attr];
+        [tmpDictionary setObject:filePath forKey:@"filePath"];
+        [attributes addObject:tmpDictionary];
+    }
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:NSFileModificationDate ascending:YES];
+    NSArray *sortarray = [NSArray arrayWithObject:sortDescriptor];
+    NSArray *resultArray = [attributes sortedArrayUsingDescriptors:sortarray];
+    
+    // ファイルのフルパスだけ抜き出す
+    NSMutableArray *targetFilePathList = [NSMutableArray array];
+    for(NSDictionary *dic in resultArray){
+        [targetFilePathList addObject:[dic objectForKey:@"filePath"]];
+    }
+    
+    
 #if DEBUG
     NSLog(@"%@", targetFilePathList);
 #endif
