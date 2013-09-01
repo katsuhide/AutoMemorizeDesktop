@@ -25,19 +25,24 @@ int skypeTaskQueue = 0;
         
         // Queueが残っている場合は処理をスキップする
         if(skypeTaskQueue <= 0){
-
-            // Topic毎に処理をするかを判定
-            int isClassifyFlag = [[self.source getKeyValue:@"isClassify"] intValue];            
-            if(isClassifyFlag == 0){
-                // Queueを設定
-                skypeTaskQueue = 1;
-                
-                // Topic毎に処理をしない場合
-                [self doWithoutDividingTopic:now];
-                
-            }else{
-                // Topic毎に処理をする場合
-                [self doWithDividingTopic:now];
+            // 対象のメッセージが存在しているかをチェックする
+            NSString *sql = [self createSQLForMessages:nil];
+            NSMutableArray *result = [self getSkypeMessages:sql];
+            if([result count] != 0){
+                // Topic毎に処理をするかを判定
+                int isClassifyFlag = [[self.source getKeyValue:@"isClassify"] intValue];
+                if(isClassifyFlag == 0){
+                    // Queueを設定
+                    skypeTaskQueue = 1;
+                    
+                    // Topic毎に処理をしない場合
+                    [self doWithoutDividingTopic:now];
+                    
+                }else{
+                    // Topic毎に処理をする場合
+                    [self doWithDividingTopic:now];
+                    
+                }
                 
             }
         
@@ -93,6 +98,13 @@ int skypeTaskQueue = 0;
 
     // Topic毎にSkyepMessagesを取得してNote登録を実行する
     for(NSDictionary *topic in topicList){
+        // 対象のメッセージが存在しているかをチェックする
+        NSString *sql = [self createSQLForMessages:nil];
+        NSMutableArray *result = [self getSkypeMessages:sql];
+        if([result count] == 0){
+            continue;
+        }
+        
         // 既存ノートの有無を確認するための検索条件を設定する
         NSString *noteTitle = [self createNoteTitle:[topic objectForKey:@"topicName"]];
         EDAMNoteFilter *filter = [[EDAMNoteFilter alloc]init];

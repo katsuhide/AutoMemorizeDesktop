@@ -157,7 +157,7 @@ int fileTaskQueue = 0;
             }];
             
         }else{
-            NSLog(@"No File has been found.");
+            NSLog(@"No Note with the specified file name has been found.");
             // 新規Note作成
             [self registerEDAMNote:filePath];
             
