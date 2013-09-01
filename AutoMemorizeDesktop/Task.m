@@ -142,7 +142,7 @@
     // 比較
     NSDate *fileTimeStamp = [dicFileAttributes objectForKey:@"NSFileModificationDate"];
 #if DEBUG
-    NSLog(@"file:%@, target:%@", [fileTimeStamp toLocalTime], [lastExecutedTime toLocalTime]);
+    NSLog(@"Name:%@, file:%@, target:%@", [filePath lastPathComponent], [fileTimeStamp toLocalTime], [lastExecutedTime toLocalTime]);
 #endif
     NSComparisonResult result = [fileTimeStamp compare:lastExecutedTime];
     return result;

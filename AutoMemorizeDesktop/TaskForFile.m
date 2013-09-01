@@ -11,6 +11,8 @@
 #import "NSData+EvernoteSDK.h"
 #import "EvernoteServiceUtil.h"
 
+int fileTaskQueue = 0;
+
 @implementation TaskForFile
 
 /*
@@ -20,50 +22,43 @@
     NSDate *now = [NSDate date];
     if([self check:now]){
 
-        // 対象に合致するファイルのフルパス一覧を取得
-        NSArray *targetFiles = [self getFilePathList];
-
         AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
-        
-        if([targetFiles count] == 0){   // 対象のファイルが存在しない場合
+
+        // Queueが残っている場合は処理をスキップする
+        if(fileTaskQueue > 0){
 #if DEBUG
-            NSLog(@"[TaskName:%@]Didn't create the Note since file does note exist.", self.source.task_name);
+            NSLog(@"[%@]File Task Queue has been remained.", self.source.task_name);
 #endif
             
-        }else{  // 対象ファイルが存在する場合
-            // 対象のファイル毎にNoteを作成してフィアルのローテートを実施する
-            for(NSString *targetFile in targetFiles){
+        }else{
+            
+            // 対象に合致するファイルのフルパス一覧を取得
+            NSArray *targetFiles = [self getFilePathList];
+            
+            if([targetFiles count] == 0){   // 対象のファイルが存在しない場合
+#if DEBUG
+                NSLog(@"[TaskName:%@]Didn't create the Note since file does note exist.", self.source.task_name);
+#endif
                 
-                
-                
-                // Noteの作成
-                EDAMNote *note = [self createEDAMNote:targetFile];
+            }else{  // 対象ファイルが存在する場合
+                // Queueを設定
+                fileTaskQueue = (int)[targetFiles count];
 
-                // Fileの更新時間
-                NSDate *fileTimeStamp = [self getFileTimeStamp:targetFile];
-                
-                // NoteをEvernoteに登録する
-                [[EvernoteNoteStore noteStore] createNote:note success:^(EDAMNote *note) {  // 登路に成功した場合
-                    NSLog(@"====Registering Note has been succeeded.====");
-                    // debug log
-                    EvernoteServiceUtil *enService = [[EvernoteServiceUtil alloc]init];
-                    [enService debugEDAMNote:note];
+                // 対象のファイル毎にNoteを作成してフィアルのローテートを実施する
+                for(NSString *targetFile in targetFiles){
                     
-                    // update last added time by fileTimeStamp
-                    [self updateLastAddedTime:fileTimeStamp];
-                    [appDelegate save];
-                
-                    
-                    // ローテート設定の場合、対象ファイルのローテート
-                    NSString *movesFile = [self.source getKeyValue:@"movesFile"];
-                    if([movesFile intValue] == 1){
-                        [self moveFile:targetFile andNow:now];
+                    // 追記するタイプか確認する
+                    int movesFile = [[self.source getKeyValue:@"movesFile"] intValue];
+                    if(movesFile == 1){
+                        // 新規更新する
+                        [self registerEDAMNote:targetFile];
+                        
+                    }else{
+                        // 検索して追記する
+                        [self searchAndUpdateEDAMNote:targetFile];
+                        
                     }
-                 
-                } failure:^(NSError *error) {   // 登録に失敗した場合
-                    NSLog(@"Registering Note has been failured.[%@]",error);
-                    
-                }];
+                }
             }
         }
 
@@ -74,6 +69,108 @@
         [appDelegate save];
         
     }
+}
+
+
+/*
+ * ノートを新規作成する
+ */
+-(void)registerEDAMNote:(NSString*)filePath{
+    // Noteの作成
+    EDAMNote *note = [self createEDAMNote:filePath];
+    
+    // NoteをEvernoteに登録する
+    [[EvernoteNoteStore noteStore] createNote:note success:^(EDAMNote *note) {  // 登路に成功した場合
+        NSLog(@"====Registering Note has been succeeded.====\n%@", note);
+        
+        // update last added time by fileTimeStamp
+        NSDate *fileTimeStamp = [self getFileTimeStamp:filePath];
+        [self updateLastAddedTime:fileTimeStamp];
+        AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+        [appDelegate save];
+        
+        
+        // ローテート設定の場合、対象ファイルのローテート
+        NSString *movesFile = [self.source getKeyValue:@"movesFile"];
+        if([movesFile intValue] == 1){
+            [self moveFile:filePath andNow:[NSDate date]];
+        }
+        
+        // Queueの削除
+        fileTaskQueue--;
+        
+    } failure:^(NSError *error) {   // 登録に失敗した場合
+        NSLog(@"Registering Note has been failured.[%@]",error);
+        
+        // Queueの削除(次の処理で再実行するからQueueは削除する)
+        fileTaskQueue--;
+        
+    }];
+    
+}
+
+/*
+ * 既存ノートを検索して追記する
+ */
+-(void)searchAndUpdateEDAMNote:(NSString*)filePath{
+    // 検索条件を設定する
+    EDAMNoteFilter *filter = [[EDAMNoteFilter alloc]init];
+    NSString *fileName = [filePath lastPathComponent];
+    NSString *keyword = fileName;     // ファイル名で検索する
+    [filter setWords:keyword];
+    
+    // Create NotesMetadataResultSpec
+    EDAMNotesMetadataResultSpec *resultSpec = [[EDAMNotesMetadataResultSpec alloc]init];
+    [resultSpec setIncludeTitle:YES];
+    [resultSpec setIncludeNotebookGuid:YES];
+    [resultSpec setIncludeTagGuids:YES];
+    [resultSpec setIncludeCreated:YES];
+    [resultSpec setIncludeUpdated:YES];
+    
+    // ノートを検索する
+    [[EvernoteNoteStore noteStore] findNotesMetadataWithFilter:filter offset:0 maxNotes:1 resultSpec:resultSpec success:^(EDAMNotesMetadataList *metadata) {
+        if([[metadata notes] count] != 0){
+            // EDAMNoteの作成
+            EDAMNote *note = [self createEDAMNote:filePath];
+            
+            // guidの設定
+            NSString *guid = [[[metadata notes] objectAtIndex:0] guid];
+            note.guid = guid;
+            
+            // ノートの更新
+            [[EvernoteNoteStore noteStore] updateNote:note success:^(EDAMNote *note) {
+                NSLog(@"====Updating Note has been succeeded.====\n%@", note);
+                
+                // update last added time by fileTimeStamp
+                NSDate *fileTimeStamp = [self getFileTimeStamp:filePath];
+                [self updateLastAddedTime:fileTimeStamp];
+                AppDelegate *appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+                [appDelegate save];
+
+                fileTaskQueue--;
+                
+            } failure:^(NSError *error) {
+                NSLog(@"Updating Note has been failured.");
+                // 新規Note作成
+                [self registerEDAMNote:filePath];
+                
+            }];
+            
+        }else{
+            NSLog(@"No File has been found.");
+            // 新規Note作成
+            [self registerEDAMNote:filePath];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"Find NoteMetadata has been failured.[%@]", error);
+        // 新規Note作成
+        [self registerEDAMNote:filePath];
+        
+    }];
+
+    
 }
 
 
@@ -143,7 +240,9 @@
         }
     }
 
+#if DEBUG
     NSLog(@"%@", targetFilePathList);
+#endif
     
     return targetFilePathList;
     
@@ -231,8 +330,6 @@
                              "<en-note>"
                              "%@"
                              "</en-note>",body];
-    NSLog(@"body:\n%@", noteContent);
-    
     
     // NOTEを登録
     EDAMNote* note = [[EDAMNote alloc] initWithGuid:nil title:noteTitle content:noteContent contentHash:nil contentLength:(int)noteContent.length created:0 updated:0 deleted:0 active:YES updateSequenceNum:0 notebookGuid:notebookGUID tagGuids:nil resources:resources attributes:nil tagNames:tagNames];

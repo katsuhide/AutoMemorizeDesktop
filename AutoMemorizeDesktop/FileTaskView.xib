@@ -45,7 +45,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{15, 266}, {425, 35}}</string>
 						<reference key="NSSuperview" ref="630020650"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="447011113"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -88,7 +87,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{451, 263}, {40, 40}}</string>
 						<reference key="NSSuperview" ref="630020650"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="94378318"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -117,7 +115,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{13, 213}, {191, 26}}</string>
 						<reference key="NSSuperview" ref="630020650"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="954051562"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -149,15 +146,13 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{22, 226}, {427, 34}}</string>
 						<reference key="NSSuperview" ref="630020650"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="55930751">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">272629760</int>
-							<string key="NSContents">* Choose the directory.</string>
+							<string key="NSContents">* Specify the directory.</string>
 							<object class="NSFont" key="NSSupport">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">13</double>
@@ -187,14 +182,13 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{10, 327}, {440, 43}}</string>
 						<reference key="NSSuperview" ref="630020650"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="292110381"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="120224379">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Choose the directory which data exist.</string>
+							<string key="NSContents">Specify the target directory.</string>
 							<object class="NSFont" key="NSSupport">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">20</double>
@@ -215,7 +209,6 @@
 				</array>
 				<string key="NSFrameSize">{500, 400}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="162905068"/>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -318,7 +311,7 @@
 								<float key="scoringTypeFloat">9</float>
 								<int key="contentType">3</int>
 							</object>
-							<object class="IBNSLayoutConstraint" id="953210737">
+							<object class="IBNSLayoutConstraint" id="49727885">
 								<reference key="firstItem" ref="94378318"/>
 								<int key="firstAttribute">3</int>
 								<int key="relation">0</int>
@@ -791,7 +784,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">214</int>
-						<reference key="object" ref="953210737"/>
+						<reference key="object" ref="49727885"/>
 						<reference key="parent" ref="630020650"/>
 					</object>
 				</array>
@@ -837,7 +830,7 @@
 					<reference ref="426038813"/>
 					<reference ref="165480864"/>
 					<reference ref="643782130"/>
-					<reference ref="953210737"/>
+					<reference ref="49727885"/>
 					<reference ref="221938075"/>
 				</array>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -875,50 +868,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">214</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">FileTaskView</string>
-					<string key="superclassName">NSViewController</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="directoryError">NSTextField</string>
-						<string key="directoryField">NSTextField</string>
-						<string key="fileChooseBtn">NSButton</string>
-						<string key="searchSubDirectory">NSButton</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="directoryError">
-							<string key="name">directoryError</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="directoryField">
-							<string key="name">directoryField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="fileChooseBtn">
-							<string key="name">fileChooseBtn</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="searchSubDirectory">
-							<string key="name">searchSubDirectory</string>
-							<string key="candidateClassName">NSButton</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/FileTaskView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSLayoutConstraint</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/NSLayoutConstraint.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
