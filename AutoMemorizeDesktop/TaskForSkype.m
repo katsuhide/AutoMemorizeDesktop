@@ -136,7 +136,7 @@ int skypeTaskQueue = 0;
     // 既存ノートの情報を取得する
     [[EvernoteNoteStore noteStore] getNoteWithGuid:guid withContent:YES withResourcesData:YES withResourcesRecognition:YES withResourcesAlternateData:YES success:^(EDAMNote *note) {   // Note取得が成功した場合
 #if DEBUG
-        NSLog(@"%@", note);
+        NSLog(@"Get Note has been succeded.\n%@", note);
 #endif
 
         // ノートを追加更新する
@@ -198,7 +198,7 @@ int skypeTaskQueue = 0;
             skypeTaskQueue--;
             
         } failure:^(NSError *error) {
-            NSLog(@"Updating Note has been failured.");
+            NSLog(@"Updating Note has been failured.[%@]", error);
             // Skype Task Queueを減らす
             skypeTaskQueue--;
             
@@ -269,8 +269,6 @@ int skypeTaskQueue = 0;
         
         // EDAMNoteを作成
         EDAMNote* note = [[EDAMNote alloc] initWithGuid:nil title:noteTitle content:noteContent contentHash:nil contentLength:(int)noteContent.length created:0 updated:0 deleted:0 active:YES updateSequenceNum:0 notebookGuid:notebookGUID tagGuids:nil resources:nil attributes:nil tagNames:tagNames];
-        
-        NSLog(@"==========\n%@", noteContent);  // TODO
         
         // NoteをEvernoteに登録する
         [[EvernoteNoteStore noteStore] createNote:note success:^(EDAMNote *note) {  // 登路に成功した場合
@@ -374,14 +372,16 @@ int skypeTaskQueue = 0;
 
 // 非対応のタグを除去
 -(NSString*)excludeInvalidTag:(NSString*)original{
+    
     NSMutableString *replaced = [NSMutableString stringWithString:original];
     NSString *template = @"";   // 置換後文字列
     
     NSString *pattern = @"<ss type.+?</ss>";   // 検索条件
     [replaced setString:[self replaceInvalidTag:replaced andPattern:pattern andTemplate:template]];
     
-    pattern = @"<quote .+?</quote>";    // 検索条件
+    pattern = @"<quote (.|\r\n)+?</quote>";    // 検索条件
     [replaced setString:[self replaceInvalidTag:replaced andPattern:pattern andTemplate:template]];
+
     return replaced;
     
 }
