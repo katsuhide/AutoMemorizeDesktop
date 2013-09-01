@@ -47,6 +47,8 @@
 		4272DDC3178714950047B988 /* ChooseBackupDirectoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4272DDC1178714950047B988 /* ChooseBackupDirectoryView.m */; };
 		4272DDC4178714950047B988 /* ChooseBackupDirectoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4272DDC2178714950047B988 /* ChooseBackupDirectoryView.xib */; };
 		4272DDC61787248C0047B988 /* FileChoose.png in Resources */ = {isa = PBXBuildFile; fileRef = 4272DDC51787248C0047B988 /* FileChoose.png */; };
+		4274C84217D39DEC006DFED1 /* EvernoteSDK-Mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4274C83917D39DCE006DFED1 /* EvernoteSDK-Mac.framework */; };
+		4274C84317D39DF7006DFED1 /* EvernoteSDK-Mac.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4274C83917D39DCE006DFED1 /* EvernoteSDK-Mac.framework */; };
 		42762117177F2D0F00079CC9 /* logo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 42762116177F2D0F00079CC9 /* logo.icns */; };
 		4281FA6C17CED5FA00E10BA7 /* recdesktop.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4281FA6B17CED5FA00E10BA7 /* recdesktop.plist */; };
 		42860F90175B779C00F68B03 /* NSDate+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 42860F8F175B779C00F68B03 /* NSDate+Util.m */; };
@@ -59,8 +61,6 @@
 		429C1BA9177F574F0037A77C /* CustomTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C1BA8177F574F0037A77C /* CustomTableHeaderView.m */; };
 		42B32A5B1796448B00A6F0A0 /* recdesktop_sandbox.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42B32A5A1796448B00A6F0A0 /* recdesktop_sandbox.plist */; };
 		42B8ECAB179EE943004727A1 /* SafariTaskService.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B8ECAA179EE943004727A1 /* SafariTaskService.m */; };
-		42BB163217CCFDF80048E1EA /* EvernoteSDK-Mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42BB162917CCFDC10048E1EA /* EvernoteSDK-Mac.framework */; };
-		42BB163317CCFE100048E1EA /* EvernoteSDK-Mac.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 42BB162917CCFDC10048E1EA /* EvernoteSDK-Mac.framework */; };
 		42C4C4B7178682A00069A7F1 /* Pdf.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4B6178682A00069A7F1 /* Pdf.psd */; };
 		42C4C4BD178682B30069A7F1 /* Text.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4BC178682B30069A7F1 /* Text.psd */; };
 		42C4C4BF178684D50069A7F1 /* Keynote.psd in Resources */ = {isa = PBXBuildFile; fileRef = 42C4C4BE178684D50069A7F1 /* Keynote.psd */; };
@@ -94,44 +94,44 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		42BB162617CCFDC10048E1EA /* PBXContainerItemProxy */ = {
+		4274C83617D39DCE006DFED1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 42BB161E17CCFDC00048E1EA /* EvernoteSDK.xcodeproj */;
+			containerPortal = 4274C82E17D39DCD006DFED1 /* EvernoteSDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 0BB3D1AD1524ED96001C4534;
 			remoteInfo = EvernoteSDK;
 		};
-		42BB162817CCFDC10048E1EA /* PBXContainerItemProxy */ = {
+		4274C83817D39DCE006DFED1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 42BB161E17CCFDC00048E1EA /* EvernoteSDK.xcodeproj */;
+			containerPortal = 4274C82E17D39DCD006DFED1 /* EvernoteSDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 43741864170ADB2400D2BE51;
 			remoteInfo = "EvernoteSDK-Mac";
 		};
-		42BB162A17CCFDC10048E1EA /* PBXContainerItemProxy */ = {
+		4274C83A17D39DCE006DFED1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 42BB161E17CCFDC00048E1EA /* EvernoteSDK.xcodeproj */;
+			containerPortal = 4274C82E17D39DCD006DFED1 /* EvernoteSDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 0BB3D26E1524EF37001C4534;
 			remoteInfo = "SampleApp-iOS";
 		};
-		42BB162C17CCFDC10048E1EA /* PBXContainerItemProxy */ = {
+		4274C83C17D39DCE006DFED1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 42BB161E17CCFDC00048E1EA /* EvernoteSDK.xcodeproj */;
+			containerPortal = 4274C82E17D39DCD006DFED1 /* EvernoteSDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 437418AC170ADCD600D2BE51;
 			remoteInfo = "SampleApp-Mac";
 		};
-		42BB162E17CCFDC10048E1EA /* PBXContainerItemProxy */ = {
+		4274C83E17D39DCE006DFED1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 42BB161E17CCFDC00048E1EA /* EvernoteSDK.xcodeproj */;
+			containerPortal = 4274C82E17D39DCD006DFED1 /* EvernoteSDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 0BDBBC431550A11A003E6681;
 			remoteInfo = UnitTests;
 		};
-		42BB163017CCFDE60048E1EA /* PBXContainerItemProxy */ = {
+		4274C84017D39DE3006DFED1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 42BB161E17CCFDC00048E1EA /* EvernoteSDK.xcodeproj */;
+			containerPortal = 4274C82E17D39DCD006DFED1 /* EvernoteSDK.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 43741863170ADB2400D2BE51;
 			remoteInfo = "EvernoteSDK-Mac";
@@ -145,7 +145,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				42BB163317CCFE100048E1EA /* EvernoteSDK-Mac.framework in CopyFiles */,
+				4274C84317D39DF7006DFED1 /* EvernoteSDK-Mac.framework in CopyFiles */,
 				4292209A17B623A8007F8D6E /* HockeySDK.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,6 +214,7 @@
 		4272DDC1178714950047B988 /* ChooseBackupDirectoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseBackupDirectoryView.m; sourceTree = "<group>"; };
 		4272DDC2178714950047B988 /* ChooseBackupDirectoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseBackupDirectoryView.xib; sourceTree = "<group>"; };
 		4272DDC51787248C0047B988 /* FileChoose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FileChoose.png; sourceTree = "<group>"; };
+		4274C82E17D39DCD006DFED1 /* EvernoteSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EvernoteSDK.xcodeproj; path = "../evernote-sdk-mac/EvernoteSDK.xcodeproj"; sourceTree = "<group>"; };
 		42762116177F2D0F00079CC9 /* logo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = logo.icns; sourceTree = "<group>"; };
 		4281FA6B17CED5FA00E10BA7 /* recdesktop.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = recdesktop.plist; sourceTree = "<group>"; };
 		42860F8E175B779C00F68B03 /* NSDate+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Util.h"; sourceTree = "<group>"; };
@@ -230,7 +231,6 @@
 		42B32A5A1796448B00A6F0A0 /* recdesktop_sandbox.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = recdesktop_sandbox.plist; sourceTree = "<group>"; };
 		42B8ECA9179EE943004727A1 /* SafariTaskService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafariTaskService.h; sourceTree = "<group>"; };
 		42B8ECAA179EE943004727A1 /* SafariTaskService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SafariTaskService.m; sourceTree = "<group>"; };
-		42BB161E17CCFDC00048E1EA /* EvernoteSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EvernoteSDK.xcodeproj; path = "../evernote-sdk-mac/EvernoteSDK.xcodeproj"; sourceTree = "<group>"; };
 		42C4C4B6178682A00069A7F1 /* Pdf.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pdf.psd; sourceTree = "<group>"; };
 		42C4C4BC178682B30069A7F1 /* Text.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Text.psd; sourceTree = "<group>"; };
 		42C4C4BE178684D50069A7F1 /* Keynote.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Keynote.psd; sourceTree = "<group>"; };
@@ -277,7 +277,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42BB163217CCFDF80048E1EA /* EvernoteSDK-Mac.framework in Frameworks */,
+				4274C84217D39DEC006DFED1 /* EvernoteSDK-Mac.framework in Frameworks */,
 				42DED64817C9DDE40080C22C /* SystemConfiguration.framework in Frameworks */,
 				4249C3FE179D39D60009970D /* WebKit.framework in Frameworks */,
 				425A6530175A6F83002DE6AF /* libsqlite3.0.dylib in Frameworks */,
@@ -342,7 +342,7 @@
 				4249C3FD179D39D60009970D /* WebKit.framework */,
 				42762116177F2D0F00079CC9 /* logo.icns */,
 				425A652F175A6F83002DE6AF /* libsqlite3.0.dylib */,
-				42BB161E17CCFDC00048E1EA /* EvernoteSDK.xcodeproj */,
+				4274C82E17D39DCD006DFED1 /* EvernoteSDK.xcodeproj */,
 				425A6500175A6DFF002DE6AF /* AutoMemorizeDesktop */,
 				425A64F9175A6DFF002DE6AF /* Frameworks */,
 				425A64F8175A6DFF002DE6AF /* Products */,
@@ -445,6 +445,18 @@
 			name = Task;
 			sourceTree = "<group>";
 		};
+		4274C82F17D39DCD006DFED1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4274C83717D39DCE006DFED1 /* libEvernoteSDK.a */,
+				4274C83917D39DCE006DFED1 /* EvernoteSDK-Mac.framework */,
+				4274C83B17D39DCE006DFED1 /* SampleApp-iOS.app */,
+				4274C83D17D39DCE006DFED1 /* SampleApp-Mac.app */,
+				4274C83F17D39DCE006DFED1 /* UnitTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		42860F89175B776B00F68B03 /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -509,18 +521,6 @@
 			name = MainView;
 			sourceTree = "<group>";
 		};
-		42BB161F17CCFDC00048E1EA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				42BB162717CCFDC10048E1EA /* libEvernoteSDK.a */,
-				42BB162917CCFDC10048E1EA /* EvernoteSDK-Mac.framework */,
-				42BB162B17CCFDC10048E1EA /* SampleApp-iOS.app */,
-				42BB162D17CCFDC10048E1EA /* SampleApp-Mac.app */,
-				42BB162F17CCFDC10048E1EA /* UnitTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		42F78063176C23B000CC3E7A /* TaskView */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,7 +551,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				42BB163117CCFDE60048E1EA /* PBXTargetDependency */,
+				4274C84117D39DE3006DFED1 /* PBXTargetDependency */,
 			);
 			name = RecDesktop;
 			productName = AutoMemorizeDesktop;
@@ -579,8 +579,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 42BB161F17CCFDC00048E1EA /* Products */;
-					ProjectRef = 42BB161E17CCFDC00048E1EA /* EvernoteSDK.xcodeproj */;
+					ProductGroup = 4274C82F17D39DCD006DFED1 /* Products */;
+					ProjectRef = 4274C82E17D39DCD006DFED1 /* EvernoteSDK.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -591,39 +591,39 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		42BB162717CCFDC10048E1EA /* libEvernoteSDK.a */ = {
+		4274C83717D39DCE006DFED1 /* libEvernoteSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libEvernoteSDK.a;
-			remoteRef = 42BB162617CCFDC10048E1EA /* PBXContainerItemProxy */;
+			remoteRef = 4274C83617D39DCE006DFED1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		42BB162917CCFDC10048E1EA /* EvernoteSDK-Mac.framework */ = {
+		4274C83917D39DCE006DFED1 /* EvernoteSDK-Mac.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = "EvernoteSDK-Mac.framework";
-			remoteRef = 42BB162817CCFDC10048E1EA /* PBXContainerItemProxy */;
+			remoteRef = 4274C83817D39DCE006DFED1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		42BB162B17CCFDC10048E1EA /* SampleApp-iOS.app */ = {
+		4274C83B17D39DCE006DFED1 /* SampleApp-iOS.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "SampleApp-iOS.app";
-			remoteRef = 42BB162A17CCFDC10048E1EA /* PBXContainerItemProxy */;
+			remoteRef = 4274C83A17D39DCE006DFED1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		42BB162D17CCFDC10048E1EA /* SampleApp-Mac.app */ = {
+		4274C83D17D39DCE006DFED1 /* SampleApp-Mac.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "SampleApp-Mac.app";
-			remoteRef = 42BB162C17CCFDC10048E1EA /* PBXContainerItemProxy */;
+			remoteRef = 4274C83C17D39DCE006DFED1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		42BB162F17CCFDC10048E1EA /* UnitTests.octest */ = {
+		4274C83F17D39DCE006DFED1 /* UnitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = UnitTests.octest;
-			remoteRef = 42BB162E17CCFDC10048E1EA /* PBXContainerItemProxy */;
+			remoteRef = 4274C83E17D39DCE006DFED1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -725,10 +725,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		42BB163117CCFDE60048E1EA /* PBXTargetDependency */ = {
+		4274C84117D39DE3006DFED1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "EvernoteSDK-Mac";
-			targetProxy = 42BB163017CCFDE60048E1EA /* PBXContainerItemProxy */;
+			targetProxy = 4274C84017D39DE3006DFED1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -849,6 +849,7 @@
 				GCC_PREFIX_HEADER = "AutoMemorizeDesktop/RecDesktop-Prefix.pch";
 				INFOPLIST_FILE = "AutoMemorizeDesktop/RecDesktop-Info.plist";
 				PRODUCT_NAME = RecDesktop;
+				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
