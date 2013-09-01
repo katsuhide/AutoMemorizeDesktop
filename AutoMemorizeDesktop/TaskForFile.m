@@ -175,30 +175,6 @@ int fileTaskQueue = 0;
 
 
 /*
- * FileTaskのロジックでEDAMNoteを生成する
- */
-- (NSMutableArray*) execute {
-    // 作成対象のファイルパスを取得
-    NSMutableArray *filePathList = [self getFilePathList];
-    
-    // 対象ファイルが存在しない場合はノートを作成しない
-    if([filePathList count] == 0){
-        _canAddNote = FALSE;
-    }else{
-        _canAddNote = TRUE;
-    }
-    
-    // EDAMNoteを作成する
-    NSMutableArray *noteList = [[NSMutableArray alloc]init];
-    for(NSString *filePath in filePathList){
-        EDAMNote *note = [self createEDAMNote:filePath];
-        [noteList addObject:note];
-    }
-    return noteList;
-}
-
-
-/*
  * 指定された条件でEvernoteへのポスト対象のファイルのフルパスを取得する
  */
 -(NSMutableArray*)getFilePathList{

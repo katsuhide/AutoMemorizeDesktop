@@ -62,9 +62,16 @@ int skypeTaskQueue = 0;
     [filter setWords:keyword];
     
     // 既存ノートを検索する
-    [[EvernoteNoteStore noteStore] findNotesWithFilter:filter offset:0 maxNotes:10 success:^(EDAMNoteList *list) {   // Note検索が成功した場合
-        // ノートを追加更新する
-        [self doByUpdatingNote:list andExecutedTime:(NSDate*)executedTime andTopic:nil];
+    [[EvernoteNoteStore noteStore] findNotesWithFilter:filter offset:0 maxNotes:1 success:^(EDAMNoteList *list) {   // Note検索が成功した場合
+        if([[list notes] count] == 0){  // 検索がヒットしなかった場合
+            // ノートを新規作成する
+            [self doByNewRegisteringNote:nil];
+            
+        }else{
+            // ノートを追加更新する
+            [self doByUpdatingNote:list andExecutedTime:(NSDate*)executedTime andTopic:nil];
+    
+        }
         
     } failure:^(NSError *error) {   // Note検索が失敗した場合
         NSLog(@"Find Note has been failured.[%@]", error);
@@ -262,6 +269,8 @@ int skypeTaskQueue = 0;
         
         // EDAMNoteを作成
         EDAMNote* note = [[EDAMNote alloc] initWithGuid:nil title:noteTitle content:noteContent contentHash:nil contentLength:(int)noteContent.length created:0 updated:0 deleted:0 active:YES updateSequenceNum:0 notebookGuid:notebookGUID tagGuids:nil resources:nil attributes:nil tagNames:tagNames];
+        
+        NSLog(@"==========\n%@", noteContent);  // TODO
         
         // NoteをEvernoteに登録する
         [[EvernoteNoteStore noteStore] createNote:note success:^(EDAMNote *note) {  // 登路に成功した場合
