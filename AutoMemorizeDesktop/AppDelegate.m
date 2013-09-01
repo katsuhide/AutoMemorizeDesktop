@@ -21,8 +21,8 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
-const BOOL ENV = NO;
-const BOOL PROTOTYPE = YES;
+const BOOL ENV = YES;
+const BOOL PROTOTYPE = NO;
 
 typedef enum dataTypeEnum : NSInteger{
     SKYPE,
