@@ -48,8 +48,9 @@ int fileTaskQueue = 0;
                 for(NSString *targetFile in targetFiles){
                     
                     // 追記するタイプか確認する
-                    int movesFile = [[self.source getKeyValue:@"movesFile"] intValue];
-                    if(movesFile == 1){
+                    NSString* str = [self.source getKeyValue:@"movesFile"];
+                    int movesFile = [str intValue];
+                    if((str == nil) || (movesFile == 1)){   // ver2.0以前はnilのため
                         // 新規更新する
                         [self registerEDAMNote:targetFile];
                         
@@ -91,8 +92,9 @@ int fileTaskQueue = 0;
         
         
         // ローテート設定の場合、対象ファイルのローテート
-        NSString *movesFile = [self.source getKeyValue:@"movesFile"];
-        if([movesFile intValue] == 1){
+        NSString* str = [self.source getKeyValue:@"movesFile"];
+        int movesFile = [str intValue];
+        if((str == nil) || (movesFile == 1)){   // ver2.0以前はnilのため
             [self moveFile:filePath andNow:[NSDate date]];
         }
         
@@ -179,7 +181,7 @@ int fileTaskQueue = 0;
  */
 -(NSMutableArray*)getFilePathList{
     // 指定された条件を取得
-    NSString *directoryPath = [[self.source getKeyValue:@"directoryPath"] stringByExpandingTildeInPath];
+    NSString *directoryPath = [[self.source getKeyValue:@"file_path"] stringByExpandingTildeInPath];
     NSString *extension = [self.source getKeyValue:@"extension"];
 
     // 対象のパスのファイル一覧を取得
@@ -249,12 +251,12 @@ int fileTaskQueue = 0;
 -(NSArray*)getFileNameList{
 
     NSFileManager *fileManager=[[NSFileManager alloc] init];
-    NSString *directoryPath = [[self.source getKeyValue:@"directoryPath"] stringByExpandingTildeInPath];
+    NSString *directoryPath = [[self.source getKeyValue:@"file_path"] stringByExpandingTildeInPath];
     NSError *error = nil;
     
     // 対象ディレクトリのファイルを検索する（ファイル名の一覧）
     NSMutableArray *allFiles = [NSMutableArray array];
-    int includeSubDirectory = [[self.source getKeyValue:@"includeSubDirectory"] intValue];
+    int includeSubDirectory = [[self.source getKeyValue:@"search"] intValue];
     if(includeSubDirectory == 0){
         // Not Include Sub Directory
         allFiles = [NSMutableArray arrayWithArray:[fileManager contentsOfDirectoryAtPath:directoryPath error:&error]];
@@ -340,7 +342,7 @@ int fileTaskQueue = 0;
  */
 -(void)moveFile:(NSString*)targetFile andNow:(NSDate*)now{
     // 退避ディレクトリを対象のパスの直下に作成
-    NSString *baseDir = [[self.source getKeyValue:@"directoryPath"] stringByExpandingTildeInPath];
+    NSString *baseDir = [[self.source getKeyValue:@"file_path"] stringByExpandingTildeInPath];
     NSString *backupDirName = [now toStringWithFormat:@"yyyyMMdd_HHmmss"];
     NSString *backupPath = [[self.source getKeyValue:@"backupPath"] stringByAppendingPathComponent:backupDirName];
     NSString *toFilePath = [targetFile stringByReplacingOccurrencesOfString:baseDir withString:backupPath]; // 対象のファイルパスを置換してローテート先のパスを作成

@@ -101,7 +101,9 @@
  */
 -(void)updateLastExecuteTime:(NSDate*)date{
     // 実行時間を出力
+#if DEBUG
     NSLog(@"[Class:%@][PreviousExecutedTime:%@][CurrentExecutedTime:%@]", NSStringFromClass([self class]), [self.source.last_execute_time toString], [date toString]);
+#endif
     // 実行時間を更新
     self.source.last_execute_time = date;
     self.source.update_time = date;
@@ -112,7 +114,9 @@
  */
 -(void)updateLastAddedTime:(NSDate*)date{
     // ノート登録時間を出力
+#if DEBUG
     NSLog(@"[Class:%@][PreviousAddedTime:%@][CurrentAddedTime:%@]", NSStringFromClass([self class]), [self.source.last_added_time toString], [date toString]);
+#endif
 
     // 前回更新時間と比較して時間が進んでいれば、ノート登録時間を更新する
     NSComparisonResult result = [self.source.last_added_time compare:date];

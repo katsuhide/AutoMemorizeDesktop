@@ -22,7 +22,7 @@
 @synthesize managedObjectContext = _managedObjectContext;
 
 const BOOL ENV = NO;
-const BOOL PROTOTYPE = NO;
+const BOOL PROTOTYPE = YES;
 
 typedef enum dataTypeEnum : NSInteger{
     SKYPE,
@@ -51,7 +51,7 @@ typedef enum dataTypeEnum : NSInteger{
     _isReachable = NO;  // 一旦OFF LINEに
     [self createReachability];
     
-    //    [self testMethod:nil];
+//    [self testMethod:nil];
     
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
@@ -209,7 +209,7 @@ typedef enum dataTypeEnum : NSInteger{
             NSMutableString *params = [NSMutableString string];
             // Directory Path
             NSString *directoryPath = [inputData objectForKey:@"directoryPath"];
-            [params appendString:[source transformKeyValue:@"directoryPath" andValue:directoryPath]];
+            [params appendString:[source transformKeyValue:@"file_path" andValue:directoryPath]];
             // File Extension
             NSString *extension = [self getFileExtension:inputData];
             [params appendString:[source transformKeyValue:@"extension" andValue:extension]];
@@ -220,7 +220,7 @@ typedef enum dataTypeEnum : NSInteger{
             source.params = params;
             // Search Sub Directory
             NSNumber *includeSubDirectory = [inputData objectForKey:@"includeSubDirectory"];
-            [params appendString:[source transformKeyValue:@"includeSubDirectory" andValue:[includeSubDirectory stringValue]]];
+            [params appendString:[source transformKeyValue:@"search" andValue:[includeSubDirectory stringValue]]];
             // Move Files
             NSString *movesFile = [inputData objectForKey:@"movesFile"];
             [params appendString:[source transformKeyValue:@"movesFile" andValue:movesFile]];
@@ -1212,7 +1212,15 @@ typedef enum dataTypeEnum : NSInteger{
  */
 -(IBAction)testMethod:(id)sender{
     
-    //    exit(0);
+    NSString* str = nil;
+    int hoge = [str intValue];
+    NSLog(@"%d", hoge);
+    
+    if((str == nil) || (hoge != 0)) {
+        NSLog(@"hoge");
+    }
+    
+    exit(0);
     
 }
 
