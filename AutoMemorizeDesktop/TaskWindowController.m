@@ -416,7 +416,7 @@ typedef enum viewTypeEnum : NSInteger{
             imagePath = [[NSBundle mainBundle] pathForResource:@"safari" ofType:@"png"];
             break;
         case PICTURE:
-            imagePath = [[NSBundle mainBundle] pathForResource:@"picutre" ofType:@"png"];
+            imagePath = [[NSBundle mainBundle] pathForResource:@"picture" ofType:@"png"];
             break;
         default:
             break;
