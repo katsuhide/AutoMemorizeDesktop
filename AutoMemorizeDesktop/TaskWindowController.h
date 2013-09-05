@@ -46,7 +46,8 @@
 @property (assign) IBOutlet NSButton *numbersBtn;  // NUMBERS
 @property (assign) IBOutlet NSButton *pagesBtn;  // PAGES
 @property (assign) IBOutlet NSButton *keyBtn;  // KEYNOTE
-@property (assign) IBOutlet NSButton *safariBtn;  // KEYNOTE
+@property (assign) IBOutlet NSButton *pictureBtn;  // PICTURE
+@property (assign) IBOutlet NSButton *safariBtn;  // SAFARI
 //@property (assign) IBOutlet NSButton *csvBtn;  // CSV
 //@property (assign) IBOutlet NSButton *markdownBtn;  // MARKDOWN
 
@@ -61,7 +62,6 @@
 // 入力されたタスクに関する情報
 @property (retain) NSMutableDictionary *inputData;
 
-
 /*
  * Open the Task Window
  */
@@ -71,7 +71,6 @@
  * When user push the Skype Button
  */
 -(IBAction)pushSkypeBtn:(id)sender;
-
 
 /*
  * When user push the PDF Button
@@ -114,6 +113,11 @@
 -(IBAction)pushKeyBtn:(id)sender;
 
 /*
+ * When user push the PICTURE Button
+ */
+-(IBAction)pushPictureBtn:(id)sender;
+
+/*
  * When user push the SAFARI Button
  */
 -(IBAction)pushSafariBtn:(id)sender;
@@ -143,7 +147,6 @@
  */
 - (IBAction)displayFileView:(id)sender;
 
-
 /*
  * Display the previous View
  */
@@ -153,8 +156,5 @@
  * Register Action Execute
  */
 -(IBAction)registerTask:(id)sender;
-
--(IBAction)hoge:(id)sender;
-
 
 @end

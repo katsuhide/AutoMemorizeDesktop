@@ -91,6 +91,7 @@
 		42F78070176C84BC00CC3E7A /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F7806E176C84BC00CC3E7A /* FileViewController.m */; };
 		42F78071176C84BC00CC3E7A /* FileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F7806F176C84BC00CC3E7A /* FileViewController.xib */; };
 		42F78074176C854800CC3E7A /* TaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F78073176C854800CC3E7A /* TaskViewController.m */; };
+		C911A34017D8D5E000DD9E29 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = C911A33F17D8D5E000DD9E29 /* picture.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -270,6 +271,7 @@
 		42F7806F176C84BC00CC3E7A /* FileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileViewController.xib; sourceTree = "<group>"; };
 		42F78072176C854800CC3E7A /* TaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskViewController.h; sourceTree = "<group>"; };
 		42F78073176C854800CC3E7A /* TaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskViewController.m; sourceTree = "<group>"; };
+		C911A33F17D8D5E000DD9E29 /* picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,6 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				42B32A5A1796448B00A6F0A0 /* recdesktop_sandbox.plist */,
+				C911A33F17D8D5E000DD9E29 /* picture.png */,
 				420F8C9A17A691CF0069D7CA /* safari.png */,
 				422BE2A41787936200A11739 /* SignIn.psd */,
 				422BE2A21787935700A11739 /* SignOut.psd */,
@@ -678,6 +681,7 @@
 				420F8C9317A615410069D7CA /* SafariView.xib in Resources */,
 				420F8C9B17A691CF0069D7CA /* safari.png in Resources */,
 				4281FA6C17CED5FA00E10BA7 /* recdesktop.plist in Resources */,
+				C911A34017D8D5E000DD9E29 /* picture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

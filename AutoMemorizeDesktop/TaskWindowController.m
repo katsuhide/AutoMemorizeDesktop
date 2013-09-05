@@ -32,7 +32,8 @@ typedef enum dataTypeEnum : NSInteger{
     NUMBERS,
     PAGES,
     KEY,
-    SAFARI
+    SAFARI,
+    PICTURE
 } dataTypeEnum;
 
 typedef enum viewTypeEnum : NSInteger{
@@ -158,6 +159,10 @@ typedef enum viewTypeEnum : NSInteger{
     image= [[NSImage alloc]initByReferencingFile:imagePath];
     [_safariBtn setImage:image];
 
+    imagePath = [[NSBundle mainBundle] pathForResource:@"picture" ofType:@"png"];
+    image= [[NSImage alloc]initByReferencingFile:imagePath];
+    [_pictureBtn setImage:image];
+
     // 表示・非表示の切り替え
     [_dataSourceLabel setHidden:isDisable];
     [_skypeBtn setHidden:isDisable];
@@ -169,6 +174,7 @@ typedef enum viewTypeEnum : NSInteger{
     [_numbersBtn setHidden:isDisable];
     [_pagesBtn setHidden:isDisable];
     [_keyBtn setHidden:isDisable];
+    [_pictureBtn setHidden:isDisable];
     if(PROTOTYPE){
         [_safariBtn setHidden:isDisable];
     }else{
@@ -316,7 +322,6 @@ typedef enum viewTypeEnum : NSInteger{
     
 }
 
-
 /*
  * When user push the KEYNOTE Button
  */
@@ -329,7 +334,6 @@ typedef enum viewTypeEnum : NSInteger{
     [self pushFileTypeBtn];
     
 }
-
 
 /*
  * When user push the SAFARI Button
@@ -348,6 +352,19 @@ typedef enum viewTypeEnum : NSInteger{
     
     // Safari Viewを表示する
     [self displaySafariView:nil];
+    
+}
+
+/*
+ * When user push the PICTURE Button
+ */
+-(IBAction)pushPictureBtn:(id)sender{
+    // DataSourceTypeを登録
+    _dataType = [NSNumber numberWithInt:PICTURE];
+    [_inputData setValue:_dataType forKey:@"dataSourceType"];
+    
+    // 共通処理
+    [self pushFileTypeBtn];
     
 }
 
@@ -397,6 +414,9 @@ typedef enum viewTypeEnum : NSInteger{
             break;
         case SAFARI:
             imagePath = [[NSBundle mainBundle] pathForResource:@"safari" ofType:@"png"];
+            break;
+        case PICTURE:
+            imagePath = [[NSBundle mainBundle] pathForResource:@"picutre" ofType:@"png"];
             break;
         default:
             break;

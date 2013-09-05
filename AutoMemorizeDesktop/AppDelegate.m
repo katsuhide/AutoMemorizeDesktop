@@ -22,7 +22,7 @@
 @synthesize managedObjectContext = _managedObjectContext;
 
 const BOOL ENV = NO;
-const BOOL PROTOTYPE = YES;
+const BOOL PROTOTYPE = NO;
 
 typedef enum dataTypeEnum : NSInteger{
     SKYPE,
@@ -34,7 +34,8 @@ typedef enum dataTypeEnum : NSInteger{
     NUMBERS,
     PAGES,
     KEY,
-    SAFARI
+    SAFARI,
+    PICTURE
 } dataTypeEnum;
 
 
@@ -51,14 +52,14 @@ typedef enum dataTypeEnum : NSInteger{
     _isReachable = NO;  // 一旦OFF LINEに
     [self createReachability];
     
-//    [self testMethod:nil];
+    //    [self testMethod:nil];
     
     // 初回起動用にDataStore用のDirectoryの有無を確認して無ければ作成する
     NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
     NSError *error = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isFirst = ![fileManager fileExistsAtPath:[applicationFilesDirectory path]];
-        
+    
     if(![fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error]){
         NSLog(@"Couldn't create the data store directory.[%@, %@]", error, [error userInfo]);
         abort();
@@ -90,6 +91,7 @@ typedef enum dataTypeEnum : NSInteger{
     
     // メインスレッドのポーリングを開始
     [self run];
+        
 }
 
 // HOCEKY.APP
@@ -139,7 +141,7 @@ typedef enum dataTypeEnum : NSInteger{
         
         // インターバル条件を指定
         int interval = [(NSNumber*)[self getPropertyInfo:@"INTERVAL"] intValue];
-
+        
         // タスクタイマーを生成し、タスクキューに追加
         NSTimer *timer = [NSTimer
                           scheduledTimerWithTimeInterval:interval
@@ -205,6 +207,7 @@ typedef enum dataTypeEnum : NSInteger{
         case NUMBERS:
         case PAGES:
         case KEY:
+        case PICTURE:
         {   // File
             NSMutableString *params = [NSMutableString string];
             // Directory Path
@@ -285,8 +288,7 @@ typedef enum dataTypeEnum : NSInteger{
                                    @"numbers", @"6",
                                    @"pages", @"7",
                                    @"key", @"8",
-                                   @"csv", @"9",
-                                   @"md", @"10",
+                                   @"png,jpg,bmp,pct,gif,tif,tiff,psd", @"10",
                                    nil];
     
     NSNumber *extensionFlag = [inputData objectForKey:@"dataSourceType"];
