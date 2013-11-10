@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8F2F68E1-0516-4D75-861F-06BDF59C673C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RecDesktop</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1EA5B37C-2E90-46E9-8702-5FCE16ABD7E9</key>
+		<string>https://github.com/katsuhide/AutoMemorizeDesktop.git</string>
+		<key>4C0AFB98-D9C5-434D-B6A9-6B1478A9B737</key>
+		<string>https://github.com/katsuhide/evernote-sdk-mac.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RecDesktop.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1EA5B37C-2E90-46E9-8702-5FCE16ABD7E9</key>
+		<string>../..</string>
+		<key>4C0AFB98-D9C5-434D-B6A9-6B1478A9B737</key>
+		<string>../../../evernote-sdk-mac</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/katsuhide/AutoMemorizeDesktop.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1EA5B37C-2E90-46E9-8702-5FCE16ABD7E9</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1EA5B37C-2E90-46E9-8702-5FCE16ABD7E9</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AutoMemorizeDesktop</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4C0AFB98-D9C5-434D-B6A9-6B1478A9B737</string>
+			<key>IDESourceControlWCCName</key>
+			<string>evernote-sdk-mac</string>
+		</dict>
+	</array>
+</dict>
+</plist>

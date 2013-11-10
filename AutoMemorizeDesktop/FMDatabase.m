@@ -591,7 +591,7 @@
         [statement reset];
     }
     
-    int numberOfRetries = 0;
+//    int numberOfRetries = 0;
     BOOL retry          = NO;
     
     if (!pStmt) {
@@ -603,13 +603,13 @@
                 retry = YES;
                 usleep(20);
                 
-                if (_busyRetryTimeout && (numberOfRetries++ > _busyRetryTimeout)) {
+//                if (_busyRetryTimeout && (numberOfRetries++ > _busyRetryTimeout)) {
                     NSLog(@"%s:%d Database busy (%@)", __FUNCTION__, __LINE__, [self databasePath]);
                     NSLog(@"Database busy");
                     sqlite3_finalize(pStmt);
                     _isExecutingStatement = NO;
                     return nil;
-                }
+//                }
             }
             else if (SQLITE_OK != rc) {
                 

@@ -21,7 +21,7 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
-const BOOL ENV = YES;
+const BOOL ENV = NO;
 const BOOL PROTOTYPE = NO;
 
 typedef enum dataTypeEnum : NSInteger{
@@ -1137,7 +1137,7 @@ typedef enum dataTypeEnum : NSInteger{
  * ヘルプメニュー
  */
 -(IBAction)help:(id)sender{
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://docs.google.com/drawings/d/1vaUyT2ML_46XwCHNqRkx-ztj5ys7JNWrdQ9UGkL4LwA/edit?usp=sharing"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://drive.google.com/file/d/0B0Qv2m2DbWxXTUNnVjF1d3R5NGc/edit?usp=sharing"]];
 }
 
 /*
