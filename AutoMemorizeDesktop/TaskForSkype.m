@@ -13,6 +13,7 @@
 @implementation TaskForSkype
 
 int skypeTaskQueue = 0;
+NSString *databasePath = @"";
 
 /*
  * 定期実行で実行される処理
@@ -25,9 +26,13 @@ int skypeTaskQueue = 0;
         
         // Queueが残っている場合は処理をスキップする
         if(skypeTaskQueue <= 0){
+            // Skypeのmain.dbをrsyncでコピーする
+            databasePath = [self rsyncDBFile];
+            
             // 対象のメッセージが存在しているかをチェックする
             NSString *sql = [self createSQLForMessages:nil];
             NSMutableArray *result = [self getSkypeMessages:sql];
+
             if([result count] != 0){
                 // Topic毎に処理をするかを判定
                 int isClassifyFlag = [[self.source getKeyValue:@"isClassify"] intValue];
@@ -421,7 +426,6 @@ int skypeTaskQueue = 0;
  */
 - (NSMutableArray*)getSkypeMessages:(NSString*)sql{
     // DB設定情報
-    NSString *databasePath = [self.source getKeyValue:@"file_path"];
     FMDatabase *db  = [FMDatabase databaseWithPath:[databasePath stringByExpandingTildeInPath]];
     
     // Open DB
@@ -526,6 +530,62 @@ int skypeTaskQueue = 0;
     }
     
     return latestTime;
+}
+
+// Skypeのmain.dbをコピー。成功した場合、コピーファイル、失敗した場合は元ファイルを返す
+-(NSString*)rsyncDBFile{
+    // create task
+    NSTask *task = [[NSTask alloc] init];
+    
+    // 標準出力用
+    NSPipe *outPipe = [NSPipe pipe];
+    [task setStandardOutput:outPipe];
+    // 標準エラー用
+    NSPipe *errPipe = [NSPipe pipe];
+    [task setStandardError:errPipe];
+    
+    // command create
+    NSString *copyFromFile = [[self.source getKeyValue:@"file_path"] stringByExpandingTildeInPath];
+    NSString *copyToPath = [[self applicationFilesDirectory] path];
+    NSString *copyToName = @"skype.db";
+    NSString *copyToFile = [[copyToPath stringByAppendingPathComponent:copyToName] stringByExpandingTildeInPath];
+    NSString *command = @"/usr/bin/rsync";
+    NSArray *arguments = [NSArray arrayWithObjects:@"-v", copyFromFile, copyToFile, nil];
+    
+    // set commadn
+    [task setLaunchPath:command];
+    [task setArguments:arguments];
+    
+    // ここでコマンドの実行
+    [task launch];
+    
+    // コマンドの結果を取得
+    NSString *dbFilePath;
+    NSData *data = [[outPipe fileHandleForReading] readDataToEndOfFile];
+    if (data != nil && [data length]){  // 成功の場合
+        NSString *strOut = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", strOut);
+        dbFilePath = copyToFile;
+    }
+    
+    data = [[errPipe fileHandleForReading] readDataToEndOfFile];
+    if (data != nil && [data length]){  // 失敗の場合
+        NSString *strErr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"ERROR:%@", strErr);
+        dbFilePath = copyFromFile;
+    }
+
+    NSLog(@"%@", dbFilePath);
+    return dbFilePath;
+
+}
+
+// app directory
+- (NSURL *)applicationFilesDirectory
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *appSupportURL = [[fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
+    return [appSupportURL URLByAppendingPathComponent:APP_NAME];
 }
 
 @end
