@@ -458,9 +458,6 @@ NSString *databasePath = @"";
  * SkypeにDBに接続してTopicを取得する
  */
 - (NSMutableArray*)getTopicListFromDB:(NSString*)sql{
-    // DB設定情報
-    NSString *databasePath = [self.source getKeyValue:@"file_path"];
-
     // Open DB
     FMDatabase *db  = [FMDatabase databaseWithPath:[databasePath stringByExpandingTildeInPath]];
     [db open];

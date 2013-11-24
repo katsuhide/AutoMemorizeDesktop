@@ -21,7 +21,7 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
-const BOOL ENV = NO;
+const BOOL ENV = YES;
 const BOOL PROTOTYPE = NO;
 
 typedef enum dataTypeEnum : NSInteger{
@@ -186,7 +186,7 @@ typedef enum dataTypeEnum : NSInteger{
         {   // Skype
             // Upload Rule Description
             NSString *skypeUser = [inputData objectForKey:@"skypeUser"];
-            source.task_name = [NSString stringWithFormat:@"Upload %@'s Skype Log every 5 minutes.", skypeUser];
+            source.task_name = [NSString stringWithFormat:@"Upload %@'s Skype Log every 15 minutes.", skypeUser];
             // Skype Uplodad Interval
             source.interval = [[self getPropertyInfo:@"SKYPE_INTERVAL"] stringValue];
             // Skype DB Path

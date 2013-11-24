@@ -2297,8 +2297,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "583"
             endingLineNumber = "583"
-            landmarkName = "-rsyncDBFile"
-            landmarkType = "5">
+            landmarkName = "@implementation TaskForSkype"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
