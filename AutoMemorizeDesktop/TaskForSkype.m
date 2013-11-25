@@ -33,6 +33,10 @@ NSString *databasePath = @"";
             NSString *sql = [self createSQLForMessages:nil];
             NSMutableArray *result = [self getSkypeMessages:sql];
 
+#if DEBUG
+            NSLog(@"[RecDesktop] Skype Chat Log Count : %lu", (unsigned long)[result count]);
+#endif
+        
             if([result count] != 0){
                 // Topic毎に処理をするかを判定
                 int isClassifyFlag = [[self.source getKeyValue:@"isClassify"] intValue];
@@ -104,9 +108,11 @@ NSString *databasePath = @"";
     // Topic毎にSkyepMessagesを取得してNote登録を実行する
     for(NSDictionary *topic in topicList){
         // 対象のメッセージが存在しているかをチェックする
-        NSString *sql = [self createSQLForMessages:nil];
+        NSString *sql = [self createSQLForMessages:topic];
         NSMutableArray *result = [self getSkypeMessages:sql];
         if([result count] == 0){
+            // Skype Task Queueを減らす
+            skypeTaskQueue--;
             continue;
         }
         
